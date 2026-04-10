@@ -17,6 +17,7 @@
           [attr.aria-label]="
             hasUnreadNotifications() ? 'Notifications, unread messages' : 'Notifications'
           "
+          (click)="goNotifications()"
         >
           <svg
             class="home-page__notify-icon"
@@ -275,79 +276,5 @@
     </span>
   </a>
 
-  <nav class="home-page__bottom-nav" aria-label="Primary">
-    <button
-      type="button"
-      class="home-page__nav-slot"
-      [class.home-page__nav-slot--active]="activeNav() === 'home'"
-      (click)="setActiveNav('home')"
-      aria-label="Home"
-    >
-      <img
-        class="home-page__nav-icon"
-        [src]="activeNav() === 'home' ? navIconSrc.home.active : navIconSrc.home.default"
-        width="40"
-        height="40"
-        alt=""
-        aria-hidden="true"
-      />
-      <span class="home-page__nav-label">Home</span>
-    </button>
-    <button
-      type="button"
-      class="home-page__nav-slot"
-      [class.home-page__nav-slot--active]="activeNav() === 'policies'"
-      (click)="setActiveNav('policies')"
-      aria-label="Policies"
-    >
-      <img
-        class="home-page__nav-icon"
-        [src]="activeNav() === 'policies' ? navIconSrc.policies.active : navIconSrc.policies.default"
-        width="40"
-        height="40"
-        alt=""
-        aria-hidden="true"
-      />
-      <span class="home-page__nav-label">Policies</span>
-    </button>
-    <div class="home-page__nav-slot home-page__nav-slot--fab">
-      <button type="button" class="home-page__fab" aria-label="Scan document">
-        <img class="home-page__fab-icon" src="/assets/home/nav-scanner.svg" width="40" height="40" alt="" aria-hidden="true" />
-      </button>
-    </div>
-    <button
-      type="button"
-      class="home-page__nav-slot"
-      [class.home-page__nav-slot--active]="activeNav() === 'claims'"
-      (click)="setActiveNav('claims')"
-      aria-label="Claims"
-    >
-      <img
-        class="home-page__nav-icon"
-        [src]="activeNav() === 'claims' ? navIconSrc.claims.active : navIconSrc.claims.default"
-        width="40"
-        height="40"
-        alt=""
-        aria-hidden="true"
-      />
-      <span class="home-page__nav-label">Claims</span>
-    </button>
-    <button
-      type="button"
-      class="home-page__nav-slot"
-      [class.home-page__nav-slot--active]="activeNav() === 'profile'"
-      (click)="setActiveNav('profile')"
-      aria-label="Profile"
-    >
-      <img
-        class="home-page__nav-icon"
-        [src]="activeNav() === 'profile' ? navIconSrc.profile.active : navIconSrc.profile.default"
-        width="40"
-        height="40"
-        alt=""
-        aria-hidden="true"
-      />
-      <span class="home-page__nav-label">Profile</span>
-    </button>
-  </nav>
+  <app-bottom-nav activeTab="home" />
 </div>

@@ -1,0 +1,24 @@
+<nav class="app-bottom-nav" aria-label="Primary">
+  <button type="button" class="app-bottom-nav__slot" [class.app-bottom-nav__slot--active]="activeTab === 'home'" (click)="goTo('home')" aria-label="Home">
+    <img class="app-bottom-nav__icon" [src]="activeTab === 'home' ? navIconSrc.home.active : navIconSrc.home.default" width="40" height="40" alt="" aria-hidden="true" />
+    <span class="app-bottom-nav__label">Home</span>
+  </button>
+  <button type="button" class="app-bottom-nav__slot" [class.app-bottom-nav__slot--active]="activeTab === 'policies'" (click)="goTo('policies')" aria-label="Policies">
+    <img class="app-bottom-nav__icon" [src]="activeTab === 'policies' ? navIconSrc.policies.active : navIconSrc.policies.default" width="40" height="40" alt="" aria-hidden="true" />
+    <span class="app-bottom-nav__label">Policies</span>
+  </button>
+  <div class="app-bottom-nav__slot app-bottom-nav__slot--fab">
+    <button type="button" class="app-bottom-nav__fab" aria-label="Scan document">
+      <img class="app-bottom-nav__fab-icon" src="/assets/home/nav-scanner.svg" width="40" height="40" alt="" aria-hidden="true" />
+    </button>
+  </div>
+  <button type="button" class="app-bottom-nav__slot" [class.app-bottom-nav__slot--active]="activeTab === 'claims'" (click)="goTo('claims')" aria-label="Claims">
+    <img class="app-bottom-nav__icon" [src]="activeTab === 'claims' ? navIconSrc.claims.active : navIconSrc.claims.default" width="40" height="40" alt="" aria-hidden="true" />
+    <span class="app-bottom-nav__label">Claims</span>
+  </button>
+  <button type="button" class="app-bottom-nav__slot" [class.app-bottom-nav__slot--active]="activeTab === 'profile'" (click)="goTo('profile')" aria-label="Profile">
+    <img class="app-bottom-nav__icon app-bottom-nav__icon--profile" [src]="activeTab === 'profile' ? navIconSrc.profile.active : navIconSrc.profile.default" width="40" height="40" alt="" aria-hidden="true" />
+    <span class="app-bottom-nav__label">Profile</span>
+  </button>
+</nav>
+

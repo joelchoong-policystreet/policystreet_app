@@ -1,0 +1,32 @@
+<div class="notifications-page">
+  <main class="notifications-page__container">
+    <header class="notifications-page__appbar">
+      <h1>Notifications</h1>
+      <button type="button" class="notifications-page__close" aria-label="Close notifications">✕</button>
+    </header>
+
+    <section class="notifications-page__chips" aria-label="Notification categories">
+      <button type="button" class="notifications-page__chip" [class.notifications-page__chip--active]="activeChip() === 'all'" (click)="setChip('all')">All</button>
+      <button type="button" class="notifications-page__chip" [class.notifications-page__chip--active]="activeChip() === 'billing'" (click)="setChip('billing')">Billings &amp; Payments</button>
+      <button type="button" class="notifications-page__chip" [class.notifications-page__chip--active]="activeChip() === 'campaigns'" (click)="setChip('campaigns')">Campaigns &amp; Promotions</button>
+      <button type="button" class="notifications-page__chip" [class.notifications-page__chip--active]="activeChip() === 'reminders'" (click)="setChip('reminders')">Reminders</button>
+    </section>
+
+    <section class="notifications-page__list" aria-label="Notification list">
+      @for (item of notifications; track item.title + item.body) {
+        <article class="notifications-page__item" [class.notifications-page__item--unread]="item.unread">
+          <div class="notifications-page__item-copy">
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.body }}</p>
+          </div>
+          @if (item.unread) {
+            <span class="notifications-page__dot" aria-hidden="true"></span>
+          }
+        </article>
+      }
+    </section>
+  </main>
+
+  <app-bottom-nav activeTab="home" />
+</div>
+

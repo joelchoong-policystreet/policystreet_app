@@ -1,0 +1,104 @@
+.app-bottom-nav {
+  position: fixed;
+  z-index: 15;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 100%;
+  max-width: 430px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 24px calc(24px + env(safe-area-inset-bottom, 0px));
+  background: #fff;
+  border-top: 1px solid #f7f7f7;
+  box-sizing: border-box;
+}
+
+.app-bottom-nav__slot {
+  flex: 1;
+  min-height: 52px;
+  padding-bottom: 4px;
+  border: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.app-bottom-nav__icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.app-bottom-nav__icon--profile {
+  transform: scale(1.08);
+  transform-origin: center;
+}
+
+.app-bottom-nav__label {
+  display: block;
+  min-height: 12px;
+  margin-top: 2px;
+  font-family: Poppins, Inter, sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.048px;
+  line-height: 12px;
+  color: #0091ff;
+  opacity: 0;
+}
+
+.app-bottom-nav__slot--active .app-bottom-nav__label {
+  opacity: 1;
+}
+
+.app-bottom-nav__slot--fab {
+  position: relative;
+  flex: 0 0 68px;
+  width: 68px;
+  min-height: 72px;
+}
+
+.app-bottom-nav__slot--fab::before {
+  content: '';
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 145, 255, 0.35) 0%, rgba(0, 145, 255, 0.08) 55%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-bottom-nav__fab {
+  position: relative;
+  z-index: 1;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  border: 1px solid #b9dbf5;
+  background: #0091ff;
+  box-shadow: 0 2px 5px rgba(0, 97, 171, 0.5), inset 0 1px 5px #7fb9e5, inset 0 -1px 2px rgba(1, 92, 160, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 12px;
+  padding: 0;
+}
+
+.app-bottom-nav__fab-icon {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+

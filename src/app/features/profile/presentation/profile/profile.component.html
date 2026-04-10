@@ -1,0 +1,95 @@
+<div class="profile-page">
+  <div class="profile-page__hero">
+    <header class="profile-page__header" aria-label="PolicyStreet">
+      <div class="profile-page__header-row">
+        <img [src]="logoWordmarkWhiteSrc" width="150" height="28" alt="PolicyStreet" class="profile-page__brand-img" />
+        <button
+          type="button"
+          class="profile-page__notify"
+          [attr.aria-label]="
+            hasUnreadNotifications() ? 'Notifications, unread messages' : 'Notifications'
+          "
+          (click)="goNotifications()"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M5.00024 19.0005C4.71691 19.0005 4.47941 18.9047 4.28774 18.713C4.09608 18.5213 4.00024 18.2838 4.00024 18.0005C4.00024 17.7172 4.09608 17.4797 4.28774 17.288C4.47941 17.0963 4.71691 17.0005 5.00024 17.0005H6.00024V10.0005C6.00024 8.61716 6.41691 7.38799 7.25024 6.31299C8.08358 5.23799 9.16691 4.53382 10.5002 4.20049V3.50049C10.5002 3.08382 10.6461 2.72965 10.9377 2.43799C11.2294 2.14632 11.5836 2.00049 12.0002 2.00049C12.4169 2.00049 12.7711 2.14632 13.0627 2.43799C13.3544 2.72965 13.5002 3.08382 13.5002 3.50049V4.20049C14.8336 4.53382 15.9169 5.23799 16.7502 6.31299C17.5836 7.38799 18.0002 8.61716 18.0002 10.0005V17.0005H19.0002C19.2836 17.0005 19.5211 17.0963 19.7127 17.288C19.9044 17.4797 20.0002 17.7172 20.0002 18.0005C20.0002 18.2838 19.9044 18.5213 19.7127 18.713C19.5211 18.9047 19.2836 19.0005 19.0002 19.0005H5.00024ZM12.0002 22.0005C11.4502 22.0005 10.9794 21.8047 10.5877 21.413C10.1961 21.0213 10.0002 20.5505 10.0002 20.0005H14.0002C14.0002 20.5505 13.8044 21.0213 13.4127 21.413C13.0211 21.8047 12.5502 22.0005 12.0002 22.0005ZM8.00024 17.0005H16.0002V10.0005C16.0002 8.90049 15.6086 7.95882 14.8252 7.17549C14.0419 6.39216 13.1002 6.00049 12.0002 6.00049C10.9002 6.00049 9.95858 6.39216 9.17524 7.17549C8.39191 7.95882 8.00024 8.90049 8.00024 10.0005V17.0005Z"
+            />
+          </svg>
+          @if (hasUnreadNotifications()) {
+            <span class="profile-page__notify-dot" aria-hidden="true"></span>
+          }
+        </button>
+      </div>
+    </header>
+
+    <section class="profile-page__identity-card" aria-label="Profile summary">
+      <div class="profile-page__identity-top">
+        <div class="profile-page__avatar">JI</div>
+        <div class="profile-page__identity-copy">
+          <p class="profile-page__name">Jermaine Imerio Julian</p>
+          <button type="button" class="profile-page__edit-link">Edit Details</button>
+        </div>
+      </div>
+      <div class="profile-page__divider"></div>
+      <div class="profile-page__identity-bottom">
+        <span>NRIC/ID/Passport</span>
+        <strong>961014-05-1234</strong>
+      </div>
+    </section>
+  </div>
+
+  <div class="profile-page__sheet">
+    <section class="profile-page__referral">
+      <div class="profile-page__referral-copy">
+        <h2>Refer a Friend, Get Rewarded!</h2>
+        <p>Invite a friend and you'll both get RM30. Share more to earn up to <b>RM150</b>!</p>
+        <em>* Terms & Conditions apply.</em>
+        <button type="button">Refer &amp; Earn Now</button>
+      </div>
+      <img
+        class="profile-page__referral-art"
+        src="/assets/profile/referral-illustration.png"
+        width="116"
+        height="130"
+        alt=""
+        aria-hidden="true"
+      />
+    </section>
+
+    @for (section of sections; track section.title) {
+      <section class="profile-page__menu-group" [attr.aria-label]="section.title">
+        <h3>{{ section.title }}</h3>
+        <div class="profile-page__menu-list">
+          @for (item of section.items; track item) {
+            <button type="button" class="profile-page__menu-item">
+              <span>{{ item }}</span>
+              <svg width="9" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="#141414" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+              </svg>
+            </button>
+          }
+        </div>
+      </section>
+    }
+
+    <button class="profile-page__logout" type="button">
+      Log Out
+    </button>
+  </div>
+
+  <a class="profile-page__whatsapp" href="https://wa.me/" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+    <span class="profile-page__whatsapp-inner">
+      <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="#fff"
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+        />
+      </svg>
+    </span>
+  </a>
+
+  <app-bottom-nav activeTab="profile" />
+</div>
+
