@@ -1,0 +1,353 @@
+<div class="home-page">
+  <div class="home-page__hero">
+    <header class="home-page__header" aria-label="PolicyStreet">
+      <div class="home-page__header-row">
+        <div class="home-page__brand">
+          <img
+            [src]="logoWordmarkWhiteSrc"
+            width="150"
+            height="28"
+            alt="PolicyStreet"
+            class="home-page__brand-img"
+          />
+        </div>
+        <button
+          type="button"
+          class="home-page__notify"
+          [attr.aria-label]="
+            hasUnreadNotifications() ? 'Notifications, unread messages' : 'Notifications'
+          "
+        >
+          <svg
+            class="home-page__notify-icon"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              fill="currentColor"
+              d="M5.00024 19.0005C4.71691 19.0005 4.47941 18.9047 4.28774 18.713C4.09608 18.5213 4.00024 18.2838 4.00024 18.0005C4.00024 17.7172 4.09608 17.4797 4.28774 17.288C4.47941 17.0963 4.71691 17.0005 5.00024 17.0005H6.00024V10.0005C6.00024 8.61716 6.41691 7.38799 7.25024 6.31299C8.08358 5.23799 9.16691 4.53382 10.5002 4.20049V3.50049C10.5002 3.08382 10.6461 2.72965 10.9377 2.43799C11.2294 2.14632 11.5836 2.00049 12.0002 2.00049C12.4169 2.00049 12.7711 2.14632 13.0627 2.43799C13.3544 2.72965 13.5002 3.08382 13.5002 3.50049V4.20049C14.8336 4.53382 15.9169 5.23799 16.7502 6.31299C17.5836 7.38799 18.0002 8.61716 18.0002 10.0005V17.0005H19.0002C19.2836 17.0005 19.5211 17.0963 19.7127 17.288C19.9044 17.4797 20.0002 17.7172 20.0002 18.0005C20.0002 18.2838 19.9044 18.5213 19.7127 18.713C19.5211 18.9047 19.2836 19.0005 19.0002 19.0005H5.00024ZM12.0002 22.0005C11.4502 22.0005 10.9794 21.8047 10.5877 21.413C10.1961 21.0213 10.0002 20.5505 10.0002 20.0005H14.0002C14.0002 20.5505 13.8044 21.0213 13.4127 21.413C13.0211 21.8047 12.5502 22.0005 12.0002 22.0005ZM8.00024 17.0005H16.0002V10.0005C16.0002 8.90049 15.6086 7.95882 14.8252 7.17549C14.0419 6.39216 13.1002 6.00049 12.0002 6.00049C10.9002 6.00049 9.95858 6.39216 9.17524 7.17549C8.39191 7.95882 8.00024 8.90049 8.00024 10.0005V17.0005Z"
+            />
+          </svg>
+          @if (hasUnreadNotifications()) {
+            <span class="home-page__notify-dot" aria-hidden="true"></span>
+          }
+        </button>
+      </div>
+    </header>
+
+    <div class="home-page__welcome-block">
+      <div class="home-page__welcome-card">
+        <div class="home-page__welcome-inner">
+          <div class="home-page__greeting">
+            <p class="home-page__greeting-line">{{ greetingPrefix() }},</p>
+            <p class="home-page__greeting-name">{{ user.firstName }}</p>
+          </div>
+          <div class="home-page__status-pill">
+            <svg
+              class="home-page__status-check"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle cx="12" cy="12" r="10" fill="#17f256" />
+              <path
+                d="M8 12.5l2.5 2.5L16 9.5"
+                stroke="#f7f7f7"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>All policies are up to date</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-page__carousel-wrap">
+      <div
+        class="home-page__carousel-scroller"
+        tabindex="0"
+        role="region"
+        aria-label="Promotional banners, scroll horizontally"
+      >
+        <div class="home-page__carousel-edge home-page__carousel-edge--left" aria-hidden="true">
+          <img
+            [src]="adsBannerSrc"
+            width="32"
+            height="145"
+            alt=""
+            class="home-page__carousel-peek-img"
+          />
+        </div>
+        <div class="home-page__carousel-main">
+          <img
+            class="home-page__carousel-photo"
+            [src]="adsBannerSrc"
+            width="350"
+            height="145"
+            alt="Insurance that protects your stuff at home. Protect a lot of items for not a lot of money."
+          />
+          <div class="home-page__carousel-pagination" aria-hidden="true">
+            <div class="home-page__carousel-pill">
+              <span class="home-page__carousel-pill-dot home-page__carousel-pill-dot--active"></span>
+              <span class="home-page__carousel-pill-dot"></span>
+              <span class="home-page__carousel-pill-dot"></span>
+            </div>
+          </div>
+        </div>
+        <div class="home-page__carousel-edge home-page__carousel-edge--right" aria-hidden="true">
+          <img
+            [src]="adsBannerSrc"
+            width="32"
+            height="145"
+            alt=""
+            class="home-page__carousel-peek-img"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-page__sheet">
+    <div class="home-page__sheet-scroll">
+      <section class="home-page__section" aria-labelledby="home-latest-policy-heading">
+        <div class="home-page__section-head">
+          <h2 id="home-latest-policy-heading" class="home-page__h2">Latest Policy</h2>
+          <button type="button" class="home-page__link-btn">View All Policies</button>
+        </div>
+        <article class="home-page__card">
+          <div class="home-page__card-row home-page__card-row--top">
+            <div>
+              <p class="home-page__plate">{{ latestPolicy.plate }}</p>
+              <p class="home-page__vehicle">{{ latestPolicy.vehicleLabel }}</p>
+            </div>
+            <div class="home-page__pill home-page__pill--active">
+              <span class="home-page__pill-status-dot" aria-hidden="true"></span>
+              <span>{{ latestPolicy.status }}</span>
+            </div>
+          </div>
+          <div class="home-page__divider-line" role="presentation"></div>
+          <div class="home-page__card-row home-page__card-row--bottom">
+            <div class="home-page__meta">
+              <p class="home-page__coverage">{{ latestPolicy.coverageLabel }}</p>
+              <p class="home-page__muted">{{ latestPolicy.coveredUntilLabel }}</p>
+            </div>
+            <svg class="home-page__chevron" width="9" height="16" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#7092bb" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+            </svg>
+          </div>
+        </article>
+      </section>
+
+      <section class="home-page__section" aria-labelledby="home-latest-claim-heading">
+        <div class="home-page__section-head">
+          <h2 id="home-latest-claim-heading" class="home-page__h2">Latest Claim</h2>
+          <button type="button" class="home-page__link-btn">View All Claims</button>
+        </div>
+        <article class="home-page__card">
+          <div class="home-page__card-row home-page__card-row--top">
+            <div class="home-page__claim-id">
+              <div class="home-page__claim-icon-wrap">
+                <svg
+                  class="home-page__claim-car"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill="#0091ff"
+                    d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"
+                  />
+                </svg>
+              </div>
+              <p class="home-page__plate">{{ latestClaim.plate }}</p>
+            </div>
+            <div class="home-page__pill home-page__pill--processing">
+              <span class="home-page__pill-status-dot" aria-hidden="true"></span>
+              <span>{{ latestClaim.status }}</span>
+            </div>
+          </div>
+          <div class="home-page__divider-line" role="presentation"></div>
+          <div class="home-page__card-row home-page__card-row--bottom">
+            <div class="home-page__meta">
+              <p class="home-page__claim-ref">{{ latestClaim.claimId }}</p>
+              <p class="home-page__muted">{{ latestClaim.submittedLabel }}</p>
+            </div>
+            <svg class="home-page__chevron" width="9" height="16" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#7092bb" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+            </svg>
+          </div>
+        </article>
+      </section>
+
+      <section class="home-page__section" aria-labelledby="home-quick-actions-heading">
+        <h2 id="home-quick-actions-heading" class="home-page__h2 home-page__h2--flush">Quick Actions</h2>
+        <div class="home-page__quick-grid">
+          <div class="home-page__quick-row">
+            <button type="button" class="home-page__quick-btn">
+              <span class="home-page__quick-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    fill="#3d3d3d"
+                    d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                  />
+                </svg>
+              </span>
+              <span class="home-page__quick-label">New Quote</span>
+            </button>
+            <button type="button" class="home-page__quick-btn">
+              <span class="home-page__quick-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    fill="#3d3d3d"
+                    d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"
+                  />
+                </svg>
+              </span>
+              <span class="home-page__quick-label">Make New Claim</span>
+            </button>
+          </div>
+          <div class="home-page__quick-row">
+            <button type="button" class="home-page__quick-btn">
+              <span class="home-page__quick-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    fill="#3d3d3d"
+                    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+                  />
+                </svg>
+              </span>
+              <span class="home-page__quick-label">Contact Support</span>
+            </button>
+            <button type="button" class="home-page__quick-btn">
+              <span class="home-page__quick-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="#3d3d3d" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                </svg>
+              </span>
+              <span class="home-page__quick-label">Add New Vehicle</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="home-page__section home-page__section--news" aria-labelledby="home-news-heading">
+        <div class="home-page__section-head">
+          <h2 id="home-news-heading" class="home-page__h2">News and Articles</h2>
+          <button type="button" class="home-page__link-btn home-page__link-btn--small">View all</button>
+        </div>
+        <div class="home-page__news-row">
+          @for (item of newsItems; track item.title) {
+            <article class="home-page__news-card">
+              <img class="home-page__news-thumb" [src]="item.imageSrc" width="163" height="67" alt="" aria-hidden="true" />
+              <p class="home-page__news-title">{{ item.title }}</p>
+            </article>
+          }
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <a
+    class="home-page__whatsapp"
+    href="https://wa.me/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contact us on WhatsApp"
+  >
+    <span class="home-page__whatsapp-inner">
+      <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="#fff"
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+        />
+      </svg>
+    </span>
+  </a>
+
+  <nav class="home-page__bottom-nav" aria-label="Primary">
+    <button
+      type="button"
+      class="home-page__nav-slot"
+      [class.home-page__nav-slot--active]="activeNav() === 'home'"
+      (click)="setActiveNav('home')"
+      aria-label="Home"
+    >
+      <img
+        class="home-page__nav-icon"
+        [src]="activeNav() === 'home' ? navIconSrc.home.active : navIconSrc.home.default"
+        width="40"
+        height="40"
+        alt=""
+        aria-hidden="true"
+      />
+      <span class="home-page__nav-label">Home</span>
+    </button>
+    <button
+      type="button"
+      class="home-page__nav-slot"
+      [class.home-page__nav-slot--active]="activeNav() === 'policies'"
+      (click)="setActiveNav('policies')"
+      aria-label="Policies"
+    >
+      <img
+        class="home-page__nav-icon"
+        [src]="activeNav() === 'policies' ? navIconSrc.policies.active : navIconSrc.policies.default"
+        width="40"
+        height="40"
+        alt=""
+        aria-hidden="true"
+      />
+      <span class="home-page__nav-label">Policies</span>
+    </button>
+    <div class="home-page__nav-slot home-page__nav-slot--fab">
+      <button type="button" class="home-page__fab" aria-label="Scan document">
+        <img class="home-page__fab-icon" src="/assets/home/nav-scanner.svg" width="40" height="40" alt="" aria-hidden="true" />
+      </button>
+    </div>
+    <button
+      type="button"
+      class="home-page__nav-slot"
+      [class.home-page__nav-slot--active]="activeNav() === 'claims'"
+      (click)="setActiveNav('claims')"
+      aria-label="Claims"
+    >
+      <img
+        class="home-page__nav-icon"
+        [src]="activeNav() === 'claims' ? navIconSrc.claims.active : navIconSrc.claims.default"
+        width="40"
+        height="40"
+        alt=""
+        aria-hidden="true"
+      />
+      <span class="home-page__nav-label">Claims</span>
+    </button>
+    <button
+      type="button"
+      class="home-page__nav-slot"
+      [class.home-page__nav-slot--active]="activeNav() === 'profile'"
+      (click)="setActiveNav('profile')"
+      aria-label="Profile"
+    >
+      <img
+        class="home-page__nav-icon"
+        [src]="activeNav() === 'profile' ? navIconSrc.profile.active : navIconSrc.profile.default"
+        width="40"
+        height="40"
+        alt=""
+        aria-hidden="true"
+      />
+      <span class="home-page__nav-label">Profile</span>
+    </button>
+  </nav>
+</div>

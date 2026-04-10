@@ -1,0 +1,86 @@
+<div class="onboarding-page">
+  <div class="page-bg-decor" aria-hidden="true">
+    <div class="page-bg-decor__pmark">
+      <img class="page-bg-decor__vector page-bg-decor__vector--pmark" src="/assets/bg-pmark.svg" alt="" />
+    </div>
+  </div>
+
+  <app-top-bar />
+
+  <main
+    class="onboarding-page__main"
+    (pointerdown)="onPointerDown($event)"
+    (pointerup)="onPointerUp($event)"
+  >
+    <div class="onboarding-page__content">
+      <div class="onboarding-page__stage">
+        @switch (slide().icon) {
+          @case ('logo') {
+            <div class="onboarding-page__hero-logo">
+              <img
+                class="onboarding-page__hero-logo-img"
+                [src]="welcomeScreenLogoSrc"
+                alt="PolicyStreet"
+              />
+            </div>
+          }
+          @case ('document') {
+            <div class="onboarding-page__icon-tile" aria-hidden="true">
+              <svg class="onboarding-page__icon-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M22 18h24l14 14v38a4 4 0 0 1-4 4H22a4 4 0 0 1-4-4V22a4 4 0 0 1 4-4Z"
+                  stroke="#fff"
+                  stroke-width="3"
+                  stroke-linejoin="round"
+                />
+                <path d="M46 18v14h14" stroke="#fff" stroke-width="3" stroke-linejoin="round" />
+                <path d="M28 40h28M28 48h28M28 56h18" stroke="#fff" stroke-width="3" stroke-linecap="round" />
+              </svg>
+            </div>
+          }
+          @case ('lightning') {
+            <div class="onboarding-page__icon-tile onboarding-page__icon-tile--glow" aria-hidden="true">
+              <svg class="onboarding-page__icon-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M48 12 32 44h12l-4 28 20-36H48l-8-24Z"
+                  fill="#fff"
+                />
+              </svg>
+            </div>
+          }
+        }
+
+        <h1 class="onboarding-page__headline">{{ slide().headline }}</h1>
+
+        @if (slide().bodyLeadBold) {
+          <p class="onboarding-page__body onboarding-page__body--lead">{{ slide().bodyLeadBold }}</p>
+        }
+        <p class="onboarding-page__body">{{ slide().body }}</p>
+
+        <div class="onboarding-page__dots" role="tablist" aria-label="Onboarding progress">
+          @for (item of slides; track item.headline; let i = $index) {
+            <button
+              type="button"
+              role="tab"
+              class="onboarding-page__dot"
+              [class.onboarding-page__dot--active]="i === currentSlide()"
+              [attr.aria-selected]="i === currentSlide()"
+              [attr.aria-label]="'Step ' + (i + 1) + ' of ' + slides.length"
+              (click)="goToSlide(i)"
+            ></button>
+          }
+        </div>
+      </div>
+
+      @if (currentSlide() < slideCount - 1) {
+        <div class="onboarding-page__footer onboarding-page__footer--skip">
+          <button type="button" class="onboarding-page__skip" (click)="skip()">Skip</button>
+        </div>
+      } @else {
+        <div class="onboarding-page__footer onboarding-page__footer--cta">
+          <button type="button" class="onboarding-page__cta" (click)="finish()">Let's Get Started</button>
+        </div>
+      }
+    </div>
+  </main>
+</div>

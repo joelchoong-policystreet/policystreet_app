@@ -1,0 +1,134 @@
+{
+  "$schema": "https://www.w3.org/2020/12/schema",
+  "name": "PolicyStreet Design Tokens",
+  "version": "1.0.0",
+  "updatedAt": "2026-04-09",
+  "notes": "Single source of truth for design values used by the login screen and shared app styles.",
+  "color": {
+    "brand": {
+      "primary": "#0091FF",
+      "psDarkBlue": "#203570",
+      "white": "#FFFFFF"
+    },
+    "background": {
+      "app": "#F8F9FB",
+      "seasSalt": "#F7F7F7",
+      "white": "#FFFFFF"
+    },
+    "text": {
+      "heading": "#203570",
+      "bodyMuted": "#5C6470"
+    },
+    "border": {
+      "default": "#C5CDD6",
+      "columbiaBlue": "#C4D2E3",
+      "blueGrey": "#7092BB"
+    },
+    "accent": {
+      "aliceBlue2": "#EBF6FF"
+    },
+    "button": {
+      "disabled": "#BCCAD6"
+    }
+  },
+  "effects": {
+    "glowDrop": "0 4px 4px #E3EAF2",
+    "glowCard": "0 4px 30px #E3EAF2"
+  },
+  "typography": {
+    "titles": {
+      "h2LargeBold": {
+        "fontFamily": "Poppins",
+        "fontSize": "24px",
+        "fontStyle": "normal",
+        "fontWeight": 700,
+        "lineHeight": "36px",
+        "letterSpacing": "0.144px"
+      }
+    },
+    "subTitles": {
+      "titleRegular": {
+        "fontFamily": "Poppins",
+        "fontSize": "18px",
+        "fontStyle": "normal",
+        "fontWeight": 400,
+        "lineHeight": "27px",
+        "letterSpacing": "0.108px"
+      }
+    },
+    "fieldLabel": {
+      "fontFamily": "Open Sans",
+      "fontSize": "12px",
+      "fontStyle": "normal",
+      "fontWeight": 400,
+      "lineHeight": "16px",
+      "letterSpacing": "0.072px"
+    },
+    "buttonLabel": {
+      "fontFamily": "Open Sans",
+      "fontSize": "16px",
+      "fontStyle": "normal",
+      "fontWeight": 700,
+      "lineHeight": "22px",
+      "letterSpacing": "0.096px"
+    }
+  },
+  "breakpoints": {
+    "mobileSmallMax": 390,
+    "mobileDesignMax": 430,
+    "tabletMax": 840,
+    "desktopMin": 841
+  },
+  "layout": {
+    "header": {
+      "height": "80px",
+      "paddingX": "24px",
+      "borderBottomWidth": "1px"
+    },
+    "loginCard": {
+      "padding": "12px",
+      "radius": "20px",
+      "gap": "16px",
+      "mobileMaxWidth": "382px"
+    },
+    "heroImage": {
+      "aspectRatio": "313/302",
+      "radius": "16px 20px 20px 16px"
+    },
+    "promoCarousel": {
+      "paddingX": "0px",
+      "gap": "8px",
+      "peekWidth": "32px",
+      "mainWidth": "350px",
+      "radius": "10px",
+      "topSpacing": "16px",
+      "paginationBottom": "10px"
+    }
+  },
+  "cssVariables": {
+    "--ps-primary": "{color.brand.primary}",
+    "--ps-navy": "#1A2B56",
+    "--ps-bg": "{color.background.app}",
+    "--ps-muted-btn": "{color.button.disabled}",
+    "--ps-text-muted": "{color.text.bodyMuted}",
+    "--ps-border": "{color.border.default}",
+    "--Accents-Seas-Salt": "{color.background.seasSalt}",
+    "--ps-text-heading": "{color.text.heading}",
+    "--Disable-Borders-Columbia-Blue": "{color.border.columbiaBlue}",
+    "--Accents-Blue-Grey": "{color.border.blueGrey}",
+    "--Accents-Alice-Blue-2": "{color.accent.aliceBlue2}",
+    "--ps-glow-drop": "{effects.glowDrop}",
+    "--ps-glow-card": "{effects.glowCard}",
+    "--Brand-White": "{color.brand.white}",
+    "--Background-White": "{color.background.white}",
+    "--disable-borders-columbia-blue": "{color.border.columbiaBlue}",
+    "--Brand-PS-Dark-Blue": "{color.brand.psDarkBlue}",
+    "--ps-promo-carousel-pad-x": "{layout.promoCarousel.paddingX}",
+    "--ps-promo-carousel-gap": "{layout.promoCarousel.gap}",
+    "--ps-promo-carousel-peek": "{layout.promoCarousel.peekWidth}",
+    "--ps-promo-carousel-main-width": "{layout.promoCarousel.mainWidth}",
+    "--ps-promo-carousel-radius": "{layout.promoCarousel.radius}",
+    "--ps-promo-carousel-top": "{layout.promoCarousel.topSpacing}",
+    "--ps-promo-carousel-pagination-bottom": "{layout.promoCarousel.paginationBottom}"
+  }
+}

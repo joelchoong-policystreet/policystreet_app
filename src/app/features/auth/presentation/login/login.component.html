@@ -1,0 +1,163 @@
+<div class="page">
+  <div class="page-bg-decor" aria-hidden="true">
+    <div class="page-bg-decor__pmark">
+      <img class="page-bg-decor__vector page-bg-decor__vector--pmark" src="/assets/bg-pmark.svg" alt="" />
+    </div>
+  </div>
+
+  <header class="top-bar">
+    <div class="top-bar__inner">
+    <div class="brand">
+      <img
+        class="brand-logo"
+        src="/assets/policystreet-logo.png"
+        alt="PolicyStreet"
+        width="790"
+        height="194"
+      />
+    </div>
+    <div class="top-actions">
+      <button type="button" class="lang">
+        <span class="lang-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" />
+          </svg>
+        </span>
+        EN
+      </button>
+      <button type="button" class="header-login">Login</button>
+    </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="card">
+      <div class="card-hero">
+        <div class="card-visual">
+          <div class="card-visual__photo">
+            <img
+              class="card-visual__img"
+              src="/assets/login-hero-mobile.png"
+              alt=""
+              width="800"
+              height="600"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="card-form">
+        @if (step() === 'phone') {
+          <form class="card-form__form" (submit)="onPhoneFormSubmit($event)" novalidate>
+            <div class="card-form__intro">
+              <h1 class="card-form__title">Login</h1>
+              <p class="card-form__lead">Enter your mobile number to sign in to your account.</p>
+            </div>
+
+            <div class="field" [class.field--error]="mobile.touched && mobile.invalid">
+              <label class="field__label" for="mobile">Mobile Number</label>
+              <input
+                id="mobile"
+                type="tel"
+                class="field__input"
+                [formControl]="mobile"
+                inputmode="numeric"
+                autocomplete="tel"
+                placeholder="e.g. 0123456789"
+                maxlength="11"
+              />
+              @if (mobile.touched && mobile.invalid) {
+                <span class="field__hint">Enter a valid Malaysian mobile number (e.g. 0123456789).</span>
+              }
+            </div>
+
+            <button
+              type="submit"
+              class="submit"
+              [class.submit--active]="canSendOtp()"
+              [disabled]="submitting() || !canSendOtp()"
+            >
+              {{ submitting() ? 'Sending…' : 'Send OTP' }}
+            </button>
+          </form>
+        } @else {
+          <div
+            class="card-form__form card-form__form--otp"
+            (paste)="onOtpPaste($event)"
+          >
+            <div class="card-form__intro">
+              <h1 class="card-form__title">Login</h1>
+              <p class="card-form__lead">
+                Enter the 6-digit code sent to your mobile number.
+              </p>
+            </div>
+
+            <div class="otp-step-stack">
+              <div
+                class="otp-row"
+                role="group"
+                aria-label="One-time password"
+                (pointerdown)="onOtpRowPointerDown($event)"
+              >
+                @for (i of [0, 1, 2, 3, 4, 5]; track i) {
+                  <div class="otp-cell">
+                    <input
+                      #otpIn
+                      class="otp-cell__input"
+                      type="text"
+                      [attr.id]="'otp-' + i"
+                      [attr.name]="i === 0 ? 'one-time-code' : null"
+                      [attr.autocomplete]="i === 0 ? 'one-time-code' : 'off'"
+                      inputmode="numeric"
+                      pattern="[0-9]*"
+                      maxlength="1"
+                      [value]="otpCharAt(i)"
+                      (input)="onOtpCellInput(i, $event)"
+                      (keydown)="onOtpKeydown(i, $event)"
+                      [attr.aria-label]="'Digit ' + (i + 1) + ' of 6'"
+                    />
+                  </div>
+                }
+              </div>
+
+              <button
+                type="button"
+                class="submit"
+                [class.submit--active]="canLogin()"
+                [disabled]="loggingIn() || !canLogin()"
+                (click)="loginWithOtp()"
+              >
+                {{ loggingIn() ? 'Signing in…' : 'Login' }}
+              </button>
+
+              @if (otpError()) {
+                <p class="otp-error" role="alert">Invalid code. For demo, use <strong>123456</strong>.</p>
+              }
+
+              <div class="otp-alt">
+                <button type="button" class="otp-alt__link otp-alt__link--primary" (click)="useDifferentNumber()">
+                  Use different mobile number
+                </button>
+                @if (canResend()) {
+                  <button
+                    type="button"
+                    class="otp-alt__link otp-alt__link--primary"
+                    [disabled]="submitting()"
+                    (click)="resendOtp()"
+                  >
+                    {{ submitting() ? 'Sending…' : 'Resend OTP' }}
+                  </button>
+                } @else {
+                  <span class="otp-alt__timer" aria-live="polite">
+                    Resend OTP ({{ resendSeconds() }})
+                  </span>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </main>
+</div>

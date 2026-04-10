@@ -1,0 +1,45 @@
+.top-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 80px;
+  padding: 0 24px;
+  flex-shrink: 0;
+  align-self: stretch;
+  border-bottom: 1px solid var(--disable-borders-columbia-blue, #c4d2e3);
+  background: var(--Background-White, #fff);
+  box-shadow: 0 4px 4px 0 #e3eaf2;
+  box-sizing: border-box;
+}
+
+.top-bar__inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo {
+  display: block;
+  width: auto;
+  height: 29px;
+  max-width: 150px;
+  background: transparent;
+  object-fit: contain;
+}
+
+@media (min-width: 431px) {
+  .brand-logo {
+    height: 34px;
+    max-width: 100%;
+  }
+}
