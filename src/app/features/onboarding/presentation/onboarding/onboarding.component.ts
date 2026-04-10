@@ -57,7 +57,7 @@ export class OnboardingComponent implements OnInit {
     const afterSignIn =
       this.route.snapshot.queryParamMap.get('postLogin') === '1';
     if (this.onboardingStorage.isComplete() && !afterSignIn) {
-      void this.router.navigate(['/login'], { replaceUrl: true });
+      void this.router.navigate(['/home'], { replaceUrl: true });
     }
   }
 
@@ -132,11 +132,11 @@ export class OnboardingComponent implements OnInit {
 
   skip(): void {
     this.onboardingStorage.markComplete();
-    void this.router.navigate(['/login']);
+    void this.router.navigate(['/home']);
   }
 
   finish(): void {
     this.onboardingStorage.markComplete();
-    void this.router.navigate(['/login']);
+    void this.router.navigate(['/home']);
   }
 }

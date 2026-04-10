@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ONBOARDING_STORAGE } from '../onboarding/domain/onboarding-storage.token';
 
 /**
- * Default route: sends first-time users to onboarding, returning users to login.
+ * Default route: always sends users to login first.
  */
 @Component({
   selector: 'app-gate',
@@ -15,7 +15,6 @@ export class GateComponent implements OnInit {
   private readonly onboardingStorage = inject(ONBOARDING_STORAGE);
 
   ngOnInit(): void {
-    const target = this.onboardingStorage.isComplete() ? '/login' : '/onboarding';
-    void this.router.navigate([target], { replaceUrl: true });
+    void this.router.navigate(['/login'], { replaceUrl: true });
   }
 }

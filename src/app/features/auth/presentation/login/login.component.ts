@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AUTH_REPOSITORY } from '../../domain/auth-repository.token';
 import { malaysianMobileValidators } from '../../../../shared/validation/malaysian-mobile';
+import { ONBOARDING_STORAGE } from '../../../onboarding/domain/onboarding-storage.token';
 import {
   OTP_DIGIT_COUNT,
   applyOtpCellInput,
@@ -30,6 +31,7 @@ export class LoginComponent {
   private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
   private readonly auth = inject(AUTH_REPOSITORY);
+  private readonly onboardingStorage = inject(ONBOARDING_STORAGE);
 
   private resendIntervalId: ReturnType<typeof setInterval> | null = null;
 
@@ -106,7 +108,13 @@ export class LoginComponent {
     this.auth.verifyOtp(this.mobile.value, this.otpCode()).subscribe({
       next: () => {
         this.loggingIn.set(false);
-        void this.router.navigate(['/home']);
+        if (this.onboardingStorage.isComplete()) {
+          void this.router.navigate(['/home']);
+          return;
+        }
+        void this.router.navigate(['/onboarding'], {
+          queryParams: { postLogin: '1' },
+        });
       },
       error: () => {
         this.loggingIn.set(false);
