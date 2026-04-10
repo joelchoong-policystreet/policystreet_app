@@ -30,7 +30,7 @@ export class HomeComponent {
   readonly newsItems = HOME_NEWS_ITEMS;
 
   /** Set from notification/inbox state; red badge only when true. */
-  readonly hasUnreadNotifications = signal(false);
+  readonly hasUnreadNotifications = signal(true);
 
   readonly greetingPrefix = computed(() => {
     const h = new Date().getHours();

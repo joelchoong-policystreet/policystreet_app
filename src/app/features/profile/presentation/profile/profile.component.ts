@@ -17,7 +17,7 @@ type ProfileMenuSection = {
 export class ProfileComponent {
   constructor(private readonly router: Router) {}
 
-  readonly hasUnreadNotifications = signal(false);
+  readonly hasUnreadNotifications = signal(true);
 
   readonly logoWordmarkWhiteSrc = '/assets/home/logo_wordmark-white.png';
   readonly sections: ReadonlyArray<ProfileMenuSection> = [
