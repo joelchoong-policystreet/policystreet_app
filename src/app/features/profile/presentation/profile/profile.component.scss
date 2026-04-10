@@ -34,8 +34,11 @@
 }
 
 .profile-page__brand-img {
+  display: block;
   width: 150px;
   height: auto;
+  max-height: 28px;
+  object-fit: contain;
 }
 
 .profile-page__notify {
@@ -64,10 +67,25 @@
   min-height: 146px;
   box-sizing: border-box;
   backdrop-filter: blur(17.5px);
-  background: rgba(247, 247, 247, 0.1);
-  border: 1px solid #000;
+  background: transparent;
+  border: 1px solid transparent;
   color: #fff;
   overflow: hidden;
+}
+
+.profile-page__identity-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.35) 45%, rgba(255, 255, 255, 0) 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 .profile-page__identity-top {
@@ -136,7 +154,7 @@
   background: linear-gradient(120deg, #5fbeff 6%, #60c5d0 35%, #c5e6ef 96%);
   border-radius: 16px;
   min-height: 146px;
-  padding: 12px 16px 16px;
+  padding: 12px 108px 16px 16px;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -176,12 +194,31 @@
 
 .profile-page__referral-art {
   position: absolute;
-  right: 0;
-  top: 0;
-  width: 116px;
-  height: 146px;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(72px, 24vw, 116px);
+  height: auto;
+  max-height: 146px;
   object-fit: cover;
+  object-position: center;
   pointer-events: none;
+}
+
+@media (max-width: 390px) {
+  .profile-page__referral {
+    padding-right: 92px;
+  }
+}
+
+@media (max-width: 360px) {
+  .profile-page__referral {
+    padding-right: 82px;
+  }
+
+  .profile-page__referral-art {
+    width: clamp(62px, 20vw, 88px);
+  }
 }
 
 .profile-page__menu-group h3 {

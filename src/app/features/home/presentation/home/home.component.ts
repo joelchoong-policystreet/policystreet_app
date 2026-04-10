@@ -18,8 +18,8 @@ import {
 export class HomeComponent {
   constructor(private readonly router: Router) {}
 
-  /** Pure white PolicyStreet wordmark (matches `public/assets/home/logo_wordmark-white.png`). */
-  readonly logoWordmarkWhiteSrc = '/assets/home/logo_wordmark-white.png';
+  /** Pure white PolicyStreet wordmark (matches `public/assets/home/logo_wordmark-white.svg`). */
+  readonly logoWordmarkWhiteSrc = '/assets/home/logo_wordmark-white.svg';
 
   /** Ads banner below greeting — copy is in the asset; keep alt for accessibility. */
   readonly adsBannerSrc = '/assets/home/ads-banner-home.png';

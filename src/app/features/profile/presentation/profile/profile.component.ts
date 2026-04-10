@@ -19,7 +19,7 @@ export class ProfileComponent {
 
   readonly hasUnreadNotifications = signal(true);
 
-  readonly logoWordmarkWhiteSrc = '/assets/home/logo_wordmark-white.png';
+  readonly logoWordmarkWhiteSrc = '/assets/home/logo_wordmark-white.svg';
   readonly sections: ReadonlyArray<ProfileMenuSection> = [
     {
       title: 'ACCOUNT',

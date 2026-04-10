@@ -103,6 +103,10 @@
       "radius": "10px",
       "topSpacing": "16px",
       "paginationBottom": "10px"
+    },
+    "home": {
+      "heroBottomSpacing": "48px",
+      "sheetTopPadding": "24px"
     }
   },
   "cssVariables": {
@@ -129,6 +133,8 @@
     "--ps-promo-carousel-main-width": "{layout.promoCarousel.mainWidth}",
     "--ps-promo-carousel-radius": "{layout.promoCarousel.radius}",
     "--ps-promo-carousel-top": "{layout.promoCarousel.topSpacing}",
-    "--ps-promo-carousel-pagination-bottom": "{layout.promoCarousel.paginationBottom}"
+    "--ps-promo-carousel-pagination-bottom": "{layout.promoCarousel.paginationBottom}",
+    "--ps-home-hero-bottom-spacing": "{layout.home.heroBottomSpacing}",
+    "--ps-home-sheet-top-padding": "{layout.home.sheetTopPadding}"
   }
 }
