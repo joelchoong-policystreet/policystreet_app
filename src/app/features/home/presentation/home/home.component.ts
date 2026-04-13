@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, HostListener, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppBottomNavComponent } from '../../../../shared/presentation/app-bottom-nav/app-bottom-nav.component';
 import { SAMPLE_USER } from '../../domain/sample-user';
@@ -31,6 +31,7 @@ export class HomeComponent {
 
   /** Set from notification/inbox state; red badge only when true. */
   readonly hasUnreadNotifications = signal(true);
+  readonly heroZoomProgress = signal(0);
 
   readonly greetingPrefix = computed(() => {
     const h = new Date().getHours();
@@ -45,5 +46,11 @@ export class HomeComponent {
 
   goNotifications(): void {
     void this.router.navigate(['/notifications']);
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;
+    this.heroZoomProgress.set(Math.min(scrollTop / 260, 1));
   }
 }

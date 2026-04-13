@@ -9,7 +9,7 @@
 .notifications-page__container {
   background: #fff;
   padding-top: 50px;
-  padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
 }
 
 .notifications-page__appbar {

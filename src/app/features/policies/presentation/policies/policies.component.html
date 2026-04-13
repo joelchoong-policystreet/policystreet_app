@@ -1,8 +1,191 @@
 <div class="nav-page">
+  <header class="policies-header">
+    <div class="policies-header__top">
+      <img class="policies-header__logo" [src]="logoSrc" width="150" height="40" alt="PolicyStreet" />
+      <button
+        type="button"
+        class="policies-header__notify"
+        aria-label="Notifications"
+        (click)="goNotifications()"
+      >
+        <svg class="policies-header__notify-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M5.00024 19.0005C4.71691 19.0005 4.47941 18.9047 4.28774 18.713C4.09608 18.5213 4.00024 18.2838 4.00024 18.0005C4.00024 17.7172 4.09608 17.4797 4.28774 17.288C4.47941 17.0963 4.71691 17.0005 5.00024 17.0005H6.00024V10.0005C6.00024 8.61716 6.41691 7.38799 7.25024 6.31299C8.08358 5.23799 9.16691 4.53382 10.5002 4.20049V3.50049C10.5002 3.08382 10.6461 2.72965 10.9377 2.43799C11.2294 2.14632 11.5836 2.00049 12.0002 2.00049C12.4169 2.00049 12.7711 2.14632 13.0627 2.43799C13.3544 2.72965 13.5002 3.08382 13.5002 3.50049V4.20049C14.8336 4.53382 15.9169 5.23799 16.7502 6.31299C17.5836 7.38799 18.0002 8.61716 18.0002 10.0005V17.0005H19.0002C19.2836 17.0005 19.5211 17.0963 19.7127 17.288C19.9044 17.4797 20.0002 17.7172 20.0002 18.0005C20.0002 18.2838 19.9044 18.5213 19.7127 18.713C19.5211 18.9047 19.2836 19.0005 19.0002 19.0005H5.00024ZM12.0002 22.0005C11.4502 22.0005 10.9794 21.8047 10.5877 21.413C10.1961 21.0213 10.0002 20.5505 10.0002 20.0005H14.0002C14.0002 20.5505 13.8044 21.0213 13.4127 21.413C13.0211 21.8047 12.5502 22.0005 12.0002 22.0005ZM8.00024 17.0005H16.0002V10.0005C16.0002 8.90049 15.6086 7.95882 14.8252 7.17549C14.0419 6.39216 13.1002 6.00049 12.0002 6.00049C10.9002 6.00049 9.95858 6.39216 9.17524 7.17549C8.39191 7.95882 8.00024 8.90049 8.00024 10.0005V17.0005Z"
+          />
+        </svg>
+        <span class="policies-header__notify-dot" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="policies-header__title-wrap">
+      <h1 class="policies-header__title">Policies</h1>
+    </div>
+  </header>
+
   <main class="nav-page__content">
-    <h1>Policies</h1>
-    <p>Policies screen placeholder.</p>
+    <div class="policy-tabs" role="tablist" aria-label="Policy filters">
+      @for (tab of tabs; track tab.id) {
+        <button
+          type="button"
+          class="policy-tabs__chip"
+          [class.policy-tabs__chip--active]="activeFilter() === tab.id"
+          [attr.aria-selected]="activeFilter() === tab.id"
+          role="tab"
+          (click)="setFilter(tab.id)"
+        >
+          {{ tab.label }}
+        </button>
+      }
+    </div>
+
+    @if (showExpiringNotice()) {
+      <section class="policy-notice policy-notice--expiring" aria-label="Expiring policy notice">
+        <div class="policy-notice__content">
+          <span class="policy-notice__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 1.66675L18.3333 16.6667H1.66666L10 1.66675Z"
+                stroke="#FF832B"
+                stroke-width="1.67"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path d="M10 7.50008V10.8334" stroke="#FF832B" stroke-width="1.67" stroke-linecap="round" />
+              <path d="M10 14.1667H10.0083" stroke="#FF832B" stroke-width="1.67" stroke-linecap="round" />
+            </svg>
+          </span>
+          <p class="policy-notice__text policy-notice__text--expiring">
+            Some of your policies are <strong>ending soon</strong>. Renew now so you’re still covered on the road.
+          </p>
+        </div>
+        <button
+          type="button"
+          class="policy-notice__close"
+          (click)="dismissExpiringNotice()"
+          aria-label="Dismiss expiring policy notice"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M15 5L5 15" stroke="#3D3D3D" stroke-width="1.67" stroke-linecap="round" />
+            <path d="M5 5L15 15" stroke="#3D3D3D" stroke-width="1.67" stroke-linecap="round" />
+          </svg>
+        </button>
+      </section>
+    }
+
+    @if (showExpiredNotice()) {
+      <section class="policy-notice policy-notice--expired" aria-label="Expired policy notice">
+        <div class="policy-notice__content">
+          <span class="policy-notice__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 1.66675L18.3333 16.6667H1.66666L10 1.66675Z"
+                stroke="#E30A12"
+                stroke-width="1.67"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path d="M10 7.50008V10.8334" stroke="#E30A12" stroke-width="1.67" stroke-linecap="round" />
+              <path d="M10 14.1667H10.0083" stroke="#E30A12" stroke-width="1.67" stroke-linecap="round" />
+            </svg>
+          </span>
+          <p class="policy-notice__text policy-notice__text--expired">
+            Some of your policies have <strong>expired</strong>. Get a new quote now so you can stay covered on the
+            road.
+          </p>
+        </div>
+        <button
+          type="button"
+          class="policy-notice__close"
+          (click)="dismissExpiredNotice()"
+          aria-label="Dismiss expired policy notice"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M15 5L5 15" stroke="#3D3D3D" stroke-width="1.67" stroke-linecap="round" />
+            <path d="M5 5L15 15" stroke="#3D3D3D" stroke-width="1.67" stroke-linecap="round" />
+          </svg>
+        </button>
+      </section>
+    }
+
+    <section class="policy-cards" aria-label="Policies">
+      @for (policy of visiblePolicies(); track policy.plate + policy.status) {
+        <article class="policy-card">
+          <div class="policy-card__top">
+            <div class="policy-card__vehicle">
+              <span class="policy-card__vehicle-icon">
+                <img src="/assets/home/directions-car.svg" width="30" height="30" alt="" aria-hidden="true" />
+              </span>
+              <p class="policy-card__plate">{{ policy.plate }}</p>
+            </div>
+            <span
+              class="policy-card__status"
+              [class.policy-card__status--active]="policy.status === 'ACTIVE'"
+              [class.policy-card__status--expiring]="policy.status === 'EXPIRING SOON'"
+              [class.policy-card__status--expired]="policy.status === 'EXPIRED'"
+            >
+              <span class="policy-card__status-dot" aria-hidden="true"></span>
+              {{ policy.status }}
+            </span>
+          </div>
+
+          <div class="policy-card__divider" role="presentation"></div>
+
+          <div class="policy-card__meta-group">
+            <div>
+              <p class="policy-card__label">Car Model</p>
+              <p class="policy-card__value">{{ policy.carModel }}</p>
+            </div>
+            <div>
+              <p class="policy-card__label">Policy No.</p>
+              <p class="policy-card__value">{{ policy.policyNo }}</p>
+            </div>
+            <div class="policy-card__two-cols">
+              <div>
+                <p class="policy-card__label">Coverage Type</p>
+                <p class="policy-card__value">{{ policy.coverageType }}</p>
+              </div>
+              <div>
+                <p class="policy-card__label">Coverage Period</p>
+                <p class="policy-card__value">{{ policy.coveragePeriod }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="policy-card__divider" role="presentation"></div>
+
+          <div class="policy-card__actions">
+            <button type="button" class="policy-card__action policy-card__action--primary">
+              View Details
+            </button>
+            <button
+              type="button"
+              class="policy-card__action policy-card__action--danger"
+              [class.policy-card__action--hidden]="!policy.secondaryAction"
+            >
+              {{ policy.secondaryAction || ' ' }}
+            </button>
+          </div>
+        </article>
+      }
+    </section>
   </main>
+
+  <a
+    class="nav-page__whatsapp"
+    href="https://wa.me/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contact us on WhatsApp"
+  >
+    <span class="nav-page__whatsapp-inner">
+      <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="#fff"
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+        />
+      </svg>
+    </span>
+  </a>
 
   <app-bottom-nav activeTab="policies" />
 </div>

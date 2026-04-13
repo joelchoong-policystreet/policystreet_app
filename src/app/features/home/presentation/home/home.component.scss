@@ -7,6 +7,7 @@
   margin: 0 auto;
   width: 100%;
   position: relative;
+  --ps-home-zoom: 0;
   /* Same base as top of .home-page__hero / header so nothing clashes with #16244c at gradient bottom */
   background: #203570;
 }
@@ -28,14 +29,21 @@
     min(240px, 62%) auto,
     100% 100%;
   box-shadow: 0 2px 15px rgba(0, 32, 63, 0.5);
+  padding-top: 80px;
   padding-bottom: var(--ps-home-hero-bottom-spacing);
 }
 
 /* Transparent: same hero gradient + blob as .home-page__hero; z-index keeps row above welcome watermark */
 .home-page__header {
-  position: relative;
-  z-index: 2;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  z-index: 25;
   padding: 20px 24px 0;
+  background: linear-gradient(180deg, rgba(32, 53, 112, 1) 0%, rgba(32, 53, 112, 0.92) 75%, rgba(32, 53, 112, 0) 100%);
 }
 
 .home-page__header-row {
@@ -58,7 +66,7 @@
   display: block;
   width: 150px;
   height: auto;
-  max-height: 28px;
+  max-height: 40px;
   object-fit: contain;
 }
 
@@ -111,6 +119,8 @@
   padding-top: 16px;
   padding-bottom: 0;
   padding-inline: 24px;
+  transform-origin: top center;
+  transform: scale(calc(1 - (var(--ps-home-zoom) * 0.06)));
 }
 
 .home-page__welcome-card {
@@ -188,6 +198,8 @@
   padding: var(--ps-promo-carousel-top) 0 0;
   position: relative;
   z-index: 1;
+  transform-origin: top center;
+  transform: scale(calc(1 - (var(--ps-home-zoom) * 0.1)));
 }
 
 .home-page__carousel-scroller {
@@ -311,11 +323,8 @@
 }
 
 .home-page__sheet-scroll {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: var(--ps-home-sheet-top-padding) 24px calc(50px + 88px);
+  min-height: 100%;
+  padding: var(--ps-home-sheet-top-padding) 24px calc(50px + 58px);
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -517,6 +526,9 @@
   flex-shrink: 0;
   align-self: center;
   display: block;
+  width: 9px;
+  height: 16px;
+  object-fit: contain;
 }
 
 .home-page__quick-grid {
@@ -538,7 +550,7 @@
   min-height: 56px;
   padding: 8px 10px 8px 8px;
   border-radius: 8px;
-  border: 1.5px solid #c5e6ef;
+  border: 2px solid #0091ff;
   background: #fff;
   cursor: pointer;
   text-align: left;
@@ -609,7 +621,7 @@
   position: fixed;
   z-index: 20;
   right: max(16px, calc(50vw - 215px + 16px));
-  bottom: calc(112px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(72px + env(safe-area-inset-bottom, 0px));
   width: 56px;
   height: 56px;
   border-radius: 100px;

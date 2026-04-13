@@ -1,4 +1,4 @@
-<div class="home-page">
+<div class="home-page" [style.--ps-home-zoom]="heroZoomProgress()">
   <div class="home-page__hero">
     <header class="home-page__header" aria-label="PolicyStreet">
       <div class="home-page__header-row">
@@ -6,7 +6,7 @@
           <img
             [src]="logoWordmarkWhiteSrc"
             width="150"
-            height="28"
+            height="40"
             alt="PolicyStreet"
             class="home-page__brand-img"
           />
@@ -142,9 +142,7 @@
               <p class="home-page__coverage">{{ latestPolicy.coverageLabel }}</p>
               <p class="home-page__muted">{{ latestPolicy.coveredUntilLabel }}</p>
             </div>
-            <svg class="home-page__chevron" width="9" height="16" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="#7092bb" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
-            </svg>
+            <img class="home-page__chevron" src="/assets/home/arrow-forward-ios.svg" width="9" height="16" alt="" aria-hidden="true" />
           </div>
         </article>
       </section>
@@ -158,18 +156,7 @@
           <div class="home-page__card-row home-page__card-row--top">
             <div class="home-page__claim-id">
               <div class="home-page__claim-icon-wrap">
-                <svg
-                  class="home-page__claim-car"
-                  width="30"
-                  height="30"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill="#0091ff"
-                    d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"
-                  />
-                </svg>
+                <img class="home-page__claim-car" src="/assets/home/directions-car.svg" width="30" height="30" alt="" aria-hidden="true" />
               </div>
               <p class="home-page__plate">{{ latestClaim.plate }}</p>
             </div>
@@ -184,9 +171,7 @@
               <p class="home-page__claim-ref">{{ latestClaim.claimId }}</p>
               <p class="home-page__muted">{{ latestClaim.submittedLabel }}</p>
             </div>
-            <svg class="home-page__chevron" width="9" height="16" viewBox="0 0 24 24" aria-hidden="true">
-              <path fill="#7092bb" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
-            </svg>
+            <img class="home-page__chevron" src="/assets/home/arrow-forward-ios.svg" width="9" height="16" alt="" aria-hidden="true" />
           </div>
         </article>
       </section>
@@ -197,23 +182,13 @@
           <div class="home-page__quick-row">
             <button type="button" class="home-page__quick-btn">
               <span class="home-page__quick-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    fill="#3d3d3d"
-                    d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-                  />
-                </svg>
+                <img src="/assets/home/document-search.svg" width="24" height="24" alt="" aria-hidden="true" />
               </span>
               <span class="home-page__quick-label">New Quote</span>
             </button>
             <button type="button" class="home-page__quick-btn">
               <span class="home-page__quick-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    fill="#3d3d3d"
-                    d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"
-                  />
-                </svg>
+                <img src="/assets/home/request-quote.svg" width="24" height="24" alt="" aria-hidden="true" />
               </span>
               <span class="home-page__quick-label">Make New Claim</span>
             </button>
@@ -221,22 +196,15 @@
           <div class="home-page__quick-row">
             <button type="button" class="home-page__quick-btn">
               <span class="home-page__quick-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    fill="#3d3d3d"
-                    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
-                  />
-                </svg>
+                <img src="/assets/home/notification-add.svg" width="24" height="24" alt="" aria-hidden="true" />
               </span>
-              <span class="home-page__quick-label">Contact Support</span>
+              <span class="home-page__quick-label">Add New Vehicle</span>
             </button>
             <button type="button" class="home-page__quick-btn">
               <span class="home-page__quick-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill="#3d3d3d" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                </svg>
+                <img src="/assets/home/call-quality.svg" width="24" height="24" alt="" aria-hidden="true" />
               </span>
-              <span class="home-page__quick-label">Add New Vehicle</span>
+              <span class="home-page__quick-label">Contact Support</span>
             </button>
           </div>
         </div>
