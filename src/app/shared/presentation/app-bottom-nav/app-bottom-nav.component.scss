@@ -68,7 +68,7 @@
 .app-bottom-nav__slot--fab::before {
   content: '';
   position: absolute;
-  top: 0;
+  top: -4px;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 68px;
@@ -83,7 +83,7 @@
   position: absolute;
   z-index: 1;
   left: 50%;
-  top: -30px;
+  top: -34px;
   transform: translateX(-50%);
   width: 60px;
   height: 60px;

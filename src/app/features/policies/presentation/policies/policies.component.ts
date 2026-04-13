@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppBottomNavComponent } from '../../../../shared/presentation/app-bottom-nav/app-bottom-nav.component';
 
 type PolicyStatus = 'ACTIVE' | 'EXPIRING SOON' | 'EXPIRED';
@@ -23,10 +23,20 @@ type PolicyCard = {
   styleUrl: './policies.component.scss',
 })
 export class PoliciesComponent {
-  constructor(private readonly router: Router) {}
+  constructor(
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
+  ) {
+    this.route.queryParamMap.subscribe((params) => {
+      const filter = params.get('filter');
+      if (this.isPolicyFilter(filter)) {
+        this.activeFilter.set(filter);
+      }
+    });
+  }
 
   readonly logoSrc = '/assets/home/ps-car-insurance-04.svg';
-  readonly activeFilter = signal<PolicyFilter>('all');
+  readonly activeFilter = signal<PolicyFilter>('active');
   readonly hideExpiringNotice = signal(false);
   readonly hideExpiredNotice = signal(false);
 
@@ -105,6 +115,10 @@ export class PoliciesComponent {
 
   goNotifications(): void {
     void this.router.navigate(['/notifications']);
+  }
+
+  private isPolicyFilter(value: string | null): value is PolicyFilter {
+    return value === 'all' || value === 'active' || value === 'expiring' || value === 'expired';
   }
 }
 

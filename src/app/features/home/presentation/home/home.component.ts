@@ -48,6 +48,10 @@ export class HomeComponent {
     void this.router.navigate(['/notifications']);
   }
 
+  goPoliciesAll(): void {
+    void this.router.navigate(['/policies'], { queryParams: { filter: 'all' } });
+  }
+
   @HostListener('window:scroll')
   onWindowScroll(): void {
     const scrollTop = window.scrollY || document.documentElement.scrollTop || 0;

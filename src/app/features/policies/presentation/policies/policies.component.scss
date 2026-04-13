@@ -7,6 +7,13 @@
 }
 
 .policies-header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  z-index: 20;
   background: #fff;
   box-shadow: 0 4px 4px #e3eaf2;
 }
@@ -72,7 +79,7 @@
 }
 
 .nav-page__content {
-  padding: 24px;
+  padding: 168px 24px 24px;
   padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
 }
 
