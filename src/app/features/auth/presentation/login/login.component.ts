@@ -28,6 +28,8 @@ import {
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  private static readonly LOGIN_ANIMATION_MS = 900;
+
   private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
   private readonly auth = inject(AUTH_REPOSITORY);
@@ -104,17 +106,23 @@ export class LoginComponent {
     if (!this.canLogin() || this.loggingIn()) {
       return;
     }
+
+    const startedAt = performance.now();
     this.loggingIn.set(true);
     this.auth.verifyOtp(this.mobile.value, this.otpCode()).subscribe({
       next: () => {
-        this.loggingIn.set(false);
-        if (this.onboardingStorage.isComplete()) {
-          void this.router.navigate(['/home']);
-          return;
-        }
-        void this.router.navigate(['/onboarding'], {
-          queryParams: { postLogin: '1' },
-        });
+        const elapsed = performance.now() - startedAt;
+        const remaining = Math.max(0, LoginComponent.LOGIN_ANIMATION_MS - elapsed);
+        window.setTimeout(() => {
+          this.loggingIn.set(false);
+          if (this.onboardingStorage.isComplete()) {
+            void this.router.navigate(['/home']);
+            return;
+          }
+          void this.router.navigate(['/onboarding'], {
+            queryParams: { postLogin: '1' },
+          });
+        }, remaining);
       },
       error: () => {
         this.loggingIn.set(false);
