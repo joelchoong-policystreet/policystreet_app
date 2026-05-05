@@ -3,52 +3,50 @@
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
-  background: var(--Accents-Seas-Salt, #f7f7f7);
   position: relative;
   overflow-x: hidden;
   max-width: 430px;
   margin: 0 auto;
   width: 100%;
   align-items: stretch;
-
-  > app-top-bar {
-    display: block;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 2;
-  }
+  background: #e3f2ff;
 }
 
-.page-bg-decor {
-  display: block;
+.onboarding-page__bg {
   position: absolute;
-  z-index: 0;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  background-color: #e3f2ff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
-.page-bg-decor__vector {
+.onboarding-page__no-graphic {
+  display: none;
+}
+
+.onboarding-header {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 80px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  background: #fff;
+  border-bottom: 1px solid #c4d2e3;
+}
+
+.onboarding-header__logo {
   display: block;
-  position: absolute;
-  max-width: none;
-}
-
-.page-bg-decor__pmark {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.page-bg-decor__vector--pmark {
-  width: 492px;
-  height: auto;
-  left: -48px;
-  bottom: 0;
-  opacity: 0.14;
-  z-index: 1;
+  width: 153px;
+  height: 40px;
+  object-fit: contain;
 }
 
 .onboarding-page__main {
@@ -58,14 +56,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: stretch;
+  justify-content: center;
   width: 100%;
   min-height: 0;
-  /* +50px top/bottom vs base insets for main slide content */
-  padding: 82px 24px 74px;
+  padding: 24px;
   box-sizing: border-box;
-  /* Allow horizontal swipe for manual slides; pan-y blocked auto-advance UX on some devices */
   touch-action: manipulation;
+  overflow-y: auto;
 }
 
 .onboarding-page__content {
@@ -74,13 +71,15 @@
   align-items: stretch;
   width: 100%;
   max-width: 382px;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
+  max-height: 100%;
   min-height: 0;
+  align-self: stretch;
 }
 
-/* Logo, headline, body, dots: vertically + horizontally centered in the area above the footer */
+/* Whole slide stacks as one block, vertically centred in main (no top-heavy flex growth) */
 .onboarding-page__stage {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -88,25 +87,357 @@
   gap: 16px;
   width: 100%;
   text-align: center;
-  min-height: 0;
+  box-sizing: border-box;
 }
 
-.onboarding-page__hero-logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.onboarding-page__core {
+  flex: 0 0 auto;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  box-sizing: border-box;
 }
 
-.onboarding-page__hero-logo-img {
+.onboarding-page__controls {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.onboarding-page__hero {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 362px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  min-height: min(295px, 40vh);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.onboarding-page__hero--dual-layer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+}
+
+.onboarding-page__hero-float-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.onboarding-page__hero-float-layer--animate {
+  animation: onboarding-float-layer-bob 5.5s ease-in-out infinite;
+}
+
+.onboarding-page__hero-float-images {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+
+  > .onboarding-page__hero-float-layer-svg {
+    grid-area: 1 / 1;
+  }
+}
+
+.onboarding-page__hero-float-layer-svg {
   display: block;
   width: auto;
+  max-width: 100%;
   height: auto;
-  max-width: min(200px, 100%);
-  max-height: 220px;
-  margin-inline: auto;
+  max-height: min(295px, 40vh);
   object-fit: contain;
-  background: transparent;
+  margin-inline: auto;
+}
+
+.onboarding-page__hero-art {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+
+  &.onboarding-page__hero-art--static-front {
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .onboarding-page__hero-svg {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      margin-inline: auto;
+      display: block;
+      object-fit: contain;
+      object-position: center;
+      /* Artboard is wider than the phone; shift so the handset reads centered */
+      transform: translateX(14px);
+    }
+  }
+}
+
+.onboarding-page__hero--float-motion {
+  overflow: visible;
+}
+
+.onboarding-page__hero-float-deco {
+  position: absolute;
+  inset: -8% -12% -6% -12%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.onboarding-page__hero-float-deco-chip {
+  position: absolute;
+  border-radius: 10px;
+  background: rgba(0, 145, 255, 0.1);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.onboarding-page__hero-float-deco-chip--a {
+  width: 20%;
+  height: 11%;
+  left: 4%;
+  top: 22%;
+  animation-name: onboarding-chip-drift-a;
+  animation-duration: 4.8s;
+}
+
+.onboarding-page__hero-float-deco-chip--b {
+  width: 14%;
+  height: 9%;
+  right: 2%;
+  top: 14%;
+  animation-name: onboarding-chip-drift-b;
+  animation-duration: 5.6s;
+}
+
+.onboarding-page__hero-float-deco-chip--c {
+  width: 12%;
+  height: 10%;
+  left: 72%;
+  bottom: 28%;
+  animation-name: onboarding-chip-drift-c;
+  animation-duration: 5.2s;
+}
+
+.onboarding-page__hero-art--float {
+  animation: onboarding-hero-float-drift 8s ease-in-out infinite;
+}
+
+.onboarding-page__hero-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(295px, 40vh);
+  object-fit: contain;
+}
+
+/* Hour nib SVG: flat-back pivot = midpoint of base edge (48×47 viewBox) */
+$_hour-hand-pivot-x-pct: (((0.908203 + 5.67415) / 2) / 48 * 100%);
+$_hour-hand-pivot-y-pct: (((41.4486 + 46.0267) / 2) / 47 * 100%);
+
+/* Welcome screen 3 — clock hands on PSAPP_3 (center ≈ 178.732, 103.315 in 362×295 viewBox) */
+.onboarding-page__hero-art--clock-hands {
+  .onboarding-page__hero-clock-hands {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .onboarding-page__hero-clock-pivot {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .onboarding-page__hero-clock-hand {
+    position: absolute;
+    display: block;
+    height: auto;
+    /* Clock center in PSAPP_3 artboard (362×295) */
+    left: calc(178.732 / 362 * 100%);
+    top: calc(103.315 / 295 * 100%);
+  }
+
+  /*
+   * Minute: pivot at hub (~48.2, 51.8); natural tip bearing ≈316.3° → start −16.32° for 300° / 10 o'clock.
+   * Hour: pivot at flat BACK (midpoint of base edge 0.9,41 ↔ 5.7,46), nib at ~46.35,0.91 — not the inner neck (~31.9,9).
+   *        Base→tip bearing ≈45.15° → start +14.85° so tip reads 60° / 2 o'clock.
+   */
+  .onboarding-page__hero-clock-hand--hour {
+    width: calc(100% * 48 / 362);
+    transform-origin: $_hour-hand-pivot-x-pct $_hour-hand-pivot-y-pct;
+    animation: onboarding-clock-hand-hour 72s linear infinite;
+    z-index: 0;
+  }
+
+  .onboarding-page__hero-clock-hand--minute {
+    width: calc(100% * 50 / 362);
+    transform-origin: calc(48.2253 / 50 * 100%) calc(51.7838 / 52 * 100%);
+    animation: onboarding-clock-hand-minute 20s linear infinite;
+    z-index: 1;
+  }
+
+  .onboarding-page__hero-clock-hub {
+    position: absolute;
+    display: block;
+    /* Nudge vs illustrated hub: ↓ from centre; X between prior −2px / +2px tries */
+    left: calc(178.732 / 362 * 100% - 1px);
+    top: calc(103.315 / 295 * 100% + 5px);
+    transform: translate(-50%, -50%);
+    width: calc(100% * 20 / 362);
+    height: auto;
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+
+@keyframes onboarding-clock-hand-minute {
+  from {
+    transform: translate(calc(-48.2253 / 50 * 100%), calc(-51.7838 / 52 * 100%)) rotate(-16.32deg);
+  }
+
+  to {
+    transform: translate(calc(-48.2253 / 50 * 100%), calc(-51.7838 / 52 * 100%)) rotate(343.68deg);
+  }
+}
+
+@keyframes onboarding-clock-hand-hour {
+  from {
+    transform: translate(calc(-1 * $_hour-hand-pivot-x-pct), calc(-1 * $_hour-hand-pivot-y-pct)) rotate(14.8466deg);
+  }
+
+  to {
+    transform: translate(calc(-1 * $_hour-hand-pivot-x-pct), calc(-1 * $_hour-hand-pivot-y-pct)) rotate(374.8466deg);
+  }
+}
+
+.onboarding-page__hero-key-slot {
+  position: absolute;
+  z-index: 3;
+  right: 12%;
+  left: auto;
+  top: 10%;
+  width: 17.13%;
+  min-width: 48px;
+  pointer-events: none;
+}
+
+.onboarding-page__hero-key-pivot {
+  transform-origin: 50% 0;
+  animation: onboarding-key-swing 2.4s ease-in-out infinite;
+}
+
+.onboarding-page__hero-key {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onboarding-page__hero-key-pivot,
+  .onboarding-page__hero-art--float,
+  .onboarding-page__hero-float-deco-chip,
+  .onboarding-page__hero-float-layer--animate,
+  .onboarding-page__hero-clock-hand--minute,
+  .onboarding-page__hero-clock-hand--hour {
+    animation: none;
+  }
+
+  .onboarding-page__hero-clock-hand--minute {
+    transform: translate(calc(-48.2253 / 50 * 100%), calc(-51.7838 / 52 * 100%)) rotate(-16.32deg);
+  }
+
+  .onboarding-page__hero-clock-hand--hour {
+    transform: translate(calc(-1 * $_hour-hand-pivot-x-pct), calc(-1 * $_hour-hand-pivot-y-pct)) rotate(14.8466deg);
+  }
+}
+
+@keyframes onboarding-float-layer-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes onboarding-hero-float-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  20% {
+    transform: translate(5px, -10px) rotate(0.65deg);
+  }
+  45% {
+    transform: translate(-7px, 6px) rotate(-0.55deg);
+  }
+  70% {
+    transform: translate(8px, 5px) rotate(0.45deg);
+  }
+}
+
+@keyframes onboarding-chip-drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(16px, -14px);
+  }
+}
+
+@keyframes onboarding-chip-drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-12px, 12px);
+  }
+}
+
+@keyframes onboarding-chip-drift-c {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(-10px, -10px) rotate(4deg);
+  }
+}
+
+@keyframes onboarding-key-swing {
+  0%,
+  100% {
+    transform: rotate(-14deg);
+  }
+  50% {
+    transform: rotate(14deg);
+  }
 }
 
 .onboarding-page__icon-tile {
@@ -142,37 +473,68 @@
   height: 80px;
 }
 
+/* Keeps headline / body blocks aligned across slides when copy line-count varies */
+$_onboarding-headline-min-h: calc(44px * 2 + 8px); /* two H1 lines + breathing room */
+$_onboarding-desc-min-h: 120px; /* ~4–5 body lines × 22px — stable slot, natural wrap */
+$_onboarding-dots-min-h: 40px;
+$_onboarding-action-min-h: 54px; /* matches CTA: 16 + 22 + 16 padding + line-height */
+
+/* Titles/H1 - Extra Large/Semibold (Consumer welcome — all slides) */
 .onboarding-page__headline {
   margin: 0;
   width: 100%;
   max-width: 100%;
+  min-height: $_onboarding-headline-min-h;
+  display: grid;
+  place-content: center;
+  color: var(--Font-Black, #141414);
   text-align: center;
+  white-space: pre-line;
   font-family: Poppins, Inter, sans-serif;
   font-size: 36px;
+  font-style: normal;
   font-weight: 600;
   line-height: 44px;
   letter-spacing: 0.216px;
-  color: #141414;
+  box-sizing: border-box;
 }
 
+.onboarding-page__descriptions {
+  width: 100%;
+  max-width: 100%;
+  min-height: $_onboarding-desc-min-h;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+/* Paragraph/Large/Regular (Consumer welcome — all slides) */
 .onboarding-page__body {
   margin: 0;
   width: 100%;
   max-width: 100%;
-  text-align: center;
   padding: 0 8px;
   box-sizing: border-box;
+  color: var(--Font-Black, #141414);
+  text-align: center;
   font-family: 'Open Sans', Inter, sans-serif;
   font-size: 16px;
+  font-style: normal;
   font-weight: 400;
   line-height: 22px;
   letter-spacing: 0.096px;
-  color: #3d3d3d;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: none;
 }
 
 .onboarding-page__body--lead {
-  font-weight: 700;
   padding-top: 0;
+  font-weight: 700;
 }
 
 .onboarding-page__dots {
@@ -181,7 +543,17 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 8px 0;
+  min-height: $_onboarding-dots-min-h;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.onboarding-page__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  flex-shrink: 0;
 }
 
 .onboarding-page__dot {
@@ -195,31 +567,12 @@
   transition: background 0.15s ease;
 
   &--active {
-    background: #ffd100;
+    background: #7092bb;
   }
 
   &:focus-visible {
     outline: 2px solid var(--ps-primary);
     outline-offset: 2px;
-  }
-}
-
-.onboarding-page__footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  flex-shrink: 0;
-  padding: 24px 0 0;
-
-  &--skip {
-    gap: 0;
-  }
-
-  &--cta {
-    gap: 0;
-    /* base 24px + additional 24px above “Let’s Get Started” */
-    padding-top: 48px;
   }
 }
 
@@ -232,13 +585,18 @@
   cursor: pointer;
   width: 100%;
   max-width: 100%;
+  min-height: $_onboarding-action-min-h;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  font-family: Roboto, Inter, sans-serif;
+  font-family: 'Open Sans', Inter, sans-serif;
   font-size: 16px;
   font-weight: 500;
-  line-height: 24px;
+  line-height: 22px;
   letter-spacing: 0.15px;
-  color: var(--ps-primary);
+  color: #7092bb;
 
   &:hover {
     text-decoration: underline;
@@ -248,6 +606,8 @@
 .onboarding-page__cta {
   align-self: stretch;
   width: 100%;
+  min-height: $_onboarding-action-min-h;
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;

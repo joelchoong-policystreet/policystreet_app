@@ -18,4 +18,11 @@ export class LocalOnboardingStorage implements OnboardingStorage {
     }
     localStorage.setItem(STORAGE_KEY, '1');
   }
+
+  clearCompletion(): void {
+    if (typeof localStorage === 'undefined') {
+      return;
+    }
+    localStorage.removeItem(STORAGE_KEY);
+  }
 }

@@ -1,11 +1,19 @@
 <div class="onboarding-page">
-  <div class="page-bg-decor" aria-hidden="true">
-    <div class="page-bg-decor__pmark">
-      <img class="page-bg-decor__vector page-bg-decor__vector--pmark" src="/assets/bg-pmark.svg" alt="" />
-    </div>
-  </div>
+  <div
+    class="onboarding-page__bg"
+    [style.background-image]="pageBackgroundImage()"
+    aria-hidden="true"
+  ></div>
 
-  <app-top-bar />
+  <header class="onboarding-header" aria-label="PolicyStreet">
+    <img
+      class="onboarding-header__logo"
+      src="/assets/home/PS Car Insurance Logo.svg"
+      width="153"
+      height="40"
+      alt="PolicyStreet Car Insurance"
+    />
+  </header>
 
   <main
     class="onboarding-page__main"
@@ -14,15 +22,104 @@
   >
     <div class="onboarding-page__content">
       <div class="onboarding-page__stage">
-        @switch (slide().icon) {
-          @case ('logo') {
-            <div class="onboarding-page__hero-logo">
+        <div class="onboarding-page__core">
+        @if (slide().heroIllustrationSrc) {
+          <div
+            class="onboarding-page__hero"
+            [class.onboarding-page__hero--dual-layer]="!!slide().heroFloatLayerSrc"
+            [class.onboarding-page__hero--float-motion]="slide().heroMotion === 'float' && !slide().heroFloatLayerSrc"
+            aria-hidden="true"
+          >
+            @if (slide().heroMotion === 'float' && !slide().heroFloatLayerSrc) {
+              <div class="onboarding-page__hero-float-deco">
+                <span class="onboarding-page__hero-float-deco-chip onboarding-page__hero-float-deco-chip--a"></span>
+                <span class="onboarding-page__hero-float-deco-chip onboarding-page__hero-float-deco-chip--b"></span>
+                <span class="onboarding-page__hero-float-deco-chip onboarding-page__hero-float-deco-chip--c"></span>
+              </div>
+            }
+            @if (slide().heroFloatLayerSrc) {
+              <div class="onboarding-page__hero-float-layer onboarding-page__hero-float-layer--animate">
+                <div class="onboarding-page__hero-float-images">
+                  <img
+                    class="onboarding-page__hero-float-layer-svg"
+                    [src]="slide().heroFloatLayerSrc"
+                    width="615"
+                    height="500"
+                    alt=""
+                  />
+                  @if (slide().heroFloatLayerSrc2) {
+                    <img
+                      class="onboarding-page__hero-float-layer-svg"
+                      [src]="slide().heroFloatLayerSrc2"
+                      width="615"
+                      height="500"
+                      alt=""
+                    />
+                  }
+                </div>
+              </div>
+            }
+            <div
+              class="onboarding-page__hero-art"
+              [class.onboarding-page__hero-art--float]="slide().heroMotion === 'float' && !slide().heroFloatLayerSrc"
+              [class.onboarding-page__hero-art--static-front]="!!slide().heroFloatLayerSrc"
+              [class.onboarding-page__hero-art--clock-hands]="!!slide().heroClockHands"
+            >
               <img
-                class="onboarding-page__hero-logo-img"
-                [src]="welcomeScreenLogoSrc"
-                alt="PolicyStreet"
+                class="onboarding-page__hero-svg"
+                [src]="slide().heroIllustrationSrc"
+                width="615"
+                height="500"
+                alt=""
               />
+              @if (slide().heroClockHands; as hands) {
+                <div class="onboarding-page__hero-clock-hands" aria-hidden="true">
+                  <div class="onboarding-page__hero-clock-pivot">
+                    <img
+                      class="onboarding-page__hero-clock-hand onboarding-page__hero-clock-hand--hour"
+                      [src]="hands.hourHandSrc"
+                      width="48"
+                      height="47"
+                      alt=""
+                    />
+                    <img
+                      class="onboarding-page__hero-clock-hand onboarding-page__hero-clock-hand--minute"
+                      [src]="hands.minuteHandSrc"
+                      width="50"
+                      height="52"
+                      alt=""
+                    />
+                    @if (hands.hubSrc) {
+                      <img
+                        class="onboarding-page__hero-clock-hub"
+                        [src]="hands.hubSrc"
+                        width="20"
+                        height="21"
+                        alt=""
+                      />
+                    }
+                  </div>
+                </div>
+              }
             </div>
+            @if (slide().heroSwingKeySrc) {
+              <div class="onboarding-page__hero-key-slot">
+                <div class="onboarding-page__hero-key-pivot">
+                  <img
+                    class="onboarding-page__hero-key"
+                    [src]="slide().heroSwingKeySrc"
+                    width="62"
+                    height="168"
+                    alt=""
+                  />
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          @switch (slide().icon) {
+          @case ('none') {
+            <span class="onboarding-page__no-graphic" aria-hidden="true"></span>
           }
           @case ('document') {
             <div class="onboarding-page__icon-tile" aria-hidden="true">
@@ -41,22 +138,24 @@
           @case ('lightning') {
             <div class="onboarding-page__icon-tile onboarding-page__icon-tile--glow" aria-hidden="true">
               <svg class="onboarding-page__icon-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M48 12 32 44h12l-4 28 20-36H48l-8-24Z"
-                  fill="#fff"
-                />
+                <path d="M48 12 32 44h12l-4 28 20-36H48l-8-24Z" fill="#fff" />
               </svg>
             </div>
+          }
           }
         }
 
         <h1 class="onboarding-page__headline">{{ slide().headline }}</h1>
 
-        @if (slide().bodyLeadBold) {
-          <p class="onboarding-page__body onboarding-page__body--lead">{{ slide().bodyLeadBold }}</p>
-        }
-        <p class="onboarding-page__body">{{ slide().body }}</p>
+        <div class="onboarding-page__descriptions">
+          @if (slide().bodyLeadBold) {
+            <p class="onboarding-page__body onboarding-page__body--lead">{{ slide().bodyLeadBold }}</p>
+          }
+          <p class="onboarding-page__body">{{ slide().body }}</p>
+        </div>
+        </div>
 
+        <div class="onboarding-page__controls">
         <div class="onboarding-page__dots" role="tablist" aria-label="Onboarding progress">
           @for (item of slides; track item.headline; let i = $index) {
             <button
@@ -70,17 +169,16 @@
             ></button>
           }
         </div>
-      </div>
 
-      @if (currentSlide() < slideCount - 1) {
-        <div class="onboarding-page__footer onboarding-page__footer--skip">
-          <button type="button" class="onboarding-page__skip" (click)="skip()">Skip</button>
+        <div class="onboarding-page__actions">
+          @if (currentSlide() < slideCount - 1) {
+            <button type="button" class="onboarding-page__skip" (click)="skip()">Skip</button>
+          } @else {
+            <button type="button" class="onboarding-page__cta" (click)="finish()">Let's Get Started</button>
+          }
         </div>
-      } @else {
-        <div class="onboarding-page__footer onboarding-page__footer--cta">
-          <button type="button" class="onboarding-page__cta" (click)="finish()">Let's Get Started</button>
         </div>
-      }
+      </div>
     </div>
   </main>
 </div>
