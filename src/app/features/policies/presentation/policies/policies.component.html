@@ -1,7 +1,7 @@
 <div class="nav-page">
   <header class="policies-header">
     <div class="policies-header__top">
-      <img class="policies-header__logo" [src]="logoSrc" width="150" height="40" alt="PolicyStreet" />
+      <img class="policies-header__logo" [src]="logoBrandSrc" width="153" height="40" alt="PolicyStreet" />
       <button
         type="button"
         class="policies-header__notify"
@@ -37,6 +37,29 @@
         </button>
       }
     </div>
+
+    @if (showAllUrgentNotice()) {
+      <section class="policy-notice policy-notice--expired" aria-label="Urgent policy notice">
+        <div class="policy-notice__content">
+          <span class="policy-notice__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 1.66675L18.3333 16.6667H1.66666L10 1.66675Z"
+                stroke="#E30A12"
+                stroke-width="1.67"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path d="M10 7.50008V10.8334" stroke="#E30A12" stroke-width="1.67" stroke-linecap="round" />
+              <path d="M10 14.1667H10.0083" stroke="#E30A12" stroke-width="1.67" stroke-linecap="round" />
+            </svg>
+          </span>
+          <p class="policy-notice__text policy-notice__text--expired">
+            Some policies may be expiring soon or have expired. Renew to stay covered.
+          </p>
+        </div>
+      </section>
+    }
 
     @if (showExpiringNotice()) {
       <section class="policy-notice policy-notice--expiring" aria-label="Expiring policy notice">
@@ -107,9 +130,109 @@
       </section>
     }
 
-    <section class="policy-cards" aria-label="Policies">
-      @for (policy of visiblePolicies(); track policy.plate + policy.status) {
-        <article class="policy-card">
+    @if (isAllTab()) {
+      <section class="policy-cards" aria-label="Policies">
+        @if (featuredAllPolicy(); as featured) {
+          <article class="policy-card policy-card--featured" [style.--policy-card-index]="0">
+            <div class="policy-card__top">
+              <div class="policy-card__vehicle">
+                <span class="policy-card__vehicle-icon">
+                  <img src="/assets/home/directions-car.svg" width="30" height="30" alt="" aria-hidden="true" />
+                </span>
+                <p class="policy-card__plate">{{ featured.plate }}</p>
+              </div>
+              <span
+                class="policy-card__status"
+                [class.policy-card__status--active]="featured.status === 'ACTIVE'"
+                [class.policy-card__status--expiring]="featured.status === 'EXPIRING SOON'"
+                [class.policy-card__status--expired]="featured.status === 'EXPIRED'"
+              >
+                <span class="policy-card__status-dot" aria-hidden="true"></span>
+                {{ featured.status }}
+              </span>
+            </div>
+
+            <div class="policy-card__divider" role="presentation"></div>
+
+            <div class="policy-card__meta-group">
+              <div>
+                <p class="policy-card__label">Car Model</p>
+                <p class="policy-card__value">{{ featured.carModel }}</p>
+              </div>
+              <div>
+                <p class="policy-card__label">Policy No.</p>
+                <p class="policy-card__value">{{ featured.policyNo }}</p>
+              </div>
+              <div class="policy-card__two-cols">
+                <div>
+                  <p class="policy-card__label">Coverage Type</p>
+                  <p class="policy-card__value">{{ featured.coverageType }}</p>
+                </div>
+                <div>
+                  <p class="policy-card__label">Coverage Period</p>
+                  <p class="policy-card__value">{{ featured.coveragePeriod }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="policy-card__divider" role="presentation"></div>
+
+            <div class="policy-card__featured-actions">
+              <button
+                type="button"
+                class="policy-card__featured-cta"
+                [class.policy-card__featured-cta--hidden]="!featured.secondaryAction"
+              >
+                {{ featured.secondaryAction ? 'Get Quote' : 'View Details' }}
+              </button>
+              <button type="button" class="policy-card__featured-link">View Details</button>
+            </div>
+          </article>
+        }
+
+        @if (collapsedAllPolicies().length > 0) {
+          <div class="policy-stack" aria-label="Other policies">
+            @for (policy of collapsedAllPolicies(); track policy.id; let idx = $index) {
+              <article class="policy-card policy-card--collapsed" [style.--policy-card-index]="idx + 1" [style.--stack-index]="idx">
+                <div class="policy-card__top">
+                  <div class="policy-card__vehicle">
+                    <span class="policy-card__vehicle-icon">
+                      <img src="/assets/home/directions-car.svg" width="30" height="30" alt="" aria-hidden="true" />
+                    </span>
+                    <p class="policy-card__plate">{{ policy.plate }}</p>
+                  </div>
+                  <span
+                    class="policy-card__status"
+                    [class.policy-card__status--active]="policy.status === 'ACTIVE'"
+                    [class.policy-card__status--expiring]="policy.status === 'EXPIRING SOON'"
+                    [class.policy-card__status--expired]="policy.status === 'EXPIRED'"
+                  >
+                    <span class="policy-card__status-dot" aria-hidden="true"></span>
+                    {{ policy.status }}
+                  </span>
+                </div>
+                <div class="policy-card__divider" role="presentation"></div>
+                <div class="policy-card__actions">
+                  <button type="button" class="policy-card__action policy-card__action--primary">
+                    View Details
+                  </button>
+                  <button
+                    type="button"
+                    class="policy-card__action policy-card__action--danger"
+                    [class.policy-card__action--hidden]="!policy.secondaryAction"
+                  >
+                    {{ policy.secondaryAction || ' ' }}
+                  </button>
+                </div>
+              </article>
+            }
+          </div>
+        }
+      </section>
+    } @else {
+      <section class="policy-cards" aria-label="Policies">
+        @for (policy of visiblePolicies(); track policy.id; let idx = $index) {
+          <article class="policy-card" [style.--policy-card-index]="idx">
           <div class="policy-card__top">
             <div class="policy-card__vehicle">
               <span class="policy-card__vehicle-icon">
@@ -166,8 +289,9 @@
             </button>
           </div>
         </article>
-      }
-    </section>
+        }
+      </section>
+    }
   </main>
 
   <a

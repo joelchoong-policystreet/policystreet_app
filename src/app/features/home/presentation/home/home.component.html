@@ -1,11 +1,11 @@
-<div class="home-page" [style.--ps-home-zoom]="heroZoomProgress()">
+<div class="home-page">
   <div class="home-page__hero">
     <header class="home-page__header" aria-label="PolicyStreet">
       <div class="home-page__header-row">
         <div class="home-page__brand">
           <img
-            [src]="logoWordmarkWhiteSrc"
-            width="150"
+            [src]="logoBrandSrc"
+            width="153"
             height="40"
             alt="PolicyStreet"
             class="home-page__brand-img"
@@ -43,33 +43,79 @@
     <div class="home-page__welcome-block">
       <div class="home-page__welcome-card">
         <div class="home-page__welcome-inner">
-          <div class="home-page__greeting">
-            <p class="home-page__greeting-line">{{ greetingPrefix() }},</p>
-            <p class="home-page__greeting-name">{{ user.firstName }}</p>
-          </div>
-          <div class="home-page__status-pill">
-            <svg
-              class="home-page__status-check"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+          <div class="home-page__welcome-intro">
+            <img
+              class="home-page__welcome-mascot"
+              src="/assets/home/welcome-layer-1.svg"
+              width="50"
+              height="55"
+              alt=""
               aria-hidden="true"
-              focusable="false"
-            >
-              <circle cx="12" cy="12" r="10" fill="#17f256" />
-              <path
-                d="M8 12.5l2.5 2.5L16 9.5"
-                stroke="#f7f7f7"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <span>All policies are up to date</span>
+            />
+            <div class="home-page__greeting">
+              <p class="home-page__greeting-line">Hello,</p>
+              <p class="home-page__greeting-name">{{ user.name }}</p>
+            </div>
           </div>
+          @if (latestPolicy) {
+            <div class="home-page__status-pill">
+              <svg
+                class="home-page__status-check"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle cx="12" cy="12" r="10" fill="#24A148" />
+                <path
+                  d="M8 12.5l2.5 2.5L16 9.5"
+                  stroke="#ffffff"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span>All policies are up to date</span>
+            </div>
+          } @else {
+            <p class="home-page__status-empty">
+              You don’t have any policies yet.<br />
+              Start by getting a quote.
+            </p>
+          }
         </div>
+      </div>
+    </div>
+
+    <div class="home-page__quick-actions-wrap">
+      <div class="home-page__quick-actions">
+        <button type="button" class="home-page__quick-btn">
+          <span class="home-page__quick-icon">
+            <img src="/assets/home/quick-action-request-quote.svg" width="40" height="40" alt="" aria-hidden="true" />
+          </span>
+          <span class="home-page__quick-label">Request New Quote</span>
+        </button>
+        <button type="button" class="home-page__quick-btn">
+          <span class="home-page__quick-icon">
+            <img src="/assets/home/quick-action-make-claim.svg" width="40" height="40" alt="" aria-hidden="true" />
+          </span>
+          <span class="home-page__quick-label">Make New Claim</span>
+        </button>
+        <button type="button" class="home-page__quick-btn">
+          <span class="home-page__quick-icon">
+            <img src="/assets/home/quick-action-contact-support.svg" width="40" height="40" alt="" aria-hidden="true" />
+          </span>
+          <span class="home-page__quick-label">Contact Support</span>
+        </button>
+        <button type="button" class="home-page__quick-btn">
+          <span class="home-page__quick-icon">
+            <img src="/assets/home/quick-action-add-vehicle.svg" width="40" height="40" alt="" aria-hidden="true" />
+          </span>
+          <span class="home-page__quick-label">Add New Vehicle</span>
+        </button>
       </div>
     </div>
 
@@ -97,13 +143,6 @@
             height="145"
             alt="Insurance that protects your stuff at home. Protect a lot of items for not a lot of money."
           />
-          <div class="home-page__carousel-pagination" aria-hidden="true">
-            <div class="home-page__carousel-pill">
-              <span class="home-page__carousel-pill-dot home-page__carousel-pill-dot--active"></span>
-              <span class="home-page__carousel-pill-dot"></span>
-              <span class="home-page__carousel-pill-dot"></span>
-            </div>
-          </div>
         </div>
         <div class="home-page__carousel-edge home-page__carousel-edge--right" aria-hidden="true">
           <img
@@ -113,6 +152,13 @@
             alt=""
             class="home-page__carousel-peek-img"
           />
+        </div>
+      </div>
+      <div class="home-page__carousel-pagination" aria-hidden="true">
+        <div class="home-page__carousel-pagination-track">
+          <span class="home-page__carousel-indicator-active"></span>
+          <img class="home-page__carousel-indicator-dot" src="/assets/home/pagination-ellipse.svg" width="10" height="10" alt="" />
+          <img class="home-page__carousel-indicator-dot" src="/assets/home/pagination-ellipse.svg" width="10" height="10" alt="" />
         </div>
       </div>
     </div>
@@ -127,26 +173,40 @@
             View All Policies
           </button>
         </div>
-        <article class="home-page__card">
-          <div class="home-page__card-row home-page__card-row--top">
-            <div>
-              <p class="home-page__plate">{{ latestPolicy.plate }}</p>
-              <p class="home-page__vehicle">{{ latestPolicy.vehicleLabel }}</p>
+        @if (latestPolicy; as policy) {
+          <article class="home-page__card">
+            <div class="home-page__card-row home-page__card-row--top">
+              <div>
+                <p class="home-page__plate">{{ policy.plate }}</p>
+                <p class="home-page__vehicle">{{ policy.vehicleLabel }}</p>
+              </div>
+              <div class="home-page__pill home-page__pill--active">
+                <span class="home-page__pill-status-dot" aria-hidden="true"></span>
+                <span>{{ policy.status }}</span>
+              </div>
             </div>
-            <div class="home-page__pill home-page__pill--active">
-              <span class="home-page__pill-status-dot" aria-hidden="true"></span>
-              <span>{{ latestPolicy.status }}</span>
+            <div class="home-page__divider-line" role="presentation"></div>
+            <div class="home-page__card-row home-page__card-row--bottom">
+              <div class="home-page__meta">
+                <p class="home-page__coverage">{{ policy.coverageLabel }}</p>
+                <p class="home-page__muted">{{ policy.coveredUntilLabel }}</p>
+              </div>
+              <img class="home-page__chevron" src="/assets/home/arrow-forward-ios.svg" width="9" height="16" alt="" aria-hidden="true" />
             </div>
-          </div>
-          <div class="home-page__divider-line" role="presentation"></div>
-          <div class="home-page__card-row home-page__card-row--bottom">
-            <div class="home-page__meta">
-              <p class="home-page__coverage">{{ latestPolicy.coverageLabel }}</p>
-              <p class="home-page__muted">{{ latestPolicy.coveredUntilLabel }}</p>
-            </div>
-            <img class="home-page__chevron" src="/assets/home/arrow-forward-ios.svg" width="9" height="16" alt="" aria-hidden="true" />
-          </div>
-        </article>
+          </article>
+        } @else {
+          <article class="home-page__empty-card" role="status" aria-live="polite">
+            <img
+              class="home-page__empty-icon"
+              src="/assets/home/empty-state-magnifier.svg"
+              width="20"
+              height="20"
+              alt=""
+              aria-hidden="true"
+            />
+            <p class="home-page__empty-copy">No policies found.</p>
+          </article>
+        }
       </section>
 
       <section class="home-page__section" aria-labelledby="home-latest-claim-heading">
@@ -154,62 +214,42 @@
           <h2 id="home-latest-claim-heading" class="home-page__h2">Latest Claim</h2>
           <button type="button" class="home-page__link-btn">View All Claims</button>
         </div>
-        <article class="home-page__card">
-          <div class="home-page__card-row home-page__card-row--top">
-            <div class="home-page__claim-id">
-              <div class="home-page__claim-icon-wrap">
-                <img class="home-page__claim-car" src="/assets/home/directions-car.svg" width="30" height="30" alt="" aria-hidden="true" />
+        @if (latestClaim; as claim) {
+          <article class="home-page__card">
+            <div class="home-page__card-row home-page__card-row--top">
+              <div class="home-page__claim-id">
+                <div class="home-page__claim-icon-wrap">
+                  <img class="home-page__claim-car" src="/assets/home/directions-car.svg" width="30" height="30" alt="" aria-hidden="true" />
+                </div>
+                <p class="home-page__plate">{{ claim.plate }}</p>
               </div>
-              <p class="home-page__plate">{{ latestClaim.plate }}</p>
+              <div class="home-page__pill home-page__pill--processing">
+                <span class="home-page__pill-status-dot" aria-hidden="true"></span>
+                <span>{{ claim.status }}</span>
+              </div>
             </div>
-            <div class="home-page__pill home-page__pill--processing">
-              <span class="home-page__pill-status-dot" aria-hidden="true"></span>
-              <span>{{ latestClaim.status }}</span>
+            <div class="home-page__divider-line" role="presentation"></div>
+            <div class="home-page__card-row home-page__card-row--bottom">
+              <div class="home-page__meta">
+                <p class="home-page__claim-ref">{{ claim.claimId }}</p>
+                <p class="home-page__muted">{{ claim.submittedLabel }}</p>
+              </div>
+              <img class="home-page__chevron" src="/assets/home/arrow-forward-ios.svg" width="9" height="16" alt="" aria-hidden="true" />
             </div>
-          </div>
-          <div class="home-page__divider-line" role="presentation"></div>
-          <div class="home-page__card-row home-page__card-row--bottom">
-            <div class="home-page__meta">
-              <p class="home-page__claim-ref">{{ latestClaim.claimId }}</p>
-              <p class="home-page__muted">{{ latestClaim.submittedLabel }}</p>
-            </div>
-            <img class="home-page__chevron" src="/assets/home/arrow-forward-ios.svg" width="9" height="16" alt="" aria-hidden="true" />
-          </div>
-        </article>
-      </section>
-
-      <section class="home-page__section" aria-labelledby="home-quick-actions-heading">
-        <h2 id="home-quick-actions-heading" class="home-page__h2 home-page__h2--flush">Quick Actions</h2>
-        <div class="home-page__quick-grid">
-          <div class="home-page__quick-row">
-            <button type="button" class="home-page__quick-btn">
-              <span class="home-page__quick-icon">
-                <img src="/assets/home/document-search.svg" width="24" height="24" alt="" aria-hidden="true" />
-              </span>
-              <span class="home-page__quick-label">New Quote</span>
-            </button>
-            <button type="button" class="home-page__quick-btn">
-              <span class="home-page__quick-icon">
-                <img src="/assets/home/request-quote.svg" width="24" height="24" alt="" aria-hidden="true" />
-              </span>
-              <span class="home-page__quick-label">Make New Claim</span>
-            </button>
-          </div>
-          <div class="home-page__quick-row">
-            <button type="button" class="home-page__quick-btn">
-              <span class="home-page__quick-icon">
-                <img src="/assets/home/notification-add.svg" width="24" height="24" alt="" aria-hidden="true" />
-              </span>
-              <span class="home-page__quick-label">Add New Vehicle</span>
-            </button>
-            <button type="button" class="home-page__quick-btn">
-              <span class="home-page__quick-icon">
-                <img src="/assets/home/call-quality.svg" width="24" height="24" alt="" aria-hidden="true" />
-              </span>
-              <span class="home-page__quick-label">Contact Support</span>
-            </button>
-          </div>
-        </div>
+          </article>
+        } @else {
+          <article class="home-page__empty-card" role="status" aria-live="polite">
+            <img
+              class="home-page__empty-icon"
+              src="/assets/home/empty-state-magnifier.svg"
+              width="20"
+              height="20"
+              alt=""
+              aria-hidden="true"
+            />
+            <p class="home-page__empty-copy">No claims found.</p>
+          </article>
+        }
       </section>
 
       <section class="home-page__section home-page__section--news" aria-labelledby="home-news-heading">

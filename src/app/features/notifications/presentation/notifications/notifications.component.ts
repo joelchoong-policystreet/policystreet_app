@@ -1,13 +1,20 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppBottomNavComponent } from '../../../../shared/presentation/app-bottom-nav/app-bottom-nav.component';
+import {
+  type AppNotification,
+  NOTIFICATIONS_MOCK,
+  isCritical,
+  isImportant,
+  isRead,
+  isUnread,
+  isUnreadAttentionAccent,
+  isUnreadNormalAccent,
+  notificationMatchesChip,
+  type NotificationCategory,
+} from '../../domain/notifications.model';
 
-type NotificationChip = 'all' | 'billing' | 'campaigns' | 'reminders';
-
-type NotificationItem = {
-  title: string;
-  body: string;
-  unread: boolean;
-};
+export type NotificationsChipFilter = NotificationCategory | 'all';
 
 @Component({
   selector: 'app-notifications',
@@ -17,21 +24,42 @@ type NotificationItem = {
   styleUrl: './notifications.component.scss',
 })
 export class NotificationsComponent {
-  readonly activeChip = signal<NotificationChip>('all');
+  constructor(private readonly router: Router) {}
 
-  readonly notifications: ReadonlyArray<NotificationItem> = [
-    { title: 'Payment received successfully', body: "We've received your payment of RM128.00 for #PS146..", unread: true },
-    { title: 'Your policy renews next week', body: 'Policy #MC-11823 is due for renewal on 14 Apr 2026...', unread: true },
-    { title: 'Renew now and save 10%', body: 'Complete your policy renewal before 12 Apr 2026 to...', unread: false },
-    { title: 'Premium payment due in 3 days', body: 'Your next premium payment of RM89.00 is due on 10 Apr...', unread: false },
-    { title: 'Your policy expires next week', body: 'Policy #MC-11823 is due on 14 Apr 2026. Rev...', unread: false },
-    { title: 'Invite friends and earn rewards', body: "Refer a friend to buy a policy and you'll both receive exclu...", unread: false },
-    { title: 'Raya travel protection at special rates', body: 'Planning a trip? Get insured with limited-time travel cove...', unread: false },
-    { title: 'Payment received successfully', body: "We've received your payment of RM128.00 for #PS632...", unread: false },
-  ];
+  readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
 
-  setChip(chip: NotificationChip): void {
+  readonly activeChip = signal<NotificationsChipFilter>('all');
+
+  /** Live list for mock interactions (e.g. mark as read). */
+  readonly notificationsState = signal<AppNotification[]>([...NOTIFICATIONS_MOCK]);
+
+  readonly filteredNotifications = computed(() => {
+    const chip = this.activeChip();
+    return this.notificationsState().filter((n) => notificationMatchesChip(n, chip));
+  });
+
+  readonly isUnread = isUnread;
+  readonly isRead = isRead;
+  readonly isCritical = isCritical;
+  readonly isImportant = isImportant;
+  readonly isUnreadNormalAccent = isUnreadNormalAccent;
+  readonly isUnreadAttentionAccent = isUnreadAttentionAccent;
+
+  setChip(chip: NotificationsChipFilter): void {
     this.activeChip.set(chip);
   }
-}
 
+  goBack(): void {
+    void this.router.navigate(['/home']);
+  }
+
+  /** Tap row to clear unread dot / band (mock behaviour). */
+  markAsRead(n: AppNotification): void {
+    if (n.read) {
+      return;
+    }
+    this.notificationsState.update((items) =>
+      items.map((item) => (item.id === n.id ? { ...item, read: true } : item)),
+    );
+  }
+}

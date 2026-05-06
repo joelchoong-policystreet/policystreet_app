@@ -1,12 +1,16 @@
 import {
+  afterNextRender,
   Component,
   DestroyRef,
+  ElementRef,
   HostListener,
   computed,
   effect,
   inject,
+  Injector,
   OnInit,
   signal,
+  viewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ONBOARDING_SLIDES } from '../../domain/onboarding-slides';
@@ -20,10 +24,13 @@ import { ONBOARDING_STORAGE } from '../../domain/onboarding-storage.token';
   styleUrl: './onboarding.component.scss',
 })
 export class OnboardingComponent implements OnInit {
+  private readonly injector = inject(Injector);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly onboardingStorage = inject(ONBOARDING_STORAGE);
   private readonly destroyRef = inject(DestroyRef);
+
+  readonly returningSplashVideoRef = viewChild<ElementRef<HTMLVideoElement>>('returningSplashVideo');
 
   private pointerStartX = 0;
   private autoAdvanceTimer: ReturnType<typeof setTimeout> | null = null;
@@ -35,6 +42,9 @@ export class OnboardingComponent implements OnInit {
 
   readonly currentSlide = signal(0);
 
+  /** After login (`postLogin=1`), returning users see a silent VP9-alpha clip (transparent) then home. */
+  readonly isReturningSplash = signal(false);
+
   readonly slide = computed(() => this.slides[this.currentSlide()]);
 
   readonly pageBackgroundImage = computed(() => {
@@ -42,10 +52,25 @@ export class OnboardingComponent implements OnInit {
     return `url("${src}")`;
   });
 
+  /** VP9 + alpha in WebM (from qtrle ARGB); composites over a transparent page. */
+  readonly returningSplashVideoWebmSrc = '/assets/onboarding/loading-ps.webm';
+
+  /** Opaque fallback when WebM/VP9 is unavailable (e.g. some Safari builds). */
+  readonly returningSplashVideoMp4FallbackSrc = '/assets/onboarding/loading-ps.mp4';
+
   constructor() {
     this.destroyRef.onDestroy(() => this.clearAutoAdvanceTimer());
 
     effect(() => {
+      if (this.isReturningSplash()) {
+        afterNextRender(
+          () => {
+            queueMicrotask(() => this.tryPlayReturningSplashVideo());
+          },
+          { injector: this.injector },
+        );
+        return;
+      }
       const index = this.currentSlide();
       this.scheduleAutoAdvance(index);
     });
@@ -67,6 +92,12 @@ export class OnboardingComponent implements OnInit {
     // Deep-link to /onboarding: skip if already done. postLogin=1 keeps the route when revisiting after login.
     if (this.onboardingStorage.isComplete() && !afterSignIn) {
       void this.router.navigate(['/home'], { replaceUrl: true });
+      return;
+    }
+
+    if (afterSignIn && this.onboardingStorage.isComplete()) {
+      this.isReturningSplash.set(true);
+      this.clearAutoAdvanceTimer();
     }
   }
 
@@ -80,6 +111,9 @@ export class OnboardingComponent implements OnInit {
   /** Advance after 3s on slides 1–2; resets when the slide index changes (swipe / dots). */
   private scheduleAutoAdvance(index: number): void {
     this.clearAutoAdvanceTimer();
+    if (this.isReturningSplash()) {
+      return;
+    }
     if (index >= this.slideCount - 1) {
       return;
     }
@@ -91,6 +125,9 @@ export class OnboardingComponent implements OnInit {
 
   @HostListener('window:keydown', ['$event'])
   onKeydown(event: KeyboardEvent): void {
+    if (this.isReturningSplash()) {
+      return;
+    }
     if (event.key === 'ArrowRight') {
       this.goForward();
     }
@@ -100,10 +137,16 @@ export class OnboardingComponent implements OnInit {
   }
 
   onPointerDown(event: PointerEvent): void {
+    if (this.isReturningSplash()) {
+      return;
+    }
     this.pointerStartX = event.clientX;
   }
 
   onPointerUp(event: PointerEvent): void {
+    if (this.isReturningSplash()) {
+      return;
+    }
     const dx = event.clientX - this.pointerStartX;
     if (Math.abs(dx) < 48) {
       return;
@@ -144,5 +187,21 @@ export class OnboardingComponent implements OnInit {
   finish(): void {
     this.onboardingStorage.markComplete();
     void this.router.navigate(['/home']);
+  }
+
+  goHomeAfterReturningSplash(): void {
+    void this.router.navigate(['/home']);
+  }
+
+  /** Autoplay policies are finicky across browsers; mute + programmatic play improves reliability post-navigation. */
+  private tryPlayReturningSplashVideo(): void {
+    const video = this.returningSplashVideoRef()?.nativeElement;
+    if (!video) {
+      return;
+    }
+    video.muted = true;
+    void video.play().catch(() => {
+      /* User can tap Skip if autoplay remains blocked */
+    });
   }
 }

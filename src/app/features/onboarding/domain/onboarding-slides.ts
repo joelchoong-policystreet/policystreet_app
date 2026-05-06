@@ -12,7 +12,7 @@ export const ONBOARDING_SLIDES: readonly OnboardingSlide[] = [
   {
     icon: 'none',
     headline: 'All your policies\nin one place',
-    body: 'View coverage, track expiry, and renew in seconds.',
+    body: 'View coverage, track expiry,\nand renew in seconds.',
     heroFloatLayerSrc: '/assets/onboarding/welcome-screen-2-float-1.svg',
     heroFloatLayerSrc2: '/assets/onboarding/welcome-screen-2-float-2.svg',
     heroIllustrationSrc: '/assets/onboarding/welcome-screen-2-front.svg',
@@ -21,7 +21,7 @@ export const ONBOARDING_SLIDES: readonly OnboardingSlide[] = [
   {
     icon: 'none',
     headline: 'Fast & easy\nclaims',
-    body: 'Upload documents once and submit claims in minutes.',
+    body: 'Upload documents once and submit\nclaims in minutes.',
     heroIllustrationSrc: '/assets/onboarding/welcome-screen-3-hero.svg',
     heroClockHands: {
       minuteHandSrc: '/assets/onboarding/welcome-screen-3-minute-hand.svg',

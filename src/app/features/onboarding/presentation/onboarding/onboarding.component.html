@@ -1,7 +1,7 @@
-<div class="onboarding-page">
+<div class="onboarding-page" [class.onboarding-page--returning-splash]="isReturningSplash()">
   <div
     class="onboarding-page__bg"
-    [style.background-image]="pageBackgroundImage()"
+    [style.background-image]="isReturningSplash() ? null : pageBackgroundImage()"
     aria-hidden="true"
   ></div>
 
@@ -20,6 +20,25 @@
     (pointerdown)="onPointerDown($event)"
     (pointerup)="onPointerUp($event)"
   >
+    @if (isReturningSplash()) {
+    <div class="onboarding-page__returning" role="status" aria-live="polite" aria-busy="true">
+      <div class="onboarding-page__returning-video-wrap">
+        <video
+          #returningSplashVideo
+          class="onboarding-page__returning-video"
+          preload="auto"
+          autoplay
+          muted
+          playsInline
+          (ended)="goHomeAfterReturningSplash()"
+          (error)="goHomeAfterReturningSplash()"
+        >
+          <source [src]="returningSplashVideoWebmSrc" type="video/webm" />
+          <source [src]="returningSplashVideoMp4FallbackSrc" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+    } @else {
     <div class="onboarding-page__content">
       <div class="onboarding-page__stage">
         <div class="onboarding-page__core">
@@ -180,5 +199,6 @@
         </div>
       </div>
     </div>
+    }
   </main>
 </div>
