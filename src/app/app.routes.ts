@@ -56,5 +56,12 @@ export const routes: Routes = [
         './features/notifications/presentation/notifications/notifications.component'
       ).then((m) => m.NotificationsComponent),
   },
+  {
+    path: 'documents',
+    loadComponent: () =>
+      import('./features/documents/presentation/documents/documents.component').then(
+        (m) => m.DocumentsComponent,
+      ),
+  },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

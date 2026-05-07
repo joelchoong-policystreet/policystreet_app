@@ -419,12 +419,16 @@ $_home-sky-tr: #ccecf7;
 .home-page__link-btn {
   margin: 0;
   padding: 0;
+  display: flex;
+  width: 117px;
+  justify-content: center;
+  align-items: center;
   border: none;
   background: none;
   cursor: pointer;
   font-family: 'Open Sans', Inter, sans-serif;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 18px;
   letter-spacing: 0.084px;
   color: var(--ps-primary);
@@ -432,6 +436,7 @@ $_home-sky-tr: #ccecf7;
 
 .home-page__link-btn--small {
   font-size: 12px;
+  font-weight: 400;
   line-height: 16px;
   letter-spacing: 0.072px;
 }

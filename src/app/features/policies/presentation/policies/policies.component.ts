@@ -1,7 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppBottomNavComponent } from '../../../../shared/presentation/app-bottom-nav/app-bottom-nav.component';
 
+import { AppBottomNavComponent } from '../../../../shared/presentation/app-bottom-nav/app-bottom-nav.component';
 type PolicyStatus = 'ACTIVE' | 'EXPIRING SOON' | 'EXPIRED';
 type PolicyFilter = 'all' | 'active' | 'expiring' | 'expired';
 
@@ -44,6 +44,7 @@ export class PoliciesComponent {
 
   /** Same lockup as home / onboarding / notifications. */
   readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
+
   readonly activeFilter = signal<PolicyFilter>('all');
   readonly hideExpiringNotice = signal(false);
   readonly hideExpiredNotice = signal(false);

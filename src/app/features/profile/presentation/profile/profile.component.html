@@ -2,7 +2,7 @@
   <div class="profile-page__hero">
     <header class="profile-page__header" aria-label="PolicyStreet">
       <div class="profile-page__header-row">
-        <img [src]="logoWordmarkWhiteSrc" width="150" height="40" alt="PolicyStreet" class="profile-page__brand-img" />
+        <img [src]="logoBrandSrc" width="153" height="40" alt="PolicyStreet" class="profile-page__brand-img" />
         <button
           type="button"
           class="profile-page__notify"
@@ -26,7 +26,9 @@
 
     <section class="profile-page__identity-card" aria-label="Profile summary">
       <div class="profile-page__identity-top">
-        <div class="profile-page__avatar">JI</div>
+        <div class="profile-page__avatar-frame">
+          <img class="profile-page__avatar" [src]="avatarSrc" width="50" height="55" alt="Profile avatar" />
+        </div>
         <div class="profile-page__identity-copy">
           <p class="profile-page__name">Jermaine Imerio Julian</p>
           <button type="button" class="profile-page__edit-link">Edit Details</button>
@@ -34,8 +36,8 @@
       </div>
       <div class="profile-page__divider"></div>
       <div class="profile-page__identity-bottom">
-        <span>NRIC/ID/Passport</span>
-        <strong>961014-05-1234</strong>
+        <span>Mobile Number</span>
+        <strong>+6011123456789</strong>
       </div>
     </section>
   </div>
@@ -50,7 +52,7 @@
       </div>
       <img
         class="profile-page__referral-art"
-        src="/assets/profile/referral-illustration.png"
+        src="/assets/profile/referral-illustration.svg"
         width="116"
         height="130"
         alt=""

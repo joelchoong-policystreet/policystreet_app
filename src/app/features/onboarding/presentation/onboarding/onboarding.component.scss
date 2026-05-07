@@ -74,7 +74,7 @@
   justify-content: center;
   width: 100%;
   min-height: 0;
-  padding: 24px var(--onboarding-page-gutter);
+  padding: 24px var(--onboarding-page-gutter) calc(24px + env(safe-area-inset-bottom, 0px));
   box-sizing: border-box;
   touch-action: manipulation;
   overflow-y: auto;
@@ -86,7 +86,7 @@
   align-items: stretch;
   width: 100%;
   max-width: 376px;
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   max-height: 100%;
   min-height: 0;
   align-self: stretch;
@@ -123,11 +123,11 @@
 
 /* Whole slide stacks as one block, vertically centred in main (no top-heavy flex growth) */
 .onboarding-page__stage {
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 16px;
   width: 100%;
   text-align: center;
@@ -135,7 +135,7 @@
 }
 
 .onboarding-page__core {
-  flex: 0 0 auto;
+  flex: 1 1 auto;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -162,7 +162,7 @@
   max-width: 362px;
   flex-shrink: 0;
   box-sizing: border-box;
-  min-height: min(295px, 40vh);
+  min-height: min(295px, 36vh);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -208,7 +208,7 @@
   width: auto;
   max-width: 100%;
   height: auto;
-  max-height: min(295px, 40vh);
+  max-height: min(295px, 36vh);
   object-fit: contain;
   margin-inline: auto;
 }
@@ -293,7 +293,7 @@
   display: block;
   width: 100%;
   height: auto;
-  max-height: min(295px, 40vh);
+  max-height: min(295px, 36vh);
   object-fit: contain;
 }
 
@@ -518,10 +518,10 @@ $_hour-hand-pivot-y-pct: (((41.4486 + 46.0267) / 2) / 47 * 100%);
 }
 
 /* Keeps headline / body blocks aligned across slides when copy line-count varies */
-$_onboarding-headline-min-h: calc(44px * 2 + 8px); /* two H1 lines + breathing room */
-$_onboarding-desc-min-h: 120px; /* ~4–5 body lines × 22px — stable slot, natural wrap */
-$_onboarding-dots-min-h: 40px;
-$_onboarding-action-min-h: 54px; /* matches CTA: 16 + 22 + 16 padding + line-height */
+$_onboarding-headline-min-h: clamp(56px, 10vh, calc(44px * 2 + 8px));
+$_onboarding-desc-min-h: clamp(72px, 16vh, 120px);
+$_onboarding-dots-min-h: clamp(32px, 6vh, 40px);
+$_onboarding-action-min-h: clamp(48px, 7vh, 54px);
 
 /* Titles/H1 - Extra Large/Semibold (Consumer welcome — all slides) */
 .onboarding-page__headline {
@@ -598,6 +598,8 @@ $_onboarding-action-min-h: 54px; /* matches CTA: 16 + 22 + 16 padding + line-hei
   align-items: stretch;
   width: 100%;
   flex-shrink: 0;
+  min-height: $_onboarding-action-min-h;
+  justify-content: flex-end;
 }
 
 .onboarding-page__dot {
@@ -630,6 +632,7 @@ $_onboarding-action-min-h: 54px; /* matches CTA: 16 + 22 + 16 padding + line-hei
   width: 100%;
   max-width: 100%;
   min-height: $_onboarding-action-min-h;
+  height: $_onboarding-action-min-h;
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
@@ -651,6 +654,7 @@ $_onboarding-action-min-h: 54px; /* matches CTA: 16 + 22 + 16 padding + line-hei
   align-self: stretch;
   width: 100%;
   min-height: $_onboarding-action-min-h;
+  height: $_onboarding-action-min-h;
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;

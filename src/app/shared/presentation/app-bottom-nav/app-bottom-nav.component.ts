@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-export type BottomNavTab = 'home' | 'policies' | 'claims' | 'profile';
+export type BottomNavTab = 'home' | 'policies' | 'claims' | 'profile' | 'none';
 
 @Component({
   selector: 'app-bottom-nav',
@@ -12,7 +12,7 @@ export type BottomNavTab = 'home' | 'policies' | 'claims' | 'profile';
 export class AppBottomNavComponent {
   constructor(private readonly router: Router) {}
 
-  @Input() activeTab: BottomNavTab = 'home';
+  @Input() activeTab: BottomNavTab = 'none';
 
   readonly navIconSrc = {
     home: { default: '/assets/home/nav-home.svg', active: '/assets/home/nav-home-active.svg' },
@@ -22,8 +22,15 @@ export class AppBottomNavComponent {
   } as const;
 
   goTo(tab: BottomNavTab): void {
+    if (tab === 'none') {
+      return;
+    }
     const path = tab === 'home' ? '/home' : `/${tab}`;
     void this.router.navigate([path]);
+  }
+
+  goToDocumentsHub(): void {
+    void this.router.navigate(['/documents']);
   }
 }
 

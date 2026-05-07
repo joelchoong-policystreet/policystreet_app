@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { AppBottomNavComponent } from '../../../../shared/presentation/app-bottom-nav/app-bottom-nav.component';
 
 type ProfileMenuSection = {
@@ -18,8 +19,8 @@ export class ProfileComponent {
   constructor(private readonly router: Router) {}
 
   readonly hasUnreadNotifications = signal(true);
-
-  readonly logoWordmarkWhiteSrc = '/assets/home/logo_wordmark-white.svg';
+  readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
+  readonly avatarSrc = '/assets/profile/profile-avatar.svg';
   readonly sections: ReadonlyArray<ProfileMenuSection> = [
     {
       title: 'ACCOUNT',
@@ -43,4 +44,3 @@ export class ProfileComponent {
     void this.router.navigate(['/notifications']);
   }
 }
-
