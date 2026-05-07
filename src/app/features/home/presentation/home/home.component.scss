@@ -34,13 +34,6 @@ $_home-sky-tr: #ccecf7;
   @include home-sky-mesh-background;
 }
 
-.home-page > .app-route-fade-target {
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
 .home-page__hero {
   flex-shrink: 0;
   position: sticky;
@@ -378,14 +371,17 @@ $_home-sky-tr: #ccecf7;
   flex-direction: column;
   background: #f7f7f7;
   border-radius: 20px 20px 0 0;
-  margin-top: 0;
+  margin-top: -12px;
   position: relative;
   z-index: 2;
   box-shadow: 0 -4px 24px rgba(50, 100, 150, 0.1);
 }
 
 .home-page__sheet-scroll {
-  min-height: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   padding: var(--ps-home-sheet-top-padding) 24px calc(50px + 58px);
   display: flex;
   flex-direction: column;
@@ -426,16 +422,12 @@ $_home-sky-tr: #ccecf7;
 .home-page__link-btn {
   margin: 0;
   padding: 0;
-  display: flex;
-  width: 117px;
-  justify-content: center;
-  align-items: center;
   border: none;
   background: none;
   cursor: pointer;
   font-family: 'Open Sans', Inter, sans-serif;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 18px;
   letter-spacing: 0.084px;
   color: var(--ps-primary);
@@ -443,7 +435,6 @@ $_home-sky-tr: #ccecf7;
 
 .home-page__link-btn--small {
   font-size: 12px;
-  font-weight: 400;
   line-height: 16px;
   letter-spacing: 0.072px;
 }

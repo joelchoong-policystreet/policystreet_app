@@ -63,5 +63,19 @@ export const routes: Routes = [
         (m) => m.DocumentsComponent,
       ),
   },
+  {
+    path: 'quotation',
+    loadComponent: () =>
+      import(
+        './features/quotation/presentation/quotation/quotation.component'
+      ).then((m) => m.QuotationComponent),
+  },
+  {
+    path: 'quotation/step-2',
+    loadComponent: () =>
+      import(
+        './features/quotation/presentation/quotation-step-two/quotation-step-two.component'
+      ).then((m) => m.QuotationStepTwoComponent),
+  },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

@@ -40,7 +40,8 @@ export class App implements OnInit, OnDestroy {
       this.currentPath.startsWith('/claims') ||
       this.currentPath.startsWith('/profile') ||
       this.currentPath.startsWith('/documents') ||
-      this.currentPath.startsWith('/notifications')
+      this.currentPath.startsWith('/notifications') ||
+      this.currentPath.startsWith('/quotation')
     );
   }
 
@@ -55,6 +56,9 @@ export class App implements OnInit, OnDestroy {
       return 'profile';
     }
     if (this.currentPath.startsWith('/documents')) {
+      return 'none';
+    }
+    if (this.currentPath.startsWith('/quotation')) {
       return 'none';
     }
     if (this.currentPath.startsWith('/home') || this.currentPath.startsWith('/notifications')) {
