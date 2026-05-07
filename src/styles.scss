@@ -29,3 +29,25 @@ body {
 button {
   font-family: inherit;
 }
+
+/* Route fade (no View Transitions API) to avoid mobile compositor flicker. */
+.app-route-fade-target {
+  width: 100%;
+  animation: app-route-fade-in 220ms ease-out both;
+}
+
+@keyframes app-route-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-route-fade-target {
+    animation: none !important;
+  }
+}

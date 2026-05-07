@@ -1,11 +1,9 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppBottomNavComponent } from '../../../../shared/presentation/app-bottom-nav/app-bottom-nav.component';
 
 @Component({
   selector: 'app-claims',
   standalone: true,
-  imports: [AppBottomNavComponent],
   templateUrl: './claims.component.html',
   styleUrl: './claims.component.scss',
 })

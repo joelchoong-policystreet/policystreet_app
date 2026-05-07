@@ -1,7 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AppBottomNavComponent } from '../../../../shared/presentation/app-bottom-nav/app-bottom-nav.component';
 type PolicyStatus = 'ACTIVE' | 'EXPIRING SOON' | 'EXPIRED';
 type PolicyFilter = 'all' | 'active' | 'expiring' | 'expired';
 
@@ -25,7 +24,6 @@ const POLICY_STATUS_PRIORITY: Record<PolicyStatus, number> = {
 @Component({
   selector: 'app-policies',
   standalone: true,
-  imports: [AppBottomNavComponent],
   templateUrl: './policies.component.html',
   styleUrl: './policies.component.scss',
 })

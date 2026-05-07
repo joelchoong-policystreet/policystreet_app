@@ -34,6 +34,13 @@ $_home-sky-tr: #ccecf7;
   @include home-sky-mesh-background;
 }
 
+.home-page > .app-route-fade-target {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 .home-page__hero {
   flex-shrink: 0;
   position: sticky;

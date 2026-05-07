@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AppBottomNavComponent } from '../../../../shared/presentation/app-bottom-nav/app-bottom-nav.component';
 
 type ProfileMenuSection = {
   title: string;
@@ -11,7 +10,6 @@ type ProfileMenuSection = {
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [AppBottomNavComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })

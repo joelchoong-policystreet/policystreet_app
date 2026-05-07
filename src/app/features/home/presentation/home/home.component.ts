@@ -1,13 +1,11 @@
 import { Component, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppBottomNavComponent } from '../../../../shared/presentation/app-bottom-nav/app-bottom-nav.component';
 import { SAMPLE_USER } from '../../domain/sample-user';
 import { type HomeLatestClaim, type HomeLatestPolicy, HOME_LATEST_POLICY, HOME_NEWS_ITEMS } from '../../domain/home-dashboard.model';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [AppBottomNavComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

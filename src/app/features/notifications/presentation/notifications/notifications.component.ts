@@ -1,6 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppBottomNavComponent } from '../../../../shared/presentation/app-bottom-nav/app-bottom-nav.component';
 import {
   type AppNotification,
   NOTIFICATIONS_MOCK,
@@ -19,7 +18,6 @@ export type NotificationsChipFilter = NotificationCategory | 'all';
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [AppBottomNavComponent],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.scss',
 })

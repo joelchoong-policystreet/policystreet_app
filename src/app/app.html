@@ -1,3 +1,6 @@
 <div class="app-route-shell">
   <router-outlet />
+  @if (shouldShowBottomNav()) {
+    <app-bottom-nav [activeTab]="activeBottomTab()" />
+  }
 </div>

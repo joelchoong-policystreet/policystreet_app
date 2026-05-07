@@ -1,8 +1,9 @@
 .app-bottom-nav {
   position: fixed;
   z-index: 15;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   bottom: 0;
   width: 100%;
   max-width: 430px;

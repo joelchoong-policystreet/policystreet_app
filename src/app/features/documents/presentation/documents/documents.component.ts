@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppBottomNavComponent } from '../../../../shared/presentation/app-bottom-nav/app-bottom-nav.component';
 
 type VehicleDocumentItem = {
   id: string;
@@ -11,7 +10,6 @@ type VehicleDocumentItem = {
 @Component({
   selector: 'app-documents',
   standalone: true,
-  imports: [AppBottomNavComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss',
 })
