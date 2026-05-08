@@ -100,13 +100,13 @@
 
     <div #quickActionsWrap class="home-page__quick-actions-wrap">
       <div class="home-page__quick-actions">
-        <button type="button" class="home-page__quick-btn">
+        <button type="button" class="home-page__quick-btn" (click)="goQuotation()">
           <span class="home-page__quick-icon">
             <img src="/assets/home/quick-action-request-quote.svg" width="40" height="40" alt="" aria-hidden="true" />
           </span>
           <span class="home-page__quick-label">Request New Quote</span>
         </button>
-        <button type="button" class="home-page__quick-btn">
+        <button type="button" class="home-page__quick-btn" (click)="goClaims()">
           <span class="home-page__quick-icon">
             <img src="/assets/home/quick-action-make-claim.svg" width="40" height="40" alt="" aria-hidden="true" />
           </span>

@@ -35,6 +35,7 @@ export class HomeComponent implements AfterViewInit {
   private readonly sheetInitialOverlapPx = 12;
   private readonly sheetStopGapPx = 8;
   private readonly sheetHardCapPx = 170;
+  private readonly sheetSoftCapRangePx = 28;
   private pendingScrollRaf = false;
 
   @ViewChild('heroSection') private heroSection?: ElementRef<HTMLElement>;
@@ -68,6 +69,14 @@ export class HomeComponent implements AfterViewInit {
       return;
     }
     void this.router.navigate(['/claims']);
+  }
+
+  goClaims(): void {
+    void this.router.navigate(['/claims']);
+  }
+
+  goQuotation(): void {
+    void this.router.navigate(['/quotation']);
   }
 
   ngAfterViewInit(): void {
@@ -119,7 +128,7 @@ export class HomeComponent implements AfterViewInit {
 
   private updateSheetLift(): void {
     const pageScrollTop = window.scrollY || document.documentElement.scrollTop || 0;
-    this.sheetLift.set(Math.min(Math.max(pageScrollTop, 0), this.maxSheetLift()));
+    this.sheetLift.set(this.getSmoothedLift(Math.max(pageScrollTop, 0), this.maxSheetLift()));
   }
 
   private scheduleSheetLiftUpdate(): void {
@@ -131,6 +140,24 @@ export class HomeComponent implements AfterViewInit {
       this.pendingScrollRaf = false;
       this.updateSheetLift();
     });
+  }
+
+  private getSmoothedLift(scrollTop: number, cap: number): number {
+    if (cap <= 0) {
+      return 0;
+    }
+
+    const softRange = Math.min(this.sheetSoftCapRangePx, cap);
+    const softStart = cap - softRange;
+
+    if (scrollTop <= softStart) {
+      return scrollTop;
+    }
+
+    // Asymptotic easing toward cap avoids a hard stop/snap at max lift.
+    const distanceIntoSoftZone = scrollTop - softStart;
+    const lift = cap - softRange * Math.exp(-distanceIntoSoftZone / softRange);
+    return Math.min(lift, cap);
   }
 
 }

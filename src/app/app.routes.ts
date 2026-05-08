@@ -64,6 +64,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'documents/upload',
+    loadComponent: () =>
+      import(
+        './features/documents/presentation/documents-upload/documents-upload.component'
+      ).then((m) => m.DocumentsUploadComponent),
+  },
+  {
     path: 'quotation',
     loadComponent: () =>
       import(

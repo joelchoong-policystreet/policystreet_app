@@ -7,6 +7,12 @@ type VehicleDocumentItem = {
   plate: string;
 };
 
+type PolicyDocumentItem = {
+  id: string;
+  title: string;
+  providerAndPlate: string;
+};
+
 @Component({
   selector: 'app-documents',
   standalone: true,
@@ -16,15 +22,20 @@ type VehicleDocumentItem = {
 export class DocumentsComponent {
   constructor(private readonly router: Router) {}
 
-  readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
   readonly carIconSrc = '/assets/home/directions-car-ocr.svg';
+  readonly deleteIconSrc = '/assets/documents/delete.svg';
 
   readonly vehicleDocuments: ReadonlyArray<VehicleDocumentItem> = [
     { id: 'vd1', title: 'Vehicle Grant', plate: 'VEJ1234' },
     { id: 'vd2', title: 'Vehicle Grant', plate: 'ABC8888' },
   ];
 
-  goNotifications(): void {
-    void this.router.navigate(['/notifications']);
+  readonly policyDocuments: ReadonlyArray<PolicyDocumentItem> = [
+    { id: 'pd1', title: 'Motor Insurance Policy', providerAndPlate: 'Allianz • VEJ1234' },
+    { id: 'pd2', title: 'Motor Insurance Policy', providerAndPlate: 'STMB • ABC8888' },
+  ];
+
+  goUploadDocuments(): void {
+    void this.router.navigate(['/documents/upload']);
   }
 }
