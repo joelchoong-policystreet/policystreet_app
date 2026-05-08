@@ -6,36 +6,27 @@
   background: #f7f7f7;
 }
 
-.policies-header {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 430px;
-  z-index: 20;
-  background: #fff;
-  box-shadow: 0 4px 2px #e3eaf2;
-}
-
-.policies-header__top {
-  min-height: 80px;
-  padding: 20px 24px 0;
+.policies-appbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  min-height: 64px;
+  padding: 8px 24px;
+  background: #fff;
+  border-bottom: 1px solid #e3eaf2;
+  box-shadow: 0 4px 2px #e3eaf2;
 }
 
-.policies-header__logo {
-  display: block;
-  width: 150px;
-  height: auto;
-  max-height: 40px;
-  object-fit: contain;
+.policies-appbar__title {
+  margin: 0;
+  color: #141414;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
 }
 
-.policies-header__notify {
+.policies-appbar__notify {
   position: relative;
   width: 40px;
   height: 40px;
@@ -49,11 +40,7 @@
   cursor: pointer;
 }
 
-.policies-header__notify-icon {
-  display: block;
-}
-
-.policies-header__notify-dot {
+.policies-appbar__notify-dot {
   position: absolute;
   top: 10px;
   right: 9px;
@@ -63,25 +50,8 @@
   background: #e30a12;
 }
 
-.policies-header__title-wrap {
-  height: 64px;
-  padding: 8px 24px;
-  border-bottom: 1px solid #e3eaf2;
-  display: flex;
-  align-items: center;
-}
-
-.policies-header__title {
-  margin: 0;
-  font-family: 'Open Sans', Inter, sans-serif;
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 28px;
-  color: #141414;
-}
-
 .nav-page__content {
-  padding: 168px 24px 24px;
+  padding: 24px;
   padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
 }
 
@@ -122,79 +92,6 @@
   gap: 16px;
 }
 
-.policy-notice {
-  margin-bottom: 16px;
-  padding: 16px;
-  border-radius: 8px;
-  border: 1px solid;
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.policy-notice--expiring {
-  border-color: #ff832b;
-  background: #fff4e9;
-}
-
-.policy-notice--expired {
-  border-color: #e30a12;
-  background: #fde9ea;
-}
-
-.policy-notice__content {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.policy-notice__icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-.policy-notice__icon svg {
-  display: block;
-}
-
-.policy-notice__text {
-  margin: 0;
-  font-family: 'Open Sans', Inter, sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-  letter-spacing: 0.072px;
-}
-
-.policy-notice__text strong {
-  font-weight: 700;
-}
-
-.policy-notice__text--expiring {
-  color: #8a4216;
-}
-
-.policy-notice__text--expired {
-  color: #e30a12;
-}
-
-.policy-notice__close {
-  width: 36px;
-  height: 36px;
-  margin: -8px -8px 0 0;
-  border: 0;
-  border-radius: 8px;
-  background: transparent;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
 .policy-card {
   padding: 12px;
   border-radius: 8px;
@@ -205,31 +102,19 @@
   animation-delay: calc(var(--policy-card-index, 0) * 35ms);
 }
 
-.policy-card--featured {
-  margin-bottom: 16px;
-}
-
-.policy-stack {
-  position: relative;
-  padding-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.policy-card--collapsed {
-  box-shadow: 0 2px 8px rgba(32, 53, 112, 0.08);
-}
-
-.policy-card--collapsed .policy-card__actions {
-  min-height: 24px;
+.policy-card--compact {
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .policy-card__top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
+}
+
+.policy-card__top--clickable {
+  cursor: pointer;
 }
 
 .policy-card__vehicle {
@@ -265,6 +150,7 @@
 }
 
 .policy-card__status {
+  margin-left: auto;
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
@@ -278,6 +164,27 @@
   font-weight: 700;
   line-height: 16px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.policy-card__chevron-btn {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.policy-card__chevron-btn svg {
+  display: block;
+}
+
+.policy-card__chevron--expanded {
+  transform: rotate(180deg);
 }
 
 .policy-card__status-dot {
@@ -352,45 +259,6 @@
   gap: 12px;
 }
 
-.policy-card__featured-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.policy-card__featured-cta {
-  width: 100%;
-  min-height: 54px;
-  border: 0;
-  border-radius: 16px;
-  background: #0091ff;
-  color: #fff;
-  font-family: 'Open Sans', Inter, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 22px;
-  letter-spacing: 0.096px;
-  cursor: pointer;
-}
-
-.policy-card__featured-cta--hidden {
-  visibility: hidden;
-}
-
-.policy-card__featured-link {
-  border: 0;
-  background: transparent;
-  padding: 0;
-  color: #7092bb;
-  font-family: 'Open Sans', Inter, sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16px;
-  letter-spacing: 0.072px;
-  cursor: pointer;
-}
-
 .policy-card__action {
   border: 0;
   background: transparent;
@@ -406,13 +274,15 @@
   color: #0091ff;
 }
 
-.policy-card__action--danger {
-  color: #e30a12;
-  font-weight: 500;
-}
-
-.policy-card__action--hidden {
-  visibility: hidden;
+.policy-card__action--cta {
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: #0091ff;
+  color: #fff;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  font-weight: 600;
 }
 
 .nav-page__whatsapp {

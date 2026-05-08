@@ -28,9 +28,9 @@ export function isImportant(n: AppNotification): boolean {
   return n.importance === 'important';
 }
 
-/** Unread informational items (billing / general) — pale blue band in Figma. */
+/** All unread/new items use the same pale blue accent state. */
 export function isUnreadNormalAccent(n: AppNotification): boolean {
-  return isUnread(n) && n.importance === 'normal';
+  return isUnread(n);
 }
 
 /** Unread items that need attention — pale red band in Figma. */

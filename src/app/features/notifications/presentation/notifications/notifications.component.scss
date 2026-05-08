@@ -6,6 +6,7 @@
   background: #fff;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 .notifications-page > .app-route-fade-target {
@@ -87,6 +88,7 @@
   display: flex;
   flex-direction: column;
   padding-bottom: calc(105px + env(safe-area-inset-bottom, 0px));
+  overflow-x: hidden;
 }
 
 .notifications-page__chips {
@@ -96,6 +98,12 @@
   padding: 24px;
   flex-shrink: 0;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.notifications-page__chips::-webkit-scrollbar {
+  display: none;
 }
 
 .notifications-page__chip {
@@ -121,27 +129,31 @@
 
 .notifications-page__list {
   flex: 1;
-  padding: 0 8px;
+  padding: 0 16px 16px;
   overflow-y: auto;
+}
+
+.notifications-page__list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .notifications-page__item {
   display: flex;
   align-items: center;
+  align-self: stretch;
   gap: 8px;
-  padding: 12px;
-  border-bottom: 1px solid #c4d2e3;
-  background: #fff;
+  padding: 16px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--New-Neutral-Base-PSALICE-200, #ebf6ff);
   cursor: pointer;
   text-align: left;
 }
 
 .notifications-page__item--unread-info {
-  background: #ebf6ff;
-}
-
-.notifications-page__item--unread-attention {
-  background: #fde9ea;
+  background: var(--New-Neutral-Base-PSALICE-200, #ebf6ff);
 }
 
 .notifications-page__item--read .notifications-page__item-title {
@@ -167,19 +179,25 @@
 
 .notifications-page__item-title {
   margin: 0;
-  color: #141414;
-  font-size: 14px;
-  line-height: 18px;
-  letter-spacing: 0.084px;
+  color: var(--New-Neutral-Light-Mode-900, #141414);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.15px;
 }
 
 .notifications-page__item-body {
   margin: 0;
   margin-top: 0;
-  color: #3d3d3d;
-  font-size: 12px;
-  line-height: 16px;
-  letter-spacing: 0.072px;
+  color: var(--New-Neutral-Light-Mode-900, #141414);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
   white-space: pre-line;
 }
 

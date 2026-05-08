@@ -1,26 +1,16 @@
 <div class="nav-page">
   <div class="app-route-fade-target">
-  <header class="policies-header">
-    <div class="policies-header__top">
-      <img class="policies-header__logo" [src]="logoBrandSrc" width="153" height="40" alt="PolicyStreet" />
-      <button
-        type="button"
-        class="policies-header__notify"
-        aria-label="Notifications"
-        (click)="goNotifications()"
-      >
-        <svg class="policies-header__notify-icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            fill="currentColor"
-            d="M5.00024 19.0005C4.71691 19.0005 4.47941 18.9047 4.28774 18.713C4.09608 18.5213 4.00024 18.2838 4.00024 18.0005C4.00024 17.7172 4.09608 17.4797 4.28774 17.288C4.47941 17.0963 4.71691 17.0005 5.00024 17.0005H6.00024V10.0005C6.00024 8.61716 6.41691 7.38799 7.25024 6.31299C8.08358 5.23799 9.16691 4.53382 10.5002 4.20049V3.50049C10.5002 3.08382 10.6461 2.72965 10.9377 2.43799C11.2294 2.14632 11.5836 2.00049 12.0002 2.00049C12.4169 2.00049 12.7711 2.14632 13.0627 2.43799C13.3544 2.72965 13.5002 3.08382 13.5002 3.50049V4.20049C14.8336 4.53382 15.9169 5.23799 16.7502 6.31299C17.5836 7.38799 18.0002 8.61716 18.0002 10.0005V17.0005H19.0002C19.2836 17.0005 19.5211 17.0963 19.7127 17.288C19.9044 17.4797 20.0002 17.7172 20.0002 18.0005C20.0002 18.2838 19.9044 18.5213 19.7127 18.713C19.5211 18.9047 19.2836 19.0005 19.0002 19.0005H5.00024ZM12.0002 22.0005C11.4502 22.0005 10.9794 21.8047 10.5877 21.413C10.1961 21.0213 10.0002 20.5505 10.0002 20.0005H14.0002C14.0002 20.5505 13.8044 21.0213 13.4127 21.413C13.0211 21.8047 12.5502 22.0005 12.0002 22.0005ZM8.00024 17.0005H16.0002V10.0005C16.0002 8.90049 15.6086 7.95882 14.8252 7.17549C14.0419 6.39216 13.1002 6.00049 12.0002 6.00049C10.9002 6.00049 9.95858 6.39216 9.17524 7.17549C8.39191 7.95882 8.00024 8.90049 8.00024 10.0005V17.0005Z"
-          />
-        </svg>
-        <span class="policies-header__notify-dot" aria-hidden="true"></span>
-      </button>
-    </div>
-    <div class="policies-header__title-wrap">
-      <h1 class="policies-header__title">Policies</h1>
-    </div>
+  <header class="policies-appbar">
+    <h1 class="policies-appbar__title">Policies</h1>
+    <button type="button" class="policies-appbar__notify" aria-label="Notifications" (click)="goNotifications()">
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M5.00024 19.0005C4.71691 19.0005 4.47941 18.9047 4.28774 18.713C4.09608 18.5213 4.00024 18.2838 4.00024 18.0005C4.00024 17.7172 4.09608 17.4797 4.28774 17.288C4.47941 17.0963 4.71691 17.0005 5.00024 17.0005H6.00024V10.0005C6.00024 8.61716 6.41691 7.38799 7.25024 6.31299C8.08358 5.23799 9.16691 4.53382 10.5002 4.20049V3.50049C10.5002 3.08382 10.6461 2.72965 10.9377 2.43799C11.2294 2.14632 11.5836 2.00049 12.0002 2.00049C12.4169 2.00049 12.7711 2.14632 13.0627 2.43799C13.3544 2.72965 13.5002 3.08382 13.5002 3.50049V4.20049C14.8336 4.53382 15.9169 5.23799 16.7502 6.31299C17.5836 7.38799 18.0002 8.61716 18.0002 10.0005V17.0005H19.0002C19.2836 17.0005 19.5211 17.0963 19.7127 17.288C19.9044 17.4797 20.0002 17.7172 20.0002 18.0005C20.0002 18.2838 19.9044 18.5213 19.7127 18.713C19.5211 18.9047 19.2836 19.0005 19.0002 19.0005H5.00024ZM12.0002 22.0005C11.4502 22.0005 10.9794 21.8047 10.5877 21.413C10.1961 21.0213 10.0002 20.5505 10.0002 20.0005H14.0002C14.0002 20.5505 13.8044 21.0213 13.4127 21.413C13.0211 21.8047 12.5502 22.0005 12.0002 22.0005ZM8.00024 17.0005H16.0002V10.0005C16.0002 8.90049 15.6086 7.95882 14.8252 7.17549C14.0419 6.39216 13.1002 6.00049 12.0002 6.00049C10.9002 6.00049 9.95858 6.39216 9.17524 7.17549C8.39191 7.95882 8.00024 8.90049 8.00024 10.0005V17.0005Z"
+        />
+      </svg>
+      <span class="policies-appbar__notify-dot" aria-hidden="true"></span>
+    </button>
   </header>
 
   <main class="nav-page__content">
@@ -38,203 +28,14 @@
         </button>
       }
     </div>
-
-    @if (showAllUrgentNotice()) {
-      <section class="policy-notice policy-notice--expired" aria-label="Urgent policy notice">
-        <div class="policy-notice__content">
-          <span class="policy-notice__icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path
-                d="M10 1.66675L18.3333 16.6667H1.66666L10 1.66675Z"
-                stroke="#E30A12"
-                stroke-width="1.67"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path d="M10 7.50008V10.8334" stroke="#E30A12" stroke-width="1.67" stroke-linecap="round" />
-              <path d="M10 14.1667H10.0083" stroke="#E30A12" stroke-width="1.67" stroke-linecap="round" />
-            </svg>
-          </span>
-          <p class="policy-notice__text policy-notice__text--expired">
-            Some policies may be expiring soon or have expired. Renew to stay covered.
-          </p>
-        </div>
-      </section>
-    }
-
-    @if (showExpiringNotice()) {
-      <section class="policy-notice policy-notice--expiring" aria-label="Expiring policy notice">
-        <div class="policy-notice__content">
-          <span class="policy-notice__icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path
-                d="M10 1.66675L18.3333 16.6667H1.66666L10 1.66675Z"
-                stroke="#FF832B"
-                stroke-width="1.67"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path d="M10 7.50008V10.8334" stroke="#FF832B" stroke-width="1.67" stroke-linecap="round" />
-              <path d="M10 14.1667H10.0083" stroke="#FF832B" stroke-width="1.67" stroke-linecap="round" />
-            </svg>
-          </span>
-          <p class="policy-notice__text policy-notice__text--expiring">
-            Some of your policies are <strong>ending soon</strong>. Renew now so you’re still covered on the road.
-          </p>
-        </div>
-        <button
-          type="button"
-          class="policy-notice__close"
-          (click)="dismissExpiringNotice()"
-          aria-label="Dismiss expiring policy notice"
-        >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M15 5L5 15" stroke="#3D3D3D" stroke-width="1.67" stroke-linecap="round" />
-            <path d="M5 5L15 15" stroke="#3D3D3D" stroke-width="1.67" stroke-linecap="round" />
-          </svg>
-        </button>
-      </section>
-    }
-
-    @if (showExpiredNotice()) {
-      <section class="policy-notice policy-notice--expired" aria-label="Expired policy notice">
-        <div class="policy-notice__content">
-          <span class="policy-notice__icon" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path
-                d="M10 1.66675L18.3333 16.6667H1.66666L10 1.66675Z"
-                stroke="#E30A12"
-                stroke-width="1.67"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path d="M10 7.50008V10.8334" stroke="#E30A12" stroke-width="1.67" stroke-linecap="round" />
-              <path d="M10 14.1667H10.0083" stroke="#E30A12" stroke-width="1.67" stroke-linecap="round" />
-            </svg>
-          </span>
-          <p class="policy-notice__text policy-notice__text--expired">
-            Some of your policies have <strong>expired</strong>. Get a new quote now so you can stay covered on the
-            road.
-          </p>
-        </div>
-        <button
-          type="button"
-          class="policy-notice__close"
-          (click)="dismissExpiredNotice()"
-          aria-label="Dismiss expired policy notice"
-        >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M15 5L5 15" stroke="#3D3D3D" stroke-width="1.67" stroke-linecap="round" />
-            <path d="M5 5L15 15" stroke="#3D3D3D" stroke-width="1.67" stroke-linecap="round" />
-          </svg>
-        </button>
-      </section>
-    }
-
-    @if (isAllTab()) {
-      <section class="policy-cards" aria-label="Policies">
-        @if (featuredAllPolicy(); as featured) {
-          <article class="policy-card policy-card--featured" [style.--policy-card-index]="0">
-            <div class="policy-card__top">
-              <div class="policy-card__vehicle">
-                <span class="policy-card__vehicle-icon">
-                  <img src="/assets/home/directions-car.svg" width="30" height="30" alt="" aria-hidden="true" />
-                </span>
-                <p class="policy-card__plate">{{ featured.plate }}</p>
-              </div>
-              <span
-                class="policy-card__status"
-                [class.policy-card__status--active]="featured.status === 'ACTIVE'"
-                [class.policy-card__status--expiring]="featured.status === 'EXPIRING SOON'"
-                [class.policy-card__status--expired]="featured.status === 'EXPIRED'"
-              >
-                <span class="policy-card__status-dot" aria-hidden="true"></span>
-                {{ featured.status }}
-              </span>
-            </div>
-
-            <div class="policy-card__divider" role="presentation"></div>
-
-            <div class="policy-card__meta-group">
-              <div>
-                <p class="policy-card__label">Car Model</p>
-                <p class="policy-card__value">{{ featured.carModel }}</p>
-              </div>
-              <div>
-                <p class="policy-card__label">Policy No.</p>
-                <p class="policy-card__value">{{ featured.policyNo }}</p>
-              </div>
-              <div class="policy-card__two-cols">
-                <div>
-                  <p class="policy-card__label">Coverage Type</p>
-                  <p class="policy-card__value">{{ featured.coverageType }}</p>
-                </div>
-                <div>
-                  <p class="policy-card__label">Coverage Period</p>
-                  <p class="policy-card__value">{{ featured.coveragePeriod }}</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="policy-card__divider" role="presentation"></div>
-
-            <div class="policy-card__featured-actions">
-              <button
-                type="button"
-                class="policy-card__featured-cta"
-                [class.policy-card__featured-cta--hidden]="!featured.secondaryAction"
-              >
-                {{ featured.secondaryAction ? 'Get Quote' : 'View Details' }}
-              </button>
-              <button type="button" class="policy-card__featured-link">View Details</button>
-            </div>
-          </article>
-        }
-
-        @if (collapsedAllPolicies().length > 0) {
-          <div class="policy-stack" aria-label="Other policies">
-            @for (policy of collapsedAllPolicies(); track policy.id; let idx = $index) {
-              <article class="policy-card policy-card--collapsed" [style.--policy-card-index]="idx + 1" [style.--stack-index]="idx">
-                <div class="policy-card__top">
-                  <div class="policy-card__vehicle">
-                    <span class="policy-card__vehicle-icon">
-                      <img src="/assets/home/directions-car.svg" width="30" height="30" alt="" aria-hidden="true" />
-                    </span>
-                    <p class="policy-card__plate">{{ policy.plate }}</p>
-                  </div>
-                  <span
-                    class="policy-card__status"
-                    [class.policy-card__status--active]="policy.status === 'ACTIVE'"
-                    [class.policy-card__status--expiring]="policy.status === 'EXPIRING SOON'"
-                    [class.policy-card__status--expired]="policy.status === 'EXPIRED'"
-                  >
-                    <span class="policy-card__status-dot" aria-hidden="true"></span>
-                    {{ policy.status }}
-                  </span>
-                </div>
-                <div class="policy-card__divider" role="presentation"></div>
-                <div class="policy-card__actions">
-                  <button type="button" class="policy-card__action policy-card__action--primary">
-                    View Details
-                  </button>
-                  <button
-                    type="button"
-                    class="policy-card__action policy-card__action--danger"
-                    [class.policy-card__action--hidden]="!policy.secondaryAction"
-                  >
-                    {{ policy.secondaryAction || ' ' }}
-                  </button>
-                </div>
-              </article>
-            }
-          </div>
-        }
-      </section>
-    } @else {
-      <section class="policy-cards" aria-label="Policies">
-        @for (policy of visiblePolicies(); track policy.id; let idx = $index) {
-          <article class="policy-card" [style.--policy-card-index]="idx">
-          <div class="policy-card__top">
+    <section class="policy-cards" aria-label="Policies">
+      @for (policy of visiblePolicies(); track policy.id; let idx = $index) {
+        <article class="policy-card" [class.policy-card--compact]="useDropdownCards() && !isPolicyExpanded(policy)">
+          <div
+            class="policy-card__top"
+            [class.policy-card__top--clickable]="useDropdownCards()"
+            (click)="togglePolicy(policy)"
+          >
             <div class="policy-card__vehicle">
               <span class="policy-card__vehicle-icon">
                 <img src="/assets/home/directions-car.svg" width="30" height="30" alt="" aria-hidden="true" />
@@ -250,49 +51,68 @@
               <span class="policy-card__status-dot" aria-hidden="true"></span>
               {{ policy.status }}
             </span>
+            @if (useDropdownCards()) {
+              <button
+                type="button"
+                class="policy-card__chevron-btn"
+                [attr.aria-expanded]="isPolicyExpanded(policy)"
+                [attr.aria-label]="isPolicyExpanded(policy) ? 'Collapse policy' : 'Expand policy'"
+                (click)="$event.stopPropagation(); togglePolicy(policy)"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  [class.policy-card__chevron--expanded]="isPolicyExpanded(policy)"
+                >
+                  <path
+                    d="M7.41 8.59L12 13.17L16.59 8.59L18 10L12 16L6 10L7.41 8.59Z"
+                    fill="#7092BB"
+                  />
+                </svg>
+              </button>
+            }
           </div>
 
-          <div class="policy-card__divider" role="presentation"></div>
+          @if (isPolicyExpanded(policy)) {
+            <div class="policy-card__divider" role="presentation"></div>
 
-          <div class="policy-card__meta-group">
-            <div>
-              <p class="policy-card__label">Car Model</p>
-              <p class="policy-card__value">{{ policy.carModel }}</p>
-            </div>
-            <div>
-              <p class="policy-card__label">Policy No.</p>
-              <p class="policy-card__value">{{ policy.policyNo }}</p>
-            </div>
-            <div class="policy-card__two-cols">
               <div>
-                <p class="policy-card__label">Coverage Type</p>
-                <p class="policy-card__value">{{ policy.coverageType }}</p>
+                <div class="policy-card__meta-group">
+                  <div>
+                    <p class="policy-card__label">Car Model</p>
+                    <p class="policy-card__value">{{ policy.carModel }}</p>
+                  </div>
+                  <div class="policy-card__two-cols">
+                    <div>
+                      <p class="policy-card__label">Coverage Type</p>
+                      <p class="policy-card__value">{{ policy.coverageType }}</p>
+                    </div>
+                    <div>
+                      <p class="policy-card__label">Coverage Period</p>
+                      <p class="policy-card__value">{{ policy.coveragePeriod }}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <p class="policy-card__label">Coverage Period</p>
-                <p class="policy-card__value">{{ policy.coveragePeriod }}</p>
-              </div>
+
+            <div class="policy-card__divider" role="presentation"></div>
+
+            <div class="policy-card__actions">
+              <button type="button" class="policy-card__action policy-card__action--primary">
+                View Details
+              </button>
+              @if (policy.secondaryAction) {
+                <button type="button" class="policy-card__action policy-card__action--cta">
+                  {{ policy.secondaryAction }}
+                </button>
+              }
             </div>
-          </div>
-
-          <div class="policy-card__divider" role="presentation"></div>
-
-          <div class="policy-card__actions">
-            <button type="button" class="policy-card__action policy-card__action--primary">
-              View Details
-            </button>
-            <button
-              type="button"
-              class="policy-card__action policy-card__action--danger"
-              [class.policy-card__action--hidden]="!policy.secondaryAction"
-            >
-              {{ policy.secondaryAction || ' ' }}
-            </button>
-          </div>
+          }
         </article>
-        }
-      </section>
-    }
+      }
+    </section>
   </main>
 
   <a

@@ -68,27 +68,28 @@
     </section>
 
     <section class="notifications-page__list" aria-label="Notification list">
-      @for (item of filteredNotifications(); track item.id) {
-        <article
-          role="button"
-          tabindex="0"
-          class="notifications-page__item"
-          [class.notifications-page__item--unread-info]="isUnreadNormalAccent(item)"
-          [class.notifications-page__item--unread-attention]="isUnreadAttentionAccent(item)"
-          [class.notifications-page__item--read]="isRead(item)"
-          (click)="markAsRead(item)"
-          (keydown.enter)="markAsRead(item)"
-          (keydown.space)="$event.preventDefault(); markAsRead(item)"
-        >
-          <div class="notifications-page__item-copy">
-            <h2 class="notifications-page__item-title">{{ item.title }}</h2>
-            <p class="notifications-page__item-body">{{ item.body }}</p>
-          </div>
-          @if (isUnread(item)) {
-            <span class="notifications-page__dot" aria-hidden="true"></span>
-          }
-        </article>
-      }
+      <div class="notifications-page__list-container">
+        @for (item of filteredNotifications(); track item.id) {
+          <article
+            role="button"
+            tabindex="0"
+            class="notifications-page__item"
+            [class.notifications-page__item--unread-info]="isUnreadNormalAccent(item)"
+            [class.notifications-page__item--read]="isRead(item)"
+            (click)="markAsRead(item)"
+            (keydown.enter)="markAsRead(item)"
+            (keydown.space)="$event.preventDefault(); markAsRead(item)"
+          >
+            <div class="notifications-page__item-copy">
+              <h2 class="notifications-page__item-title">{{ item.title }}</h2>
+              <p class="notifications-page__item-body">{{ item.body }}</p>
+            </div>
+            @if (isUnread(item)) {
+              <span class="notifications-page__dot" aria-hidden="true"></span>
+            }
+          </article>
+        }
+      </div>
     </section>
   </main>
 

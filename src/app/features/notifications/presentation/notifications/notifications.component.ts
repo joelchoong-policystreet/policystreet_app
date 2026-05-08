@@ -3,11 +3,8 @@ import { Router } from '@angular/router';
 import {
   type AppNotification,
   NOTIFICATIONS_MOCK,
-  isCritical,
-  isImportant,
   isRead,
   isUnread,
-  isUnreadAttentionAccent,
   isUnreadNormalAccent,
   notificationMatchesChip,
   type NotificationCategory,
@@ -38,10 +35,7 @@ export class NotificationsComponent {
 
   readonly isUnread = isUnread;
   readonly isRead = isRead;
-  readonly isCritical = isCritical;
-  readonly isImportant = isImportant;
   readonly isUnreadNormalAccent = isUnreadNormalAccent;
-  readonly isUnreadAttentionAccent = isUnreadAttentionAccent;
 
   setChip(chip: NotificationsChipFilter): void {
     this.activeChip.set(chip);

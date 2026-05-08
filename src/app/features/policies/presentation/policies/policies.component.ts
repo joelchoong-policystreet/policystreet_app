@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { AfterViewInit, Component, computed, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 type PolicyStatus = 'ACTIVE' | 'EXPIRING SOON' | 'EXPIRED';
@@ -27,7 +27,7 @@ const POLICY_STATUS_PRIORITY: Record<PolicyStatus, number> = {
   templateUrl: './policies.component.html',
   styleUrl: './policies.component.scss',
 })
-export class PoliciesComponent {
+export class PoliciesComponent implements AfterViewInit {
   constructor(
     private readonly router: Router,
     private readonly route: ActivatedRoute,
@@ -40,12 +40,8 @@ export class PoliciesComponent {
     });
   }
 
-  /** Same lockup as home / onboarding / notifications. */
-  readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
-
   readonly activeFilter = signal<PolicyFilter>('all');
-  readonly hideExpiringNotice = signal(false);
-  readonly hideExpiredNotice = signal(false);
+  readonly expandedPolicyId = signal<string | null>(null);
 
   readonly tabs: Array<{ id: PolicyFilter; label: string }> = [
     { id: 'all', label: 'All' },
@@ -82,7 +78,7 @@ export class PoliciesComponent {
       coverageType: 'Comprehensive',
       coveragePeriod: 'DD/MM/YY - DD/MM/YY',
       status: 'EXPIRED',
-      secondaryAction: 'Get A Quote',
+      secondaryAction: 'Renew Now',
     },
     {
       id: 'p4',
@@ -120,7 +116,7 @@ export class PoliciesComponent {
       coverageType: 'Comprehensive',
       coveragePeriod: 'DD/MM/YY - DD/MM/YY',
       status: 'EXPIRED',
-      secondaryAction: 'Get A Quote',
+      secondaryAction: 'Renew Now',
     },
     {
       id: 'p8',
@@ -153,54 +149,46 @@ export class PoliciesComponent {
     });
   });
 
-  readonly featuredAllPolicy = computed(() => {
-    if (this.activeFilter() !== 'all') {
+  readonly useDropdownCards = computed(() => this.visiblePolicies().length > 3);
+  readonly effectiveExpandedPolicyId = computed(() => {
+    if (!this.useDropdownCards()) {
       return null;
     }
-    return this.visiblePolicies()[0] ?? null;
+    return this.expandedPolicyId();
   });
 
-  readonly collapsedAllPolicies = computed(() => {
-    if (this.activeFilter() !== 'all') {
-      return [];
+  ngAfterViewInit(): void {
+    // Expand the first card only once on initial load.
+    if (!this.useDropdownCards()) {
+      return;
     }
-    return this.visiblePolicies().slice(1);
-  });
-
-  readonly showExpiringNotice = computed(
-    () => this.activeFilter() === 'expiring' && !this.hideExpiringNotice(),
-  );
-
-  readonly showExpiredNotice = computed(
-    () => this.activeFilter() === 'expired' && !this.hideExpiredNotice(),
-  );
-
-  readonly showAllUrgentNotice = computed(() => {
-    if (this.activeFilter() !== 'all') {
-      return false;
+    const firstPolicy = this.visiblePolicies()[0];
+    if (firstPolicy) {
+      this.expandedPolicyId.set(firstPolicy.id);
     }
-    const featured = this.featuredAllPolicy();
-    return featured?.status === 'EXPIRED' || featured?.status === 'EXPIRING SOON';
-  });
+  }
 
   setFilter(filter: PolicyFilter): void {
     this.activeFilter.set(filter);
-  }
-
-  dismissExpiringNotice(): void {
-    this.hideExpiringNotice.set(true);
-  }
-
-  dismissExpiredNotice(): void {
-    this.hideExpiredNotice.set(true);
+    this.expandedPolicyId.set(null);
   }
 
   goNotifications(): void {
     void this.router.navigate(['/notifications']);
   }
 
-  isAllTab(): boolean {
-    return this.activeFilter() === 'all';
+  isPolicyExpanded(policy: PolicyCard): boolean {
+    if (!this.useDropdownCards()) {
+      return true;
+    }
+    return this.effectiveExpandedPolicyId() === policy.id;
+  }
+
+  togglePolicy(policy: PolicyCard): void {
+    if (!this.useDropdownCards()) {
+      return;
+    }
+    this.expandedPolicyId.update((current) => (current === policy.id ? null : policy.id));
   }
 
   private isPolicyFilter(value: string | null): value is PolicyFilter {

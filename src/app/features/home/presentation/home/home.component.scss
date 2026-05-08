@@ -680,7 +680,7 @@ $_home-sky-tr: #ccecf7;
 .home-page__news-card {
   flex: 1;
   min-width: 0;
-  background: #e3eaf2;
+  background: var(--Old-Brand-Light-Blue, #c5e6ef);
   border-radius: 10px;
   padding: 10px;
   display: flex;
