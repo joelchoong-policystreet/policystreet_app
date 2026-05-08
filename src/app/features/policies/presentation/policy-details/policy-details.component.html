@@ -1,0 +1,191 @@
+<div class="policy-details-page">
+  <div class="app-route-fade-target">
+    <header class="policy-details-page__appbar">
+      <button type="button" class="policy-details-page__icon-btn" aria-label="Back" (click)="goBack()">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+        </svg>
+      </button>
+      <h1 class="policy-details-page__title">Policy Information</h1>
+      <button type="button" class="policy-details-page__icon-btn" aria-label="Notifications" (click)="goNotifications()">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M5.00024 19.0005C4.71691 19.0005 4.47941 18.9047 4.28774 18.713C4.09608 18.5213 4.00024 18.2838 4.00024 18.0005C4.00024 17.7172 4.09608 17.4797 4.28774 17.288C4.47941 17.0963 4.71691 17.0005 5.00024 17.0005H6.00024V10.0005C6.00024 8.61716 6.41691 7.38799 7.25024 6.31299C8.08358 5.23799 9.16691 4.53382 10.5002 4.20049V3.50049C10.5002 3.08382 10.6461 2.72965 10.9377 2.43799C11.2294 2.14632 11.5836 2.00049 12.0002 2.00049C12.4169 2.00049 12.7711 2.14632 13.0627 2.43799C13.3544 2.72965 13.5002 3.08382 13.5002 3.50049V4.20049C14.8336 4.53382 15.9169 5.23799 16.7502 6.31299C17.5836 7.38799 18.0002 8.61716 18.0002 10.0005V17.0005H19.0002C19.2836 17.0005 19.5211 17.0963 19.7127 17.288C19.9044 17.4797 20.0002 17.7172 20.0002 18.0005C20.0002 18.2838 19.9044 18.5213 19.7127 18.713C19.5211 18.9047 19.2836 19.0005 19.0002 19.0005H5.00024ZM12.0002 22.0005C11.4502 22.0005 10.9794 21.8047 10.5877 21.413C10.1961 21.0213 10.0002 20.5505 10.0002 20.0005H14.0002C14.0002 20.5505 13.8044 21.0213 13.4127 21.413C13.0211 21.8047 12.5502 22.0005 12.0002 22.0005Z"
+          />
+        </svg>
+        <span class="policy-details-page__notify-dot" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main class="policy-details-page__main">
+      <section class="policy-details-page__section">
+        <header class="policy-details-page__section-head">
+          <div class="policy-details-page__section-title-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#203570" d="M12 2 4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3Zm0 10.99h6c-.45 3.56-2.89 6.74-6 7.77V13H6V6.3l6-2.25v8.94Z" />
+            </svg>
+            <h2>Protection Details</h2>
+          </div>
+          <span
+            class="policy-details-page__status"
+            [class.policy-details-page__status--active]="policy().status === 'ACTIVE'"
+            [class.policy-details-page__status--expiring]="policy().status === 'EXPIRING SOON'"
+            [class.policy-details-page__status--expired]="policy().status === 'EXPIRED'"
+          >
+            {{ policy().status }}
+          </span>
+        </header>
+
+        <article class="policy-details-page__card">
+          <div class="policy-details-page__field">
+            <p class="policy-details-page__label">Policy No.</p>
+            <p class="policy-details-page__value">{{ policy().policyNo }}</p>
+          </div>
+          <div class="policy-details-page__field">
+            <p class="policy-details-page__label">Insurer Provider</p>
+            <p class="policy-details-page__value">{{ policy().insurerProvider }}</p>
+          </div>
+          <div class="policy-details-page__field">
+            <p class="policy-details-page__label">Type of Coverage</p>
+            <p class="policy-details-page__value">{{ policy().typeOfCoverage }}</p>
+          </div>
+          <div class="policy-details-page__two-cols">
+            <div class="policy-details-page__field">
+              <p class="policy-details-page__label">Sum Insured</p>
+              <p class="policy-details-page__value">{{ policy().sumInsured }}</p>
+            </div>
+            <div class="policy-details-page__field">
+              <p class="policy-details-page__label">NCD</p>
+              <p class="policy-details-page__value">{{ policy().ncd }}</p>
+            </div>
+          </div>
+          <div class="policy-details-page__field">
+            <p class="policy-details-page__label">Coverage Period</p>
+            <p class="policy-details-page__value">{{ policy().coveragePeriod }}</p>
+          </div>
+          <div class="policy-details-page__field">
+            <p class="policy-details-page__label">Premium / Contribution Paid Amount</p>
+            <p class="policy-details-page__value policy-details-page__value--highlight">{{ policy().premiumPaidAmount }}</p>
+          </div>
+          <div class="policy-details-page__field">
+            <p class="policy-details-page__label">Add-Ons</p>
+            <ol class="policy-details-page__addons">
+              @for (addon of policy().addOns; track addon) {
+                <li>{{ addon }}</li>
+              }
+            </ol>
+          </div>
+        </article>
+      </section>
+
+      <section class="policy-details-page__section">
+        <header class="policy-details-page__section-title-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#203570" d="M19 6h-2V4H7v2H5c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2Zm-7 11c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3Zm5-8H7V8h10v1Z" />
+          </svg>
+          <h2>Vehicle Details</h2>
+        </header>
+        <article class="policy-details-page__card">
+          <div class="policy-details-page__field">
+            <p class="policy-details-page__label">Car Plate Number</p>
+            <p class="policy-details-page__value">{{ policy().carPlateNumber }}</p>
+          </div>
+          <div class="policy-details-page__field">
+            <p class="policy-details-page__label">Car Model</p>
+            <p class="policy-details-page__value">{{ policy().carModel }}</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="policy-details-page__section">
+        <header class="policy-details-page__section-title-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#203570" d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4Zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Z" />
+          </svg>
+          <h2>Personal Details</h2>
+        </header>
+        <article class="policy-details-page__card">
+          <div class="policy-details-page__field">
+            <p class="policy-details-page__label">Car Owner's Full Name (as per ID/Passport)</p>
+            <p class="policy-details-page__value">{{ policy().ownerFullName }}</p>
+          </div>
+          <div class="policy-details-page__field">
+            <p class="policy-details-page__label">Car Owner IC Number</p>
+            <p class="policy-details-page__value">{{ policy().ownerIcNumber }}</p>
+          </div>
+          <div class="policy-details-page__two-cols">
+            <div class="policy-details-page__field">
+              <p class="policy-details-page__label">Mobile number</p>
+              <p class="policy-details-page__value">{{ policy().mobileNumber }}</p>
+            </div>
+            <div class="policy-details-page__field">
+              <p class="policy-details-page__label">Email Address</p>
+              <p class="policy-details-page__value">{{ policy().emailAddress }}</p>
+            </div>
+          </div>
+          <div class="policy-details-page__two-cols">
+            <div class="policy-details-page__field">
+              <p class="policy-details-page__label">Marital Status</p>
+              <p class="policy-details-page__value">{{ policy().maritalStatus }}</p>
+            </div>
+            <div class="policy-details-page__field">
+              <p class="policy-details-page__label">Gender</p>
+              <p class="policy-details-page__value">{{ policy().gender }}</p>
+            </div>
+          </div>
+          <div class="policy-details-page__field">
+            <p class="policy-details-page__label">Residential Address</p>
+            <p class="policy-details-page__value">{{ policy().residentialAddress }}</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="policy-details-page__section">
+        <header class="policy-details-page__section-title-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#203570" d="M3 5c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V5Zm2 2v3h14V7H5Zm0 6v6h14v-6H5Z" />
+          </svg>
+          <h2>Payment Method</h2>
+        </header>
+        <article class="policy-details-page__card">
+          <div class="policy-details-page__field">
+            <p class="policy-details-page__label">Payment Method</p>
+            <p class="policy-details-page__value">{{ policy().paymentMethod }}</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="policy-details-page__section">
+        <header class="policy-details-page__section-title-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#203570" d="M6 2h9l5 5v13c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2Zm0 2v16h12V8h-4V4H6Zm2 8h8v2H8v-2Zm0 4h8v2H8v-2Z" />
+          </svg>
+          <h2>Documents</h2>
+        </header>
+        <article class="policy-details-page__card">
+          <ul class="policy-details-page__doc-list">
+            @for (doc of policy().documents; track doc) {
+              <li class="policy-details-page__doc-row">
+                <span class="policy-details-page__doc-name">{{ doc }}</span>
+                <button type="button" class="policy-details-page__doc-link">Download</button>
+              </li>
+            }
+          </ul>
+        </article>
+      </section>
+
+      <div class="policy-details-page__cta-wrap">
+      <button
+        type="button"
+        class="policy-details-page__renew-cta"
+        [class.policy-details-page__renew-cta--disabled]="isRenewDisabled()"
+        [disabled]="isRenewDisabled()"
+        (click)="onRenewNow()"
+      >
+        Renew Now
+      </button>
+      </div>
+    </main>
+  </div>
+</div>

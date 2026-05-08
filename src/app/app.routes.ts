@@ -43,6 +43,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'policies/:id',
+    loadComponent: () =>
+      import(
+        './features/policies/presentation/policy-details/policy-details.component'
+      ).then((m) => m.PolicyDetailsComponent),
+  },
+  {
     path: 'claims',
     loadComponent: () =>
       import('./features/claims/presentation/claims/claims.component').then(

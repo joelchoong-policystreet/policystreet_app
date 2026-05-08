@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, computed, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 type PolicyStatus = 'ACTIVE' | 'EXPIRING SOON' | 'EXPIRED';
 type PolicyFilter = 'all' | 'active' | 'expiring' | 'expired';
@@ -24,6 +25,7 @@ const POLICY_STATUS_PRIORITY: Record<PolicyStatus, number> = {
 @Component({
   selector: 'app-policies',
   standalone: true,
+  imports: [RouterLink],
   templateUrl: './policies.component.html',
   styleUrl: './policies.component.scss',
 })
@@ -175,6 +177,10 @@ export class PoliciesComponent implements AfterViewInit {
 
   goNotifications(): void {
     void this.router.navigate(['/notifications']);
+  }
+
+  goPolicyDetails(policyId: string): void {
+    void this.router.navigate(['/policies', policyId]);
   }
 
   isPolicyExpanded(policy: PolicyCard): boolean {

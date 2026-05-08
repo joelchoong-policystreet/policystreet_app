@@ -100,9 +100,13 @@
             <div class="policy-card__divider" role="presentation"></div>
 
             <div class="policy-card__actions">
-              <button type="button" class="policy-card__action policy-card__action--primary">
+              <a
+                class="policy-card__action policy-card__action--primary"
+                [routerLink]="['/policies', policy.id]"
+                (click)="$event.stopPropagation()"
+              >
                 View Details
-              </button>
+              </a>
               @if (policy.secondaryAction) {
                 <button type="button" class="policy-card__action policy-card__action--cta">
                   {{ policy.secondaryAction }}
