@@ -1,5 +1,13 @@
-<div class="home-page">
-  <div class="home-page__hero">
+<div
+  #homePage
+  class="home-page"
+  [style.--home-sheet-lift.px]="sheetLift()"
+  [style.--home-hero-height.px]="heroHeight()"
+>
+  <div
+    #heroSection
+    class="home-page__hero"
+  >
     <header class="home-page__header" aria-label="PolicyStreet">
       <div class="home-page__header-row">
         <div class="home-page__brand">
@@ -40,7 +48,7 @@
       </div>
     </header>
 
-    <div class="home-page__welcome-block">
+    <div #welcomeBlock class="home-page__welcome-block">
       <div class="home-page__welcome-card">
         <div class="home-page__welcome-inner">
           <div class="home-page__welcome-intro">
@@ -90,7 +98,7 @@
       </div>
     </div>
 
-    <div class="home-page__quick-actions-wrap">
+    <div #quickActionsWrap class="home-page__quick-actions-wrap">
       <div class="home-page__quick-actions">
         <button type="button" class="home-page__quick-btn">
           <span class="home-page__quick-icon">
@@ -164,10 +172,10 @@
     </div>
   </div>
 
-  <div class="home-page__sheet">
-    <div class="home-page__sheet-scroll">
+  <div #sheetSection class="home-page__sheet">
+    <div class="home-page__sheet-content">
       <section class="home-page__section" aria-labelledby="home-latest-policy-heading">
-        <div class="home-page__section-head">
+        <div class="home-page__section-head home-page__section-head--sticky">
           <h2 id="home-latest-policy-heading" class="home-page__h2">Latest Policy</h2>
           <button type="button" class="home-page__link-btn" (click)="goPoliciesAll()">
             View All Policies

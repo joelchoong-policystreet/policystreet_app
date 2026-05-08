@@ -23,6 +23,7 @@ $_home-sky-tr: #ccecf7;
 }
 
 .home-page {
+  --home-scroll-bottom-clearance: 116px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -31,14 +32,19 @@ $_home-sky-tr: #ccecf7;
   margin: 0 auto;
   width: 100%;
   position: relative;
+  overflow-x: clip;
+  padding-top: var(--home-hero-height, 0px);
   @include home-sky-mesh-background;
 }
 
 .home-page__hero {
-  flex-shrink: 0;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  z-index: 1;
   @include home-sky-mesh-background;
   box-shadow: 0 2px 14px rgba(44, 100, 160, 0.12);
   padding-top: 80px;
@@ -371,21 +377,19 @@ $_home-sky-tr: #ccecf7;
   flex-direction: column;
   background: #f7f7f7;
   border-radius: 20px 20px 0 0;
-  margin-top: -12px;
+  transform: translateY(calc(-12px - var(--home-sheet-lift, 0px)));
+  margin-bottom: calc(-1 * var(--home-sheet-lift, 0px));
   position: relative;
-  z-index: 2;
+  z-index: 3;
   box-shadow: 0 -4px 24px rgba(50, 100, 150, 0.1);
+  will-change: transform;
 }
 
-.home-page__sheet-scroll {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: var(--ps-home-sheet-top-padding) 24px calc(50px + 58px);
+.home-page__sheet-content {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  padding: var(--ps-home-sheet-top-padding) 24px calc(var(--home-scroll-bottom-clearance) + env(safe-area-inset-bottom, 0px));
 }
 
 .home-page__section {
@@ -399,6 +403,15 @@ $_home-sky-tr: #ccecf7;
   align-items: center;
   justify-content: space-between;
   padding: 0 12px 0 16px;
+}
+
+.home-page__section-head--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background: #f7f7f7;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .home-page__section--news .home-page__section-head {
@@ -861,7 +874,7 @@ $_home-sky-tr: #ccecf7;
     margin: 0 16px;
   }
 
-  .home-page__sheet-scroll {
+  .home-page__sheet-content {
     padding-left: 16px;
     padding-right: 16px;
   }
