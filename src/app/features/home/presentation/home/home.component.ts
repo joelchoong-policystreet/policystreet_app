@@ -57,7 +57,17 @@ export class HomeComponent implements AfterViewInit {
   }
 
   goPoliciesAll(): void {
+    if (!this.latestPolicy) {
+      return;
+    }
     void this.router.navigate(['/policies'], { queryParams: { filter: 'all' } });
+  }
+
+  goClaimsAll(): void {
+    if (!this.latestClaim) {
+      return;
+    }
+    void this.router.navigate(['/claims']);
   }
 
   ngAfterViewInit(): void {

@@ -446,6 +446,12 @@ $_home-sky-tr: #ccecf7;
   color: var(--ps-primary);
 }
 
+.home-page__link-btn:disabled {
+  color: #a0aab8;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .home-page__link-btn--small {
   font-size: 12px;
   line-height: 16px;

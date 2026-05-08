@@ -177,7 +177,12 @@
       <section class="home-page__section" aria-labelledby="home-latest-policy-heading">
         <div class="home-page__section-head home-page__section-head--sticky">
           <h2 id="home-latest-policy-heading" class="home-page__h2">Latest Policy</h2>
-          <button type="button" class="home-page__link-btn" (click)="goPoliciesAll()">
+          <button
+            type="button"
+            class="home-page__link-btn"
+            [disabled]="!latestPolicy"
+            (click)="goPoliciesAll()"
+          >
             View All Policies
           </button>
         </div>
@@ -220,7 +225,14 @@
       <section class="home-page__section" aria-labelledby="home-latest-claim-heading">
         <div class="home-page__section-head">
           <h2 id="home-latest-claim-heading" class="home-page__h2">Latest Claim</h2>
-          <button type="button" class="home-page__link-btn">View All Claims</button>
+          <button
+            type="button"
+            class="home-page__link-btn"
+            [disabled]="!latestClaim"
+            (click)="goClaimsAll()"
+          >
+            View All Claims
+          </button>
         </div>
         @if (latestClaim; as claim) {
           <article class="home-page__card">
