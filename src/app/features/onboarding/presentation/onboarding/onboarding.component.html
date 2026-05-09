@@ -5,15 +5,17 @@
     aria-hidden="true"
   ></div>
 
-  <header class="onboarding-header" aria-label="PolicyStreet">
-    <img
-      class="onboarding-header__logo"
-      src="/assets/home/PS Car Insurance Logo.svg"
-      width="153"
-      height="40"
-      alt="PolicyStreet Car Insurance"
-    />
-  </header>
+  @if (!isReturningSplash()) {
+    <header class="onboarding-header" aria-label="PolicyStreet">
+      <img
+        class="onboarding-header__logo"
+        src="/assets/home/PS Car Insurance Logo.svg"
+        width="153"
+        height="40"
+        alt="PolicyStreet Car Insurance"
+      />
+    </header>
+  }
 
   <main
     class="onboarding-page__main"

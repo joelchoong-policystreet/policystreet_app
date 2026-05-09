@@ -3,9 +3,8 @@
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
-  background:
-    url('/assets/login-main-graphic.png') center top / cover no-repeat,
-    #cae0f2;
+  /* Single seamless fill — avoids a “white box” baked into login-main-graphic.png */
+  background: #cae0f2;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -381,9 +380,7 @@
 
 @media (min-width: 431px) {
   .page {
-    background:
-      url('/assets/login-main-graphic.png') center top / cover no-repeat,
-      #cae0f2;
+    background: #cae0f2;
   }
 
   .top-bar,
