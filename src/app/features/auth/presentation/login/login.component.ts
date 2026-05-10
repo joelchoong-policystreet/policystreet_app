@@ -112,10 +112,15 @@ export class LoginComponent {
         const elapsed = performance.now() - startedAt;
         const remaining = Math.max(0, LoginComponent.LOGIN_ANIMATION_MS - elapsed);
         window.setTimeout(() => {
-          this.loggingIn.set(false);
-          void this.router.navigate(['/onboarding'], {
-            queryParams: { postLogin: '1' },
-          });
+          // Keep `loggingIn` true here: clearing it removes `hero__pawsper--logining` and
+          // restarts `pawsper-enter` (right → center) for a frame before the route tears down.
+          void this.router
+            .navigate(['/onboarding'], { queryParams: { postLogin: '1' } })
+            .then((navigated) => {
+              if (!navigated) {
+                this.loggingIn.set(false);
+              }
+            });
         }, remaining);
       },
       error: () => {
