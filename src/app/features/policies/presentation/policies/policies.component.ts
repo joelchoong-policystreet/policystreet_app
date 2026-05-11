@@ -1,26 +1,16 @@
-import { AfterViewInit, Component, computed, signal } from '@angular/core';
+import { AfterViewInit, Component, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { map } from 'rxjs/operators';
 
-type PolicyStatus = 'ACTIVE' | 'EXPIRING SOON' | 'EXPIRED';
-type PolicyFilter = 'all' | 'active' | 'expiring' | 'expired';
-
-type PolicyCard = {
-  id: string;
-  plate: string;
-  carModel: string;
-  policyNo: string;
-  coverageType: string;
-  coveragePeriod: string;
-  status: PolicyStatus;
-  secondaryAction?: string;
-};
-
-const POLICY_STATUS_PRIORITY: Record<PolicyStatus, number> = {
-  EXPIRED: 0,
-  'EXPIRING SOON': 1,
-  ACTIVE: 2,
-};
+import { POLICY_REPOSITORY } from '../../domain/policy-repository.token';
+import {
+  type PolicyCard,
+  type PolicyFilter,
+  sortPolicyCardsForAllTab,
+  toPolicyCard,
+} from '../../domain/policy.model';
 
 @Component({
   selector: 'app-policies',
@@ -30,17 +20,9 @@ const POLICY_STATUS_PRIORITY: Record<PolicyStatus, number> = {
   styleUrl: './policies.component.scss',
 })
 export class PoliciesComponent implements AfterViewInit {
-  constructor(
-    private readonly router: Router,
-    private readonly route: ActivatedRoute,
-  ) {
-    this.route.queryParamMap.subscribe((params) => {
-      const filter = params.get('filter');
-      if (this.isPolicyFilter(filter)) {
-        this.activeFilter.set(filter);
-      }
-    });
-  }
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly policyRepository = inject(POLICY_REPOSITORY);
 
   readonly activeFilter = signal<PolicyFilter>('all');
   readonly expandedPolicyId = signal<string | null>(null);
@@ -52,95 +34,19 @@ export class PoliciesComponent implements AfterViewInit {
     { id: 'expired', label: 'Expired' },
   ];
 
-  readonly policies: PolicyCard[] = [
-    {
-      id: 'p1',
-      plate: 'VEJ1234',
-      carModel: 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)',
-      policyNo: 'Motor-Policy20250704-1536123412341',
-      coverageType: 'Comprehensive',
-      coveragePeriod: 'DD/MM/YY - DD/MM/YY',
-      status: 'ACTIVE',
-    },
-    {
-      id: 'p2',
-      plate: 'QME1324',
-      carModel: 'MAZDA CX-5 2022 GVC PLUS 2.5G HIGH 2488 6 SP AUTOMATIC CONVENTIONAL',
-      policyNo: 'Motor-Policy20250704-1536123412341',
-      coverageType: 'Comprehensive',
-      coveragePeriod: 'DD/MM/YY - DD/MM/YY',
-      status: 'EXPIRING SOON',
-      secondaryAction: 'Renew Now',
-    },
-    {
-      id: 'p3',
-      plate: 'ABC8888',
-      carModel: 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)',
-      policyNo: 'Motor-Policy20250704-1536123412341',
-      coverageType: 'Comprehensive',
-      coveragePeriod: 'DD/MM/YY - DD/MM/YY',
-      status: 'EXPIRED',
-      secondaryAction: 'Renew Now',
-    },
-    {
-      id: 'p4',
-      plate: 'WQJ4721',
-      carModel: 'TOYOTA VIOS 2021 G 1496 7 SP CVT',
-      policyNo: 'Motor-Policy20250704-1536123412399',
-      coverageType: 'Comprehensive',
-      coveragePeriod: 'DD/MM/YY - DD/MM/YY',
-      status: 'ACTIVE',
-    },
-    {
-      id: 'p5',
-      plate: 'JTB9016',
-      carModel: 'PERODUA MYVI 2020 AV 1496 4 SP AUTOMATIC',
-      policyNo: 'Motor-Policy20250704-1536123412477',
-      coverageType: 'Third Party, Fire & Theft',
-      coveragePeriod: 'DD/MM/YY - DD/MM/YY',
-      status: 'EXPIRING SOON',
-      secondaryAction: 'Renew Now',
-    },
-    {
-      id: 'p6',
-      plate: 'PKR3308',
-      carModel: 'HONDA HR-V 2023 RS e:HEV 1498 E-CVT',
-      policyNo: 'Motor-Policy20250704-1536123412554',
-      coverageType: 'Comprehensive',
-      coveragePeriod: 'DD/MM/YY - DD/MM/YY',
-      status: 'ACTIVE',
-    },
-    {
-      id: 'p7',
-      plate: 'MNS7642',
-      carModel: 'PROTON X50 2022 PREMIUM 1477 7DCT',
-      policyNo: 'Motor-Policy20250704-1536123412631',
-      coverageType: 'Comprehensive',
-      coveragePeriod: 'DD/MM/YY - DD/MM/YY',
-      status: 'EXPIRED',
-      secondaryAction: 'Renew Now',
-    },
-    {
-      id: 'p8',
-      plate: 'BHV2195',
-      carModel: 'MAZDA 3 2021 HIGH PLUS 1998 6 SP AUTOMATIC',
-      policyNo: 'Motor-Policy20250704-1536123412702',
-      coverageType: 'Comprehensive',
-      coveragePeriod: 'DD/MM/YY - DD/MM/YY',
-      status: 'EXPIRING SOON',
-      secondaryAction: 'Renew Now',
-    },
-  ];
+  readonly policies = toSignal(
+    this.policyRepository.getPolicies().pipe(map((list) => list.map(toPolicyCard))),
+    { initialValue: [] as PolicyCard[] },
+  );
 
   readonly visiblePolicies = computed(() => {
+    const list = this.policies();
     const filter = this.activeFilter();
     if (filter === 'all') {
-      return [...this.policies].sort(
-        (a, b) => POLICY_STATUS_PRIORITY[a.status] - POLICY_STATUS_PRIORITY[b.status],
-      );
+      return sortPolicyCardsForAllTab(list);
     }
 
-    return this.policies.filter((policy) => {
+    return list.filter((policy) => {
       if (filter === 'active') {
         return policy.status === 'ACTIVE';
       }
@@ -158,6 +64,15 @@ export class PoliciesComponent implements AfterViewInit {
     }
     return this.expandedPolicyId();
   });
+
+  constructor() {
+    this.route.queryParamMap.pipe(takeUntilDestroyed()).subscribe((params) => {
+      const filter = params.get('filter');
+      if (this.isPolicyFilter(filter)) {
+        this.activeFilter.set(filter);
+      }
+    });
+  }
 
   ngAfterViewInit(): void {
     // Expand the first card only once on initial load.
@@ -201,4 +116,3 @@ export class PoliciesComponent implements AfterViewInit {
     return value === 'all' || value === 'active' || value === 'expiring' || value === 'expired';
   }
 }
-

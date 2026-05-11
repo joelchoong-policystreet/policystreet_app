@@ -1,12 +1,9 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 
-type VehicleOption = {
-  id: string;
-  plate: string;
-  model: string;
-  imageSrc: string;
-};
+import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
+import { toQuotationVehicleOptions } from '../../../policies/domain/policy.model';
 
 @Component({
   selector: 'app-quotation-step-two',
@@ -15,31 +12,19 @@ type VehicleOption = {
   styleUrl: './quotation-step-two.component.scss',
 })
 export class QuotationStepTwoComponent {
-  constructor(private readonly router: Router) {}
+  private readonly router = inject(Router);
+  private readonly policyRepository = inject(POLICY_REPOSITORY);
 
   readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
 
-  // Reusing policy vehicle data as requested.
-  readonly vehicles: ReadonlyArray<VehicleOption> = [
-    {
-      id: 'p1',
-      plate: 'VEJ1234',
-      model: 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)',
-      imageSrc: '/assets/home/directions-car.svg',
-    },
-    {
-      id: 'p2',
-      plate: 'QME1324',
-      model: 'MAZDA CX-5 2022 GVC PLUS 2.5G HIGH 2488 6 SP AUTOMATIC CONVENTIONAL',
-      imageSrc: '/assets/home/directions-car.svg',
-    },
-    {
-      id: 'p3',
-      plate: 'ABC8888',
-      model: 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)',
-      imageSrc: '/assets/home/directions-car.svg',
-    },
-  ];
+  /** Same `MotorPolicy[]` as policies list (fixture today, API later). */
+  private readonly motorPolicies = toSignal(this.policyRepository.getPolicies(), {
+    /** Stub uses `of()`; drop when wiring async HTTP + `initialValue: []`. */
+    requireSync: true,
+  });
+
+  /** Same rows as policies / policy details, in quotation card shape. */
+  readonly vehicles = computed(() => toQuotationVehicleOptions(this.motorPolicies()));
 
   readonly selectedVehicleId = signal<string | null>(null);
   readonly canContinue = computed(() => this.selectedVehicleId() !== null);
@@ -60,4 +45,3 @@ export class QuotationStepTwoComponent {
     // Next step to be implemented.
   }
 }
-

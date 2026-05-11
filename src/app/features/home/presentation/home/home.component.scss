@@ -603,6 +603,16 @@ $_home-sky-tr: #ccecf7;
   border-color: #24a148;
 }
 
+.home-page__pill--expiring {
+  background: #ff832b;
+  border-color: #ff832b;
+}
+
+.home-page__pill--expired {
+  background: #e30a12;
+  border-color: #e30a12;
+}
+
 .home-page__pill--processing {
   background: #33a1fd;
   border-color: #33a1fd;

@@ -1,9 +1,11 @@
+import type { MotorPolicy, PolicyStatus } from '../../policies/domain/policy.model';
+
 export interface HomeLatestPolicy {
   plate: string;
   vehicleLabel: string;
   coverageLabel: string;
   coveredUntilLabel: string;
-  status: 'ACTIVE';
+  status: PolicyStatus;
 }
 
 export interface HomeLatestClaim {
@@ -13,20 +15,16 @@ export interface HomeLatestClaim {
   status: 'PROCESSING';
 }
 
-export const HOME_LATEST_POLICY: HomeLatestPolicy = {
-  plate: 'ABC1234',
-  vehicleLabel: 'Proton Saga',
-  coverageLabel: 'COMPREHENSIVE',
-  coveredUntilLabel: 'Covered until 18 March 2027',
-  status: 'ACTIVE',
-};
-
-export const HOME_LATEST_CLAIM: HomeLatestClaim = {
-  plate: 'ABC1234',
-  claimId: 'PSMOT12345',
-  submittedLabel: 'Submitted on 18 April 2026',
-  status: 'PROCESSING',
-};
+/** Maps the shared motor policy record into the home “Latest Policy” card. */
+export function homeLatestPolicyFromMotor(m: MotorPolicy): HomeLatestPolicy {
+  return {
+    plate: m.plate,
+    vehicleLabel: m.carModel,
+    coverageLabel: m.coverageType.toUpperCase(),
+    coveredUntilLabel: m.coveragePeriodLong,
+    status: m.status,
+  };
+}
 
 export const HOME_NEWS_ITEMS: ReadonlyArray<{ title: string; imageSrc: string }> = [
   {

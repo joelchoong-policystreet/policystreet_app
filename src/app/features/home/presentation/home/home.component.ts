@@ -1,7 +1,14 @@
-import { AfterViewInit, Component, ElementRef, HostListener, ViewChild, computed, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, ViewChild, computed, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
+import { sortMotorPoliciesForAllTab } from '../../../policies/domain/policy.model';
 import { SAMPLE_USER } from '../../domain/sample-user';
-import { type HomeLatestClaim, type HomeLatestPolicy, HOME_LATEST_POLICY, HOME_NEWS_ITEMS } from '../../domain/home-dashboard.model';
+import {
+  type HomeLatestClaim,
+  homeLatestPolicyFromMotor,
+  HOME_NEWS_ITEMS,
+} from '../../domain/home-dashboard.model';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +17,8 @@ import { type HomeLatestClaim, type HomeLatestPolicy, HOME_LATEST_POLICY, HOME_N
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements AfterViewInit {
-  constructor(private readonly router: Router) {}
+  private readonly router = inject(Router);
+  private readonly policyRepository = inject(POLICY_REPOSITORY);
 
   /** Full-colour brand lockup for light hero backgrounds (same asset as onboarding header). */
   readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
@@ -19,11 +27,26 @@ export class HomeComponent implements AfterViewInit {
   readonly adsBannerSrc = '/assets/home/ads-banner-home-mock.png';
 
   readonly user = SAMPLE_USER;
-  /** Mock collections (API-ready): scenario = has policies, no claims. */
-  readonly policies: ReadonlyArray<HomeLatestPolicy> = [HOME_LATEST_POLICY];
-  readonly claims: ReadonlyArray<HomeLatestClaim> = [];
 
-  readonly latestPolicy = this.policies[0] ?? null;
+  private readonly motorPolicies = toSignal(this.policyRepository.getPolicies(), {
+    requireSync: true,
+  });
+
+  /**
+   * First row on Policies → “All” (same sort as `sortMotorPoliciesForAllTab` / list screen).
+   * Replace with explicit “primary” / API field when backends define it.
+   */
+  readonly latestPolicy = computed(() => {
+    const rows = this.motorPolicies();
+    if (rows.length === 0) {
+      return null;
+    }
+    const top = sortMotorPoliciesForAllTab(rows)[0];
+    return top ? homeLatestPolicyFromMotor(top) : null;
+  });
+
+  /** Mock collections (API-ready): scenario = has policies, no claims. */
+  readonly claims: ReadonlyArray<HomeLatestClaim> = [];
   readonly latestClaim = this.claims[0] ?? null;
   readonly newsItems = HOME_NEWS_ITEMS;
 
@@ -58,7 +81,7 @@ export class HomeComponent implements AfterViewInit {
   }
 
   goPoliciesAll(): void {
-    if (!this.latestPolicy) {
+    if (!this.latestPolicy()) {
       return;
     }
     void this.router.navigate(['/policies'], { queryParams: { filter: 'all' } });

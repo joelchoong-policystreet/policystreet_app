@@ -43,7 +43,7 @@
       </section>
 
       <section class="quotation-vehicle-list" aria-label="Vehicle options">
-        @for (vehicle of vehicles; track vehicle.id) {
+        @for (vehicle of vehicles(); track vehicle.id) {
           <button
             type="button"
             class="quotation-vehicle"

@@ -1,336 +1,11 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
+import { map, switchMap } from 'rxjs/operators';
 
-type PolicyDetails = {
-  id: string;
-  status: 'ACTIVE' | 'EXPIRING SOON' | 'EXPIRED';
-  policyNo: string;
-  insurerProvider: string;
-  typeOfCoverage: string;
-  sumInsured: string;
-  ncd: string;
-  coveragePeriod: string;
-  premiumPaidAmount: string;
-  addOns: string[];
-  carPlateNumber: string;
-  carModel: string;
-  ownerFullName: string;
-  ownerIcNumber: string;
-  mobileNumber: string;
-  emailAddress: string;
-  maritalStatus: string;
-  gender: string;
-  residentialAddress: string;
-  paymentMethod: string;
-  documents: string[];
-};
-
-const POLICY_DETAILS_MOCK: ReadonlyArray<PolicyDetails> = [
-  {
-    id: 'p1',
-    status: 'ACTIVE',
-    policyNo: 'Motor-Policy20250704-1536123412341',
-    insurerProvider: 'Allianz Malaysia Berhad',
-    typeOfCoverage: 'Comprehensive',
-    sumInsured: 'RM 49,000.00',
-    ncd: '55%',
-    coveragePeriod: 'DD/MM/YYYY - DD/MM/YYYY',
-    premiumPaidAmount: 'RM 1,110.97',
-    addOns: [
-      'Drive+ Membership (Standard)',
-      'Road tax renewal',
-      'Additional driver(s)',
-      'Windscreen coverage',
-      'Special Perils (flood or other convulsions of nature)',
-    ],
-    carPlateNumber: 'VEJ1234',
-    carModel: 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)',
-    ownerFullName: 'Jermaine Imerio',
-    ownerIcNumber: '970123-14-5678',
-    mobileNumber: '+6011123456789',
-    emailAddress: 'jermaine@example.com',
-    maritalStatus: 'Single',
-    gender: 'Male',
-    residentialAddress:
-      'Unit D-3A-06, Menara Suezcap 1, 2, Jalan Kerinchi Kiri, Pantai Dalam, 59200 Kuala Lumpur, Federal Territory of Kuala Lumpur',
-    paymentMethod: "E-Wallet (Touch' n Go)",
-    documents: [
-      'Cert Wording',
-      'PDS',
-      'Duty of Disclosure',
-      'Privacy Notice',
-      'Policy Wording',
-      'Policy Benefits',
-      'Payment Receipt',
-    ],
-  },
-  {
-    id: 'p2',
-    status: 'EXPIRING SOON',
-    policyNo: 'Motor-Policy20250704-1536123412341',
-    insurerProvider: 'Allianz Malaysia Berhad',
-    typeOfCoverage: 'Comprehensive',
-    sumInsured: 'RM 49,000.00',
-    ncd: '55%',
-    coveragePeriod: 'DD/MM/YYYY - DD/MM/YYYY',
-    premiumPaidAmount: 'RM 1,110.97',
-    addOns: [
-      'Drive+ Membership (Standard)',
-      'Road tax renewal',
-      'Additional driver(s)',
-      'Windscreen coverage',
-      'Special Perils (flood or other convulsions of nature)',
-    ],
-    carPlateNumber: 'QME1324',
-    carModel: 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)',
-    ownerFullName: 'Jermaine Imerio',
-    ownerIcNumber: '970123-14-5678',
-    mobileNumber: '+6011123456789',
-    emailAddress: 'jermaine@example.com',
-    maritalStatus: 'Single',
-    gender: 'Male',
-    residentialAddress:
-      'Unit D-3A-06, Menara Suezcap 1, 2, Jalan Kerinchi Kiri, Pantai Dalam, 59200 Kuala Lumpur, Federal Territory of Kuala Lumpur',
-    paymentMethod: "E-Wallet (Touch' n Go)",
-    documents: [
-      'Cert Wording',
-      'PDS',
-      'Duty of Disclosure',
-      'Privacy Notice',
-      'Policy Wording',
-      'Policy Benefits',
-      'Payment Receipt',
-    ],
-  },
-  {
-    id: 'p3',
-    status: 'EXPIRED',
-    policyNo: 'Motor-Policy20250704-1536123412341',
-    insurerProvider: 'Allianz Malaysia Berhad',
-    typeOfCoverage: 'Comprehensive',
-    sumInsured: 'RM 49,000.00',
-    ncd: '55%',
-    coveragePeriod: 'DD/MM/YYYY - DD/MM/YYYY',
-    premiumPaidAmount: 'RM 1,110.97',
-    addOns: [
-      'Drive+ Membership (Standard)',
-      'Road tax renewal',
-      'Additional driver(s)',
-      'Windscreen coverage',
-      'Special Perils (flood or other convulsions of nature)',
-    ],
-    carPlateNumber: 'ABC8888',
-    carModel: 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)',
-    ownerFullName: 'Jermaine Imerio',
-    ownerIcNumber: '970123-14-5678',
-    mobileNumber: '+6011123456789',
-    emailAddress: 'jermaine@example.com',
-    maritalStatus: 'Single',
-    gender: 'Male',
-    residentialAddress:
-      'Unit D-3A-06, Menara Suezcap 1, 2, Jalan Kerinchi Kiri, Pantai Dalam, 59200 Kuala Lumpur, Federal Territory of Kuala Lumpur',
-    paymentMethod: "E-Wallet (Touch' n Go)",
-    documents: [
-      'Cert Wording',
-      'PDS',
-      'Duty of Disclosure',
-      'Privacy Notice',
-      'Policy Wording',
-      'Policy Benefits',
-      'Payment Receipt',
-    ],
-  },
-  {
-    id: 'p4',
-    status: 'ACTIVE',
-    policyNo: 'Motor-Policy20250704-1536123412341',
-    insurerProvider: 'Allianz Malaysia Berhad',
-    typeOfCoverage: 'Comprehensive',
-    sumInsured: 'RM 49,000.00',
-    ncd: '55%',
-    coveragePeriod: 'DD/MM/YYYY - DD/MM/YYYY',
-    premiumPaidAmount: 'RM 1,110.97',
-    addOns: [
-      'Drive+ Membership (Standard)',
-      'Road tax renewal',
-      'Additional driver(s)',
-      'Windscreen coverage',
-      'Special Perils (flood or other convulsions of nature)',
-    ],
-    carPlateNumber: 'WQJ4721',
-    carModel: 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)',
-    ownerFullName: 'Jermaine Imerio',
-    ownerIcNumber: '970123-14-5678',
-    mobileNumber: '+6011123456789',
-    emailAddress: 'jermaine@example.com',
-    maritalStatus: 'Single',
-    gender: 'Male',
-    residentialAddress:
-      'Unit D-3A-06, Menara Suezcap 1, 2, Jalan Kerinchi Kiri, Pantai Dalam, 59200 Kuala Lumpur, Federal Territory of Kuala Lumpur',
-    paymentMethod: "E-Wallet (Touch' n Go)",
-    documents: [
-      'Cert Wording',
-      'PDS',
-      'Duty of Disclosure',
-      'Privacy Notice',
-      'Policy Wording',
-      'Policy Benefits',
-      'Payment Receipt',
-    ],
-  },
-  {
-    id: 'p5',
-    status: 'EXPIRING SOON',
-    policyNo: 'Motor-Policy20250704-1536123412341',
-    insurerProvider: 'Allianz Malaysia Berhad',
-    typeOfCoverage: 'Comprehensive',
-    sumInsured: 'RM 49,000.00',
-    ncd: '55%',
-    coveragePeriod: 'DD/MM/YYYY - DD/MM/YYYY',
-    premiumPaidAmount: 'RM 1,110.97',
-    addOns: [
-      'Drive+ Membership (Standard)',
-      'Road tax renewal',
-      'Additional driver(s)',
-      'Windscreen coverage',
-      'Special Perils (flood or other convulsions of nature)',
-    ],
-    carPlateNumber: 'JTB9016',
-    carModel: 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)',
-    ownerFullName: 'Jermaine Imerio',
-    ownerIcNumber: '970123-14-5678',
-    mobileNumber: '+6011123456789',
-    emailAddress: 'jermaine@example.com',
-    maritalStatus: 'Single',
-    gender: 'Male',
-    residentialAddress:
-      'Unit D-3A-06, Menara Suezcap 1, 2, Jalan Kerinchi Kiri, Pantai Dalam, 59200 Kuala Lumpur, Federal Territory of Kuala Lumpur',
-    paymentMethod: "E-Wallet (Touch' n Go)",
-    documents: [
-      'Cert Wording',
-      'PDS',
-      'Duty of Disclosure',
-      'Privacy Notice',
-      'Policy Wording',
-      'Policy Benefits',
-      'Payment Receipt',
-    ],
-  },
-  {
-    id: 'p6',
-    status: 'ACTIVE',
-    policyNo: 'Motor-Policy20250704-1536123412341',
-    insurerProvider: 'Allianz Malaysia Berhad',
-    typeOfCoverage: 'Comprehensive',
-    sumInsured: 'RM 49,000.00',
-    ncd: '55%',
-    coveragePeriod: 'DD/MM/YYYY - DD/MM/YYYY',
-    premiumPaidAmount: 'RM 1,110.97',
-    addOns: [
-      'Drive+ Membership (Standard)',
-      'Road tax renewal',
-      'Additional driver(s)',
-      'Windscreen coverage',
-      'Special Perils (flood or other convulsions of nature)',
-    ],
-    carPlateNumber: 'PKR3308',
-    carModel: 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)',
-    ownerFullName: 'Jermaine Imerio',
-    ownerIcNumber: '970123-14-5678',
-    mobileNumber: '+6011123456789',
-    emailAddress: 'jermaine@example.com',
-    maritalStatus: 'Single',
-    gender: 'Male',
-    residentialAddress:
-      'Unit D-3A-06, Menara Suezcap 1, 2, Jalan Kerinchi Kiri, Pantai Dalam, 59200 Kuala Lumpur, Federal Territory of Kuala Lumpur',
-    paymentMethod: "E-Wallet (Touch' n Go)",
-    documents: [
-      'Cert Wording',
-      'PDS',
-      'Duty of Disclosure',
-      'Privacy Notice',
-      'Policy Wording',
-      'Policy Benefits',
-      'Payment Receipt',
-    ],
-  },
-  {
-    id: 'p7',
-    status: 'EXPIRED',
-    policyNo: 'Motor-Policy20250704-1536123412341',
-    insurerProvider: 'Allianz Malaysia Berhad',
-    typeOfCoverage: 'Comprehensive',
-    sumInsured: 'RM 49,000.00',
-    ncd: '55%',
-    coveragePeriod: 'DD/MM/YYYY - DD/MM/YYYY',
-    premiumPaidAmount: 'RM 1,110.97',
-    addOns: [
-      'Drive+ Membership (Standard)',
-      'Road tax renewal',
-      'Additional driver(s)',
-      'Windscreen coverage',
-      'Special Perils (flood or other convulsions of nature)',
-    ],
-    carPlateNumber: 'MNS7642',
-    carModel: 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)',
-    ownerFullName: 'Jermaine Imerio',
-    ownerIcNumber: '970123-14-5678',
-    mobileNumber: '+6011123456789',
-    emailAddress: 'jermaine@example.com',
-    maritalStatus: 'Single',
-    gender: 'Male',
-    residentialAddress:
-      'Unit D-3A-06, Menara Suezcap 1, 2, Jalan Kerinchi Kiri, Pantai Dalam, 59200 Kuala Lumpur, Federal Territory of Kuala Lumpur',
-    paymentMethod: "E-Wallet (Touch' n Go)",
-    documents: [
-      'Cert Wording',
-      'PDS',
-      'Duty of Disclosure',
-      'Privacy Notice',
-      'Policy Wording',
-      'Policy Benefits',
-      'Payment Receipt',
-    ],
-  },
-  {
-    id: 'p8',
-    status: 'EXPIRING SOON',
-    policyNo: 'Motor-Policy20250704-1536123412341',
-    insurerProvider: 'Allianz Malaysia Berhad',
-    typeOfCoverage: 'Comprehensive',
-    sumInsured: 'RM 49,000.00',
-    ncd: '55%',
-    coveragePeriod: 'DD/MM/YYYY - DD/MM/YYYY',
-    premiumPaidAmount: 'RM 1,110.97',
-    addOns: [
-      'Drive+ Membership (Standard)',
-      'Road tax renewal',
-      'Additional driver(s)',
-      'Windscreen coverage',
-      'Special Perils (flood or other convulsions of nature)',
-    ],
-    carPlateNumber: 'BHV2195',
-    carModel: 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)',
-    ownerFullName: 'Jermaine Imerio',
-    ownerIcNumber: '970123-14-5678',
-    mobileNumber: '+6011123456789',
-    emailAddress: 'jermaine@example.com',
-    maritalStatus: 'Single',
-    gender: 'Male',
-    residentialAddress:
-      'Unit D-3A-06, Menara Suezcap 1, 2, Jalan Kerinchi Kiri, Pantai Dalam, 59200 Kuala Lumpur, Federal Territory of Kuala Lumpur',
-    paymentMethod: "E-Wallet (Touch' n Go)",
-    documents: [
-      'Cert Wording',
-      'PDS',
-      'Duty of Disclosure',
-      'Privacy Notice',
-      'Policy Wording',
-      'Policy Benefits',
-      'Payment Receipt',
-    ],
-  },
-];
+import { MOTOR_POLICIES_FIXTURE } from '../../data/motor-policies.fixture';
+import { POLICY_REPOSITORY } from '../../domain/policy-repository.token';
+import { toPolicyDetailsView } from '../../domain/policy.model';
 
 @Component({
   selector: 'app-policy-details',
@@ -339,17 +14,28 @@ const POLICY_DETAILS_MOCK: ReadonlyArray<PolicyDetails> = [
   styleUrl: './policy-details.component.scss',
 })
 export class PolicyDetailsComponent {
-  constructor(
-    private readonly router: Router,
-    private readonly route: ActivatedRoute,
-  ) {}
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly policyRepository = inject(POLICY_REPOSITORY);
 
-  readonly policy = computed(() => {
-    const id = this.route.snapshot.paramMap.get('id');
-    return POLICY_DETAILS_MOCK.find((item) => item.id === id) ?? POLICY_DETAILS_MOCK[0];
-  });
+  readonly policy = toSignal(
+    this.route.paramMap.pipe(
+      switchMap((params) =>
+        this.policyRepository.getPolicies().pipe(
+          map((all) => {
+            // Replace with real empty-state when API is wired; fixture import can then go away.
+            const list = all.length > 0 ? all : MOTOR_POLICIES_FIXTURE;
+            const id = params.get('id');
+            const motor = list.find((p) => p.id === id) ?? list[0];
+            return toPolicyDetailsView(motor);
+          }),
+        ),
+      ),
+    ),
+    { initialValue: toPolicyDetailsView(MOTOR_POLICIES_FIXTURE[0]) },
+  );
 
-  readonly isRenewDisabled = computed(() => this.policy().status === 'ACTIVE');
+  readonly isRenewDisabled = computed(() => this.policy()?.status === 'ACTIVE');
 
   goBack(): void {
     void this.router.navigate(['/policies']);

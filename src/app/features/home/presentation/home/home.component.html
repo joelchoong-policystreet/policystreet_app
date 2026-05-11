@@ -65,7 +65,7 @@
               <p class="home-page__greeting-name">{{ user.name }}</p>
             </div>
           </div>
-          @if (latestPolicy) {
+          @if (latestPolicy()) {
             <div class="home-page__status-pill">
               <svg
                 class="home-page__status-check"
@@ -180,20 +180,25 @@
           <button
             type="button"
             class="home-page__link-btn"
-            [disabled]="!latestPolicy"
+            [disabled]="!latestPolicy()"
             (click)="goPoliciesAll()"
           >
             View All Policies
           </button>
         </div>
-        @if (latestPolicy; as policy) {
+        @if (latestPolicy(); as policy) {
           <article class="home-page__card">
             <div class="home-page__card-row home-page__card-row--top">
               <div>
                 <p class="home-page__plate">{{ policy.plate }}</p>
                 <p class="home-page__vehicle">{{ policy.vehicleLabel }}</p>
               </div>
-              <div class="home-page__pill home-page__pill--active">
+              <div
+                class="home-page__pill"
+                [class.home-page__pill--active]="policy.status === 'ACTIVE'"
+                [class.home-page__pill--expiring]="policy.status === 'EXPIRING SOON'"
+                [class.home-page__pill--expired]="policy.status === 'EXPIRED'"
+              >
                 <span class="home-page__pill-status-dot" aria-hidden="true"></span>
                 <span>{{ policy.status }}</span>
               </div>
