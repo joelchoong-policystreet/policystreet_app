@@ -113,7 +113,7 @@
 .onboarding-page__returning-video-wrap {
   flex: 0 1 auto;
   width: 100%;
-  max-width: min(382px, 100%);
+  max-width: min(300px, 88vw);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -123,7 +123,7 @@
 .onboarding-page__returning-video {
   width: 100%;
   height: auto;
-  max-height: min(62dvh, 520px);
+  max-height: min(42dvh, 360px);
   display: block;
   object-fit: contain;
 }

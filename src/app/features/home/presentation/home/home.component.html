@@ -209,15 +209,18 @@
           </article>
         } @else {
           <article class="home-page__empty-card" role="status" aria-live="polite">
-            <img
-              class="home-page__empty-icon"
-              src="/assets/home/empty-state-magnifier.svg"
-              width="20"
-              height="20"
-              alt=""
-              aria-hidden="true"
-            />
-            <p class="home-page__empty-copy">No policies found.</p>
+            <div class="home-page__empty-card__icon-wrap">
+              <img
+                class="home-page__empty-card__icon"
+                src="/assets/home/empty-state-magnifier.svg"
+                width="20"
+                height="20"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+            <p class="home-page__empty-card__title">You&rsquo;re not covered yet.</p>
+            <p class="home-page__empty-card__body">Start by getting your first policy in just a few steps.</p>
           </article>
         }
       </section>
@@ -258,16 +261,19 @@
             </div>
           </article>
         } @else {
-          <article class="home-page__empty-card" role="status" aria-live="polite">
-            <img
-              class="home-page__empty-icon"
-              src="/assets/home/empty-state-magnifier.svg"
-              width="20"
-              height="20"
-              alt=""
-              aria-hidden="true"
-            />
-            <p class="home-page__empty-copy">No claims found.</p>
+          <article class="home-page__empty-card home-page__empty-card--claim" role="status" aria-live="polite">
+            <div class="home-page__empty-card__icon-wrap">
+              <img
+                class="home-page__empty-card__icon"
+                src="/assets/home/empty-state-magnifier.svg"
+                width="20"
+                height="20"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+            <p class="home-page__empty-card__title">No claims yet.</p>
+            <p class="home-page__empty-card__body">Need to file one? It only takes a few minutes.</p>
           </article>
         }
       </section>
