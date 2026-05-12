@@ -225,6 +225,7 @@ $_home-sky-tr: #ccecf7;
   align-items: center;
   gap: 4px;
   align-self: flex-start;
+  border: 0;
   padding: 3px 12px;
   border-radius: 20px;
   background: #e6f4e7;
@@ -234,6 +235,26 @@ $_home-sky-tr: #ccecf7;
   line-height: 16px;
   letter-spacing: 0.072px;
   color: #141414;
+}
+
+.home-page__status-pill:disabled {
+  cursor: default;
+}
+
+.home-page__status-pill--actionable {
+  cursor: pointer;
+}
+
+.home-page__status-pill--ok {
+  background: #e6f4e7;
+}
+
+.home-page__status-pill--expiring {
+  background: #fff1e8;
+}
+
+.home-page__status-pill--expired {
+  background: #ffe8e8;
 }
 
 .home-page__status-empty {
@@ -467,6 +488,13 @@ $_home-sky-tr: #ccecf7;
   align-items: flex-start;
   gap: 8px;
   align-self: stretch;
+}
+
+.home-page__card--action {
+  width: 100%;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
 }
 
 /* Latest Policy / Latest Claim empty — Figma 2406:7976 & 2406:7990 */

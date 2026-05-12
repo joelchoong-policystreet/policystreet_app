@@ -152,8 +152,14 @@
   text-align: left;
 }
 
+/** New / unread — pale blue card */
 .notifications-page__item--unread-info {
   background: var(--New-Neutral-Base-PSALICE-200, #ebf6ff);
+}
+
+/** Read — neutral grey card (not blue) */
+.notifications-page__item--read {
+  background: var(--New-Neutral-Light-Mode-50, #FAFAFA);
 }
 
 .notifications-page__item--read .notifications-page__item-title {

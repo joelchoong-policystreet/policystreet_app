@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+
+import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 
 @Component({
   selector: 'app-documents-upload',
@@ -8,12 +9,12 @@ import { Router } from '@angular/router';
   styleUrl: './documents-upload.component.scss',
 })
 export class DocumentsUploadComponent {
-  constructor(private readonly router: Router) {}
+  constructor(private readonly inAppNav: InAppNavigationHistoryService) {}
 
   @ViewChild('fileInput') private fileInput?: ElementRef<HTMLInputElement>;
 
   goBack(): void {
-    void this.router.navigate(['/documents']);
+    this.inAppNav.backOrNavigate(['/documents']);
   }
 
   openFilePicker(): void {

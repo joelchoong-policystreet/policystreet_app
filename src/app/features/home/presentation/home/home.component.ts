@@ -45,6 +45,38 @@ export class HomeComponent implements AfterViewInit {
     return top ? homeLatestPolicyFromMotor(top) : null;
   });
 
+  readonly heroPolicyStatus = computed<
+    { tone: 'ok' | 'expiring' | 'expired'; message: string; targetPolicyId?: string } | null
+  >(() => {
+    const rows = this.motorPolicies();
+    if (rows.length === 0) {
+      return null;
+    }
+
+    const firstExpired = sortMotorPoliciesForAllTab(rows).find(
+      (policy) => policy.status === 'EXPIRED',
+    );
+    if (firstExpired) {
+      return {
+        tone: 'expired',
+        message: 'Some policies have expired',
+        targetPolicyId: firstExpired.id,
+      };
+    }
+
+    if (rows.some((p) => p.status === 'EXPIRING SOON')) {
+      return {
+        tone: 'expiring',
+        message: 'Some policies are expiring soon',
+      };
+    }
+
+    return {
+      tone: 'ok',
+      message: 'All policies are up to date',
+    };
+  });
+
   /** Mock collections (API-ready): scenario = has policies, no claims. */
   readonly claims: ReadonlyArray<HomeLatestClaim> = [];
   readonly latestClaim = this.claims[0] ?? null;
@@ -85,6 +117,17 @@ export class HomeComponent implements AfterViewInit {
       return;
     }
     void this.router.navigate(['/policies'], { queryParams: { filter: 'all' } });
+  }
+
+  goLatestPolicyDetails(policyId: string): void {
+    void this.router.navigate(['/policies', policyId]);
+  }
+
+  goExpiredPolicyDetails(policyId?: string): void {
+    if (!policyId) {
+      return;
+    }
+    void this.router.navigate(['/policies', policyId]);
   }
 
   goClaimsAll(): void {

@@ -65,8 +65,22 @@
               <p class="home-page__greeting-name">{{ user.name }}</p>
             </div>
           </div>
-          @if (latestPolicy()) {
-            <div class="home-page__status-pill">
+          @if (heroPolicyStatus(); as statusSummary) {
+            <button
+              type="button"
+              class="home-page__status-pill"
+              [class.home-page__status-pill--ok]="statusSummary.tone === 'ok'"
+              [class.home-page__status-pill--expiring]="statusSummary.tone === 'expiring'"
+              [class.home-page__status-pill--expired]="statusSummary.tone === 'expired'"
+              [class.home-page__status-pill--actionable]="statusSummary.tone === 'expired'"
+              [disabled]="statusSummary.tone !== 'expired'"
+              [attr.aria-label]="
+                statusSummary.tone === 'expired'
+                  ? 'Open expired policy details'
+                  : 'Policy status summary'
+              "
+              (click)="goExpiredPolicyDetails(statusSummary.targetPolicyId)"
+            >
               <svg
                 class="home-page__status-check"
                 width="20"
@@ -77,7 +91,18 @@
                 aria-hidden="true"
                 focusable="false"
               >
-                <circle cx="12" cy="12" r="10" fill="#24A148" />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  [attr.fill]="
+                    statusSummary.tone === 'expired'
+                      ? '#E30A12'
+                      : statusSummary.tone === 'expiring'
+                        ? '#FF832B'
+                        : '#24A148'
+                  "
+                />
                 <path
                   d="M8 12.5l2.5 2.5L16 9.5"
                   stroke="#ffffff"
@@ -86,8 +111,8 @@
                   stroke-linejoin="round"
                 />
               </svg>
-              <span>All policies are up to date</span>
-            </div>
+              <span>{{ statusSummary.message }}</span>
+            </button>
           } @else {
             <p class="home-page__status-empty">
               You don’t have any policies yet.<br />
@@ -187,7 +212,12 @@
           </button>
         </div>
         @if (latestPolicy(); as policy) {
-          <article class="home-page__card">
+          <button
+            type="button"
+            class="home-page__card home-page__card--action"
+            [attr.aria-label]="'Open policy details for ' + policy.plate"
+            (click)="goLatestPolicyDetails(policy.id)"
+          >
             <div class="home-page__card-row home-page__card-row--top">
               <div>
                 <p class="home-page__plate">{{ policy.plate }}</p>
@@ -211,7 +241,7 @@
               </div>
               <img class="home-page__chevron" src="/assets/home/arrow-forward-ios.svg" width="9" height="16" alt="" aria-hidden="true" />
             </div>
-          </article>
+          </button>
         } @else {
           <article class="home-page__empty-card" role="status" aria-live="polite">
             <div class="home-page__empty-card__icon-wrap">

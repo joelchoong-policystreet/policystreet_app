@@ -3,6 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 
 import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
+import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 import { toQuotationVehicleOptions } from '../../../policies/domain/policy.model';
 
 @Component({
@@ -13,6 +14,7 @@ import { toQuotationVehicleOptions } from '../../../policies/domain/policy.model
 })
 export class QuotationStepTwoComponent {
   private readonly router = inject(Router);
+  private readonly inAppNav = inject(InAppNavigationHistoryService);
   private readonly policyRepository = inject(POLICY_REPOSITORY);
 
   readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
@@ -30,7 +32,7 @@ export class QuotationStepTwoComponent {
   readonly canContinue = computed(() => this.selectedVehicleId() !== null);
 
   goBack(): void {
-    void this.router.navigate(['/quotation']);
+    this.inAppNav.backOrNavigate(['/quotation']);
   }
 
   goNotifications(): void {

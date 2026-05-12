@@ -33,16 +33,48 @@ export class App implements OnInit, OnDestroy {
     this.navSub?.unsubscribe();
   }
 
+  /**
+   * Bottom nav only on main tab surfaces. Hidden on nested flows: policy details,
+   * quotation (all steps), documents upload, etc.
+   */
   shouldShowBottomNav(): boolean {
-    return (
-      this.currentPath.startsWith('/home') ||
-      this.currentPath.startsWith('/policies') ||
-      this.currentPath.startsWith('/claims') ||
-      this.currentPath.startsWith('/profile') ||
-      this.currentPath.startsWith('/documents') ||
-      this.currentPath.startsWith('/notifications') ||
-      this.currentPath.startsWith('/quotation')
-    );
+    const p = this.pathnameWithoutQuery(this.currentPath);
+
+    if (p === '/home' || p.startsWith('/home/')) {
+      return true;
+    }
+    if (p === '/policies') {
+      return true;
+    }
+    if (p.startsWith('/policies/')) {
+      return false;
+    }
+    if (p === '/claims' || p.startsWith('/claims/')) {
+      return true;
+    }
+    if (p === '/profile' || p.startsWith('/profile/')) {
+      return true;
+    }
+    if (p === '/documents') {
+      return true;
+    }
+    if (p.startsWith('/documents/')) {
+      return false;
+    }
+    if (p === '/notifications' || p.startsWith('/notifications/')) {
+      return true;
+    }
+    if (p.startsWith('/quotation')) {
+      return false;
+    }
+    return false;
+  }
+
+  private pathnameWithoutQuery(url: string): string {
+    const q = url.indexOf('?');
+    const path = q === -1 ? url : url.slice(0, q);
+    const h = path.indexOf('#');
+    return h === -1 ? path : path.slice(0, h);
   }
 
   activeBottomTab(): BottomNavTab {

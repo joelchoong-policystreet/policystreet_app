@@ -29,8 +29,8 @@ export class AppBottomNavComponent {
     void this.router.navigate([path]);
   }
 
-  goToDocumentsHub(): void {
-    void this.router.navigate(['/documents']);
+  goToDocumentsUpload(): void {
+    void this.router.navigate(['/documents/upload']);
   }
 }
 

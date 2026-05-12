@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 import {
   type AppNotification,
   NOTIFICATIONS_MOCK,
@@ -19,7 +19,7 @@ export type NotificationsChipFilter = NotificationCategory | 'all';
   styleUrl: './notifications.component.scss',
 })
 export class NotificationsComponent {
-  constructor(private readonly router: Router) {}
+  constructor(private readonly inAppNav: InAppNavigationHistoryService) {}
 
   readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
 
@@ -42,7 +42,7 @@ export class NotificationsComponent {
   }
 
   goBack(): void {
-    void this.router.navigate(['/home']);
+    this.inAppNav.backOrNavigate(['/home']);
   }
 
   /** Tap row to clear unread dot / band (mock behaviour). */

@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 
 import { AuthRepositoryStub } from './features/auth/data/auth.repository.stub';
@@ -8,9 +8,20 @@ import { POLICY_REPOSITORY } from './features/policies/domain/policy-repository.
 import { LocalOnboardingStorage } from './features/onboarding/data/local-onboarding.storage';
 import { ONBOARDING_STORAGE } from './features/onboarding/domain/onboarding-storage.token';
 import { routes } from './app.routes';
+import { InAppNavigationHistoryService } from './shared/navigation/in-app-navigation-history.service';
+
+function initInAppNavigationHistory(_history: InAppNavigationHistoryService): () => void {
+  return () => undefined;
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: initInAppNavigationHistory,
+      deps: [InAppNavigationHistoryService],
+    },
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(
       routes,

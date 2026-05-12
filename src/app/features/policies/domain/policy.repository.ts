@@ -7,4 +7,5 @@ import type { MotorPolicy } from './policy.model';
  */
 export interface PolicyRepository {
   getPolicies(): Observable<ReadonlyArray<MotorPolicy>>;
+  deletePolicy(policyId: string): Observable<void>;
 }

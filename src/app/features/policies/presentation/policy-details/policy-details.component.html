@@ -175,7 +175,14 @@
         </article>
       </section>
 
-      <div class="policy-details-page__cta-wrap">
+      <div class="policy-details-page__delete-wrap">
+        <button type="button" class="policy-details-page__delete-cta" (click)="openDeleteConfirm()">
+          Delete Policy
+        </button>
+      </div>
+    </main>
+
+    <footer class="policy-details-page__cta-bar">
       <button
         type="button"
         class="policy-details-page__renew-cta"
@@ -185,7 +192,39 @@
       >
         Renew Now
       </button>
+    </footer>
+
+    @if (isDeleteConfirmOpen()) {
+      <div
+        class="policy-details-page__modal-backdrop"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="delete-policy-title"
+        aria-describedby="delete-policy-message"
+      >
+        <div class="policy-details-page__modal">
+          <h2 id="delete-policy-title" class="policy-details-page__modal-title">Delete this policy?</h2>
+          <p id="delete-policy-message" class="policy-details-page__modal-text">
+            Please confirm that you want to delete this policy instead of renewing or updating it.
+          </p>
+          <div class="policy-details-page__modal-actions">
+            <button
+              type="button"
+              class="policy-details-page__modal-btn policy-details-page__modal-btn--cancel"
+              (click)="closeDeleteConfirm()"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="policy-details-page__modal-btn policy-details-page__modal-btn--delete"
+              (click)="onDeletePolicyConfirmed()"
+            >
+              Yes, Delete
+            </button>
+          </div>
+        </div>
       </div>
-    </main>
+    }
   </div>
 </div>

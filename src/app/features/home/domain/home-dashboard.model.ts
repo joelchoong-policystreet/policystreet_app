@@ -1,6 +1,7 @@
 import type { MotorPolicy, PolicyStatus } from '../../policies/domain/policy.model';
 
 export interface HomeLatestPolicy {
+  id: string;
   plate: string;
   vehicleLabel: string;
   coverageLabel: string;
@@ -18,6 +19,7 @@ export interface HomeLatestClaim {
 /** Maps the shared motor policy record into the home “Latest Policy” card. */
 export function homeLatestPolicyFromMotor(m: MotorPolicy): HomeLatestPolicy {
   return {
+    id: m.id,
     plate: m.plate,
     vehicleLabel: m.carModel,
     coverageLabel: m.coverageType.toUpperCase(),
