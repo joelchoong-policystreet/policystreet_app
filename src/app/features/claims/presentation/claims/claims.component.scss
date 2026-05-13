@@ -62,7 +62,7 @@ $_home-sky-tr: #ccecf7;
 .claims-page__header-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 8px;
   min-height: 60px;
   width: 100%;
@@ -74,36 +74,6 @@ $_home-sky-tr: #ccecf7;
   height: auto;
   max-height: 40px;
   object-fit: contain;
-}
-
-.claims-page__notify {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  color: #3d3d3d;
-}
-
-.claims-page__notify-icon {
-  display: block;
-  flex-shrink: 0;
-}
-
-.claims-page__notify-dot {
-  position: absolute;
-  right: 8px;
-  top: 8px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #e30a12;
 }
 
 .claims-page__content {

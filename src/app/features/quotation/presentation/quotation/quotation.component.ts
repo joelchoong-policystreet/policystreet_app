@@ -24,10 +24,6 @@ export class QuotationComponent {
     this.inAppNav.backOrNavigate(['/home']);
   }
 
-  goNotifications(): void {
-    void this.router.navigate(['/notifications']);
-  }
-
   select(target: QuoteTarget): void {
     this.selected.set(target);
   }

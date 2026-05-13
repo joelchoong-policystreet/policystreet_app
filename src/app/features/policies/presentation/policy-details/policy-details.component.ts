@@ -45,10 +45,6 @@ export class PolicyDetailsComponent {
     this.inAppNav.backOrNavigate(['/policies']);
   }
 
-  goNotifications(): void {
-    void this.router.navigate(['/notifications']);
-  }
-
   onRenewNow(): void {
     if (this.isRenewDisabled()) {
       return;

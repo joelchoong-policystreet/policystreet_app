@@ -28,9 +28,5 @@ export class AppBottomNavComponent {
     const path = tab === 'home' ? '/home' : `/${tab}`;
     void this.router.navigate([path]);
   }
-
-  goToDocumentsUpload(): void {
-    void this.router.navigate(['/documents/upload']);
-  }
 }
 

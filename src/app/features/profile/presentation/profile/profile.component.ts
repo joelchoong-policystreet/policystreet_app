@@ -1,5 +1,4 @@
-import { Component, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 
 
 type ProfileMenuSection = {
@@ -14,9 +13,6 @@ type ProfileMenuSection = {
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent {
-  constructor(private readonly router: Router) {}
-
-  readonly hasUnreadNotifications = signal(true);
   readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
   readonly avatarSrc = '/assets/profile/profile-avatar.svg';
   readonly sections: ReadonlyArray<ProfileMenuSection> = [
@@ -38,7 +34,4 @@ export class ProfileComponent {
     },
   ];
 
-  goNotifications(): void {
-    void this.router.navigate(['/notifications']);
-  }
 }

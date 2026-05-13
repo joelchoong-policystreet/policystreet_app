@@ -90,10 +90,6 @@ export class PoliciesComponent implements AfterViewInit {
     this.expandedPolicyId.set(null);
   }
 
-  goNotifications(): void {
-    void this.router.navigate(['/notifications']);
-  }
-
   goPolicyDetails(policyId: string): void {
     void this.router.navigate(['/policies', policyId]);
   }

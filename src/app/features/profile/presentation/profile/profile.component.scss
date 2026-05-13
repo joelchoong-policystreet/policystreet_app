@@ -44,7 +44,7 @@ $_home-sky-tr: #ccecf7;
 .profile-page__header-row {
   min-height: 60px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -54,25 +54,6 @@ $_home-sky-tr: #ccecf7;
   height: auto;
   max-height: 40px;
   object-fit: contain;
-}
-
-.profile-page__notify {
-  width: 40px;
-  height: 40px;
-  border: 0;
-  background: transparent;
-  color: #3d3d3d;
-  position: relative;
-}
-
-.profile-page__notify-dot {
-  position: absolute;
-  right: 8px;
-  top: 8px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #e30a12;
 }
 
 .profile-page__identity-card {

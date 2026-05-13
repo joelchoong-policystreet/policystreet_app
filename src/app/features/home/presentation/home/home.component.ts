@@ -5,7 +5,6 @@ import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.to
 import { sortMotorPoliciesForAllTab } from '../../../policies/domain/policy.model';
 import { SAMPLE_USER } from '../../domain/sample-user';
 import {
-  type HomeLatestClaim,
   homeLatestPolicyFromMotor,
   HOME_NEWS_ITEMS,
 } from '../../domain/home-dashboard.model';
@@ -22,9 +21,6 @@ export class HomeComponent implements AfterViewInit {
 
   /** Full-colour brand lockup for light hero backgrounds (same asset as onboarding header). */
   readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
-
-  /** Mock banner for home carousel preview. */
-  readonly adsBannerSrc = '/assets/home/ads-banner-home-mock.png';
 
   readonly user = SAMPLE_USER;
 
@@ -77,13 +73,8 @@ export class HomeComponent implements AfterViewInit {
     };
   });
 
-  /** Mock collections (API-ready): scenario = has policies, no claims. */
-  readonly claims: ReadonlyArray<HomeLatestClaim> = [];
-  readonly latestClaim = this.claims[0] ?? null;
   readonly newsItems = HOME_NEWS_ITEMS;
 
-  /** Set from notification/inbox state; red badge only when true. */
-  readonly hasUnreadNotifications = signal(true);
   readonly sheetLift = signal(0);
   readonly maxSheetLift = signal(0);
   readonly heroHeight = signal(0);
@@ -108,10 +99,6 @@ export class HomeComponent implements AfterViewInit {
     return 'Good evening';
   });
 
-  goNotifications(): void {
-    void this.router.navigate(['/notifications']);
-  }
-
   goPoliciesAll(): void {
     if (!this.latestPolicy()) {
       return;
@@ -128,17 +115,6 @@ export class HomeComponent implements AfterViewInit {
       return;
     }
     void this.router.navigate(['/policies', policyId]);
-  }
-
-  goClaimsAll(): void {
-    if (!this.latestClaim) {
-      return;
-    }
-    void this.router.navigate(['/claims']);
-  }
-
-  goClaims(): void {
-    void this.router.navigate(['/claims']);
   }
 
   goQuotation(): void {

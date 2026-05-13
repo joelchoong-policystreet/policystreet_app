@@ -1,6 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
 
 import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
@@ -13,7 +12,6 @@ import { toQuotationVehicleOptions } from '../../../policies/domain/policy.model
   styleUrl: './quotation-step-two.component.scss',
 })
 export class QuotationStepTwoComponent {
-  private readonly router = inject(Router);
   private readonly inAppNav = inject(InAppNavigationHistoryService);
   private readonly policyRepository = inject(POLICY_REPOSITORY);
 
@@ -33,10 +31,6 @@ export class QuotationStepTwoComponent {
 
   goBack(): void {
     this.inAppNav.backOrNavigate(['/quotation']);
-  }
-
-  goNotifications(): void {
-    void this.router.navigate(['/notifications']);
   }
 
   selectVehicle(id: string): void {

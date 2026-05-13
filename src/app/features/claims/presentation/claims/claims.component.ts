@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 
@@ -10,13 +9,9 @@ import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-
   styleUrl: './claims.component.scss',
 })
 export class ClaimsComponent implements OnInit, OnDestroy {
-  constructor(
-    private readonly router: Router,
-    private readonly inAppNav: InAppNavigationHistoryService,
-  ) {}
+  constructor(private readonly inAppNav: InAppNavigationHistoryService) {}
 
   readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
-  readonly hasUnreadNotifications = signal(true);
   readonly mainIllustrationSrc = '/assets/claims/coming-soon.svg';
   readonly rotatingIcons = [
     '/assets/claims/coming-soon-1.svg',
@@ -46,10 +41,6 @@ export class ClaimsComponent implements OnInit, OnDestroy {
       clearInterval(this.illustrationTimer);
       this.illustrationTimer = null;
     }
-  }
-
-  goNotifications(): void {
-    void this.router.navigate(['/notifications']);
   }
 
   goBack(): void {

@@ -27,7 +27,7 @@
 .quotation-page__brand-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 0 24px;
   min-height: 60px;
 }
@@ -38,28 +38,6 @@
   height: auto;
   max-height: 40px;
   object-fit: contain;
-}
-
-.quotation-page__notify {
-  width: 40px;
-  height: 40px;
-  border: 0;
-  background: transparent;
-  color: #3d3d3d;
-  position: relative;
-  display: grid;
-  place-items: center;
-  padding: 0;
-}
-
-.quotation-page__notify-dot {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #e30a12;
 }
 
 .quotation-page__appbar {
