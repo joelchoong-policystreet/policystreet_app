@@ -3,14 +3,14 @@
   <div class="profile-page__hero">
     <header class="profile-page__header" aria-label="PolicyStreet">
       <div class="profile-page__header-row">
-        <img [src]="logoBrandSrc" width="153" height="40" alt="PolicyStreet" class="profile-page__brand-img" />
+        <img [appCachedAsset]="logoBrandSrc" width="153" height="40" alt="PolicyStreet" class="profile-page__brand-img" />
       </div>
     </header>
 
     <section class="profile-page__identity-card" aria-label="Profile summary">
       <div class="profile-page__identity-top">
         <div class="profile-page__avatar-frame">
-          <img class="profile-page__avatar" [src]="avatarSrc" width="50" height="55" alt="Profile avatar" />
+          <img class="profile-page__avatar" [appCachedAsset]="avatarSrc" width="50" height="55" alt="Profile avatar" />
         </div>
         <div class="profile-page__identity-copy">
           <p class="profile-page__name">Jermaine Imerio Julian</p>
@@ -35,7 +35,7 @@
       </div>
       <img
         class="profile-page__referral-art"
-        src="/assets/profile/referral-illustration.svg"
+        appCachedAsset="/assets/profile/referral-illustration.svg"
         width="116"
         height="130"
         alt=""

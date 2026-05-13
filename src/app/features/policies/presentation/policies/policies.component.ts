@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { map } from 'rxjs/operators';
 
+import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { POLICY_REPOSITORY } from '../../domain/policy-repository.token';
 import {
   type PolicyCard,
@@ -15,7 +16,7 @@ import {
 @Component({
   selector: 'app-policies',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CachedAssetImgDirective],
   templateUrl: './policies.component.html',
   styleUrl: './policies.component.scss',
 })

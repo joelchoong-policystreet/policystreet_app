@@ -9,7 +9,7 @@
     <header class="onboarding-header" aria-label="PolicyStreet">
       <img
         class="onboarding-header__logo"
-        src="/assets/home/PS Car Insurance Logo.svg"
+        appCachedAsset="/assets/home/PS Car Insurance Logo.svg"
         width="153"
         height="40"
         alt="PolicyStreet Car Insurance"
@@ -63,7 +63,7 @@
                 <div class="onboarding-page__hero-float-images">
                   <img
                     class="onboarding-page__hero-float-layer-svg"
-                    [src]="slide().heroFloatLayerSrc"
+                    [appCachedAsset]="slide().heroFloatLayerSrc"
                     width="615"
                     height="500"
                     alt=""
@@ -71,7 +71,7 @@
                   @if (slide().heroFloatLayerSrc2) {
                     <img
                       class="onboarding-page__hero-float-layer-svg"
-                      [src]="slide().heroFloatLayerSrc2"
+                      [appCachedAsset]="slide().heroFloatLayerSrc2"
                       width="615"
                       height="500"
                       alt=""
@@ -88,7 +88,7 @@
             >
               <img
                 class="onboarding-page__hero-svg"
-                [src]="slide().heroIllustrationSrc"
+                [appCachedAsset]="slide().heroIllustrationSrc"
                 width="615"
                 height="500"
                 alt=""
@@ -98,14 +98,14 @@
                   <div class="onboarding-page__hero-clock-pivot">
                     <img
                       class="onboarding-page__hero-clock-hand onboarding-page__hero-clock-hand--hour"
-                      [src]="hands.hourHandSrc"
+                      [appCachedAsset]="hands.hourHandSrc"
                       width="48"
                       height="47"
                       alt=""
                     />
                     <img
                       class="onboarding-page__hero-clock-hand onboarding-page__hero-clock-hand--minute"
-                      [src]="hands.minuteHandSrc"
+                      [appCachedAsset]="hands.minuteHandSrc"
                       width="50"
                       height="52"
                       alt=""
@@ -113,7 +113,7 @@
                     @if (hands.hubSrc) {
                       <img
                         class="onboarding-page__hero-clock-hub"
-                        [src]="hands.hubSrc"
+                        [appCachedAsset]="hands.hubSrc"
                         width="20"
                         height="21"
                         alt=""
@@ -128,7 +128,7 @@
                 <div class="onboarding-page__hero-key-pivot">
                   <img
                     class="onboarding-page__hero-key"
-                    [src]="slide().heroSwingKeySrc"
+                    [appCachedAsset]="slide().heroSwingKeySrc"
                     width="62"
                     height="168"
                     alt=""

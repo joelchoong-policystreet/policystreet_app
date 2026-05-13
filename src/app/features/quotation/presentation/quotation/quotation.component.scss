@@ -1,16 +1,28 @@
-.quotation-page {
+:host {
+  display: block;
+  height: 100vh;
+  height: 100dvh;
   min-height: 100vh;
   min-height: 100dvh;
+}
+
+.quotation-page {
+  height: 100%;
+  min-height: 100%;
   max-width: 430px;
   margin: 0 auto;
   background: #fff;
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  /* Reserve space so scrollable main clears the sticky footer + WhatsApp FAB */
+  --quotation-footer-stack: 118px;
 }
 
 .quotation-page__fade {
-  flex: 1 1 auto;
+  flex: 1 1 0;
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -146,13 +158,22 @@
 }
 
 .quotation-page__main {
-  flex: 1 1 auto;
+  flex: 1;
   min-height: 0;
+  overflow-y: auto;
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding-bottom: calc(24px + 105px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(24px + var(--quotation-footer-stack) + env(safe-area-inset-bottom, 0px));
+}
+
+.quotation-page__footer {
+  flex-shrink: 0;
+  background: #fff;
+  border-top: 1px solid #e3eaf2;
+  box-shadow: 0 -4px 12px rgba(227, 234, 242, 0.65);
+  padding: 16px 24px calc(16px + env(safe-area-inset-bottom, 0px));
 }
 
 .quotation-page__intro h2 {
@@ -192,7 +213,6 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-top: 16px;
 }
 
 .quotation-cta__btn {
@@ -306,7 +326,7 @@
   position: fixed;
   z-index: 20;
   right: max(16px, calc(50vw - 215px + 16px));
-  bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(var(--quotation-footer-stack) + 16px + env(safe-area-inset-bottom, 0px));
   width: 56px;
   height: 56px;
   border-radius: 100px;

@@ -13,13 +13,14 @@ import {
   viewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { ONBOARDING_SLIDES } from '../../domain/onboarding-slides';
 import { ONBOARDING_STORAGE } from '../../domain/onboarding-storage.token';
 
 @Component({
   selector: 'app-onboarding',
   standalone: true,
-  imports: [],
+  imports: [CachedAssetImgDirective],
   templateUrl: './onboarding.component.html',
   styleUrl: './onboarding.component.scss',
 })

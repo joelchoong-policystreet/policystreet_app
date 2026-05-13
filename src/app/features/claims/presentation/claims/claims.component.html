@@ -2,18 +2,18 @@
   <div class="app-route-fade-target">
   <header class="claims-page__header" aria-label="PolicyStreet">
     <div class="claims-page__header-row">
-      <img class="claims-page__brand-img" [src]="logoBrandSrc" width="153" height="40" alt="PolicyStreet" />
+      <img class="claims-page__brand-img" [appCachedAsset]="logoBrandSrc" width="153" height="40" alt="PolicyStreet" />
     </div>
   </header>
 
   <main class="claims-page__content">
     <div class="claims-page__content-inner">
       <div class="claims-page__hero-art">
-        <img class="claims-page__illustration" [src]="mainIllustrationSrc" width="342" height="362" alt="" aria-hidden="true" />
-        <img class="claims-page__rotating-icon claims-page__rotating-icon--cw" [src]="activeIconSrc" width="42" height="41" alt="" aria-hidden="true" />
+        <img class="claims-page__illustration" [appCachedAsset]="mainIllustrationSrc" width="342" height="362" alt="" aria-hidden="true" />
+        <img class="claims-page__rotating-icon claims-page__rotating-icon--cw" [appCachedAsset]="activeIconSrc" width="42" height="41" alt="" aria-hidden="true" />
         <img
           class="claims-page__rotating-icon claims-page__rotating-icon--ccw"
-          [src]="secondaryIconSrc"
+          [appCachedAsset]="secondaryIconSrc"
           width="31"
           height="30"
           alt=""

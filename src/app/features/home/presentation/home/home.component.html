@@ -12,7 +12,7 @@
       <div class="home-page__header-row">
         <div class="home-page__brand">
           <img
-            [src]="logoBrandSrc"
+            [appCachedAsset]="logoBrandSrc"
             width="153"
             height="40"
             alt="PolicyStreet"
@@ -28,7 +28,7 @@
           <div class="home-page__welcome-intro">
             <img
               class="home-page__welcome-mascot"
-              src="/assets/home/welcome-layer-1.svg"
+              appCachedAsset="/assets/home/welcome-layer-1.svg"
               width="50"
               height="55"
               alt=""
@@ -101,19 +101,19 @@
       <div class="home-page__quick-actions">
         <button type="button" class="home-page__quick-btn" (click)="goQuotation()">
           <span class="home-page__quick-icon">
-            <img src="/assets/home/quick-action-request-quote.svg" width="40" height="40" alt="" aria-hidden="true" />
+            <img appCachedAsset="/assets/home/quick-action-request-quote.svg" width="40" height="40" alt="" aria-hidden="true" />
           </span>
           <span class="home-page__quick-label">Request New Quote</span>
         </button>
         <button type="button" class="home-page__quick-btn">
           <span class="home-page__quick-icon">
-            <img src="/assets/home/quick-action-contact-support.svg" width="40" height="40" alt="" aria-hidden="true" />
+            <img appCachedAsset="/assets/home/quick-action-contact-support.svg" width="40" height="40" alt="" aria-hidden="true" />
           </span>
           <span class="home-page__quick-label">Contact Support</span>
         </button>
         <button type="button" class="home-page__quick-btn">
           <span class="home-page__quick-icon">
-            <img src="/assets/home/quick-action-add-vehicle.svg" width="40" height="40" alt="" aria-hidden="true" />
+            <img appCachedAsset="/assets/home/quick-action-add-vehicle.svg" width="40" height="40" alt="" aria-hidden="true" />
           </span>
           <span class="home-page__quick-label">Add New Vehicle</span>
         </button>
@@ -164,7 +164,7 @@
                 <p class="home-page__coverage">{{ policy.coverageLabel }}</p>
                 <p class="home-page__muted">{{ policy.coveredUntilLabel }}</p>
               </div>
-              <img class="home-page__chevron" src="/assets/home/arrow-forward-ios.svg" width="9" height="16" alt="" aria-hidden="true" />
+              <img class="home-page__chevron" appCachedAsset="/assets/home/arrow-forward-ios.svg" width="9" height="16" alt="" aria-hidden="true" />
             </div>
           </button>
         } @else {
@@ -172,7 +172,7 @@
             <div class="home-page__empty-card__icon-wrap">
               <img
                 class="home-page__empty-card__icon"
-                src="/assets/home/empty-state-magnifier.svg"
+                appCachedAsset="/assets/home/empty-state-magnifier.svg"
                 width="20"
                 height="20"
                 alt=""
@@ -193,7 +193,7 @@
         <div class="home-page__news-row">
           @for (item of newsItems; track item.title) {
             <article class="home-page__news-card">
-              <img class="home-page__news-thumb" [src]="item.imageSrc" width="163" height="67" alt="" aria-hidden="true" />
+              <img class="home-page__news-thumb" [appCachedAsset]="item.imageSrc" width="163" height="67" alt="" aria-hidden="true" />
               <p class="home-page__news-title">{{ item.title }}</p>
             </article>
           }

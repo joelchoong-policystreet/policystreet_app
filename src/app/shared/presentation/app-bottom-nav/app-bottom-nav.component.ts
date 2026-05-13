@@ -2,10 +2,12 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 export type BottomNavTab = 'home' | 'policies' | 'claims' | 'profile' | 'none';
+import { CachedAssetImgDirective } from '../../assets/cached-asset-img.directive';
 
 @Component({
   selector: 'app-bottom-nav',
   standalone: true,
+  imports: [CachedAssetImgDirective],
   templateUrl: './app-bottom-nav.component.html',
   styleUrl: './app-bottom-nav.component.scss',
 })

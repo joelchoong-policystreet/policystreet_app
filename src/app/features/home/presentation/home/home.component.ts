@@ -8,10 +8,12 @@ import {
   homeLatestPolicyFromMotor,
   HOME_NEWS_ITEMS,
 } from '../../domain/home-dashboard.model';
+import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 
 @Component({
   selector: 'app-home',
   standalone: true,
+  imports: [CachedAssetImgDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

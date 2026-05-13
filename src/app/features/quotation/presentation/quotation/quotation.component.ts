@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 
 type QuoteTarget = 'myself' | 'someone-else';
@@ -8,6 +9,7 @@ type QuoteTarget = 'myself' | 'someone-else';
 @Component({
   selector: 'app-quotation',
   standalone: true,
+  imports: [CachedAssetImgDirective],
   templateUrl: './quotation.component.html',
   styleUrl: './quotation.component.scss',
 })

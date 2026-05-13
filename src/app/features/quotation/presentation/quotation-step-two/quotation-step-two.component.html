@@ -2,7 +2,7 @@
   <div class="app-route-fade-target quotation-page__fade">
     <div class="quotation-page__chrome">
       <header class="quotation-page__brand-bar" aria-label="PolicyStreet">
-        <img class="quotation-page__logo" [src]="logoBrandSrc" width="153" height="40" alt="PolicyStreet" />
+        <img class="quotation-page__logo" [appCachedAsset]="logoBrandSrc" width="153" height="40" alt="PolicyStreet" />
       </header>
 
       <div class="quotation-page__appbar" role="banner" aria-label="Get new quote navigation">
@@ -42,7 +42,7 @@
             (click)="selectVehicle(vehicle.id)"
           >
             <span class="quotation-vehicle__thumb">
-              <img [src]="vehicle.imageSrc" width="50" height="47" alt="" aria-hidden="true" />
+              <img [appCachedAsset]="vehicle.imageSrc" width="50" height="47" alt="" aria-hidden="true" />
             </span>
             <span class="quotation-vehicle__copy">
               <span class="quotation-vehicle__plate">{{ vehicle.plate }}</span>
@@ -52,8 +52,10 @@
           </button>
         }
       </section>
+    </main>
 
-      <div class="quotation-cta quotation-cta--step-two">
+    <footer class="quotation-page__footer" aria-label="Quote actions">
+      <div class="quotation-cta" aria-label="Continue quote">
         <button type="button" class="quotation-cta__btn quotation-cta__btn--disabled" [disabled]="!canContinue()" (click)="continue()">
           Continue
         </button>
@@ -67,7 +69,7 @@
           <span>Your data is safe with us</span>
         </div>
       </div>
-    </main>
+    </footer>
 
     <a class="quotation-page__whatsapp" href="https://wa.me/" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
       <span class="quotation-page__whatsapp-inner">

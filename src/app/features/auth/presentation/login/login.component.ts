@@ -18,11 +18,12 @@ import {
   applyOtpCellInput,
   otpDigitsFromClipboard,
 } from '../../../../shared/otp/otp-six-digit';
+import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CachedAssetImgDirective],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

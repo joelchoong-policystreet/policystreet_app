@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 
 type VehicleDocumentItem = {
   id: string;
@@ -16,6 +17,7 @@ type PolicyDocumentItem = {
 @Component({
   selector: 'app-documents',
   standalone: true,
+  imports: [CachedAssetImgDirective],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss',
 })

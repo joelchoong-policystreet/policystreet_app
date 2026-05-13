@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 
 type ProfileMenuSection = {
   title: string;
@@ -9,6 +10,7 @@ type ProfileMenuSection = {
 @Component({
   selector: 'app-profile',
   standalone: true,
+  imports: [CachedAssetImgDirective],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })

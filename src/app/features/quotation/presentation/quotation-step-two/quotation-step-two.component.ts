@@ -2,12 +2,14 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
+import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 import { toQuotationVehicleOptions } from '../../../policies/domain/policy.model';
 
 @Component({
   selector: 'app-quotation-step-two',
   standalone: true,
+  imports: [CachedAssetImgDirective],
   templateUrl: './quotation-step-two.component.html',
   styleUrl: './quotation-step-two.component.scss',
 })

@@ -9,12 +9,14 @@ import {
   notificationMatchesChip,
   type NotificationCategory,
 } from '../../domain/notifications.model';
+import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 
 export type NotificationsChipFilter = NotificationCategory | 'all';
 
 @Component({
   selector: 'app-notifications',
   standalone: true,
+  imports: [CachedAssetImgDirective],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.scss',
 })
