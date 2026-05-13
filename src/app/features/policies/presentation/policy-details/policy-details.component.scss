@@ -376,3 +376,99 @@
   letter-spacing: 0.072px;
   cursor: pointer;
 }
+
+.policy-details-page__section-head--personal {
+  align-items: flex-start;
+}
+
+.policy-details-page__edit-btn {
+  flex-shrink: 0;
+  margin-top: 2px;
+  border: 0;
+  padding: 4px 0;
+  background: transparent;
+  color: #0091ff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0.084px;
+  cursor: pointer;
+}
+
+.policy-details-page__personal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.policy-details-page__personal-form .policy-details-page__label {
+  display: block;
+}
+
+.policy-details-page__input,
+.policy-details-page__select,
+.policy-details-page__textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #c4d2e3;
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #fff;
+  color: #141414;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0.084px;
+}
+
+.policy-details-page__textarea {
+  resize: vertical;
+  min-height: 88px;
+}
+
+.policy-details-page__select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22 viewBox=%220 0 12 8%22%3E%3Cpath fill=%22%237092BB%22 d=%22M6 8 .294 1h11.412z%22/%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+.policy-details-page__personal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.policy-details-page__personal-btn {
+  flex: 1;
+  min-height: 48px;
+  border-radius: 16px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0.096px;
+  cursor: pointer;
+}
+
+.policy-details-page__personal-btn--cancel {
+  border: 1px solid #7092bb;
+  background: #fff;
+  color: #7092bb;
+}
+
+.policy-details-page__personal-btn--save {
+  border: 0;
+  background: #0091ff;
+  color: #fff;
+}
+
+.policy-details-page__personal-btn--save:disabled {
+  background: rgba(29, 27, 32, 0.1);
+  color: #1d1b20;
+  opacity: 0.38;
+  cursor: not-allowed;
+}

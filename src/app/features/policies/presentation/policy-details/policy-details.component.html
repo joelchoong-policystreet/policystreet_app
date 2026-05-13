@@ -90,46 +90,146 @@
         </article>
       </section>
 
-      <section class="policy-details-page__section">
-        <header class="policy-details-page__section-title-wrap">
-          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="#203570" d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4Zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Z" />
-          </svg>
-          <h2>Personal Details</h2>
+      <section class="policy-details-page__section" aria-labelledby="policy-personal-heading">
+        <header class="policy-details-page__section-head policy-details-page__section-head--personal">
+          <div class="policy-details-page__section-title-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#203570" d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4Zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4Z" />
+            </svg>
+            <h2 id="policy-personal-heading">Personal Details</h2>
+          </div>
+          @if (!isEditingPersonalDetails()) {
+            <button type="button" class="policy-details-page__edit-btn" (click)="startEditPersonalDetails()">
+              Edit
+            </button>
+          }
         </header>
         <article class="policy-details-page__card">
-          <div class="policy-details-page__field">
-            <p class="policy-details-page__label">Car Owner's Full Name (as per ID/Passport)</p>
-            <p class="policy-details-page__value">{{ policy().ownerFullName }}</p>
-          </div>
-          <div class="policy-details-page__field">
-            <p class="policy-details-page__label">Car Owner IC Number</p>
-            <p class="policy-details-page__value">{{ policy().ownerIcNumber }}</p>
-          </div>
-          <div class="policy-details-page__two-cols">
+          @if (!isEditingPersonalDetails()) {
             <div class="policy-details-page__field">
-              <p class="policy-details-page__label">Mobile number</p>
-              <p class="policy-details-page__value">{{ policy().mobileNumber }}</p>
+              <p class="policy-details-page__label">Car Owner's Full Name (as per ID/Passport)</p>
+              <p class="policy-details-page__value">{{ policy().ownerFullName }}</p>
             </div>
             <div class="policy-details-page__field">
-              <p class="policy-details-page__label">Email Address</p>
-              <p class="policy-details-page__value">{{ policy().emailAddress }}</p>
+              <p class="policy-details-page__label">Car Owner IC Number</p>
+              <p class="policy-details-page__value">{{ policy().ownerIcNumber }}</p>
             </div>
-          </div>
-          <div class="policy-details-page__two-cols">
+            <div class="policy-details-page__two-cols">
+              <div class="policy-details-page__field">
+                <p class="policy-details-page__label">Mobile number</p>
+                <p class="policy-details-page__value">{{ policy().mobileNumber }}</p>
+              </div>
+              <div class="policy-details-page__field">
+                <p class="policy-details-page__label">Email Address</p>
+                <p class="policy-details-page__value">{{ policy().emailAddress }}</p>
+              </div>
+            </div>
+            <div class="policy-details-page__two-cols">
+              <div class="policy-details-page__field">
+                <p class="policy-details-page__label">Marital Status</p>
+                <p class="policy-details-page__value">{{ policy().maritalStatus }}</p>
+              </div>
+              <div class="policy-details-page__field">
+                <p class="policy-details-page__label">Gender</p>
+                <p class="policy-details-page__value">{{ policy().gender }}</p>
+              </div>
+            </div>
             <div class="policy-details-page__field">
-              <p class="policy-details-page__label">Marital Status</p>
-              <p class="policy-details-page__value">{{ policy().maritalStatus }}</p>
+              <p class="policy-details-page__label">Residential Address</p>
+              <p class="policy-details-page__value">{{ policy().residentialAddress }}</p>
             </div>
-            <div class="policy-details-page__field">
-              <p class="policy-details-page__label">Gender</p>
-              <p class="policy-details-page__value">{{ policy().gender }}</p>
-            </div>
-          </div>
-          <div class="policy-details-page__field">
-            <p class="policy-details-page__label">Residential Address</p>
-            <p class="policy-details-page__value">{{ policy().residentialAddress }}</p>
-          </div>
+          } @else {
+            <form class="policy-details-page__personal-form" [formGroup]="personalDetailsForm" (ngSubmit)="savePersonalDetails()">
+              <div class="policy-details-page__field">
+                <label class="policy-details-page__label" for="pd-owner-name">Car Owner's Full Name (as per ID/Passport)</label>
+                <input
+                  id="pd-owner-name"
+                  type="text"
+                  class="policy-details-page__input"
+                  formControlName="ownerFullName"
+                  autocomplete="name"
+                  aria-required="true"
+                />
+              </div>
+              <div class="policy-details-page__field">
+                <label class="policy-details-page__label" for="pd-owner-ic">Car Owner IC Number</label>
+                <input
+                  id="pd-owner-ic"
+                  type="text"
+                  class="policy-details-page__input"
+                  formControlName="ownerIcNumber"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  aria-required="true"
+                />
+              </div>
+              <div class="policy-details-page__two-cols">
+                <div class="policy-details-page__field">
+                  <label class="policy-details-page__label" for="pd-mobile">Mobile number</label>
+                  <input
+                    id="pd-mobile"
+                    type="tel"
+                    class="policy-details-page__input"
+                    formControlName="mobileNumber"
+                    autocomplete="tel"
+                    aria-required="true"
+                  />
+                </div>
+                <div class="policy-details-page__field">
+                  <label class="policy-details-page__label" for="pd-email">Email Address</label>
+                  <input
+                    id="pd-email"
+                    type="email"
+                    class="policy-details-page__input"
+                    formControlName="emailAddress"
+                    autocomplete="email"
+                    aria-required="true"
+                  />
+                </div>
+              </div>
+              <div class="policy-details-page__two-cols">
+                <div class="policy-details-page__field">
+                  <label class="policy-details-page__label" for="pd-marital">Marital Status</label>
+                  <select id="pd-marital" class="policy-details-page__select" formControlName="maritalStatus" aria-required="true">
+                    @for (opt of maritalStatusOptions; track opt) {
+                      <option [value]="opt">{{ opt }}</option>
+                    }
+                  </select>
+                </div>
+                <div class="policy-details-page__field">
+                  <label class="policy-details-page__label" for="pd-gender">Gender</label>
+                  <select id="pd-gender" class="policy-details-page__select" formControlName="gender" aria-required="true">
+                    @for (opt of genderOptions; track opt) {
+                      <option [value]="opt">{{ opt }}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+              <div class="policy-details-page__field">
+                <label class="policy-details-page__label" for="pd-address">Residential Address</label>
+                <textarea
+                  id="pd-address"
+                  class="policy-details-page__textarea"
+                  formControlName="residentialAddress"
+                  rows="4"
+                  autocomplete="street-address"
+                  aria-required="true"
+                ></textarea>
+              </div>
+              <div class="policy-details-page__personal-actions">
+                <button type="button" class="policy-details-page__personal-btn policy-details-page__personal-btn--cancel" (click)="cancelEditPersonalDetails()">
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="policy-details-page__personal-btn policy-details-page__personal-btn--save"
+                  [disabled]="personalDetailsForm.invalid"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          }
         </article>
       </section>
 

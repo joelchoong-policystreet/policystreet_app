@@ -47,6 +47,18 @@ export interface PolicyCard {
   secondaryAction?: string;
 }
 
+/** Editable personal/contact fields on policy details (maps to `MotorPolicy`). */
+export type PolicyPersonalDetailsPatch = Pick<
+  MotorPolicy,
+  | 'ownerFullName'
+  | 'ownerIcNumber'
+  | 'mobileNumber'
+  | 'emailAddress'
+  | 'maritalStatus'
+  | 'gender'
+  | 'residentialAddress'
+>;
+
 /** Detail template (policy details screen). */
 export interface PolicyDetailsView {
   id: string;
