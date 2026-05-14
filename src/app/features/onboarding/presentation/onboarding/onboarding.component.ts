@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
+import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
 import { ONBOARDING_SLIDES } from '../../domain/onboarding-slides';
 import { ONBOARDING_STORAGE } from '../../domain/onboarding-storage.token';
 
@@ -30,6 +31,8 @@ export class OnboardingComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly onboardingStorage = inject(ONBOARDING_STORAGE);
   private readonly destroyRef = inject(DestroyRef);
+
+  readonly appBrandLogoSrc = APP_BRAND_LOGO_SRC;
 
   readonly returningSplashVideoRef = viewChild<ElementRef<HTMLVideoElement>>('returningSplashVideo');
 

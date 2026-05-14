@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { APP_BRAND_LOGO_SRC } from '../../branding/app-brand-logo';
 import { CachedAssetImgDirective } from '../../assets/cached-asset-img.directive';
 
 /** PolicyStreet header (logo only) — matches Figma welcome / login top bar. */
@@ -9,4 +10,6 @@ import { CachedAssetImgDirective } from '../../assets/cached-asset-img.directive
   templateUrl: './app-top-bar.component.html',
   styleUrl: './app-top-bar.component.scss',
 })
-export class AppTopBarComponent {}
+export class AppTopBarComponent {
+  readonly appBrandLogoSrc = APP_BRAND_LOGO_SRC;
+}

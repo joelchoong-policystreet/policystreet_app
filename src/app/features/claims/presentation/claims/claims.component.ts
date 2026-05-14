@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
+import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-
 export class ClaimsComponent implements OnInit, OnDestroy {
   constructor(private readonly inAppNav: InAppNavigationHistoryService) {}
 
-  readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
+  readonly logoBrandSrc = APP_BRAND_LOGO_SRC;
   readonly mainIllustrationSrc = '/assets/claims/coming-soon.svg';
   readonly rotatingIcons = [
     '/assets/claims/coming-soon-1.svg',

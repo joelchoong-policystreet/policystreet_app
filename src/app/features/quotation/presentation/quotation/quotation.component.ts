@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
+import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 
 type QuoteTarget = 'myself' | 'someone-else';
@@ -19,7 +20,7 @@ export class QuotationComponent {
     private readonly inAppNav: InAppNavigationHistoryService,
   ) {}
 
-  readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
+  readonly logoBrandSrc = APP_BRAND_LOGO_SRC;
   readonly selected = signal<QuoteTarget>('myself');
 
   goBack(): void {

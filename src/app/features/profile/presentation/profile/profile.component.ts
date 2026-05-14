@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
+import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
 
 type ProfileMenuSection = {
   title: string;
@@ -15,7 +16,7 @@ type ProfileMenuSection = {
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent {
-  readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
+  readonly logoBrandSrc = APP_BRAND_LOGO_SRC;
   readonly avatarSrc = '/assets/profile/profile-avatar.svg';
   readonly sections: ReadonlyArray<ProfileMenuSection> = [
     {

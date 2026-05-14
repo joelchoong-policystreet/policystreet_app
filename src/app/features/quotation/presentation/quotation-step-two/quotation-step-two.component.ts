@@ -3,6 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
 import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
+import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 import { toQuotationVehicleOptions } from '../../../policies/domain/policy.model';
 
@@ -17,7 +18,7 @@ export class QuotationStepTwoComponent {
   private readonly inAppNav = inject(InAppNavigationHistoryService);
   private readonly policyRepository = inject(POLICY_REPOSITORY);
 
-  readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
+  readonly logoBrandSrc = APP_BRAND_LOGO_SRC;
 
   /** Same `MotorPolicy[]` as policies list (fixture today, API later). */
   private readonly motorPolicies = toSignal(this.policyRepository.getPolicies(), {

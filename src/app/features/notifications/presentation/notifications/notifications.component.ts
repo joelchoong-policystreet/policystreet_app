@@ -10,6 +10,7 @@ import {
   type NotificationCategory,
 } from '../../domain/notifications.model';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
+import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
 
 export type NotificationsChipFilter = NotificationCategory | 'all';
 
@@ -23,7 +24,7 @@ export type NotificationsChipFilter = NotificationCategory | 'all';
 export class NotificationsComponent {
   constructor(private readonly inAppNav: InAppNavigationHistoryService) {}
 
-  readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
+  readonly logoBrandSrc = APP_BRAND_LOGO_SRC;
 
   readonly activeChip = signal<NotificationsChipFilter>('all');
 

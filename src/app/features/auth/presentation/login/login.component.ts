@@ -19,6 +19,7 @@ import {
   otpDigitsFromClipboard,
 } from '../../../../shared/otp/otp-six-digit';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
+import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,8 @@ import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  readonly appBrandLogoSrc = APP_BRAND_LOGO_SRC;
+
   private static readonly LOGIN_ANIMATION_MS = 900;
 
   private readonly destroyRef = inject(DestroyRef);

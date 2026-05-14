@@ -9,6 +9,7 @@ import {
   HOME_NEWS_ITEMS,
 } from '../../domain/home-dashboard.model';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
+import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,7 @@ export class HomeComponent implements AfterViewInit {
   private readonly policyRepository = inject(POLICY_REPOSITORY);
 
   /** Full-colour brand lockup for light hero backgrounds (same asset as onboarding header). */
-  readonly logoBrandSrc = '/assets/home/PS Car Insurance Logo.svg';
+  readonly logoBrandSrc = APP_BRAND_LOGO_SRC;
 
   readonly user = SAMPLE_USER;
 
