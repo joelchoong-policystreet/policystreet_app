@@ -130,26 +130,30 @@
   cursor: pointer;
 }
 
+/* Fixed frame so active/inactive SVGs render at the same visual size */
 .app-bottom-nav__icon {
   display: block;
   object-fit: contain;
+  object-position: center;
   flex-shrink: 0;
+  width: var(--app-bottom-nav-icon-w);
+  height: var(--app-bottom-nav-icon-h);
 }
 
 .app-bottom-nav__icon--home {
-  width: 25px;
-  height: 28px;
+  --app-bottom-nav-icon-w: 25px;
+  --app-bottom-nav-icon-h: 28px;
 }
 
 .app-bottom-nav__icon--policy,
 .app-bottom-nav__icon--claims {
-  width: 22px;
-  height: 28px;
+  --app-bottom-nav-icon-w: 22px;
+  --app-bottom-nav-icon-h: 28px;
 }
 
 .app-bottom-nav__icon--profile {
-  width: 29px;
-  height: 28px;
+  --app-bottom-nav-icon-w: 29px;
+  --app-bottom-nav-icon-h: 28px;
 }
 
 .app-bottom-nav__label {

@@ -53,7 +53,7 @@ export class HomeComponent implements AfterViewInit {
   readonly sheetLift = signal(0);
   readonly maxSheetLift = signal(0);
   readonly heroHeight = signal(0);
-  private readonly sheetInitialOverlapPx = 12;
+  private readonly sheetInitialOverlapPx = 0;
   private readonly sheetStopGapPx = 8;
   private readonly sheetHardCapPx = 170;
   private readonly sheetSoftCapRangePx = 28;

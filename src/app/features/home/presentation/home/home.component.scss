@@ -3,7 +3,7 @@ $_home-sky-tl: #dfeffa;
 $_home-sky-br: #8cbaee;
 $_home-sky-tr: #ccecf7;
 
-@mixin home-sky-mesh-background {
+@mixin home-sky-mesh-layers {
   background-color: $_home-sky-tl;
   background-image:
     radial-gradient(ellipse 128% 118% at 100% 100%, rgba(140, 186, 238, 0.52) 0%, transparent 58%),
@@ -18,12 +18,26 @@ $_home-sky-tr: #ccecf7;
       $_home-sky-br 100%
     );
   background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position: center;
+}
+
+/* One gradient canvas: hero + ::after slice the same paint (no second sky restart) */
+@mixin home-sky-mesh-hero {
+  @include home-sky-mesh-layers;
+  background-size: 100% var(--home-sky-total-height, 100%);
+  background-position: center top;
+}
+
+@mixin home-sky-mesh-under-sheet {
+  @include home-sky-mesh-layers;
+  background-size: 100% var(--home-sky-total-height, 100%);
+  background-position: center calc(-1 * var(--home-hero-height, 0px));
 }
 
 .home-page {
   --home-scroll-bottom-clearance: calc(var(--app-bottom-nav-clearance) + 16px);
+  --home-sheet-gap: 24px;
+  /* Sky painted behind white sheet only (no layout shift) */
+  --home-sky-behind-sheet: min(48vh, 360px);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -34,10 +48,12 @@ $_home-sky-tr: #ccecf7;
   position: relative;
   overflow-x: clip;
   padding-top: var(--home-hero-height, 0px);
-  @include home-sky-mesh-background;
+  /* White below hero — blue lives only on fixed __hero (avoids double sky band) */
+  background: #fff;
 }
 
 .home-page__hero {
+  --home-sky-total-height: calc(var(--home-hero-height, 320px) + var(--home-sky-behind-sheet));
   position: fixed;
   top: 0;
   left: 50%;
@@ -45,11 +61,24 @@ $_home-sky-tr: #ccecf7;
   width: 100%;
   max-width: 430px;
   z-index: 1;
-  @include home-sky-mesh-background;
+  @include home-sky-mesh-hero;
   box-shadow: 0 2px 14px rgba(44, 100, 160, 0.12);
   padding-top: 80px;
-  /* Space below quick actions before sheet overlap (carousel removed for MVP). */
-  padding-bottom: 16px;
+  /* Exactly 24px below quick actions before white sheet starts in layout */
+  padding-bottom: var(--home-sheet-gap);
+  overflow: visible;
+
+  /* Same sky mesh, continued below hero (behind white sheet) */
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: var(--home-sky-behind-sheet);
+    @include home-sky-mesh-under-sheet;
+    pointer-events: none;
+  }
 }
 
 .home-page__header {
@@ -174,7 +203,7 @@ $_home-sky-tr: #ccecf7;
 
 .home-page__quick-actions-wrap {
   width: 100%;
-  padding: 18px 24px 8px;
+  padding: 18px 24px 0;
   box-sizing: border-box;
 }
 
@@ -196,7 +225,7 @@ $_home-sky-tr: #ccecf7;
   flex-direction: column;
   background: #fff;
   border-radius: 32px 32px 0 0;
-  transform: translateY(calc(-12px - var(--home-sheet-lift, 0px)));
+  transform: translateY(calc(-1 * var(--home-sheet-lift, 0px)));
   margin-bottom: calc(-1 * var(--home-sheet-lift, 0px));
   position: relative;
   z-index: 3;
