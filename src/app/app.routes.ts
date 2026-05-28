@@ -36,6 +36,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'contact-support',
+    loadComponent: () =>
+      import(
+        './features/contact-support/presentation/contact-support/contact-support.component'
+      ).then((m) => m.ContactSupportComponent),
+  },
+  {
     path: 'policies',
     loadComponent: () =>
       import('./features/policies/presentation/policies/policies.component').then(

@@ -43,6 +43,9 @@ export class App implements OnInit, OnDestroy {
     if (p === '/home' || p.startsWith('/home/')) {
       return true;
     }
+    if (p === '/contact-support' || p.startsWith('/contact-support/')) {
+      return true;
+    }
     if (p === '/policies') {
       return true;
     }
@@ -93,7 +96,11 @@ export class App implements OnInit, OnDestroy {
     if (this.currentPath.startsWith('/quotation')) {
       return 'none';
     }
-    if (this.currentPath.startsWith('/home') || this.currentPath.startsWith('/notifications')) {
+    if (
+      this.currentPath.startsWith('/home') ||
+      this.currentPath.startsWith('/notifications') ||
+      this.currentPath.startsWith('/contact-support')
+    ) {
       return 'home';
     }
     return 'none';

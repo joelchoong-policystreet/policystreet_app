@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { CachedAssetImgDirective } from '../../assets/cached-asset-img.directive';
 
 export type BottomNavTab = 'home' | 'policies' | 'claims' | 'profile' | 'none';
-import { CachedAssetImgDirective } from '../../assets/cached-asset-img.directive';
 
 @Component({
   selector: 'app-bottom-nav',
@@ -17,10 +17,10 @@ export class AppBottomNavComponent {
   @Input() activeTab: BottomNavTab = 'none';
 
   readonly navIconSrc = {
-    home: { default: '/assets/home/nav-home.svg', active: '/assets/home/nav-home-active.svg' },
-    policies: { default: '/assets/home/nav-policy.svg', active: '/assets/home/nav-policy-active.svg' },
-    claims: { default: '/assets/home/nav-claims.svg', active: '/assets/home/nav-claims-active.svg' },
-    profile: { default: '/assets/home/nav-person.svg', active: '/assets/home/nav-person-active.svg' },
+    home: { default: '/assets/home/nav-home-v2.svg', active: '/assets/home/nav-home-active.svg' },
+    policies: { default: '/assets/home/nav-policy-v2.svg', active: '/assets/home/nav-policy-active.svg' },
+    claims: { default: '/assets/home/nav-claims-v2.svg', active: '/assets/home/nav-claims-active.svg' },
+    profile: { default: '/assets/home/nav-person-v2.svg', active: '/assets/home/nav-person-active.svg' },
   } as const;
 
   goTo(tab: BottomNavTab): void {
@@ -30,5 +30,8 @@ export class AppBottomNavComponent {
     const path = tab === 'home' ? '/home' : `/${tab}`;
     void this.router.navigate([path]);
   }
-}
 
+  goToQuote(): void {
+    void this.router.navigate(['/quotation']);
+  }
+}

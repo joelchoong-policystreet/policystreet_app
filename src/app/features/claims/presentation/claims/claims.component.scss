@@ -206,7 +206,7 @@ $_home-sky-tr: #ccecf7;
   z-index: 20;
   /* Align to right inset of centred 430px column (responsive when viewport narrower) */
   right: max(16px, env(safe-area-inset-right, 0px), calc((100vw - min(430px, 100vw)) / 2 + 16px));
-  bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(var(--app-bottom-nav-clearance) + 12px);
   width: 56px;
   height: 56px;
   border-radius: 100px;

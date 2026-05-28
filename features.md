@@ -14,7 +14,7 @@ High-level view of what is implemented in the current build versus what remains 
 | **Onboarding** | Returning-user splash (post-login) | VP9/WebM + MP4 fallback; header hidden on splash; full-bleed white background |
 | **Home** | Hero, branded header, entry to notifications | Mock user from `sample-user` |
 | **Home** | Welcome + greeting, latest policy / claim cards | Demo data (`HOME_LATEST_POLICY`, etc.) |
-| **Home** | Quick actions | **Request New Quote** → quotation; **Make New Claim** → claims |
+| **Home** | Quick actions | **Request New Quote** → quotation; **Contact Support** → `/contact-support`; **Make New Claim** → claims |
 | **Home** | Empty states | “View all policies / claims” disabled + greyed when no data |
 | **Home** | White sheet scroll (fixed hero, sticky Latest Policy header) | Window scroll + sheet lift; clearance above bottom nav |
 | **Home** | Promotional carousel | Mock banner asset |
@@ -28,6 +28,7 @@ High-level view of what is implemented in the current build versus what remains 
 | **Documents** | Upload page | Native file picker + dropzone; upload pipeline not implemented |
 | **Quotation** | Step 1 (quote for whom) + Step 2 (vehicle selection) | Mock vehicles; continues to step-2 route |
 | **Profile** | Profile screen | UI present; demo profile data where applicable |
+| **Support** | Contact Support screen (`/contact-support`) | Hours, address, WhatsApp (+60182822320), email; matches consumer contact layout |
 | **Polish** | Login Pawsper: R→center on load, center→L after OTP submit | Avoids re-running enter animation before navigating away |
 | **Polish** | Login hero area | Solid `#cae0f2` background (no boxed background image) |
 
@@ -38,7 +39,7 @@ High-level view of what is implemented in the current build versus what remains 
 | Area | Item | Notes |
 |------|------|-------|
 | **APIs** | Real auth, policies, claims, notifications, documents | Currently mock / local adapters |
-| **Home** | **Contact Support** & **Add New Vehicle** quick actions | Buttons not wired to routes or flows |
+| **Home** | **Add New Vehicle** quick action | Button not wired to a route or flow |
 | **Home** | **View all** (news), deep links from policy/claim rows | Partially display-only |
 | **Home** | WhatsApp FAB | Generic `wa.me/` placeholder — needs real business number |
 | **Policy details** | **Renew Now** | Placeholder until renewal journey route/product confirms |

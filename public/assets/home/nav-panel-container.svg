@@ -1,0 +1,21 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 490 106" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="filter0_d_0_35" x="0" y="0" width="490" height="106" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="4"/>
+      <feGaussianBlur stdDeviation="15"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.890196 0 0 0 0 0.917647 0 0 0 0 0.94902 0 0 0 1 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_35"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_35" result="shape"/>
+    </filter>
+    <mask id="notch-mask" maskUnits="userSpaceOnUse" x="0" y="-58" width="490" height="168">
+      <rect x="0" y="0" width="490" height="106" fill="white"/>
+      <circle cx="245" cy="6" r="44" fill="black"/>
+    </mask>
+  </defs>
+  <g filter="url(#filter0_d_0_35)">
+    <path fill="#fff" mask="url(#notch-mask)" d="M0 106V4C0 1.79086 4.47715 0 10 0H480C485.523 0 490 4.47715 490 10V106H0Z"/>
+  </g>
+</svg>

@@ -18,8 +18,8 @@ interface MockUserApiResponse {
 
 const MOCK_USER_API_RESPONSE: MockUserApiResponse = {
   user_id: 'user_demo_01',
-  full_name: 'Joel',
-  email: 'jermaine.lee@example.com',
+  full_name: 'John',
+  email: 'john@example.com',
 };
 
 /**

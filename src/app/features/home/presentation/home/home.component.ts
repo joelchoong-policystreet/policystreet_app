@@ -2,10 +2,10 @@ import { AfterViewInit, Component, ElementRef, HostListener, ViewChild, computed
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
-import { sortMotorPoliciesForAllTab } from '../../../policies/domain/policy.model';
 import { SAMPLE_USER } from '../../domain/sample-user';
 import {
-  homeLatestPolicyFromMotor,
+  HOME_ACTIVE_QUOTE,
+  homeLatestCoverNoteFromMotor,
   HOME_NEWS_ITEMS,
 } from '../../domain/home-dashboard.model';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
@@ -31,49 +31,21 @@ export class HomeComponent implements AfterViewInit {
     requireSync: true,
   });
 
+  /** Demo active quote — Figma `3089:24694`; replace with API when available. */
+  readonly activeQuote = HOME_ACTIVE_QUOTE;
+
   /**
-   * First row on Policies → “All” (same sort as `sortMotorPoliciesForAllTab` / list screen).
+   * Latest active cover note for home (prefers `ABC1234` in demo data to match Figma).
    * Replace with explicit “primary” / API field when backends define it.
    */
-  readonly latestPolicy = computed(() => {
-    const rows = this.motorPolicies();
+  readonly latestCoverNote = computed(() => {
+    const rows = this.motorPolicies().filter((policy) => policy.status === 'ACTIVE');
     if (rows.length === 0) {
       return null;
     }
-    const top = sortMotorPoliciesForAllTab(rows)[0];
-    return top ? homeLatestPolicyFromMotor(top) : null;
-  });
-
-  readonly heroPolicyStatus = computed<
-    { tone: 'ok' | 'expiring' | 'expired'; message: string; targetPolicyId?: string } | null
-  >(() => {
-    const rows = this.motorPolicies();
-    if (rows.length === 0) {
-      return null;
-    }
-
-    const firstExpired = sortMotorPoliciesForAllTab(rows).find(
-      (policy) => policy.status === 'EXPIRED',
-    );
-    if (firstExpired) {
-      return {
-        tone: 'expired',
-        message: 'Some policies have expired',
-        targetPolicyId: firstExpired.id,
-      };
-    }
-
-    if (rows.some((p) => p.status === 'EXPIRING SOON')) {
-      return {
-        tone: 'expiring',
-        message: 'Some policies are expiring soon',
-      };
-    }
-
-    return {
-      tone: 'ok',
-      message: 'All policies are up to date',
-    };
+    const preferred = rows.find((policy) => policy.plate === 'ABC1234');
+    const pick = preferred ?? rows[0];
+    return pick ? homeLatestCoverNoteFromMotor(pick) : null;
   });
 
   readonly newsItems = HOME_NEWS_ITEMS;
@@ -91,37 +63,31 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild('welcomeBlock') private welcomeBlock?: ElementRef<HTMLElement>;
   @ViewChild('quickActionsWrap') private quickActionsWrap?: ElementRef<HTMLElement>;
 
-  readonly greetingPrefix = computed(() => {
-    const h = new Date().getHours();
-    if (h < 12) {
-      return 'Good morning';
-    }
-    if (h < 18) {
-      return 'Good afternoon';
-    }
-    return 'Good evening';
-  });
-
-  goPoliciesAll(): void {
-    if (!this.latestPolicy()) {
-      return;
-    }
-    void this.router.navigate(['/policies'], { queryParams: { filter: 'all' } });
+  goQuotesAll(): void {
+    void this.router.navigate(['/quotation']);
   }
 
-  goLatestPolicyDetails(policyId: string): void {
+  goCoverNotesAll(): void {
+    if (!this.latestCoverNote()) {
+      return;
+    }
+    void this.router.navigate(['/policies'], { queryParams: { filter: 'active' } });
+  }
+
+  goLatestCoverNoteDetails(policyId: string): void {
     void this.router.navigate(['/policies', policyId]);
   }
 
-  goExpiredPolicyDetails(policyId?: string): void {
-    if (!policyId) {
-      return;
-    }
-    void this.router.navigate(['/policies', policyId]);
+  goActiveQuote(): void {
+    void this.router.navigate(['/quotation/step-2']);
   }
 
   goQuotation(): void {
     void this.router.navigate(['/quotation']);
+  }
+
+  goContactSupport(): void {
+    void this.router.navigate(['/contact-support']);
   }
 
   ngAfterViewInit(): void {

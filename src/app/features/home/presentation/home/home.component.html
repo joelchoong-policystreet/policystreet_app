@@ -24,75 +24,19 @@
 
     <div #welcomeBlock class="home-page__welcome-block">
       <div class="home-page__welcome-card">
-        <div class="home-page__welcome-inner">
-          <div class="home-page__welcome-intro">
-            <img
-              class="home-page__welcome-mascot"
-              appCachedAsset="/assets/home/welcome-layer-1.svg"
-              width="50"
-              height="55"
-              alt=""
-              aria-hidden="true"
-            />
-            <div class="home-page__greeting">
-              <p class="home-page__greeting-line">Hello,</p>
-              <p class="home-page__greeting-name">{{ user.name }}</p>
-            </div>
+        <div class="home-page__welcome-intro">
+          <img
+            class="home-page__welcome-mascot"
+            appCachedAsset="/assets/home/welcome-layer-1.svg"
+            width="50"
+            height="55"
+            alt=""
+            aria-hidden="true"
+          />
+          <div class="home-page__greeting">
+            <p class="home-page__greeting-line">Hello,</p>
+            <p class="home-page__greeting-name">{{ user.name }}</p>
           </div>
-          @if (heroPolicyStatus(); as statusSummary) {
-            <button
-              type="button"
-              class="home-page__status-pill"
-              [class.home-page__status-pill--ok]="statusSummary.tone === 'ok'"
-              [class.home-page__status-pill--expiring]="statusSummary.tone === 'expiring'"
-              [class.home-page__status-pill--expired]="statusSummary.tone === 'expired'"
-              [class.home-page__status-pill--actionable]="statusSummary.tone === 'expired'"
-              [disabled]="statusSummary.tone !== 'expired'"
-              [attr.aria-label]="
-                statusSummary.tone === 'expired'
-                  ? 'Open expired policy details'
-                  : 'Policy status summary'
-              "
-              (click)="goExpiredPolicyDetails(statusSummary.targetPolicyId)"
-            >
-              <svg
-                class="home-page__status-check"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  [attr.fill]="
-                    statusSummary.tone === 'expired'
-                      ? '#E30A12'
-                      : statusSummary.tone === 'expiring'
-                        ? '#FF832B'
-                        : '#24A148'
-                  "
-                />
-                <path
-                  d="M8 12.5l2.5 2.5L16 9.5"
-                  stroke="#ffffff"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <span>{{ statusSummary.message }}</span>
-            </button>
-          } @else {
-            <p class="home-page__status-empty">
-              You don’t have any policies yet.<br />
-              Start by getting a quote.
-            </p>
-          }
         </div>
       </div>
     </div>
@@ -105,7 +49,7 @@
           </span>
           <span class="home-page__quick-label">Request New Quote</span>
         </button>
-        <button type="button" class="home-page__quick-btn">
+        <button type="button" class="home-page__quick-btn" (click)="goContactSupport()">
           <span class="home-page__quick-icon">
             <img appCachedAsset="/assets/home/quick-action-contact-support.svg" width="40" height="40" alt="" aria-hidden="true" />
           </span>
@@ -124,45 +68,89 @@
 
   <div #sheetSection class="home-page__sheet">
     <div class="home-page__sheet-content">
-      <section class="home-page__section" aria-labelledby="home-latest-policy-heading">
+      @if (activeQuote; as quote) {
+        <section class="home-page__section" aria-labelledby="home-active-quote-heading">
+          <div class="home-page__section-head">
+            <h2 id="home-active-quote-heading" class="home-page__h2">Active Quote</h2>
+            <button type="button" class="home-page__link-btn" (click)="goQuotesAll()">View All</button>
+          </div>
+          <article class="home-page__quote-card">
+            <p class="home-page__quote-date">Date: {{ quote.dateLabel }}</p>
+            <div class="home-page__quote-row">
+              <div class="home-page__quote-vehicle">
+                <span class="home-page__quote-icon-wrap" aria-hidden="true">
+                  <img
+                    class="home-page__quote-icon"
+                    appCachedAsset="/assets/home/directions-car.svg"
+                    width="30"
+                    height="30"
+                    alt=""
+                  />
+                </span>
+                <p class="home-page__quote-plate">{{ quote.plate }}</p>
+              </div>
+              <button type="button" class="home-page__quote-cta" (click)="goActiveQuote()">View Quote</button>
+            </div>
+            <div class="home-page__quote-status" role="status">
+              <img
+                class="home-page__quote-status-icon"
+                appCachedAsset="/assets/home/check-circle-green.svg"
+                width="16"
+                height="16"
+                alt=""
+                aria-hidden="true"
+              />
+              <p class="home-page__quote-status-text">
+                <span>Your quote for {{ quote.plate }} is </span>
+                <strong class="home-page__quote-status-em">ready</strong>
+                <span>. Tap </span>
+                <strong class="home-page__quote-status-action">View Quote</strong>
+                <span> to continue.</span>
+              </p>
+            </div>
+          </article>
+        </section>
+      }
+
+      <section class="home-page__section" aria-labelledby="home-latest-cover-note-heading">
         <div class="home-page__section-head home-page__section-head--sticky">
-          <h2 id="home-latest-policy-heading" class="home-page__h2">Latest Policy</h2>
+          <h2 id="home-latest-cover-note-heading" class="home-page__h2">Latest Cover Note</h2>
           <button
             type="button"
             class="home-page__link-btn"
-            [disabled]="!latestPolicy()"
-            (click)="goPoliciesAll()"
+            [disabled]="!latestCoverNote()"
+            (click)="goCoverNotesAll()"
           >
-            View All Policies
+            View All
           </button>
         </div>
-        @if (latestPolicy(); as policy) {
+        @if (latestCoverNote(); as coverNote) {
           <button
             type="button"
             class="home-page__card home-page__card--action"
-            [attr.aria-label]="'Open policy details for ' + policy.plate"
-            (click)="goLatestPolicyDetails(policy.id)"
+            [attr.aria-label]="'Open cover note details for ' + coverNote.plate"
+            (click)="goLatestCoverNoteDetails(coverNote.id)"
           >
             <div class="home-page__card-row home-page__card-row--top">
-              <div>
-                <p class="home-page__plate">{{ policy.plate }}</p>
-                <p class="home-page__vehicle">{{ policy.vehicleLabel }}</p>
+              <div class="home-page__card-details">
+                <p class="home-page__plate">{{ coverNote.plate }}</p>
+                <p class="home-page__vehicle">{{ coverNote.vehicleLabel }}</p>
               </div>
               <div
                 class="home-page__pill"
-                [class.home-page__pill--active]="policy.status === 'ACTIVE'"
-                [class.home-page__pill--expiring]="policy.status === 'EXPIRING SOON'"
-                [class.home-page__pill--expired]="policy.status === 'EXPIRED'"
+                [class.home-page__pill--active]="coverNote.status === 'ACTIVE'"
+                [class.home-page__pill--expiring]="coverNote.status === 'EXPIRING SOON'"
+                [class.home-page__pill--expired]="coverNote.status === 'EXPIRED'"
               >
                 <span class="home-page__pill-status-dot" aria-hidden="true"></span>
-                <span>{{ policy.status }}</span>
+                <span>{{ coverNote.statusLabel }}</span>
               </div>
             </div>
             <div class="home-page__divider-line" role="presentation"></div>
             <div class="home-page__card-row home-page__card-row--bottom">
               <div class="home-page__meta">
-                <p class="home-page__coverage">{{ policy.coverageLabel }}</p>
-                <p class="home-page__muted">{{ policy.coveredUntilLabel }}</p>
+                <p class="home-page__coverage">{{ coverNote.coverageLabel }}</p>
+                <p class="home-page__muted">{{ coverNote.coveredUntilLabel }}</p>
               </div>
               <img class="home-page__chevron" appCachedAsset="/assets/home/arrow-forward-ios.svg" width="9" height="16" alt="" aria-hidden="true" />
             </div>
@@ -187,8 +175,8 @@
 
       <section class="home-page__section home-page__section--news" aria-labelledby="home-news-heading">
         <div class="home-page__section-head">
-          <h2 id="home-news-heading" class="home-page__h2">News and Articles</h2>
-          <button type="button" class="home-page__link-btn home-page__link-btn--small">View all</button>
+          <h2 id="home-news-heading" class="home-page__h2">News &amp; Articles</h2>
+          <button type="button" class="home-page__link-btn">View All</button>
         </div>
         <div class="home-page__news-row">
           @for (item of newsItems; track item.title) {

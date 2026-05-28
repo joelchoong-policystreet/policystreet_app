@@ -234,7 +234,7 @@
   position: fixed;
   z-index: 20;
   right: max(16px, calc(50vw - 215px + 16px));
-  bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(var(--app-bottom-nav-clearance) + 12px);
   width: 56px;
   height: 56px;
   border-radius: 100px;

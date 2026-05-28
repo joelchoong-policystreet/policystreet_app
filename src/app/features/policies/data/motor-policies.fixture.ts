@@ -28,10 +28,10 @@ const DEMO_OWNER = {
   coveragePeriodLong: 'DD/MM/YYYY - DD/MM/YYYY',
   premiumPaidAmount: 'RM 1,110.97',
   addOns: DEMO_ADD_ONS,
-  ownerFullName: 'Jermaine Imerio',
+  ownerFullName: 'John',
   ownerIcNumber: '970123-14-5678',
   mobileNumber: '+6011123456789',
-  emailAddress: 'jermaine@example.com',
+  emailAddress: 'john@example.com',
   maritalStatus: 'Single',
   gender: 'Male',
   residentialAddress:
@@ -43,12 +43,16 @@ const DEMO_OWNER = {
 type PolicyRow = Pick<
   MotorPolicy,
   'id' | 'status' | 'plate' | 'carModel' | 'policyNo' | 'coverageType' | 'coveragePeriodShort'
->;
+> & {
+  coveragePeriodLong?: string;
+};
 
 function motorPolicy(row: PolicyRow): MotorPolicy {
+  const { coveragePeriodLong, ...rest } = row;
   return {
     ...DEMO_OWNER,
-    ...row,
+    ...rest,
+    coveragePeriodLong: coveragePeriodLong ?? DEMO_OWNER.coveragePeriodLong,
   };
 }
 
@@ -60,6 +64,7 @@ function row(
   policyNo: string,
   coverageType: string,
   coveragePeriodShort: string,
+  coveragePeriodLong?: string,
 ): PolicyRow {
   return {
     id,
@@ -69,6 +74,7 @@ function row(
     policyNo,
     coverageType,
     coveragePeriodShort,
+    coveragePeriodLong,
   };
 }
 
@@ -86,7 +92,19 @@ export const MOTOR_POLICIES_FIXTURE: ReadonlyArray<MotorPolicy> = [
     row('p3', 'EXPIRED', 'ABC8888', 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)', 'Motor-Policy20250704-1536123412341', 'Comprehensive', 'DD/MM/YY - DD/MM/YY'),
   ),
   motorPolicy(
-    row('p4', 'ACTIVE', 'WQJ4721', 'TOYOTA VIOS 2021 G 1496 7 SP CVT', 'Motor-Policy20250704-1536123412399', 'Comprehensive', 'DD/MM/YY - DD/MM/YY'),
+    row(
+      'p4',
+      'ACTIVE',
+      'ABC1234',
+      'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)',
+      'Motor-Policy20250704-1536123412399',
+      'Comprehensive',
+      'DD/MM/YY - DD/MM/YY',
+      'Covered until 18 March 2027',
+    ),
+  ),
+  motorPolicy(
+    row('p4b', 'ACTIVE', 'WQJ4721', 'TOYOTA VIOS 2021 G 1496 7 SP CVT', 'Motor-Policy20250704-1536123412399', 'Comprehensive', 'DD/MM/YY - DD/MM/YY'),
   ),
   motorPolicy(
     row('p5', 'EXPIRING SOON', 'JTB9016', 'PERODUA MYVI 2020 AV 1496 4 SP AUTOMATIC', 'Motor-Policy20250704-1536123412477', 'Third Party, Fire & Theft', 'DD/MM/YY - DD/MM/YY'),
