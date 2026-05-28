@@ -1,11 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
+import { SAMPLE_USER } from '../../../home/domain/sample-user';
+
+type ProfileMenuRow = {
+  id: string;
+  label: string;
+  iconSrc: string;
+  trailing?: 'chevron' | 'value';
+  value?: string;
+};
 
 type ProfileMenuSection = {
   title: string;
-  items: ReadonlyArray<string>;
+  items: ReadonlyArray<ProfileMenuRow>;
 };
 
 @Component({
@@ -16,25 +26,58 @@ type ProfileMenuSection = {
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent {
+  private readonly router = inject(Router);
+
   readonly logoBrandSrc = APP_BRAND_LOGO_SRC;
   readonly avatarSrc = '/assets/profile/profile-avatar.svg';
-  readonly sections: ReadonlyArray<ProfileMenuSection> = [
+  readonly user = SAMPLE_USER;
+
+  readonly menuSections: ReadonlyArray<ProfileMenuSection> = [
     {
-      title: 'ACCOUNT',
-      items: ['Personal Information', 'Driver Details', 'Saved Vehicles', 'Linked Family Members', 'Switch Accounts'],
+      title: 'SETTINGS',
+      items: [
+        {
+          id: 'language',
+          label: 'Language',
+          iconSrc: '/assets/profile/menu-language.svg',
+          trailing: 'value',
+          value: 'English',
+        },
+      ],
     },
     {
-      title: 'PAYMENTS & BILLINGS',
-      items: ['Payment Methods', 'Address Book', 'Billing History'],
-    },
-    {
-      title: 'SECURITY',
-      items: ['Change Password', 'Language'],
-    },
-    {
-      title: 'SUPPORT',
-      items: ['Help', 'FAQ', 'Report an Incident', 'Claim Documents Upload'],
+      title: 'HELP & SUPPORT',
+      items: [
+        {
+          id: 'contact-support',
+          label: 'Contact Support',
+          iconSrc: '/assets/profile/menu-contact-support.svg',
+          trailing: 'chevron',
+        },
+        {
+          id: 'faq',
+          label: 'FAQ',
+          iconSrc: '/assets/profile/menu-faq.svg',
+          trailing: 'chevron',
+        },
+      ],
     },
   ];
 
+  onMenuItemClick(itemId: string): void {
+    if (itemId === 'contact-support') {
+      void this.router.navigate(['/contact-support']);
+      return;
+    }
+    if (itemId === 'faq') {
+      return;
+    }
+    if (itemId === 'language') {
+      return;
+    }
+  }
+
+  onLogout(): void {
+    return;
+  }
 }

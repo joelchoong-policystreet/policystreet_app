@@ -1,4 +1,5 @@
-/* Match Home mesh gradient treatment */
+/* Profile — Figma 3120:2185 (simplified menu) */
+
 $_home-sky-tl: #dfeffa;
 $_home-sky-br: #8cbaee;
 $_home-sky-tr: #ccecf7;
@@ -27,11 +28,11 @@ $_home-sky-tr: #ccecf7;
   min-height: 100dvh;
   max-width: 430px;
   margin: 0 auto;
+  width: 100%;
   @include home-sky-mesh-background;
 }
 
 .profile-page__hero {
-  background: transparent;
   padding-bottom: 16px;
 }
 
@@ -44,7 +45,6 @@ $_home-sky-tr: #ccecf7;
 .profile-page__header-row {
   min-height: 60px;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
 }
 
@@ -58,17 +58,14 @@ $_home-sky-tr: #ccecf7;
 
 .profile-page__identity-card {
   margin: 16px 24px 0;
-  width: 382px;
+  width: 100%;
   max-width: calc(100% - 48px);
-  height: 142px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 16px;
-  align-self: stretch;
   border-radius: 16px;
   padding: 16px;
-  box-sizing: border-box;
   background: #fff;
   border: 1px solid #0091ff;
   color: #141414;
@@ -103,48 +100,37 @@ $_home-sky-tr: #ccecf7;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  align-items: flex-start;
+  min-width: 0;
 }
 
 .profile-page__name {
   margin: 0;
-  color: #141414;
-  font-family: Poppins, sans-serif;
+  font-family: Poppins, 'Open Sans', sans-serif;
   font-size: 20px;
-  font-style: normal;
   font-weight: 600;
   line-height: 30px;
   letter-spacing: 0.12px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  align-self: stretch;
+  color: #141414;
 }
 
 .profile-page__edit-link {
-  margin-top: 0;
-  color: #0091ff;
-  background: transparent;
-  border: 0;
+  margin: 0;
   padding: 0;
-  text-align: left;
-  font: 600 14px/18px 'Open Sans', sans-serif;
+  border: 0;
+  background: transparent;
+  color: #0091ff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
   letter-spacing: 0.084px;
+  cursor: pointer;
 }
 
 .profile-page__divider {
-  display: block;
-  align-self: center;
-  width: 350px;
-  max-width: 100%;
+  width: 100%;
   height: 1px;
-  min-height: 1px;
-  flex-shrink: 0;
   background: #c4d2e3;
-  margin: 0;
 }
 
 .profile-page__identity-bottom {
@@ -152,8 +138,10 @@ $_home-sky-tr: #ccecf7;
   justify-content: space-between;
   gap: 8px;
   width: 100%;
-  color: #141414;
-  font: 400 16px/22px 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
   letter-spacing: 0.096px;
 }
 
@@ -161,9 +149,10 @@ $_home-sky-tr: #ccecf7;
   font-weight: 600;
 }
 
+/* Main sheet — Figma 3120:2185 */
 .profile-page__sheet {
-  background: #f7f7f7;
-  border-radius: 20px 20px 0 0;
+  background: #fff;
+  border-radius: 32px 32px 0 0;
   margin-top: 0;
   padding: 24px;
   display: flex;
@@ -174,46 +163,68 @@ $_home-sky-tr: #ccecf7;
 
 .profile-page__referral {
   border-radius: 16px;
-  background: linear-gradient(103deg, #c5e6ef 6.31%, #5fbeff 96.17%);
+  background: linear-gradient(121.26deg, #c5e6ef 6.31%, #5fbeff 96.17%);
   display: flex;
-  padding: 15px 16px;
-  align-items: flex-start;
+  padding: 8px 12px;
+  align-items: center;
   align-self: stretch;
   min-height: 146px;
   position: relative;
   overflow: hidden;
 }
 
+.profile-page__referral-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  z-index: 1;
+}
+
 .profile-page__referral-copy h2 {
   margin: 0;
-  font: 700 16px/22px 'Open Sans', sans-serif;
-  letter-spacing: 0.096px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.15px;
   color: #141414;
 }
 
 .profile-page__referral-copy p {
   margin: 8px 0 0;
   max-width: 250px;
-  font: 400 12px/16px 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+  color: #141414;
 }
 
 .profile-page__referral-copy em {
   margin-top: 4px;
   display: block;
-  font: italic 400 10px/14px 'Open Sans', sans-serif;
-  letter-spacing: 0.06px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 13.6px;
+  letter-spacing: 0;
   color: rgba(61, 61, 61, 0.8);
 }
 
-.profile-page__referral-copy button {
+.profile-page__referral-cta {
   margin-top: 16px;
   border: 0;
-  border-radius: 6px;
+  border-radius: 4px;
   background: #0091ff;
   color: #fff;
   padding: 6px 12px;
-  font: 600 14px/18px 'Open Sans', sans-serif;
-  letter-spacing: 0.084px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  cursor: pointer;
 }
 
 .profile-page__referral-art {
@@ -221,18 +232,25 @@ $_home-sky-tr: #ccecf7;
   right: 8px;
   top: 50%;
   transform: translateY(-50%);
-  width: clamp(72px, 24vw, 116px);
+  width: clamp(72px, 24vw, 115px);
   height: auto;
-  max-height: 146px;
+  max-height: 129px;
   object-fit: cover;
-  object-position: center;
   pointer-events: none;
 }
 
-.profile-page__menu-group h3 {
+.profile-page__menu-group {
+  width: 100%;
+}
+
+.profile-page__menu-heading {
   margin: 0 0 4px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0;
   color: #7092bb;
-  font: 700 12px/16px 'Open Sans', sans-serif;
 }
 
 .profile-page__menu-list {
@@ -241,24 +259,86 @@ $_home-sky-tr: #ccecf7;
 }
 
 .profile-page__menu-item {
+  width: 100%;
   min-height: 54px;
   padding: 16px;
   border: 0;
   background: transparent;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  font: 600 16px/22px 'Open Sans', sans-serif;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.profile-page__menu-leading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.profile-page__menu-icon {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  object-fit: contain;
+  display: block;
+}
+
+.profile-page__menu-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: #141414;
+  white-space: nowrap;
+}
+
+.profile-page__menu-value {
+  flex-shrink: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
   color: #141414;
 }
 
+.profile-page__menu-chevron {
+  flex-shrink: 0;
+  width: 9px;
+  height: 16px;
+  object-fit: contain;
+  display: block;
+}
+
 .profile-page__logout {
-  width: fit-content;
-  margin: 0 auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 10px 16px;
   border: 0;
+  border-radius: 100px;
   background: transparent;
-  color: #e30a12;
-  font: 700 16px/22px 'Open Sans', sans-serif;
+  color: #e50914;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+}
+
+.profile-page__logout-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  display: block;
 }
 
 .profile-page__whatsapp {
@@ -284,94 +364,3 @@ $_home-sky-tr: #ccecf7;
   align-items: center;
   justify-content: center;
 }
-
-.profile-page__bottom-nav {
-  position: fixed;
-  z-index: 15;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
-  width: 100%;
-  max-width: 430px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 0 24px calc(24px + env(safe-area-inset-bottom, 0px));
-  background: #fff;
-  border-top: 1px solid #f7f7f7;
-  box-sizing: border-box;
-}
-
-.profile-page__nav-slot {
-  flex: 1;
-  min-height: 52px;
-  padding-bottom: 4px;
-  border: 0;
-  background: transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.profile-page__nav-icon {
-  display: block;
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
-
-.profile-page__nav-icon--profile {
-  transform: scale(1.08);
-  transform-origin: center;
-}
-
-.profile-page__nav-label {
-  min-height: 12px;
-  margin-top: 2px;
-  font: 700 8px/12px Poppins, sans-serif;
-  letter-spacing: 0.048px;
-  color: #0091ff;
-  opacity: 0;
-}
-
-.profile-page__nav-slot--active .profile-page__nav-label {
-  opacity: 1;
-}
-
-.profile-page__nav-slot--fab {
-  flex: 0 0 68px;
-  width: 68px;
-  min-height: 72px;
-  position: relative;
-}
-
-.profile-page__nav-slot--fab::before {
-  content: '';
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 145, 255, 0.35) 0%, rgba(0, 145, 255, 0.08) 55%, transparent 70%);
-}
-
-.profile-page__fab {
-  z-index: 1;
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  border: 1px solid #b9dbf5;
-  background: #0091ff;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 5px rgba(0, 97, 171, 0.5), inset 0 1px 5px #7fb9e5, inset 0 -1px 2px rgba(1, 92, 160, 0.7);
-}
-
-.profile-page__fab-icon {
-  width: 40px;
-  height: 40px;
-}
-
