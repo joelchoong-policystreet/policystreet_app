@@ -51,17 +51,12 @@
           <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
         </filter>
-        <!-- Wide circular ring at FAB centre (bar top) — transparent gap around + -->
-        <mask id="app-bottom-nav-notch-mask" maskUnits="userSpaceOnUse" x="0" y="-58" width="490" height="168">
-          <rect x="0" y="0" width="490" height="106" fill="white" />
-          <circle cx="245" cy="6" r="44" fill="black" />
-        </mask>
       </defs>
       <g filter="url(#app-bottom-nav-panel-shadow)">
+        <!-- Smooth wing curves into notch (Figma 3089:25058), no sharp flat-to-arc corners -->
         <path
           fill="#fff"
-          mask="url(#app-bottom-nav-notch-mask)"
-          d="M0 106V4C0 1.79086 4.47715 0 10 0H480C485.523 0 490 4.47715 490 10V106H0Z"
+          d="M0 106V4C0 1.79086 4.47715 0 10 0H186.5C213.091 0 206.34 50 245 50C283.66 50 276.909 0 303.5 0H480C485.523 0 490 4.47715 490 10V106H0Z"
         />
       </g>
     </svg>

@@ -13,7 +13,8 @@
 .app-bottom-nav {
   --app-bottom-nav-fab-size: 56px;
   --app-bottom-nav-fab-lift: calc(var(--app-bottom-nav-fab-size) / 2); /* bar top = centre of + */
-  --app-bottom-nav-notch-radius: 44px;
+  /* Notch depth matches ~44px ring; wings use Figma cubic curves (no mask) */
+  --app-bottom-nav-notch-depth: 50px;
   --app-bottom-nav-bar-height: 80px;
   --app-bottom-nav-icon-gap: 116px;
 
@@ -76,7 +77,7 @@
   padding: 6px 24px env(safe-area-inset-bottom, 0px);
 }
 
-/* Inline SVG — fixed 80px; mask punches transparent circle at 50% 0 */
+/* Inline SVG — fixed 80px; smooth bezier notch at centre (transparent above curve) */
 .app-bottom-nav__panel {
   position: absolute;
   top: 0;
