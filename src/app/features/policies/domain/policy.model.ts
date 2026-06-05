@@ -100,6 +100,19 @@ export interface QuotationVehicleOption {
   imageSrc: string;
 }
 
+/** My Vehicles list row — derived from the same `MotorPolicy` source as policies / quotation. */
+export interface SavedVehicleView {
+  id: string;
+  plate: string;
+  carModel: string;
+}
+
+/** Add-vehicle form payload (plate + owner name). */
+export interface AddVehiclePayload {
+  plate: string;
+  ownerFullName: string;
+}
+
 export const QUOTATION_VEHICLE_IMAGE_SRC = '/assets/home/directions-car.svg';
 
 /** Whole days from `asOf` (start of day) until `coverageEndDate` (inclusive end day). */
@@ -158,13 +171,23 @@ export function toPolicyDetailsView(policy: MotorPolicy): PolicyDetailsView {
   };
 }
 
-export function toQuotationVehicleOptions(
+export function toSavedVehicleViews(
   policies: ReadonlyArray<MotorPolicy>,
-): ReadonlyArray<QuotationVehicleOption> {
+): ReadonlyArray<SavedVehicleView> {
   return policies.map((p) => ({
     id: p.id,
     plate: p.plate,
-    model: p.carModel,
+    carModel: p.carModel,
+  }));
+}
+
+export function toQuotationVehicleOptions(
+  policies: ReadonlyArray<MotorPolicy>,
+): ReadonlyArray<QuotationVehicleOption> {
+  return toSavedVehicleViews(policies).map((v) => ({
+    id: v.id,
+    plate: v.plate,
+    model: v.carModel,
     imageSrc: QUOTATION_VEHICLE_IMAGE_SRC,
   }));
 }

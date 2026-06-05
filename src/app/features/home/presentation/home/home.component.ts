@@ -93,6 +93,10 @@ export class HomeComponent implements AfterViewInit {
     void this.router.navigate(['/contact-support']);
   }
 
+  goMyVehicles(): void {
+    void this.router.navigate(['/my-vehicles']);
+  }
+
   ngAfterViewInit(): void {
     this.recalculateMaxSheetLift();
     this.updateSheetLift();

@@ -143,3 +143,15 @@ export const MOTOR_POLICIES_FIXTURE: ReadonlyArray<MotorPolicy> = [
     }),
   ),
 ];
+
+/** Demo saved vehicle from Add Vehicle form — car model filled when policy data is available. */
+export function createSavedVehiclePolicy(plate: string, ownerFullName: string): MotorPolicy {
+  const id = `v-${Date.now()}`;
+  return {
+    ...motorPolicy(
+      row(id, 'ACTIVE', plate, '—', 'Saved vehicle', '—', '—'),
+    ),
+    ownerFullName,
+    payeeName: ownerFullName,
+  };
+}

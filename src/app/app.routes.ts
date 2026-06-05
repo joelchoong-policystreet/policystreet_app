@@ -43,6 +43,20 @@ export const routes: Routes = [
       ).then((m) => m.ContactSupportComponent),
   },
   {
+    path: 'my-vehicles/add',
+    loadComponent: () =>
+      import(
+        './features/my-vehicles/presentation/add-vehicle/add-vehicle.component'
+      ).then((m) => m.AddVehicleComponent),
+  },
+  {
+    path: 'my-vehicles',
+    loadComponent: () =>
+      import(
+        './features/my-vehicles/presentation/my-vehicles/my-vehicles.component'
+      ).then((m) => m.MyVehiclesComponent),
+  },
+  {
     path: 'policies',
     loadComponent: () =>
       import('./features/policies/presentation/policies/policies.component').then(

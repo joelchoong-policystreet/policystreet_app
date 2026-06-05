@@ -39,6 +39,8 @@ export const SESSION_IMAGE_ASSET_URLS: readonly string[] = [
   '/assets/home/news-article-01.png',
   '/assets/home/news-article-02.png',
   '/assets/home/quick-action-add-vehicle.svg',
+  '/assets/my-vehicles/add-circle.svg',
+  '/assets/my-vehicles/lock.svg',
   '/assets/home/quick-action-contact-support.svg',
   '/assets/home/quick-action-request-quote.svg',
   '/assets/home/welcome-layer-1.svg',

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
-import { MOTOR_POLICIES_FIXTURE } from './motor-policies.fixture';
-import type { MotorPolicy, PolicyPersonalDetailsPatch } from '../domain/policy.model';
+import { MOTOR_POLICIES_FIXTURE, createSavedVehiclePolicy } from './motor-policies.fixture';
+import type { AddVehiclePayload, MotorPolicy, PolicyPersonalDetailsPatch } from '../domain/policy.model';
 import type { PolicyRepository } from '../domain/policy.repository';
 
 @Injectable()
@@ -13,6 +13,17 @@ export class PolicyRepositoryStub implements PolicyRepository {
 
   getPolicies(): Observable<ReadonlyArray<MotorPolicy>> {
     return this.policiesState.asObservable();
+  }
+
+  addVehicle(payload: AddVehiclePayload): Observable<void> {
+    const plate = payload.plate.trim().toUpperCase();
+    const ownerFullName = payload.ownerFullName.trim();
+    const next = [
+      ...this.policiesState.getValue(),
+      createSavedVehiclePolicy(plate, ownerFullName),
+    ];
+    this.policiesState.next(next);
+    return of(void 0);
   }
 
   deletePolicy(policyId: string): Observable<void> {

@@ -70,6 +70,9 @@ export class App implements OnInit, OnDestroy {
     if (p.startsWith('/quotation')) {
       return false;
     }
+    if (p === '/my-vehicles' || p.startsWith('/my-vehicles/')) {
+      return false;
+    }
     return false;
   }
 

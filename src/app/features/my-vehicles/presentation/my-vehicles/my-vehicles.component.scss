@@ -1,0 +1,377 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* My Vehicles — Figma 3104:20047, footer 3104:20291 */
+.my-vehicles-page {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 430px;
+  margin: 0 auto;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  --my-vehicles-footer-stack: 130px;
+}
+
+.my-vehicles-page > .app-route-fade-target {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header chrome — matches quotation / contact-support divider */
+.my-vehicles-page__chrome {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  border-bottom: 1px solid #e3eaf2;
+  box-shadow: 0 4px 2px #e3eaf2;
+}
+
+/* App bar — Figma 3104:20033 */
+.my-vehicles-page__appbar {
+  min-height: 64px;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #fff;
+}
+
+.my-vehicles-page__back {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 100px;
+  background: transparent;
+  color: #1d1b20;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.my-vehicles-page__appbar-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: #141414;
+  text-overflow: ellipsis;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.my-vehicles-page__main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 24px;
+  padding-bottom: calc(24px + var(--my-vehicles-footer-stack) + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Fixed footer — Figma 3104:20291 */
+.my-vehicles-page__footer {
+  flex-shrink: 0;
+  background: #fff;
+  box-shadow: 0 -4px 2px #e3eaf2;
+  padding: 16px 24px calc(32px + env(safe-area-inset-bottom, 0px));
+}
+
+.my-vehicles-page__cta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.my-vehicles-page__add-btn {
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  background: #0091ff;
+  color: #fff;
+  padding: 16px 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.my-vehicles-page__add-icon {
+  display: block;
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+}
+
+.my-vehicles-page__safe {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0;
+  color: #7092bb;
+}
+
+.my-vehicles-page__safe-icon {
+  display: block;
+  flex: 0 0 auto;
+  width: 12px;
+  height: 16px;
+}
+
+.my-vehicles-page__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.my-vehicles-page__title {
+  margin: 0;
+  color: #141414;
+  font-family: Poppins, 'Open Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  letter-spacing: 0.108px;
+}
+
+.my-vehicles-page__subtitle {
+  margin: 0;
+  color: #3d3d3d;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+.my-vehicles-page__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.my-vehicles-page__card {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border-radius: 8px;
+  background: #ebf6ff;
+  border: 1px solid #c4d2e3;
+}
+
+.my-vehicles-page__card-top {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.my-vehicles-page__card-head {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.my-vehicles-page__vehicle-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.my-vehicles-page__vehicle-icon img {
+  display: block;
+}
+
+.my-vehicles-page__plate {
+  margin: 0;
+  color: #141414;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.my-vehicles-page__delete-btn {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.my-vehicles-page__delete-btn img {
+  display: block;
+}
+
+.my-vehicles-page__divider {
+  margin: 0;
+  border: 0;
+  height: 24px;
+  background: transparent;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: #c4d2e3;
+    transform: translateY(-50%);
+  }
+}
+
+.my-vehicles-page__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.my-vehicles-page__label {
+  margin: 0;
+  color: #3d3d3d;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+.my-vehicles-page__value {
+  margin: 0;
+  color: #141414;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+/* Delete vehicle dialog — Figma 3107:20883 (content), 3107:20888 (actions) */
+.my-vehicles-page__modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 20, 0.52);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.my-vehicles-page__modal {
+  width: min(100%, 360px);
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
+}
+
+.my-vehicles-page__modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 24px 0;
+}
+
+.my-vehicles-page__modal-title {
+  margin: 0;
+  color: #1d1b20;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: 0;
+}
+
+.my-vehicles-page__modal-text {
+  margin: 0;
+  color: #141414;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+.my-vehicles-page__modal-plate {
+  color: #e50914;
+  font-weight: 700;
+}
+
+.my-vehicles-page__modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 20px 24px 20px 8px;
+}
+
+.my-vehicles-page__modal-btn {
+  min-height: 48px;
+  border: 0;
+  border-radius: 100px;
+  background: transparent;
+  padding: 10px 16px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.my-vehicles-page__modal-btn--cancel {
+  color: #141414;
+  letter-spacing: 0.1px;
+}
+
+.my-vehicles-page__modal-btn--delete {
+  color: #e50914;
+  letter-spacing: 0.25px;
+}
