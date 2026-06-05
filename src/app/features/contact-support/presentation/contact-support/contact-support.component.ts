@@ -15,6 +15,10 @@ export class ContactSupportComponent {
 
   readonly logoBrandSrc = APP_BRAND_LOGO_SRC;
 
+  readonly whatsappIconSrc = '/assets/contact-support/whatsapp.svg';
+
+  readonly emailIconSrc = '/assets/contact-support/email.svg';
+
   /** WhatsApp (WA messages only); digits only after wa.me/. */
   readonly whatsappHref = 'https://wa.me/60182822320';
 

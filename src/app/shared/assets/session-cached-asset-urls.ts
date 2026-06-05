@@ -8,6 +8,8 @@
  * Orphan marketing PNGs under `public/` (e.g. multi‑MB placeholders) must not be listed here.
  */
 export const SESSION_IMAGE_ASSET_URLS: readonly string[] = [
+  '/assets/contact-support/email.svg',
+  '/assets/contact-support/whatsapp.svg',
   '/assets/claims/coming-soon-1.svg',
   '/assets/claims/coming-soon-2.svg',
   '/assets/claims/coming-soon-3.svg',
@@ -57,6 +59,7 @@ export const SESSION_IMAGE_ASSET_URLS: readonly string[] = [
   '/assets/onboarding/welcome-screen-3-hour-hand.svg',
   '/assets/onboarding/welcome-screen-3-minute-hand.svg',
   '/assets/pawsper-icon.svg',
+  '/assets/profile/field-lock.svg',
   '/assets/profile/menu-contact-support.svg',
   '/assets/profile/menu-faq.svg',
   '/assets/profile/menu-language.svg',

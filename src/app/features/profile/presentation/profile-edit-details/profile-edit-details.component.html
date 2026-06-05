@@ -1,0 +1,235 @@
+<div class="profile-edit-page">
+  <div class="app-route-fade-target">
+    <div class="profile-edit-page__chrome">
+      <header class="profile-edit-page__appbar">
+        <button type="button" class="profile-edit-page__back" aria-label="Back" (click)="goBack()">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+          </svg>
+        </button>
+        <h1 class="profile-edit-page__appbar-title">Edit Details</h1>
+      </header>
+    </div>
+
+    <main class="profile-edit-page__main">
+      <div class="profile-edit-page__segments" role="tablist" aria-label="Edit details sections">
+        <button
+          type="button"
+          class="profile-edit-page__segment profile-edit-page__segment--start"
+          [class.profile-edit-page__segment--active]="isPersonalTab()"
+          role="tab"
+          [attr.aria-selected]="isPersonalTab()"
+          (click)="setTab('personal')"
+        >
+          @if (isPersonalTab()) {
+            <svg class="profile-edit-page__segment-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>
+          }
+          <span class="profile-edit-page__segment-label">Personal Information</span>
+        </button>
+        <button
+          type="button"
+          class="profile-edit-page__segment profile-edit-page__segment--end"
+          [class.profile-edit-page__segment--active]="isAddressTab()"
+          role="tab"
+          [attr.aria-selected]="isAddressTab()"
+          (click)="setTab('address')"
+        >
+          @if (isAddressTab()) {
+            <svg class="profile-edit-page__segment-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+            </svg>
+          }
+          <span class="profile-edit-page__segment-label">Residential Address</span>
+        </button>
+      </div>
+
+      <form class="profile-edit-page__form" [formGroup]="form" (ngSubmit)="onSave()" novalidate>
+        @if (isPersonalTab()) {
+          <div class="profile-edit-page__fields">
+            <div class="profile-edit-page__field profile-edit-page__field--locked profile-edit-page__field--hint">
+              <div class="profile-edit-page__locked-field">
+                <span class="profile-edit-page__locked-label">Full Name *</span>
+                <span class="profile-edit-page__locked-value">{{ lockedPersonal.fullName }}</span>
+                <span class="profile-edit-page__lock" aria-hidden="true">
+                  <img appCachedAsset="/assets/profile/field-lock.svg" width="14" height="18" alt="" />
+                </span>
+              </div>
+              <p class="profile-edit-page__field-hint">*as per IC/Passport</p>
+            </div>
+
+            <div class="profile-edit-page__field profile-edit-page__field--locked">
+              <div class="profile-edit-page__locked-field">
+                <span class="profile-edit-page__locked-label">NRIC / Passport No. *</span>
+                <span class="profile-edit-page__locked-value">{{ lockedPersonal.nricPassportNo }}</span>
+                <span class="profile-edit-page__lock" aria-hidden="true">
+                  <img appCachedAsset="/assets/profile/field-lock.svg" width="14" height="18" alt="" />
+                </span>
+              </div>
+            </div>
+
+            <div class="profile-edit-page__field profile-edit-page__field--locked">
+              <div class="profile-edit-page__locked-field">
+                <span class="profile-edit-page__locked-label">Date of Birth</span>
+                <span class="profile-edit-page__locked-value">{{ lockedPersonal.dateOfBirth }}</span>
+                <span class="profile-edit-page__lock" aria-hidden="true">
+                  <img appCachedAsset="/assets/profile/field-lock.svg" width="14" height="18" alt="" />
+                </span>
+              </div>
+            </div>
+
+            <div class="profile-edit-page__field">
+              <input
+                id="pe-nationality"
+                type="text"
+                class="profile-edit-page__input"
+                formControlName="nationality"
+                placeholder=" "
+                autocomplete="country-name"
+              />
+              <label class="profile-edit-page__input-label" for="pe-nationality">Nationality</label>
+            </div>
+
+            <div class="profile-edit-page__field">
+              <input
+                id="pe-gender"
+                type="text"
+                class="profile-edit-page__input"
+                formControlName="gender"
+                placeholder=" "
+                autocomplete="sex"
+              />
+              <label class="profile-edit-page__input-label" for="pe-gender">Gender</label>
+            </div>
+
+            <div class="profile-edit-page__field">
+              <input
+                id="pe-marital"
+                type="text"
+                class="profile-edit-page__input"
+                formControlName="maritalStatus"
+                placeholder=" "
+              />
+              <label class="profile-edit-page__input-label" for="pe-marital">Marital Status</label>
+            </div>
+
+            <div class="profile-edit-page__field">
+              <input
+                id="pe-email"
+                type="email"
+                class="profile-edit-page__input"
+                formControlName="email"
+                placeholder=" "
+                autocomplete="email"
+                aria-required="true"
+              />
+              <label class="profile-edit-page__input-label" for="pe-email">Email Address</label>
+            </div>
+
+            <div class="profile-edit-page__field">
+              <input
+                id="pe-mobile"
+                type="tel"
+                class="profile-edit-page__input"
+                formControlName="mobileNo"
+                placeholder=" "
+                autocomplete="tel"
+                aria-required="true"
+              />
+              <label class="profile-edit-page__input-label" for="pe-mobile">Mobile No.</label>
+            </div>
+          </div>
+        } @else {
+          <div class="profile-edit-page__fields profile-edit-page__fields--address">
+            <div class="profile-edit-page__field">
+              <input
+                id="pe-address-line-1"
+                type="text"
+                class="profile-edit-page__input"
+                formControlName="addressLine1"
+                placeholder=" "
+                autocomplete="address-line1"
+              />
+              <label class="profile-edit-page__input-label" for="pe-address-line-1">Address line 1</label>
+            </div>
+
+            <div class="profile-edit-page__field">
+              <input
+                id="pe-address-line-2"
+                type="text"
+                class="profile-edit-page__input"
+                formControlName="addressLine2"
+                placeholder=" "
+                autocomplete="address-line2"
+              />
+              <label class="profile-edit-page__input-label" for="pe-address-line-2">Address line 2</label>
+            </div>
+
+            <div class="profile-edit-page__field">
+              <input
+                id="pe-city"
+                type="text"
+                class="profile-edit-page__input"
+                formControlName="city"
+                placeholder=" "
+                autocomplete="address-level2"
+              />
+              <label class="profile-edit-page__input-label" for="pe-city">City</label>
+            </div>
+
+            <div class="profile-edit-page__field">
+              <input
+                id="pe-postcode"
+                type="text"
+                class="profile-edit-page__input"
+                formControlName="postcode"
+                placeholder=" "
+                autocomplete="postal-code"
+                inputmode="numeric"
+              />
+              <label class="profile-edit-page__input-label" for="pe-postcode">Postcode</label>
+            </div>
+
+            <div class="profile-edit-page__field">
+              <input
+                id="pe-state"
+                type="text"
+                class="profile-edit-page__input"
+                formControlName="state"
+                placeholder=" "
+                autocomplete="address-level1"
+              />
+              <label class="profile-edit-page__input-label" for="pe-state">State</label>
+            </div>
+          </div>
+        }
+      </form>
+    </main>
+
+    <footer class="profile-edit-page__footer" aria-label="Save profile actions">
+      <div class="profile-edit-page__cta">
+        <button
+          type="button"
+          class="profile-edit-page__save-btn"
+          [class.profile-edit-page__save-btn--enabled]="canSave()"
+          [disabled]="!canSave() || saving()"
+          (click)="onSave()"
+        >
+          {{ saving() ? 'Saving…' : 'Save Details' }}
+        </button>
+        <div class="profile-edit-page__safe">
+          <img
+            appCachedAsset="/assets/my-vehicles/lock.svg"
+            class="profile-edit-page__safe-icon"
+            width="12"
+            height="16"
+            alt=""
+            aria-hidden="true"
+          />
+          <span>Your data is safe with us.</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>

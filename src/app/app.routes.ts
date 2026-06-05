@@ -29,6 +29,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'profile/edit',
+    loadComponent: () =>
+      import(
+        './features/profile/presentation/profile-edit-details/profile-edit-details.component'
+      ).then((m) => m.ProfileEditDetailsComponent),
+  },
+  {
     path: 'profile',
     loadComponent: () =>
       import('./features/profile/presentation/profile/profile.component').then(

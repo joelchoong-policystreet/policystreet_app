@@ -55,8 +55,11 @@ export class App implements OnInit, OnDestroy {
     if (p === '/claims' || p.startsWith('/claims/')) {
       return true;
     }
-    if (p === '/profile' || p.startsWith('/profile/')) {
+    if (p === '/profile') {
       return true;
+    }
+    if (p.startsWith('/profile/')) {
+      return false;
     }
     if (p === '/documents') {
       return true;

@@ -64,6 +64,10 @@ export class ProfileComponent {
     },
   ];
 
+  onEditDetails(): void {
+    void this.router.navigate(['/profile/edit']);
+  }
+
   onMenuItemClick(itemId: string): void {
     if (itemId === 'contact-support') {
       void this.router.navigate(['/contact-support']);
