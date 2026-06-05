@@ -34,8 +34,8 @@ const COVER_NOTE_STATUS_LABEL: Record<PolicyStatus, string> = {
   EXPIRED: 'Expired',
 };
 
-/** Demo active quotation — Figma `3089:24699`. Replace with API when available. */
-export const HOME_ACTIVE_QUOTE: HomeActiveQuote = {
+/** Demo active quotation — Figma `3089:24699`. Assign when mocking API with a quote. */
+export const HOME_ACTIVE_QUOTE_DEMO: HomeActiveQuote = {
   id: 'quote-demo-vej1234',
   plate: 'VEJ1234',
   dateLabel: '13 May 2026 03:52PM',

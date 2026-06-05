@@ -98,11 +98,14 @@
               >
                 View Details
               </a>
-              @if (policy.secondaryAction) {
-                <button type="button" class="policy-card__action policy-card__action--cta">
-                  {{ policy.secondaryAction }}
-                </button>
-              }
+              <button
+                type="button"
+                class="policy-card__action policy-card__action--cta"
+                [class.policy-card__action--cta-disabled]="policy.status === 'ACTIVE'"
+                [disabled]="policy.status === 'ACTIVE'"
+              >
+                Renew Now
+              </button>
             </div>
           }
         </article>

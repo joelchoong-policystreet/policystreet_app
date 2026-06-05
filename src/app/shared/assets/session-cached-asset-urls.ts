@@ -18,6 +18,7 @@ export const SESSION_IMAGE_ASSET_URLS: readonly string[] = [
   '/assets/home/directions-car-ocr.svg',
   '/assets/home/directions-car.svg',
   '/assets/home/check-circle-green.svg',
+  '/assets/home/empty-state-active-quote.svg',
   '/assets/home/empty-state-magnifier.svg',
   '/assets/home/nav-claims-active.svg',
   '/assets/home/nav-claims-v2.svg',

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
 import { SAMPLE_USER } from '../../domain/sample-user';
 import {
-  HOME_ACTIVE_QUOTE,
+  HomeActiveQuote,
   homeLatestCoverNoteFromMotor,
   HOME_NEWS_ITEMS,
 } from '../../domain/home-dashboard.model';
@@ -31,8 +31,11 @@ export class HomeComponent implements AfterViewInit {
     requireSync: true,
   });
 
-  /** Demo active quote — Figma `3089:24694`; replace with API when available. */
-  readonly activeQuote = HOME_ACTIVE_QUOTE;
+  /**
+   * In-progress quotation for home — Figma `3089:24694` when set, `3216:23358` when null.
+   * Wire to quotation API; null shows the empty Active Quote card.
+   */
+  readonly activeQuote: HomeActiveQuote | null = null;
 
   /**
    * Latest active cover note for home (prefers `ABC1234` in demo data to match Figma).

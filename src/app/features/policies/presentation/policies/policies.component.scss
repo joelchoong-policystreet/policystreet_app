@@ -1,3 +1,5 @@
+/* Policies — Figma 3089:25677 */
+
 .nav-page {
   min-height: 100vh;
   min-height: 100dvh;
@@ -27,8 +29,7 @@
 }
 
 .nav-page__content {
-  padding: 24px;
-  padding-bottom: calc(var(--app-bottom-nav-clearance) + 16px);
+  padding: 24px 24px calc(var(--app-bottom-nav-clearance) + 50px);
 }
 
 .policy-tabs {
@@ -44,14 +45,14 @@
   height: 32px;
   padding: 6px 12px;
   border-radius: 8px;
-  border: 1px solid #cac4d0;
-  background: transparent;
-  color: #49454f;
+  border: 1px solid #737373;
+  background: #fff;
+  color: #525252;
   font-family: 'Open Sans', Inter, sans-serif;
   font-size: 14px;
   font-weight: 400;
-  line-height: 18px;
-  letter-spacing: 0.084px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
   cursor: pointer;
 }
 
@@ -71,7 +72,9 @@
 .policy-card {
   padding: 12px;
   border-radius: 8px;
-  background: #ebf6ff;
+  background: #fff;
+  border: 1px solid #c4d2e3;
+  box-shadow: 0 4px 15px #e3eaf2;
   opacity: 0;
   transform: translateY(8px) scale(0.995);
   animation: policy-card-in 240ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
@@ -79,14 +82,14 @@
 }
 
 .policy-card--compact {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  min-height: 60px;
+  box-sizing: border-box;
 }
 
 .policy-card__top {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 11px;
 }
 
 .policy-card__top--clickable {
@@ -98,13 +101,14 @@
   align-items: center;
   gap: 16px;
   min-width: 0;
+  flex: 1 1 auto;
 }
 
 .policy-card__vehicle-icon {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: #fff;
+  background: #ebf6ff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -120,9 +124,9 @@
   color: #141414;
   font-family: 'Open Sans', Inter, sans-serif;
   font-size: 16px;
-  font-weight: 600;
-  line-height: 22px;
-  letter-spacing: 0.096px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.5px;
 }
 
 .policy-card__status {
@@ -131,15 +135,14 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 12px;
+  padding: 2px 12px;
   border-radius: 20px;
   border: 1.2px solid;
-  color: #fff;
   font-family: 'Open Sans', Inter, sans-serif;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   line-height: 16px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.5px;
 }
 
 .policy-card__chevron-btn {
@@ -167,22 +170,37 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #fff;
+  flex-shrink: 0;
 }
 
 .policy-card__status--active {
   background: #24a148;
   border-color: #24a148;
+  color: #fff;
+
+  .policy-card__status-dot {
+    background: #fff;
+  }
 }
 
 .policy-card__status--expiring {
-  background: #ff832b;
-  border-color: #ff832b;
+  background: #ffd100;
+  border-color: #ffd100;
+  color: #141414;
+
+  .policy-card__status-dot {
+    background: #141414;
+  }
 }
 
 .policy-card__status--expired {
-  background: #e30a12;
-  border-color: #e30a12;
+  background: #e50914;
+  border-color: #e50914;
+  color: #fff;
+
+  .policy-card__status-dot {
+    background: #fff;
+  }
 }
 
 .policy-card__divider {
@@ -202,10 +220,10 @@
   margin: 0;
   color: #7092bb;
   font-family: 'Open Sans', Inter, sans-serif;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
-  line-height: 14px;
-  letter-spacing: 0.06px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
 }
 
 .policy-card__value {
@@ -214,8 +232,8 @@
   font-family: 'Open Sans', Inter, sans-serif;
   font-size: 14px;
   font-weight: 600;
-  line-height: 18px;
-  letter-spacing: 0.084px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
 }
 
 .policy-card__two-cols {
@@ -232,7 +250,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
 }
 
 .policy-card__action {
@@ -241,25 +259,36 @@
   padding: 0;
   text-decoration: none;
   font-family: 'Open Sans', Inter, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
   cursor: pointer;
 }
 
 .policy-card__action--primary {
   color: #0091ff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  padding: 6px 0;
 }
 
 .policy-card__action--cta {
-  padding: 10px 16px;
-  border-radius: 12px;
+  min-width: 105px;
+  padding: 6px 12px;
+  border-radius: 4px;
   background: #0091ff;
   color: #fff;
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.1px;
   font-weight: 600;
+}
+
+.policy-card__action--cta-disabled,
+.policy-card__action--cta:disabled {
+  background: #e5e5e5;
+  color: #3d3d3d;
+  opacity: 0.38;
+  cursor: not-allowed;
 }
 
 .nav-page__whatsapp {
@@ -301,4 +330,3 @@
     animation: none;
   }
 }
-

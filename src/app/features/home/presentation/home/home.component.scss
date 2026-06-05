@@ -294,8 +294,10 @@ $_home-sky-tr: #ccecf7;
   color: #0091ff;
 }
 
-.home-page__link-btn:disabled {
-  color: #a0aab8;
+.home-page__link-btn:disabled,
+.home-page__link-btn--inactive:disabled {
+  color: #3d3d3d;
+  opacity: 0.38;
   cursor: not-allowed;
   pointer-events: none;
 }

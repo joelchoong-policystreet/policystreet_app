@@ -68,12 +68,20 @@
 
   <div #sheetSection class="home-page__sheet">
     <div class="home-page__sheet-content">
-      @if (activeQuote; as quote) {
-        <section class="home-page__section" aria-labelledby="home-active-quote-heading">
-          <div class="home-page__section-head">
-            <h2 id="home-active-quote-heading" class="home-page__h2">Active Quote</h2>
-            <button type="button" class="home-page__link-btn" (click)="goQuotesAll()">View All</button>
-          </div>
+      <section class="home-page__section" aria-labelledby="home-active-quote-heading">
+        <div class="home-page__section-head">
+          <h2 id="home-active-quote-heading" class="home-page__h2">Active Quote</h2>
+          <button
+            type="button"
+            class="home-page__link-btn"
+            [class.home-page__link-btn--inactive]="!activeQuote"
+            [disabled]="!activeQuote"
+            (click)="goQuotesAll()"
+          >
+            View All
+          </button>
+        </div>
+        @if (activeQuote; as quote) {
           <article class="home-page__quote-card">
             <p class="home-page__quote-date">Date: {{ quote.dateLabel }}</p>
             <div class="home-page__quote-row">
@@ -109,8 +117,26 @@
               </p>
             </div>
           </article>
-        </section>
-      }
+        } @else {
+          <article class="home-page__empty-card" role="status" aria-live="polite">
+            <div class="home-page__empty-card__icon-wrap">
+              <img
+                class="home-page__empty-card__icon"
+                appCachedAsset="/assets/home/empty-state-active-quote.svg"
+                width="20"
+                height="20"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+            <p class="home-page__empty-card__title">No active quotes yet</p>
+            <p class="home-page__empty-card__body">
+              Need to renew your car insurance or takaful? Get a price check and compare rates from
+              Malaysia&rsquo;s top insurers.
+            </p>
+          </article>
+        }
+      </section>
 
       <section class="home-page__section" aria-labelledby="home-latest-cover-note-heading">
         <div class="home-page__section-head home-page__section-head--sticky">

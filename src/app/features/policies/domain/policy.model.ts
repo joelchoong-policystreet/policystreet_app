@@ -18,6 +18,8 @@ export interface MotorPolicy {
   coveragePeriodShort: string;
   /** Long period line for policy details */
   coveragePeriodLong: string;
+  /** ISO date (YYYY-MM-DD) used for expiry countdown banners */
+  coverageEndDate: string;
   coverageType: string;
   insurerProvider: string;
   sumInsured: string;
@@ -31,7 +33,10 @@ export interface MotorPolicy {
   maritalStatus: string;
   gender: string;
   residentialAddress: string;
+  payeeName: string;
   paymentMethod: string;
+  paymentDateTime: string;
+  transactionReference: string;
   documents: string[];
 }
 
@@ -69,6 +74,7 @@ export interface PolicyDetailsView {
   sumInsured: string;
   ncd: string;
   coveragePeriod: string;
+  coverageEndDate: string;
   premiumPaidAmount: string;
   addOns: string[];
   carPlateNumber: string;
@@ -80,7 +86,10 @@ export interface PolicyDetailsView {
   maritalStatus: string;
   gender: string;
   residentialAddress: string;
+  payeeName: string;
   paymentMethod: string;
+  paymentDateTime: string;
+  transactionReference: string;
   documents: string[];
 }
 
@@ -92,6 +101,19 @@ export interface QuotationVehicleOption {
 }
 
 export const QUOTATION_VEHICLE_IMAGE_SRC = '/assets/home/directions-car.svg';
+
+/** Whole days from `asOf` (start of day) until `coverageEndDate` (inclusive end day). */
+export function daysUntilCoverageEnd(coverageEndDate: string, asOf: Date = new Date()): number {
+  const [year, month, day] = coverageEndDate.split('-').map(Number);
+  const endDay = new Date(year, month - 1, day);
+  const today = new Date(asOf.getFullYear(), asOf.getMonth(), asOf.getDate());
+  const diffMs = endDay.getTime() - today.getTime();
+  return Math.max(0, Math.ceil(diffMs / 86_400_000));
+}
+
+export function formatExpiryDayLabel(days: number): string {
+  return days === 1 ? '1 day' : `${days} days`;
+}
 
 export function toPolicyCard(policy: MotorPolicy): PolicyCard {
   return {
@@ -116,6 +138,7 @@ export function toPolicyDetailsView(policy: MotorPolicy): PolicyDetailsView {
     sumInsured: policy.sumInsured,
     ncd: policy.ncd,
     coveragePeriod: policy.coveragePeriodLong,
+    coverageEndDate: policy.coverageEndDate,
     premiumPaidAmount: policy.premiumPaidAmount,
     addOns: policy.addOns,
     carPlateNumber: policy.plate,
@@ -127,7 +150,10 @@ export function toPolicyDetailsView(policy: MotorPolicy): PolicyDetailsView {
     maritalStatus: policy.maritalStatus,
     gender: policy.gender,
     residentialAddress: policy.residentialAddress,
+    payeeName: policy.payeeName,
     paymentMethod: policy.paymentMethod,
+    paymentDateTime: policy.paymentDateTime,
+    transactionReference: policy.transactionReference,
     documents: policy.documents,
   };
 }
@@ -144,13 +170,12 @@ export function toQuotationVehicleOptions(
 }
 
 /**
- * Policies list → "All" tab order (matches designed behaviour):
- * expired first, then expiring soon, then active.
+ * Policies list → "All" tab order: active first, then expiring soon, then expired.
  */
 export const POLICY_STATUS_SORT_ORDER: Record<PolicyStatus, number> = {
-  EXPIRED: 0,
+  ACTIVE: 0,
   'EXPIRING SOON': 1,
-  ACTIVE: 2,
+  EXPIRED: 2,
 };
 
 export function sortPolicyCardsForAllTab(cards: ReadonlyArray<PolicyCard>): PolicyCard[] {

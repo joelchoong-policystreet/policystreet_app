@@ -8,16 +8,26 @@ import { map, switchMap } from 'rxjs/operators';
 import { MOTOR_POLICIES_FIXTURE } from '../../data/motor-policies.fixture';
 import { POLICY_REPOSITORY } from '../../domain/policy-repository.token';
 import {
+  daysUntilCoverageEnd,
+  formatExpiryDayLabel,
   toPolicyDetailsView,
   type PolicyDetailsView,
   type PolicyPersonalDetailsPatch,
+  type PolicyStatus,
 } from '../../domain/policy.model';
+import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
+
+const POLICY_STATUS_LABELS: Record<PolicyStatus, string> = {
+  ACTIVE: 'Active',
+  'EXPIRING SOON': 'Expiring Soon',
+  EXPIRED: 'Expired',
+};
 
 @Component({
   selector: 'app-policy-details',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CachedAssetImgDirective],
   templateUrl: './policy-details.component.html',
   styleUrl: './policy-details.component.scss',
 })
@@ -62,6 +72,19 @@ export class PolicyDetailsComponent {
   private lastSyncedPersonalDetailsPolicyId: string | undefined;
 
   readonly isRenewDisabled = computed(() => this.policy()?.status === 'ACTIVE');
+  readonly statusLabel = computed(() => POLICY_STATUS_LABELS[this.policy().status]);
+  readonly isPolicyAlertDismissed = signal(false);
+  readonly showPolicyAlert = computed(() => {
+    if (this.isPolicyAlertDismissed()) {
+      return false;
+    }
+    const status = this.policy().status;
+    return status === 'EXPIRING SOON' || status === 'EXPIRED';
+  });
+  readonly daysUntilExpiry = computed(() =>
+    daysUntilCoverageEnd(this.policy().coverageEndDate),
+  );
+  readonly expiryDayLabel = computed(() => formatExpiryDayLabel(this.daysUntilExpiry()));
   readonly isDeleteConfirmOpen = signal(false);
 
   constructor() {
@@ -71,6 +94,7 @@ export class PolicyDetailsComponent {
       if (idChanged) {
         this.lastSyncedPersonalDetailsPolicyId = p.id;
         this.isEditingPersonalDetails.set(false);
+        this.isPolicyAlertDismissed.set(false);
         this.patchPersonalDetailsForm(p);
         return;
       }
@@ -96,6 +120,10 @@ export class PolicyDetailsComponent {
 
   closeDeleteConfirm(): void {
     this.isDeleteConfirmOpen.set(false);
+  }
+
+  dismissPolicyAlert(): void {
+    this.isPolicyAlertDismissed.set(true);
   }
 
   onDeletePolicyConfirmed(): void {

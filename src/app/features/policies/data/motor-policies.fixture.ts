@@ -26,6 +26,7 @@ const DEMO_OWNER = {
   sumInsured: 'RM 49,000.00',
   ncd: '55%',
   coveragePeriodLong: 'DD/MM/YYYY - DD/MM/YYYY',
+  coverageEndDate: '2027-03-18',
   premiumPaidAmount: 'RM 1,110.97',
   addOns: DEMO_ADD_ONS,
   ownerFullName: 'John',
@@ -36,7 +37,10 @@ const DEMO_OWNER = {
   gender: 'Male',
   residentialAddress:
     'Unit D-3A-06, Menara Suezcap 1, 2, Jalan Kerinchi Kiri, Pantai Dalam, 59200 Kuala Lumpur, Federal Territory of Kuala Lumpur',
+  payeeName: 'John',
   paymentMethod: "E-Wallet (Touch' n Go)",
+  paymentDateTime: '04/07/2025 | 15:36:12',
+  transactionReference: 'TXN-20250704-15361234',
   documents: DEMO_DOCUMENTS,
 } as const;
 
@@ -45,16 +49,23 @@ type PolicyRow = Pick<
   'id' | 'status' | 'plate' | 'carModel' | 'policyNo' | 'coverageType' | 'coveragePeriodShort'
 > & {
   coveragePeriodLong?: string;
+  coverageEndDate?: string;
 };
 
 function motorPolicy(row: PolicyRow): MotorPolicy {
-  const { coveragePeriodLong, ...rest } = row;
+  const { coveragePeriodLong, coverageEndDate, ...rest } = row;
   return {
     ...DEMO_OWNER,
     ...rest,
     coveragePeriodLong: coveragePeriodLong ?? DEMO_OWNER.coveragePeriodLong,
+    coverageEndDate: coverageEndDate ?? DEMO_OWNER.coverageEndDate,
   };
 }
+
+type PolicyRowOptions = {
+  coveragePeriodLong?: string;
+  coverageEndDate?: string;
+};
 
 function row(
   id: string,
@@ -64,7 +75,7 @@ function row(
   policyNo: string,
   coverageType: string,
   coveragePeriodShort: string,
-  coveragePeriodLong?: string,
+  options?: PolicyRowOptions,
 ): PolicyRow {
   return {
     id,
@@ -74,7 +85,7 @@ function row(
     policyNo,
     coverageType,
     coveragePeriodShort,
-    coveragePeriodLong,
+    ...options,
   };
 }
 
@@ -86,10 +97,14 @@ export const MOTOR_POLICIES_FIXTURE: ReadonlyArray<MotorPolicy> = [
     row('p1', 'ACTIVE', 'VEJ1234', 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)', 'Motor-Policy20250704-1536123412341', 'Comprehensive', 'DD/MM/YY - DD/MM/YY'),
   ),
   motorPolicy(
-    row('p2', 'EXPIRING SOON', 'QME1324', 'MAZDA CX-5 2022 GVC PLUS 2.5G HIGH 2488 6 SP AUTOMATIC CONVENTIONAL', 'Motor-Policy20250704-1536123412341', 'Comprehensive', 'DD/MM/YY - DD/MM/YY'),
+    row('p2', 'EXPIRING SOON', 'QME1324', 'MAZDA CX-5 2022 GVC PLUS 2.5G HIGH 2488 6 SP AUTOMATIC CONVENTIONAL', 'Motor-Policy20250704-1536123412341', 'Comprehensive', 'DD/MM/YY - DD/MM/YY', {
+      coverageEndDate: '2026-06-22',
+    }),
   ),
   motorPolicy(
-    row('p3', 'EXPIRED', 'ABC8888', 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)', 'Motor-Policy20250704-1536123412341', 'Comprehensive', 'DD/MM/YY - DD/MM/YY'),
+    row('p3', 'EXPIRED', 'ABC8888', 'HONDA CITY 2022 V SENSING 1498 1 SP AUTOMATIC CONSTANTLY VARIABLE (CVT)', 'Motor-Policy20250704-1536123412341', 'Comprehensive', 'DD/MM/YY - DD/MM/YY', {
+      coverageEndDate: '2026-05-01',
+    }),
   ),
   motorPolicy(
     row(
@@ -100,22 +115,31 @@ export const MOTOR_POLICIES_FIXTURE: ReadonlyArray<MotorPolicy> = [
       'Motor-Policy20250704-1536123412399',
       'Comprehensive',
       'DD/MM/YY - DD/MM/YY',
-      'Covered until 18 March 2027',
+      {
+        coveragePeriodLong: 'Covered until 18 March 2027',
+        coverageEndDate: '2027-03-18',
+      },
     ),
   ),
   motorPolicy(
     row('p4b', 'ACTIVE', 'WQJ4721', 'TOYOTA VIOS 2021 G 1496 7 SP CVT', 'Motor-Policy20250704-1536123412399', 'Comprehensive', 'DD/MM/YY - DD/MM/YY'),
   ),
   motorPolicy(
-    row('p5', 'EXPIRING SOON', 'JTB9016', 'PERODUA MYVI 2020 AV 1496 4 SP AUTOMATIC', 'Motor-Policy20250704-1536123412477', 'Third Party, Fire & Theft', 'DD/MM/YY - DD/MM/YY'),
+    row('p5', 'EXPIRING SOON', 'JTB9016', 'PERODUA MYVI 2020 AV 1496 4 SP AUTOMATIC', 'Motor-Policy20250704-1536123412477', 'Third Party, Fire & Theft', 'DD/MM/YY - DD/MM/YY', {
+      coverageEndDate: '2026-06-11',
+    }),
   ),
   motorPolicy(
     row('p6', 'ACTIVE', 'PKR3308', 'HONDA HR-V 2023 RS e:HEV 1498 E-CVT', 'Motor-Policy20250704-1536123412554', 'Comprehensive', 'DD/MM/YY - DD/MM/YY'),
   ),
   motorPolicy(
-    row('p7', 'EXPIRED', 'MNS7642', 'PROTON X50 2022 PREMIUM 1477 7DCT', 'Motor-Policy20250704-1536123412631', 'Comprehensive', 'DD/MM/YY - DD/MM/YY'),
+    row('p7', 'EXPIRED', 'MNS7642', 'PROTON X50 2022 PREMIUM 1477 7DCT', 'Motor-Policy20250704-1536123412631', 'Comprehensive', 'DD/MM/YY - DD/MM/YY', {
+      coverageEndDate: '2026-04-15',
+    }),
   ),
   motorPolicy(
-    row('p8', 'EXPIRING SOON', 'BHV2195', 'MAZDA 3 2021 HIGH PLUS 1998 6 SP AUTOMATIC', 'Motor-Policy20250704-1536123412702', 'Comprehensive', 'DD/MM/YY - DD/MM/YY'),
+    row('p8', 'EXPIRING SOON', 'BHV2195', 'MAZDA 3 2021 HIGH PLUS 1998 6 SP AUTOMATIC', 'Motor-Policy20250704-1536123412702', 'Comprehensive', 'DD/MM/YY - DD/MM/YY', {
+      coverageEndDate: '2026-06-04',
+    }),
   ),
 ];
