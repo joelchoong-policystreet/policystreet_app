@@ -97,7 +97,15 @@
                 </span>
                 <p class="home-page__quote-plate">{{ quote.plate }}</p>
               </div>
-              @if (showRowViewQuote(quote)) {
+              @if (showReadyNotice(quote)) {
+                <button
+                  type="button"
+                  class="home-page__quote-cta"
+                  (click)="acknowledgeReadyQuote(quote.id)"
+                >
+                  View Quote
+                </button>
+              } @else if (showRowViewQuote(quote)) {
                 <button type="button" class="home-page__quote-cta" (click)="goActiveQuote(quote.id)">
                   View Quote
                 </button>
@@ -125,13 +133,6 @@
                   aria-hidden="true"
                 />
                 <p class="home-page__quote-status-text">Your quote is now ready.</p>
-                <button
-                  type="button"
-                  class="home-page__quote-cta home-page__quote-cta--ready"
-                  (click)="acknowledgeReadyQuote(quote.id)"
-                >
-                  View Quote
-                </button>
               </div>
             }
             @if (showRowViewQuote(quote) && !quote.submittedAt) {

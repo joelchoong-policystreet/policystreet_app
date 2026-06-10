@@ -46,7 +46,15 @@
                       </span>
                       <p class="quotation-hub-page__quote-plate">{{ quote.plate }}</p>
                     </div>
-                    @if (showRowViewQuote(quote)) {
+                    @if (showReadyNotice(quote)) {
+                      <button
+                        type="button"
+                        class="quotation-hub-page__quote-cta"
+                        (click)="acknowledgeReadyQuote(quote.id)"
+                      >
+                        View Quote
+                      </button>
+                    } @else if (showRowViewQuote(quote)) {
                       <button
                         type="button"
                         class="quotation-hub-page__quote-cta"
@@ -86,13 +94,6 @@
                       <p class="quotation-hub-page__quote-status-text">
                         Your quote is now ready.
                       </p>
-                      <button
-                        type="button"
-                        class="quotation-hub-page__quote-cta quotation-hub-page__quote-cta--ready"
-                        (click)="acknowledgeReadyQuote(quote.id)"
-                      >
-                        View Quote
-                      </button>
                     </div>
                   }
                 </article>
