@@ -50,6 +50,11 @@ export const routes: Routes = [
       ).then((m) => m.ContactSupportComponent),
   },
   {
+    path: 'faq',
+    loadComponent: () =>
+      import('./features/faq/presentation/faq/faq.component').then((m) => m.FaqComponent),
+  },
+  {
     path: 'my-vehicles/add',
     loadComponent: () =>
       import(
@@ -109,15 +114,34 @@ export const routes: Routes = [
     path: 'quotation',
     loadComponent: () =>
       import(
-        './features/quotation/presentation/quotation/quotation.component'
-      ).then((m) => m.QuotationComponent),
+        './features/quotation/presentation/quotation-hub/quotation-hub.component'
+      ).then((m) => m.QuotationHubComponent),
   },
   {
-    path: 'quotation/step-2',
+    path: 'quotation/new',
     loadComponent: () =>
       import(
         './features/quotation/presentation/quotation-step-two/quotation-step-two.component'
       ).then((m) => m.QuotationStepTwoComponent),
+  },
+  {
+    path: 'quotation/form',
+    loadComponent: () =>
+      import(
+        './features/quotation/presentation/quotation-request-form/quotation-request-form.component'
+      ).then((m) => m.QuotationRequestFormComponent),
+  },
+  {
+    path: 'quotation/preferences',
+    loadComponent: () =>
+      import(
+        './features/quotation/presentation/quotation-preferences/quotation-preferences.component'
+      ).then((m) => m.QuotationPreferencesComponent),
+  },
+  {
+    path: 'quotation/step-2',
+    redirectTo: 'quotation/new',
+    pathMatch: 'full',
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

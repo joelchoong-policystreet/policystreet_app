@@ -66,6 +66,8 @@ export const SESSION_IMAGE_ASSET_URLS: readonly string[] = [
   '/assets/profile/menu-logout.svg',
   '/assets/profile/profile-avatar.svg',
   '/assets/profile/referral-illustration.svg',
+  '/assets/quotation/empty-active-quotes.svg',
+  '/assets/quotation/vehicle-thumb.png',
   '/assets/quotation/icon-myself.svg',
   '/assets/quotation/icon-someone-else.svg',
 ];

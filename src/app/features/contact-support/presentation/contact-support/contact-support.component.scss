@@ -17,6 +17,7 @@
   flex-direction: column;
   overflow: hidden;
   box-sizing: border-box;
+  position: relative;
 }
 
 .contact-support-page > .app-route-fade-target {
@@ -221,6 +222,31 @@
 
 .contact-support-page__channel-label--email {
   text-decoration: underline;
+}
+
+.contact-support-page__whatsapp {
+  position: fixed;
+  z-index: 20;
+  right: max(16px, calc(50vw - 215px + 16px));
+  bottom: calc(var(--app-bottom-nav-clearance) + 12px);
+  width: 56px;
+  height: 56px;
+  border-radius: 100px;
+  background: #25d366;
+  box-shadow: 0 4px 4px #e3eaf2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.contact-support-page__whatsapp-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
 }
 
 @media (max-width: 359px) {

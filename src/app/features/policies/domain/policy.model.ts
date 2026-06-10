@@ -113,7 +113,7 @@ export interface AddVehiclePayload {
   ownerFullName: string;
 }
 
-export const QUOTATION_VEHICLE_IMAGE_SRC = '/assets/home/directions-car.svg';
+export const QUOTATION_VEHICLE_IMAGE_SRC = '/assets/quotation/vehicle-thumb.png';
 
 /** Whole days from `asOf` (start of day) until `coverageEndDate` (inclusive end day). */
 export function daysUntilCoverageEnd(coverageEndDate: string, asOf: Date = new Date()): number {

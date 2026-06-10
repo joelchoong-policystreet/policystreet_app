@@ -36,22 +36,7 @@
   padding-bottom: 16px;
 }
 
-.quotation-page__brand-bar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0 24px;
-  min-height: 60px;
-}
-
-.quotation-page__logo {
-  display: block;
-  width: 153px;
-  height: auto;
-  max-height: 40px;
-  object-fit: contain;
-}
-
+/* App bar — Figma 3115:1490 (no logo header) */
 .quotation-page__appbar {
   display: flex;
   align-items: center;
@@ -65,18 +50,30 @@
   width: 48px;
   height: 48px;
   border: 0;
+  border-radius: 100px;
   background: transparent;
-  color: #141414;
-  display: grid;
-  place-items: center;
+  color: #1d1b20;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .quotation-page__title {
+  flex: 1;
+  min-width: 0;
   margin: 0;
-  font: 400 22px/28px 'Open Sans', sans-serif;
+  overflow: hidden;
   color: #141414;
+  text-overflow: ellipsis;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
   letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .quotation-page__progress {

@@ -1,0 +1,133 @@
+<div class="quotation-hub-page">
+  <div class="app-route-fade-target">
+    <div class="quotation-hub-page__chrome">
+      <header class="quotation-hub-page__appbar" aria-label="Get new quote navigation">
+        <button type="button" class="quotation-hub-page__back" aria-label="Back" (click)="goBack()">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+          </svg>
+        </button>
+        <h1 class="quotation-hub-page__title">Get New Quote</h1>
+      </header>
+    </div>
+
+    <main class="quotation-hub-page__main">
+      @if (sortedActiveQuotes().length === 0) {
+        <h2 class="quotation-hub-page__heading">Active Quotes</h2>
+        <div class="quotation-hub-page__empty" role="status" aria-live="polite">
+          <img
+            class="quotation-hub-page__empty-icon"
+            appCachedAsset="/assets/quotation/empty-active-quotes.svg"
+            width="48"
+            height="48"
+            alt=""
+            aria-hidden="true"
+          />
+          <p class="quotation-hub-page__empty-text">No active quotes found.</p>
+        </div>
+      } @else {
+        <section class="quotation-hub-page__quotes-section" aria-label="Active quotes">
+          <h2 class="quotation-hub-page__heading">Active Quotes</h2>
+          <ul class="quotation-hub-page__quote-list">
+            @for (quote of sortedActiveQuotes(); track quote.id) {
+              <li>
+                <article class="quotation-hub-page__quote-card">
+                  <p class="quotation-hub-page__quote-date">Date: {{ quote.dateLabel }}</p>
+                  <div class="quotation-hub-page__quote-row">
+                    <div class="quotation-hub-page__quote-vehicle">
+                      <span class="quotation-hub-page__quote-icon-wrap" aria-hidden="true">
+                        <img
+                          class="quotation-hub-page__quote-icon"
+                          appCachedAsset="/assets/home/directions-car.svg"
+                          width="30"
+                          height="30"
+                          alt=""
+                        />
+                      </span>
+                      <p class="quotation-hub-page__quote-plate">{{ quote.plate }}</p>
+                    </div>
+                    @if (showRowViewQuote(quote)) {
+                      <button
+                        type="button"
+                        class="quotation-hub-page__quote-cta"
+                        (click)="viewQuote(quote.id)"
+                      >
+                        View Quote
+                      </button>
+                    }
+                  </div>
+                  @if (isTimerRunning(quote)) {
+                    <div
+                      class="quotation-hub-page__quote-status quotation-hub-page__quote-status--progress"
+                      role="status"
+                    >
+                      <p class="quotation-hub-page__quote-status-text">
+                        <span>Your quote for {{ quote.plate }} is </span>
+                        <strong class="quotation-hub-page__quote-status-em">in progress</strong>
+                        <span>. Come back in </span>
+                        <strong class="quotation-hub-page__quote-status-em">{{ readyInMinutes(quote) }} minutes</strong>
+                        <span>.</span>
+                      </p>
+                    </div>
+                  }
+                  @if (showReadyNotice(quote)) {
+                    <div
+                      class="quotation-hub-page__quote-status quotation-hub-page__quote-status--ready"
+                      role="status"
+                    >
+                      <img
+                        class="quotation-hub-page__quote-status-icon"
+                        appCachedAsset="/assets/home/check-circle-green.svg"
+                        width="16"
+                        height="16"
+                        alt=""
+                        aria-hidden="true"
+                      />
+                      <p class="quotation-hub-page__quote-status-text">
+                        Your quote is now ready.
+                      </p>
+                      <button
+                        type="button"
+                        class="quotation-hub-page__quote-cta quotation-hub-page__quote-cta--ready"
+                        (click)="acknowledgeReadyQuote(quote.id)"
+                      >
+                        View Quote
+                      </button>
+                    </div>
+                  }
+                </article>
+              </li>
+            }
+          </ul>
+        </section>
+      }
+    </main>
+
+    <footer class="quotation-hub-page__footer" aria-label="Get new quote actions">
+      <div class="quotation-hub-page__cta">
+        <button type="button" class="quotation-hub-page__new-btn" (click)="getNewQuote()">
+          <img
+            appCachedAsset="/assets/my-vehicles/add-circle.svg"
+            class="quotation-hub-page__new-btn-icon"
+            width="16"
+            height="16"
+            alt=""
+            aria-hidden="true"
+          />
+          <span>Get New Quote</span>
+        </button>
+        <div class="quotation-hub-page__safe">
+          <img
+            appCachedAsset="/assets/my-vehicles/lock.svg"
+            class="quotation-hub-page__safe-icon"
+            width="12"
+            height="16"
+            alt=""
+            aria-hidden="true"
+          />
+          <span>Your data is safe with us.</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>

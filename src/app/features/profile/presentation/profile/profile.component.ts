@@ -74,6 +74,7 @@ export class ProfileComponent {
       return;
     }
     if (itemId === 'faq') {
+      void this.router.navigate(['/faq']);
       return;
     }
     if (itemId === 'language') {

@@ -1,0 +1,221 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* FAQ — Figma 3120:2850 (header), 3120:2864 (content) */
+.faq-page {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 430px;
+  margin: 0 auto;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.faq-page > .app-route-fade-target {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-page__chrome {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  border-bottom: 1px solid #e3eaf2;
+  box-shadow: 0 4px 2px #e3eaf2;
+}
+
+.faq-page__appbar {
+  min-height: 64px;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #fff;
+}
+
+.faq-page__back {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 100px;
+  background: transparent;
+  color: #1d1b20;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.faq-page__appbar-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: #141414;
+  text-overflow: ellipsis;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.faq-page__main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 24px 24px calc(var(--app-bottom-nav-clearance) + 50px);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  box-sizing: border-box;
+}
+
+.faq-page__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faq-page__heading {
+  margin: 0;
+  color: #141414;
+  font-family: Poppins, 'Open Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  letter-spacing: 0.108px;
+}
+
+.faq-page__subtitle {
+  margin: 0;
+  color: #3d3d3d;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+.faq-page__subtitle-link {
+  color: #0091ff;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.faq-page__subtitle-link:focus-visible {
+  outline: 2px solid #0091ff;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.faq-page__accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-page__accordion {
+  background: #fff;
+  border: 1px solid #c4d2e3;
+  border-radius: 16px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.faq-page__accordion-trigger {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  cursor: pointer;
+  color: #000;
+}
+
+.faq-page__accordion-trigger:focus-visible {
+  outline: 2px solid #0091ff;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.faq-page__accordion-question {
+  flex: 1;
+  min-width: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: #000;
+}
+
+.faq-page__accordion--expanded .faq-page__accordion-question {
+  color: #0091ff;
+}
+
+.faq-page__accordion-chevron {
+  flex-shrink: 0;
+  width: 20px;
+  height: 22px;
+  padding-top: 2px;
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: center;
+  color: #000;
+}
+
+.faq-page__accordion-chevron svg {
+  transition: transform 0.2s ease;
+}
+
+.faq-page__accordion:not(.faq-page__accordion--expanded) .faq-page__accordion-chevron svg {
+  transform: rotate(180deg);
+}
+
+.faq-page__accordion--expanded .faq-page__accordion-chevron {
+  color: #0091ff;
+}
+
+.faq-page__accordion-panel {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #c5e6ef;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faq-page__accordion-answer {
+  margin: 0;
+  color: #3d3d3d;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 359px) {
+  .faq-page__main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

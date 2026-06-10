@@ -74,14 +74,14 @@
           <button
             type="button"
             class="home-page__link-btn"
-            [class.home-page__link-btn--inactive]="!activeQuote"
-            [disabled]="!activeQuote"
+            [class.home-page__link-btn--inactive]="!activeQuote()"
+            [disabled]="!activeQuote()"
             (click)="goQuotesAll()"
           >
             View All
           </button>
         </div>
-        @if (activeQuote; as quote) {
+        @if (activeQuote(); as quote) {
           <article class="home-page__quote-card">
             <p class="home-page__quote-date">Date: {{ quote.dateLabel }}</p>
             <div class="home-page__quote-row">
@@ -97,25 +97,62 @@
                 </span>
                 <p class="home-page__quote-plate">{{ quote.plate }}</p>
               </div>
-              <button type="button" class="home-page__quote-cta" (click)="goActiveQuote()">View Quote</button>
+              @if (showRowViewQuote(quote)) {
+                <button type="button" class="home-page__quote-cta" (click)="goActiveQuote(quote.id)">
+                  View Quote
+                </button>
+              }
             </div>
-            <div class="home-page__quote-status" role="status">
-              <img
-                class="home-page__quote-status-icon"
-                appCachedAsset="/assets/home/check-circle-green.svg"
-                width="16"
-                height="16"
-                alt=""
-                aria-hidden="true"
-              />
-              <p class="home-page__quote-status-text">
-                <span>Your quote for {{ quote.plate }} is </span>
-                <strong class="home-page__quote-status-em">ready</strong>
-                <span>. Tap </span>
-                <strong class="home-page__quote-status-action">View Quote</strong>
-                <span> to continue.</span>
-              </p>
-            </div>
+            @if (isTimerRunning(quote)) {
+              <div class="home-page__quote-status home-page__quote-status--progress" role="status">
+                <p class="home-page__quote-status-text">
+                  <span>Your quote for {{ quote.plate }} is </span>
+                  <strong class="home-page__quote-status-em home-page__quote-status-em--progress">in progress</strong>
+                  <span>. Come back in </span>
+                  <strong class="home-page__quote-status-em home-page__quote-status-em--progress">{{ readyInMinutes(quote) }} minutes</strong>
+                  <span>.</span>
+                </p>
+              </div>
+            }
+            @if (showReadyNotice(quote)) {
+              <div class="home-page__quote-status home-page__quote-status--ready-notice" role="status">
+                <img
+                  class="home-page__quote-status-icon"
+                  appCachedAsset="/assets/home/check-circle-green.svg"
+                  width="16"
+                  height="16"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <p class="home-page__quote-status-text">Your quote is now ready.</p>
+                <button
+                  type="button"
+                  class="home-page__quote-cta home-page__quote-cta--ready"
+                  (click)="acknowledgeReadyQuote(quote.id)"
+                >
+                  View Quote
+                </button>
+              </div>
+            }
+            @if (showRowViewQuote(quote) && !quote.submittedAt) {
+              <div class="home-page__quote-status" role="status">
+                <img
+                  class="home-page__quote-status-icon"
+                  appCachedAsset="/assets/home/check-circle-green.svg"
+                  width="16"
+                  height="16"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <p class="home-page__quote-status-text">
+                  <span>Your quote for {{ quote.plate }} is </span>
+                  <strong class="home-page__quote-status-em">ready</strong>
+                  <span>. Tap </span>
+                  <strong class="home-page__quote-status-action">View Quote</strong>
+                  <span> to continue.</span>
+                </p>
+              </div>
+            }
           </article>
         } @else {
           <article class="home-page__empty-card" role="status" aria-live="polite">

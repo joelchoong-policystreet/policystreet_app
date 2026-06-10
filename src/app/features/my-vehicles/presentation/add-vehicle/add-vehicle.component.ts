@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, startWith, take } from 'rxjs/operators';
 
 import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
@@ -18,6 +18,7 @@ import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-
 export class AddVehicleComponent {
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly inAppNav = inject(InAppNavigationHistoryService);
   private readonly policyRepository = inject(POLICY_REPOSITORY);
 
@@ -42,6 +43,11 @@ export class AddVehicleComponent {
   }
 
   goBack(): void {
+    const returnTo = this.resolveReturnTo();
+    if (returnTo) {
+      void this.router.navigateByUrl(returnTo);
+      return;
+    }
     this.inAppNav.backOrNavigate(['/my-vehicles']);
   }
 
@@ -58,6 +64,11 @@ export class AddVehicleComponent {
       .pipe(take(1))
       .subscribe({
         next: () => {
+          const returnTo = this.resolveReturnTo();
+          if (returnTo) {
+            void this.router.navigateByUrl(returnTo);
+            return;
+          }
           void this.router.navigate(['/my-vehicles']);
         },
         complete: () => {
@@ -67,5 +78,13 @@ export class AddVehicleComponent {
           this.saving.set(false);
         },
       });
+  }
+
+  private resolveReturnTo(): string | null {
+    const returnTo = this.route.snapshot.queryParamMap.get('returnTo');
+    if (!returnTo?.startsWith('/') || returnTo.startsWith('//')) {
+      return null;
+    }
+    return returnTo;
   }
 }

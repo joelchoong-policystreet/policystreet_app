@@ -415,6 +415,22 @@ $_home-sky-tr: #ccecf7;
   word-break: break-word;
 }
 
+.home-page__quote-status--progress {
+  background: #fff4e5;
+}
+
+.home-page__quote-status--ready-notice {
+  background: #e6f4e7;
+}
+
+.home-page__quote-status-em--progress {
+  color: #e87722;
+}
+
+.home-page__quote-cta--ready {
+  flex-shrink: 0;
+}
+
 .home-page__quote-status-em,
 .home-page__quote-status-action {
   font-weight: 700;

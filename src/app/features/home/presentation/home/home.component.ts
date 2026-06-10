@@ -1,7 +1,14 @@
-import { AfterViewInit, Component, ElementRef, HostListener, ViewChild, computed, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
 import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
+import {
+  getLatestActiveQuote,
+  isQuoteTimerRunning,
+  markQuoteReadyNoticeDismissed,
+  remainingQuoteReadyMinutes,
+} from '../../../quotation/data/active-quotes.storage';
 import { SAMPLE_USER } from '../../domain/sample-user';
 import {
   HomeActiveQuote,
@@ -18,9 +25,11 @@ import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly policyRepository = inject(POLICY_REPOSITORY);
+  private refreshTimer?: ReturnType<typeof setInterval>;
+  private navSub?: Subscription;
 
   /** Full-colour brand lockup for light hero backgrounds (same asset as onboarding header). */
   readonly logoBrandSrc = APP_BRAND_LOGO_SRC;
@@ -32,10 +41,9 @@ export class HomeComponent implements AfterViewInit {
   });
 
   /**
-   * In-progress quotation for home — Figma `3089:24694` when set, `3216:23358` when null.
-   * Wire to quotation API; null shows the empty Active Quote card.
+   * Latest active quotation for home — synced with `/quotation` hub (localStorage today).
    */
-  readonly activeQuote: HomeActiveQuote | null = null;
+  readonly activeQuote = signal<HomeActiveQuote | null>(getLatestActiveQuote());
 
   /**
    * Latest active cover note for home (prefers `ABC1234` in demo data to match Figma).
@@ -81,8 +89,51 @@ export class HomeComponent implements AfterViewInit {
     void this.router.navigate(['/policies', policyId]);
   }
 
-  goActiveQuote(): void {
-    void this.router.navigate(['/quotation/step-2']);
+  goActiveQuote(quoteId: string): void {
+    void this.router.navigate(['/quotation/new'], { queryParams: { quoteId } });
+  }
+
+  refreshActiveQuote(): void {
+    this.activeQuote.set(getLatestActiveQuote());
+  }
+
+  isTimerRunning(quote: HomeActiveQuote): boolean {
+    return isQuoteTimerRunning(quote);
+  }
+
+  showReadyNotice(quote: HomeActiveQuote): boolean {
+    return quote.status === 'ready' && !!quote.submittedAt && !quote.readyNoticeDismissed;
+  }
+
+  showRowViewQuote(quote: HomeActiveQuote): boolean {
+    return quote.status === 'ready' && !this.showReadyNotice(quote);
+  }
+
+  readyInMinutes(quote: HomeActiveQuote): number {
+    return remainingQuoteReadyMinutes(quote);
+  }
+
+  acknowledgeReadyQuote(quoteId: string): void {
+    markQuoteReadyNoticeDismissed(quoteId);
+    this.refreshActiveQuote();
+  }
+
+  ngOnInit(): void {
+    this.refreshActiveQuote();
+    this.refreshTimer = setInterval(() => this.refreshActiveQuote(), 30_000);
+    this.navSub = this.router.events
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .subscribe(() => {
+        const path = this.router.url.split('?')[0].split('#')[0];
+        if (path === '/home') {
+          this.refreshActiveQuote();
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.refreshTimer);
+    this.navSub?.unsubscribe();
   }
 
   goQuotation(): void {

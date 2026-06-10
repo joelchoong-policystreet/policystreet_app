@@ -46,6 +46,9 @@ export class App implements OnInit, OnDestroy {
     if (p === '/contact-support' || p.startsWith('/contact-support/')) {
       return true;
     }
+    if (p === '/faq' || p.startsWith('/faq/')) {
+      return true;
+    }
     if (p === '/policies') {
       return true;
     }
@@ -93,7 +96,7 @@ export class App implements OnInit, OnDestroy {
     if (this.currentPath.startsWith('/claims')) {
       return 'claims';
     }
-    if (this.currentPath.startsWith('/profile')) {
+    if (this.currentPath.startsWith('/profile') || this.currentPath.startsWith('/faq')) {
       return 'profile';
     }
     if (this.currentPath.startsWith('/documents')) {

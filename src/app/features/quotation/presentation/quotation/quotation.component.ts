@@ -1,8 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
-import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 
 type QuoteTarget = 'myself' | 'someone-else';
@@ -10,7 +8,7 @@ type QuoteTarget = 'myself' | 'someone-else';
 @Component({
   selector: 'app-quotation',
   standalone: true,
-  imports: [CachedAssetImgDirective],
+  imports: [],
   templateUrl: './quotation.component.html',
   styleUrl: './quotation.component.scss',
 })
@@ -20,11 +18,10 @@ export class QuotationComponent {
     private readonly inAppNav: InAppNavigationHistoryService,
   ) {}
 
-  readonly logoBrandSrc = APP_BRAND_LOGO_SRC;
   readonly selected = signal<QuoteTarget>('myself');
 
   goBack(): void {
-    this.inAppNav.backOrNavigate(['/home']);
+    this.inAppNav.backOrNavigate(['/quotation']);
   }
 
   select(target: QuoteTarget): void {
