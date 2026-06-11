@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
+import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
 import { POLICY_REPOSITORY } from '../../domain/policy-repository.token';
 import {
   type PolicyCard,
@@ -16,7 +17,7 @@ import {
 @Component({
   selector: 'app-policies',
   standalone: true,
-  imports: [RouterLink, CachedAssetImgDirective],
+  imports: [RouterLink, CachedAssetImgDirective, WhatsappFabComponent],
   templateUrl: './policies.component.html',
   styleUrl: './policies.component.scss',
 })

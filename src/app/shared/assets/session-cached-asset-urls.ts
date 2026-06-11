@@ -59,6 +59,7 @@ export const SESSION_IMAGE_ASSET_URLS: readonly string[] = [
   '/assets/onboarding/welcome-screen-3-hour-hand.svg',
   '/assets/onboarding/welcome-screen-3-minute-hand.svg',
   '/assets/pawsper-icon.svg',
+  '/assets/auth/malaysia-flag.png',
   '/assets/profile/field-lock.svg',
   '/assets/profile/menu-contact-support.svg',
   '/assets/profile/menu-faq.svg',

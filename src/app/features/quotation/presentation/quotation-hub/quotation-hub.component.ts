@@ -1,32 +1,33 @@
 import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { Router } from '@angular/router';
 
 import {
   getActiveQuotes,
-  isQuoteTimerRunning,
   markQuoteReadyNoticeDismissed,
-  remainingQuoteReadyMinutes,
 } from '../../data/active-quotes.storage';
+import { showActiveQuoteRowViewQuote } from '../../domain/active-quote.presentation';
 import { sortActiveQuotesLatestFirst } from '../../domain/active-quotes.fixture';
-import type { HomeActiveQuote } from '../../../home/domain/home-dashboard.model';
+import type { ActiveQuote } from '../../domain/active-quote.model';
+import { QuotationFlowService } from '../../domain/quotation-flow.service';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
+import { ActiveQuoteCardComponent } from '../../../../shared/presentation/active-quote-card/active-quote-card.component';
+import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
 
 @Component({
   selector: 'app-quotation-hub',
   standalone: true,
-  imports: [CachedAssetImgDirective],
+  imports: [CachedAssetImgDirective, ActiveQuoteCardComponent, PageChromeComponent],
   templateUrl: './quotation-hub.component.html',
   styleUrl: './quotation-hub.component.scss',
 })
 export class QuotationHubComponent implements OnInit, OnDestroy {
-  private readonly router = inject(Router);
+  private readonly flow = inject(QuotationFlowService);
   private refreshTimer?: ReturnType<typeof setInterval>;
 
   /**
    * In-progress quotations — Figma `3115:1504` when empty, `3115:1566` when filled.
    * User-submitted quotes are persisted in localStorage.
    */
-  readonly activeQuotes = signal<readonly HomeActiveQuote[]>(getActiveQuotes());
+  readonly activeQuotes = signal<readonly ActiveQuote[]>(getActiveQuotes());
 
   readonly sortedActiveQuotes = computed(() =>
     sortActiveQuotesLatestFirst(this.activeQuotes()),
@@ -34,22 +35,6 @@ export class QuotationHubComponent implements OnInit, OnDestroy {
 
   refreshActiveQuotes(): void {
     this.activeQuotes.set(getActiveQuotes());
-  }
-
-  isTimerRunning(quote: HomeActiveQuote): boolean {
-    return isQuoteTimerRunning(quote);
-  }
-
-  showReadyNotice(quote: HomeActiveQuote): boolean {
-    return quote.status === 'ready' && !!quote.submittedAt && !quote.readyNoticeDismissed;
-  }
-
-  showRowViewQuote(quote: HomeActiveQuote): boolean {
-    return quote.status === 'ready' && !this.showReadyNotice(quote);
-  }
-
-  readyInMinutes(quote: HomeActiveQuote): number {
-    return remainingQuoteReadyMinutes(quote);
   }
 
   ngOnInit(): void {
@@ -62,11 +47,11 @@ export class QuotationHubComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    void this.router.navigate(['/home']);
+    void this.flow.exitToHome();
   }
 
   getNewQuote(): void {
-    void this.router.navigate(['/quotation/new']);
+    void this.flow.startNewQuote();
   }
 
   acknowledgeReadyQuote(quoteId: string): void {
@@ -76,9 +61,9 @@ export class QuotationHubComponent implements OnInit, OnDestroy {
 
   viewQuote(quoteId: string): void {
     const quote = this.activeQuotes().find((item) => item.id === quoteId);
-    if (!quote || !this.showRowViewQuote(quote)) {
+    if (!quote || !showActiveQuoteRowViewQuote(quote)) {
       return;
     }
-    void this.router.navigate(['/quotation/new'], { queryParams: { quoteId } });
+    void this.flow.viewQuote(quoteId);
   }
 }

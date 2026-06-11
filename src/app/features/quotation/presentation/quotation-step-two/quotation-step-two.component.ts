@@ -1,21 +1,23 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
+import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
 import { toQuotationVehicleOptions } from '../../../policies/domain/policy.model';
+import { QuotationFlowService } from '../../domain/quotation-flow.service';
 
 @Component({
   selector: 'app-quotation-step-two',
   standalone: true,
-  imports: [CachedAssetImgDirective],
+  imports: [CachedAssetImgDirective, PageChromeComponent],
   templateUrl: './quotation-step-two.component.html',
   styleUrl: './quotation-step-two.component.scss',
 })
 export class QuotationStepTwoComponent {
-  private readonly router = inject(Router);
+  private readonly flow = inject(QuotationFlowService);
   private readonly route = inject(ActivatedRoute);
   private readonly policyRepository = inject(POLICY_REPOSITORY);
 
@@ -44,13 +46,11 @@ export class QuotationStepTwoComponent {
   }
 
   goBack(): void {
-    void this.router.navigate(['/quotation']);
+    void this.flow.goToHub();
   }
 
   addVehicle(): void {
-    void this.router.navigate(['/my-vehicles/add'], {
-      queryParams: { returnTo: '/quotation/new' },
-    });
+    void this.flow.goToAddVehicle();
   }
 
   selectVehicle(id: string): void {
@@ -62,8 +62,6 @@ export class QuotationStepTwoComponent {
     if (!vehicleId) {
       return;
     }
-    void this.router.navigate(['/quotation/form'], {
-      queryParams: { vehicleId },
-    });
+    void this.flow.goToRequestForm(vehicleId);
   }
 }

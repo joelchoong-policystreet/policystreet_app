@@ -11,7 +11,7 @@
   min-height: 100dvh;
   max-width: 430px;
   margin: 0 auto;
-  background: #fff;
+  background: var(--Brand-White, #fff);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -33,8 +33,8 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  background: #fff;
-  border-bottom: 1px solid #e3eaf2;
+  background: var(--Brand-White, #fff);
+  border-bottom: 1px solid var(--Disable-Borders-Columbia-Blue, #e3eaf2);
 }
 
 .policy-details-page__icon-btn {
@@ -56,7 +56,7 @@
   min-width: 0;
   margin: 0;
   overflow: hidden;
-  color: #141414;
+  color: var(--Font-Black, #141414);
   text-overflow: ellipsis;
   font-family: 'Open Sans', sans-serif;
   font-size: 22px;
@@ -138,8 +138,8 @@
 
 .policy-details-page__cta-bar {
   flex-shrink: 0;
-  background: #fff;
-  border-top: 1px solid #e3eaf2;
+  background: var(--Brand-White, #fff);
+  border-top: 1px solid var(--Disable-Borders-Columbia-Blue, #e3eaf2);
   box-shadow: 0 -4px 12px rgba(227, 234, 242, 0.65);
   padding: 16px 24px calc(16px + env(safe-area-inset-bottom, 0px));
 }
@@ -149,8 +149,8 @@
   min-height: 54px;
   border: 0;
   border-radius: 16px;
-  background: #0091ff;
-  color: #fff;
+  background: var(--ps-primary, #0091ff);
+  color: var(--Brand-White, #fff);
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   font-weight: 600;
@@ -181,7 +181,7 @@
 /* Remove policy dialog — Figma 3091:29139 */
 .policy-details-page__modal {
   width: min(100%, 360px);
-  background: #fff;
+  background: var(--Brand-White, #fff);
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
@@ -196,7 +196,7 @@
 
 .policy-details-page__modal-title {
   margin: 0;
-  color: #141414;
+  color: var(--Font-Black, #141414);
   font-family: Poppins, 'Open Sans', sans-serif;
   font-size: 24px;
   font-weight: 500;
@@ -206,7 +206,7 @@
 
 .policy-details-page__modal-text {
   margin: 0;
-  color: #141414;
+  color: var(--Font-Black, #141414);
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -242,7 +242,7 @@
 }
 
 .policy-details-page__modal-btn--cancel {
-  color: #141414;
+  color: var(--Font-Black, #141414);
 }
 
 .policy-details-page__modal-btn--remove {
@@ -313,7 +313,7 @@
 
 .policy-details-page__section-title-wrap h2 {
   margin: 0;
-  color: #203570;
+  color: var(--ps-text-heading, #203570);
   font-family: 'Open Sans', sans-serif;
   font-size: 18px;
   font-weight: 600;
@@ -350,14 +350,14 @@
   color: #fff;
 
   .policy-details-page__status-dot {
-    background: #fff;
+    background: var(--Brand-White, #fff);
   }
 }
 
 .policy-details-page__status--expiring {
   background: #ffd100;
   border-color: #ffd100;
-  color: #141414;
+  color: var(--Font-Black, #141414);
 
   .policy-details-page__status-dot {
     background: #141414;
@@ -370,12 +370,12 @@
   color: #fff;
 
   .policy-details-page__status-dot {
-    background: #fff;
+    background: var(--Brand-White, #fff);
   }
 }
 
 .policy-details-page__card {
-  background: #ebf6ff;
+  background: var(--Accents-Alice-Blue-2, #ebf6ff);
   border-radius: 8px;
   padding: 12px;
   display: flex;
@@ -391,7 +391,7 @@
 
 .policy-details-page__label {
   margin: 0;
-  color: #7092bb;
+  color: var(--Accents-Blue-Grey, #7092bb);
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
   font-weight: 400;
@@ -405,7 +405,7 @@
 
 .policy-details-page__value {
   margin: 0;
-  color: #141414;
+  color: var(--Font-Black, #141414);
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -439,7 +439,7 @@
 .policy-details-page__addons {
   margin: 0;
   padding-left: 21px;
-  color: #141414;
+  color: var(--Font-Black, #141414);
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -472,7 +472,7 @@
 .policy-details-page__doc-name {
   flex: 1;
   min-width: 0;
-  color: #141414;
+  color: var(--Font-Black, #141414);
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -484,7 +484,7 @@
   border: 0;
   padding: 6px 12px;
   background: transparent;
-  color: #0091ff;
+  color: var(--ps-primary, #0091ff);
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
   font-weight: 600;
@@ -503,7 +503,7 @@
   border: 0;
   padding: 6px 0;
   background: transparent;
-  color: #0091ff;
+  color: var(--ps-primary, #0091ff);
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -527,11 +527,11 @@
 .policy-details-page__textarea {
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid #c4d2e3;
+  border: 1px solid var(--disable-borders-columbia-blue, #c4d2e3);
   border-radius: 8px;
   padding: 10px 12px;
-  background: #fff;
-  color: #141414;
+  background: var(--Brand-White, #fff);
+  color: var(--Font-Black, #141414);
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -571,15 +571,15 @@
 }
 
 .policy-details-page__personal-btn--cancel {
-  border: 1px solid #7092bb;
-  background: #fff;
-  color: #7092bb;
+  border: 1px solid var(--Accents-Blue-Grey, #7092bb);
+  background: var(--Brand-White, #fff);
+  color: var(--Accents-Blue-Grey, #7092bb);
 }
 
 .policy-details-page__personal-btn--save {
   border: 0;
-  background: #0091ff;
-  color: #fff;
+  background: var(--ps-primary, #0091ff);
+  color: var(--Brand-White, #fff);
 }
 
 .policy-details-page__personal-btn--save:disabled {

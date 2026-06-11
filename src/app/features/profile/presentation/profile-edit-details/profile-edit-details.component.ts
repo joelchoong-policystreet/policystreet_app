@@ -10,11 +10,12 @@ import {
 } from '../../domain/profile-details.model';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
+import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
 
 @Component({
   selector: 'app-profile-edit-details',
   standalone: true,
-  imports: [ReactiveFormsModule, CachedAssetImgDirective],
+  imports: [ReactiveFormsModule, CachedAssetImgDirective, PageChromeComponent],
   templateUrl: './profile-edit-details.component.html',
   styleUrl: './profile-edit-details.component.scss',
 })

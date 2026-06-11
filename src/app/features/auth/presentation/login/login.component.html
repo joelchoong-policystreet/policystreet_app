@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <main class="viewport">
+  <main id="main-content" class="viewport">
     <section class="card">
       <div class="card__body">
         <div class="login-section">
@@ -34,20 +34,44 @@
                 <p class="card-form__lead">Enter your mobile number to sign in.</p>
               </div>
 
-              <div class="field" [class.field--error]="mobile.touched && mobile.invalid">
+              <div class="field field--phone" [class.field--error]="mobile.touched && mobile.invalid">
                 <label class="field__label" for="mobile">Mobile Number</label>
-                <input
-                  id="mobile"
-                  type="tel"
-                  class="field__input"
-                  [formControl]="mobile"
-                  inputmode="numeric"
-                  autocomplete="tel"
-                  placeholder="e.g. 0123456789"
-                  maxlength="11"
-                />
+                <div class="field__phone">
+                  <div class="field__prefix" aria-label="Country code Malaysia plus 60">
+                    <img
+                      class="field__flag"
+                      [appCachedAsset]="malaysiaFlagSrc"
+                      width="16"
+                      height="8"
+                      alt=""
+                      aria-hidden="true"
+                    />
+                    <span class="field__dial-code">{{ countryDialCode }}</span>
+                    <svg
+                      class="field__dial-chevron"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path fill="#49454f" d="M7 10l5 5 5-5H7z" />
+                    </svg>
+                  </div>
+                  <input
+                    id="mobile"
+                    type="tel"
+                    class="field__phone-input"
+                    [value]="mobileLocalDigits()"
+                    (input)="onMobileInput($event)"
+                    inputmode="numeric"
+                    autocomplete="tel-national"
+                    placeholder="123456789"
+                    maxlength="10"
+                    aria-required="true"
+                  />
+                </div>
                 @if (mobile.touched && mobile.invalid) {
-                  <span class="field__hint">Enter a valid Malaysian mobile number (e.g. 0123456789).</span>
+                  <span class="field__hint">Enter a valid Malaysian mobile number (e.g. 123456789).</span>
                 }
               </div>
 

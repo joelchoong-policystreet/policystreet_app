@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
+import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
 import { SAMPLE_USER } from '../../../home/domain/sample-user';
 
 type ProfileMenuRow = {
@@ -21,7 +22,7 @@ type ProfileMenuSection = {
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CachedAssetImgDirective],
+  imports: [CachedAssetImgDirective, WhatsappFabComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })

@@ -95,9 +95,9 @@
   align-items: center;
   width: 100%;
   min-height: 100%;
-  background: #fff;
+  background: var(--Brand-White, #fff);
   border-radius: clamp(48px, 12vw, 100px) clamp(48px, 12vw, 100px) 0 0;
-  box-shadow: 0 4px 30px 0 #e3eaf2;
+  box-shadow: var(--ps-glow-card, 0 4px 30px #e3eaf2);
   box-sizing: border-box;
 }
 
@@ -128,7 +128,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  color: #141414;
+  color: var(--Font-Black, #141414);
 }
 
 .card-form__title {
@@ -153,14 +153,92 @@
   position: relative;
 }
 
+.field--phone .field__phone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 56px;
+  padding: 16px 14px;
+  border: 1px solid var(--Accents-Blue-Grey, #7092bb);
+  border-radius: 10px;
+  background: var(--Brand-White, #fff);
+  box-sizing: border-box;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+
+  &:focus-within {
+    box-shadow: 0 0 0 2px rgba(112, 146, 187, 0.2);
+  }
+}
+
+.field--phone.field--error .field__phone {
+  border-color: #d64f4f;
+}
+
+.field__prefix {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 4px;
+}
+
+.field__flag {
+  display: block;
+  width: 16px;
+  height: 8px;
+  object-fit: cover;
+  border-radius: 1px;
+}
+
+.field__dial-code {
+  color: #1d1b20;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.field__dial-chevron {
+  display: block;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin-left: -2px;
+}
+
+.field__phone-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: #1d1b20;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  outline: none;
+
+  &::placeholder {
+    color: rgba(29, 27, 32, 0.45);
+    font-weight: 600;
+  }
+}
+
 .field__label {
   position: absolute;
   top: 0;
   left: 12px;
   transform: translateY(-50%);
   padding: 0 4px;
-  background: #fff;
-  color: #7092bb;
+  background: var(--Brand-White, #fff);
+  color: var(--Accents-Blue-Grey, #7092bb);
   font-family: 'Open Sans', Inter, sans-serif;
   font-size: 12px;
   font-weight: 400;
@@ -182,9 +260,9 @@
   width: 100%;
   min-height: 56px;
   padding: 16px 14px;
-  border: 1px solid #7092bb;
+  border: 1px solid var(--Accents-Blue-Grey, #7092bb);
   border-radius: 10px;
-  background: #fff;
+  background: var(--Brand-White, #fff);
   color: rgba(61, 61, 61, 0.92);
   font-family: Roboto, Inter, sans-serif;
   font-size: 16px;
@@ -237,8 +315,8 @@
     filter 0.15s ease;
 
   &--active:not(:disabled) {
-    background: linear-gradient(90deg, #0091ff 0%, #127ce0 100%);
-    color: #fff;
+    background: linear-gradient(90deg, var(--ps-primary, #0091ff) 0%, #127ce0 100%);
+    color: var(--Brand-White, #fff);
     box-shadow: 0 6px 16px rgba(0, 145, 255, 0.28);
     cursor: pointer;
   }
@@ -272,10 +350,10 @@
   width: 100%;
   min-height: 52px;
   padding: 4px;
-  border: 1px solid #7092bb;
+  border: 1px solid var(--Accents-Blue-Grey, #7092bb);
   border-radius: 10px;
-  background: #fff;
-  color: #203570;
+  background: var(--Brand-White, #fff);
+  color: var(--ps-text-heading, #203570);
   text-align: center;
   font-family: Roboto, Inter, sans-serif;
   font-size: 16px;
@@ -321,12 +399,12 @@
 }
 
 .otp-alt__link--primary {
-  color: #0091ff;
+  color: var(--ps-primary, #0091ff);
   font-weight: 600;
 }
 
 .otp-alt__timer {
-  color: #7092bb;
+  color: var(--Accents-Blue-Grey, #7092bb);
   font-family: 'Open Sans', Inter, sans-serif;
   font-size: 12px;
   line-height: 16px;

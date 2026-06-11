@@ -1,11 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
+import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
 import { FAQ_EXTERNAL_PAGE_URL, FAQ_ITEMS } from '../../domain/faq.fixture';
 
 @Component({
   selector: 'app-faq',
   standalone: true,
-  imports: [],
+  imports: [PageChromeComponent],
   templateUrl: './faq.component.html',
   styleUrl: './faq.component.scss',
 })

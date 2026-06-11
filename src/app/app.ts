@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 import { AppBottomNavComponent, type BottomNavTab } from './shared/presentation/app-bottom-nav/app-bottom-nav.component';
+import { readAppRouteData } from './shared/routing/read-app-route-data';
 
 @Component({
   selector: 'app-root',
@@ -12,15 +13,17 @@ import { AppBottomNavComponent, type BottomNavTab } from './shared/presentation/
 export class App implements OnInit, OnDestroy {
   private navSub?: Subscription;
   currentPath = '';
+  private showBottomNavFlag = false;
+  private activeTab: BottomNavTab = 'none';
 
   constructor(private readonly router: Router) {}
 
   ngOnInit(): void {
-    this.currentPath = this.router.url;
+    this.syncRouteShell(this.router.url);
     this.navSub = this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event) => {
-        this.currentPath = event.urlAfterRedirects;
+        this.syncRouteShell(event.urlAfterRedirects);
         requestAnimationFrame(() => {
           window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
           document.documentElement.scrollTop = 0;
@@ -33,85 +36,18 @@ export class App implements OnInit, OnDestroy {
     this.navSub?.unsubscribe();
   }
 
-  /**
-   * Bottom nav only on main tab surfaces. Hidden on nested flows: policy details,
-   * quotation (all steps), documents upload, etc.
-   */
-  shouldShowBottomNav(): boolean {
-    const p = this.pathnameWithoutQuery(this.currentPath);
-
-    if (p === '/home' || p.startsWith('/home/')) {
-      return true;
-    }
-    if (p === '/contact-support' || p.startsWith('/contact-support/')) {
-      return true;
-    }
-    if (p === '/faq' || p.startsWith('/faq/')) {
-      return true;
-    }
-    if (p === '/policies') {
-      return true;
-    }
-    if (p.startsWith('/policies/')) {
-      return false;
-    }
-    if (p === '/claims' || p.startsWith('/claims/')) {
-      return true;
-    }
-    if (p === '/profile') {
-      return true;
-    }
-    if (p.startsWith('/profile/')) {
-      return false;
-    }
-    if (p === '/documents') {
-      return true;
-    }
-    if (p.startsWith('/documents/')) {
-      return false;
-    }
-    if (p === '/notifications' || p.startsWith('/notifications/')) {
-      return true;
-    }
-    if (p.startsWith('/quotation')) {
-      return false;
-    }
-    if (p === '/my-vehicles' || p.startsWith('/my-vehicles/')) {
-      return false;
-    }
-    return false;
+  private syncRouteShell(url: string): void {
+    this.currentPath = url;
+    const routeData = readAppRouteData(this.router);
+    this.showBottomNavFlag = routeData.showBottomNav === true;
+    this.activeTab = routeData.bottomNavTab ?? 'none';
   }
 
-  private pathnameWithoutQuery(url: string): string {
-    const q = url.indexOf('?');
-    const path = q === -1 ? url : url.slice(0, q);
-    const h = path.indexOf('#');
-    return h === -1 ? path : path.slice(0, h);
+  shouldShowBottomNav(): boolean {
+    return this.showBottomNavFlag;
   }
 
   activeBottomTab(): BottomNavTab {
-    if (this.currentPath.startsWith('/policies')) {
-      return 'policies';
-    }
-    if (this.currentPath.startsWith('/claims')) {
-      return 'claims';
-    }
-    if (this.currentPath.startsWith('/profile') || this.currentPath.startsWith('/faq')) {
-      return 'profile';
-    }
-    if (this.currentPath.startsWith('/documents')) {
-      return 'none';
-    }
-    if (this.currentPath.startsWith('/quotation')) {
-      return 'none';
-    }
-    if (
-      this.currentPath.startsWith('/home') ||
-      this.currentPath.startsWith('/notifications') ||
-      this.currentPath.startsWith('/contact-support')
-    ) {
-      return 'home';
-    }
-    return 'none';
+    return this.activeTab;
   }
 }

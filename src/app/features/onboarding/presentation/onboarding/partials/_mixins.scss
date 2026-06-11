@@ -1,0 +1,9 @@
+/* Hour nib SVG: flat-back pivot = midpoint of base edge (48×47 viewBox) */
+$hour-hand-pivot-x-pct: calc((0.908203 + 5.67415) / 2 / 48 * 100%);
+$hour-hand-pivot-y-pct: calc((41.4486 + 46.0267) / 2 / 47 * 100%);
+
+/* Keeps headline / body blocks aligned across slides when copy line-count varies */
+$onboarding-headline-min-h: clamp(56px, 10vh, calc(44px * 2 + 8px));
+$onboarding-desc-min-h: clamp(72px, 16vh, 120px);
+$onboarding-dots-min-h: clamp(32px, 6vh, 40px);
+$onboarding-action-min-h: clamp(48px, 7vh, 54px);

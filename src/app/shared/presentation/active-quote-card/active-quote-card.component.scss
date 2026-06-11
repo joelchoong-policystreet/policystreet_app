@@ -1,0 +1,148 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.active-quote-card {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--Accents-Alice-Blue-2, #ebf6ff);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.active-quote-card__date {
+  margin: 0;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+:host(.active-quote-card--home) .active-quote-card__date {
+  color: var(--Accents-Blue-Grey, #7092bb);
+}
+
+:host(.active-quote-card--hub) .active-quote-card__date {
+  color: #3d3d3d;
+}
+
+.active-quote-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 11px;
+  width: 100%;
+}
+
+.active-quote-card__vehicle {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.active-quote-card__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.active-quote-card__icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.active-quote-card__plate {
+  margin: 0;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  color: #141414;
+}
+
+.active-quote-card__cta {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 6px 12px;
+  border: 1px solid #0091ff;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  color: #0091ff;
+}
+
+.active-quote-card__status {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: #e6f4e7;
+}
+
+.active-quote-card__status-icon {
+  display: block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.active-quote-card__status-text {
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  color: #141414;
+  word-break: break-word;
+}
+
+.active-quote-card__status--progress {
+  background: #fff4e5;
+}
+
+.active-quote-card__status--ready-notice,
+.active-quote-card__status--legacy-ready {
+  background: #e6f4e7;
+}
+
+.active-quote-card__status-em--progress {
+  color: #e87722;
+}
+
+.active-quote-card__status-em,
+.active-quote-card__status-action {
+  font-weight: 700;
+}
+
+.active-quote-card__status-em {
+  color: #24a148;
+}
+
+.active-quote-card__status-action {
+  color: #141414;
+}

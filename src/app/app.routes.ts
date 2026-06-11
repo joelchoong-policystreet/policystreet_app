@@ -1,14 +1,25 @@
 import { Routes } from '@angular/router';
 
+import {
+  ROUTE_DATA_CLAIMS_TAB,
+  ROUTE_DATA_DOCUMENTS_TAB,
+  ROUTE_DATA_HIDDEN,
+  ROUTE_DATA_HOME_TAB,
+  ROUTE_DATA_POLICIES_TAB,
+  ROUTE_DATA_PROFILE_TAB,
+} from './shared/routing/app-route-data';
+
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
+    data: ROUTE_DATA_HIDDEN,
     loadComponent: () =>
       import('./features/app-entry/gate.component').then((m) => m.GateComponent),
   },
   {
     path: 'onboarding',
+    data: ROUTE_DATA_HIDDEN,
     loadComponent: () =>
       import(
         './features/onboarding/presentation/onboarding/onboarding.component'
@@ -16,6 +27,7 @@ export const routes: Routes = [
   },
   {
     path: 'login',
+    data: ROUTE_DATA_HIDDEN,
     loadComponent: () =>
       import('./features/auth/presentation/login/login.component').then(
         (m) => m.LoginComponent,
@@ -23,6 +35,7 @@ export const routes: Routes = [
   },
   {
     path: 'home',
+    data: ROUTE_DATA_HOME_TAB,
     loadComponent: () =>
       import('./features/home/presentation/home/home.component').then(
         (m) => m.HomeComponent,
@@ -30,6 +43,7 @@ export const routes: Routes = [
   },
   {
     path: 'profile/edit',
+    data: ROUTE_DATA_HIDDEN,
     loadComponent: () =>
       import(
         './features/profile/presentation/profile-edit-details/profile-edit-details.component'
@@ -37,6 +51,7 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
+    data: ROUTE_DATA_PROFILE_TAB,
     loadComponent: () =>
       import('./features/profile/presentation/profile/profile.component').then(
         (m) => m.ProfileComponent,
@@ -44,6 +59,7 @@ export const routes: Routes = [
   },
   {
     path: 'contact-support',
+    data: ROUTE_DATA_HOME_TAB,
     loadComponent: () =>
       import(
         './features/contact-support/presentation/contact-support/contact-support.component'
@@ -51,11 +67,13 @@ export const routes: Routes = [
   },
   {
     path: 'faq',
+    data: ROUTE_DATA_PROFILE_TAB,
     loadComponent: () =>
       import('./features/faq/presentation/faq/faq.component').then((m) => m.FaqComponent),
   },
   {
     path: 'my-vehicles/add',
+    data: ROUTE_DATA_HIDDEN,
     loadComponent: () =>
       import(
         './features/my-vehicles/presentation/add-vehicle/add-vehicle.component'
@@ -63,6 +81,7 @@ export const routes: Routes = [
   },
   {
     path: 'my-vehicles',
+    data: ROUTE_DATA_HIDDEN,
     loadComponent: () =>
       import(
         './features/my-vehicles/presentation/my-vehicles/my-vehicles.component'
@@ -70,6 +89,7 @@ export const routes: Routes = [
   },
   {
     path: 'policies',
+    data: ROUTE_DATA_POLICIES_TAB,
     loadComponent: () =>
       import('./features/policies/presentation/policies/policies.component').then(
         (m) => m.PoliciesComponent,
@@ -77,6 +97,7 @@ export const routes: Routes = [
   },
   {
     path: 'policies/:id',
+    data: { ...ROUTE_DATA_HIDDEN, bottomNavTab: 'policies' },
     loadComponent: () =>
       import(
         './features/policies/presentation/policy-details/policy-details.component'
@@ -84,6 +105,7 @@ export const routes: Routes = [
   },
   {
     path: 'claims',
+    data: ROUTE_DATA_CLAIMS_TAB,
     loadComponent: () =>
       import('./features/claims/presentation/claims/claims.component').then(
         (m) => m.ClaimsComponent,
@@ -91,6 +113,7 @@ export const routes: Routes = [
   },
   {
     path: 'notifications',
+    data: ROUTE_DATA_HOME_TAB,
     loadComponent: () =>
       import(
         './features/notifications/presentation/notifications/notifications.component'
@@ -98,6 +121,7 @@ export const routes: Routes = [
   },
   {
     path: 'documents',
+    data: ROUTE_DATA_DOCUMENTS_TAB,
     loadComponent: () =>
       import('./features/documents/presentation/documents/documents.component').then(
         (m) => m.DocumentsComponent,
@@ -105,6 +129,7 @@ export const routes: Routes = [
   },
   {
     path: 'documents/upload',
+    data: ROUTE_DATA_HIDDEN,
     loadComponent: () =>
       import(
         './features/documents/presentation/documents-upload/documents-upload.component'
@@ -112,6 +137,7 @@ export const routes: Routes = [
   },
   {
     path: 'quotation',
+    data: ROUTE_DATA_HIDDEN,
     loadComponent: () =>
       import(
         './features/quotation/presentation/quotation-hub/quotation-hub.component'
@@ -119,6 +145,7 @@ export const routes: Routes = [
   },
   {
     path: 'quotation/new',
+    data: ROUTE_DATA_HIDDEN,
     loadComponent: () =>
       import(
         './features/quotation/presentation/quotation-step-two/quotation-step-two.component'
@@ -126,6 +153,7 @@ export const routes: Routes = [
   },
   {
     path: 'quotation/form',
+    data: ROUTE_DATA_HIDDEN,
     loadComponent: () =>
       import(
         './features/quotation/presentation/quotation-request-form/quotation-request-form.component'
@@ -133,6 +161,7 @@ export const routes: Routes = [
   },
   {
     path: 'quotation/preferences',
+    data: ROUTE_DATA_HIDDEN,
     loadComponent: () =>
       import(
         './features/quotation/presentation/quotation-preferences/quotation-preferences.component'

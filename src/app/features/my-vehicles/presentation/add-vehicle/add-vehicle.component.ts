@@ -7,11 +7,12 @@ import { map, startWith, take } from 'rxjs/operators';
 import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
+import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
 
 @Component({
   selector: 'app-add-vehicle',
   standalone: true,
-  imports: [ReactiveFormsModule, CachedAssetImgDirective],
+  imports: [ReactiveFormsModule, CachedAssetImgDirective, PageChromeComponent],
   templateUrl: './add-vehicle.component.html',
   styleUrl: './add-vehicle.component.scss',
 })

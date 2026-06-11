@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
+import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
 
 type VehicleDocumentItem = {
   id: string;
@@ -17,7 +18,7 @@ type PolicyDocumentItem = {
 @Component({
   selector: 'app-documents',
   standalone: true,
-  imports: [CachedAssetImgDirective],
+  imports: [CachedAssetImgDirective, WhatsappFabComponent],
   templateUrl: './documents.component.html',
   styleUrl: './documents.component.scss',
 })

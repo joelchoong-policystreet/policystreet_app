@@ -1,0 +1,71 @@
+@let q = quote();
+
+<article class="active-quote-card">
+  <p class="active-quote-card__date">Date: {{ q.dateLabel }}</p>
+  <div class="active-quote-card__row">
+    <div class="active-quote-card__vehicle">
+      <span class="active-quote-card__icon-wrap" aria-hidden="true">
+        <img
+          class="active-quote-card__icon"
+          appCachedAsset="/assets/home/directions-car.svg"
+          width="30"
+          height="30"
+          alt=""
+        />
+      </span>
+      <p class="active-quote-card__plate">{{ q.plate }}</p>
+    </div>
+    @if (showReadyNotice(q)) {
+      <button type="button" class="active-quote-card__cta" (click)="onAcknowledgeReadyClick(q.id)">
+        View Quote
+      </button>
+    } @else if (showRowViewQuote(q)) {
+      <button type="button" class="active-quote-card__cta" (click)="onViewQuoteClick(q.id)">
+        View Quote
+      </button>
+    }
+  </div>
+  @if (isTimerRunning(q)) {
+    <div class="active-quote-card__status active-quote-card__status--progress" role="status">
+      <p class="active-quote-card__status-text">
+        <span>Your quote for {{ q.plate }} is </span>
+        <strong class="active-quote-card__status-em active-quote-card__status-em--progress">in progress</strong>
+        <span>. Come back in </span>
+        <strong class="active-quote-card__status-em active-quote-card__status-em--progress">{{ readyInMinutes(q) }} minutes</strong>
+        <span>.</span>
+      </p>
+    </div>
+  }
+  @if (showReadyNotice(q)) {
+    <div class="active-quote-card__status active-quote-card__status--ready-notice" role="status">
+      <img
+        class="active-quote-card__status-icon"
+        appCachedAsset="/assets/home/check-circle-green.svg"
+        width="16"
+        height="16"
+        alt=""
+        aria-hidden="true"
+      />
+      <p class="active-quote-card__status-text">Your quote is now ready.</p>
+    </div>
+  }
+  @if (showLegacyReadyBanner(q)) {
+    <div class="active-quote-card__status active-quote-card__status--legacy-ready" role="status">
+      <img
+        class="active-quote-card__status-icon"
+        appCachedAsset="/assets/home/check-circle-green.svg"
+        width="16"
+        height="16"
+        alt=""
+        aria-hidden="true"
+      />
+      <p class="active-quote-card__status-text">
+        <span>Your quote for {{ q.plate }} is </span>
+        <strong class="active-quote-card__status-em">ready</strong>
+        <span>. Tap </span>
+        <strong class="active-quote-card__status-action">View Quote</strong>
+        <span> to continue.</span>
+      </p>
+    </div>
+  }
+</article>

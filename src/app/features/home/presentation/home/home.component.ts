@@ -5,10 +5,9 @@ import { filter, Subscription } from 'rxjs';
 import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
 import {
   getLatestActiveQuote,
-  isQuoteTimerRunning,
   markQuoteReadyNoticeDismissed,
-  remainingQuoteReadyMinutes,
 } from '../../../quotation/data/active-quotes.storage';
+import { showActiveQuoteRowViewQuote } from '../../../quotation/domain/active-quote.presentation';
 import { SAMPLE_USER } from '../../domain/sample-user';
 import {
   HomeActiveQuote,
@@ -17,11 +16,13 @@ import {
 } from '../../domain/home-dashboard.model';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
+import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
+import { ActiveQuoteCardComponent } from '../../../../shared/presentation/active-quote-card/active-quote-card.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CachedAssetImgDirective],
+  imports: [CachedAssetImgDirective, WhatsappFabComponent, ActiveQuoteCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -97,25 +98,17 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.activeQuote.set(getLatestActiveQuote());
   }
 
-  isTimerRunning(quote: HomeActiveQuote): boolean {
-    return isQuoteTimerRunning(quote);
-  }
-
-  showReadyNotice(quote: HomeActiveQuote): boolean {
-    return quote.status === 'ready' && !!quote.submittedAt && !quote.readyNoticeDismissed;
-  }
-
-  showRowViewQuote(quote: HomeActiveQuote): boolean {
-    return quote.status === 'ready' && !this.showReadyNotice(quote);
-  }
-
-  readyInMinutes(quote: HomeActiveQuote): number {
-    return remainingQuoteReadyMinutes(quote);
-  }
-
   acknowledgeReadyQuote(quoteId: string): void {
     markQuoteReadyNoticeDismissed(quoteId);
     this.refreshActiveQuote();
+  }
+
+  onActiveQuoteViewQuote(quoteId: string): void {
+    const quote = this.activeQuote();
+    if (!quote || quote.id !== quoteId || !showActiveQuoteRowViewQuote(quote)) {
+      return;
+    }
+    this.goActiveQuote(quoteId);
   }
 
   ngOnInit(): void {

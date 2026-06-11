@@ -1,0 +1,21 @@
+/* Shared keyboard focus ring for custom controls (radios, checkboxes, tabs). */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role='tab']:focus-visible {
+  outline: 2px solid var(--ps-primary, #0091ff);
+  outline-offset: 2px;
+}
+
+input[type='radio']:focus-visible + .quotation-form-page__radio-mark,
+input[type='radio']:focus-visible + .quotation-prefs-page__radio-mark {
+  outline: 2px solid var(--ps-primary, #0091ff);
+  outline-offset: 2px;
+}
+
+input[type='checkbox']:focus-visible + .quotation-form-page__consent-box {
+  outline: 2px solid var(--ps-primary, #0091ff);
+  outline-offset: 2px;
+}

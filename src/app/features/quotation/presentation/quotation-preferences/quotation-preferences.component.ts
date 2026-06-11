@@ -1,6 +1,6 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import {
@@ -19,30 +19,31 @@ import type {
 } from '../../domain/quotation-preferences.model';
 import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.token';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
-
-export type QuotationCustomerTab = 'malaysian' | 'foreigner' | 'company' | 'commercial';
+import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
+import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
+import {
+  QUOTATION_CUSTOMER_TABS,
+  isQuotationCustomerTabImplemented,
+  type QuotationCustomerTab,
+} from '../../domain/quotation-customer.model';
+import { QuotationFlowService } from '../../domain/quotation-flow.service';
 
 @Component({
   selector: 'app-quotation-preferences',
   standalone: true,
-  imports: [CachedAssetImgDirective],
+  imports: [CachedAssetImgDirective, WhatsappFabComponent, PageChromeComponent],
   templateUrl: './quotation-preferences.component.html',
   styleUrl: './quotation-preferences.component.scss',
 })
 export class QuotationPreferencesComponent {
-  private readonly router = inject(Router);
+  private readonly flow = inject(QuotationFlowService);
   private readonly route = inject(ActivatedRoute);
   private readonly policyRepository = inject(POLICY_REPOSITORY);
 
   readonly infoIconSrc = '/assets/quotation/info.svg';
-  readonly whatsappHref = 'https://wa.me/60182822320';
 
-  readonly customerTabs: ReadonlyArray<{ id: QuotationCustomerTab; label: string }> = [
-    { id: 'malaysian', label: 'Malaysian' },
-    { id: 'foreigner', label: 'Foreigner' },
-    { id: 'company', label: 'Company' },
-    { id: 'commercial', label: 'Commercial' },
-  ];
+  readonly customerTabs = QUOTATION_CUSTOMER_TABS;
+  readonly isCustomerTabImplemented = isQuotationCustomerTabImplemented;
 
   private readonly motorPolicies = toSignal(this.policyRepository.getPolicies(), {
     requireSync: true,
@@ -84,9 +85,7 @@ export class QuotationPreferencesComponent {
   readonly canSubmit = computed(() => this.showMalaysianForm() && this.ownerFullName().length > 0);
 
   constructor() {
-    const vehicleId = this.vehicleId();
-    if (!vehicleId) {
-      void this.router.navigate(['/quotation/new']);
+    if (!this.flow.requireVehicleIdOrRedirect(this.vehicleId())) {
       return;
     }
 
@@ -99,17 +98,13 @@ export class QuotationPreferencesComponent {
   }
 
   goBack(): void {
-    const vehicleId = this.vehicleId();
-    const ownerFullName = this.ownerFullName();
-    void this.router.navigate(['/quotation/form'], {
-      queryParams: {
-        ...(vehicleId ? { vehicleId } : {}),
-        ...(ownerFullName ? { ownerFullName } : {}),
-      },
-    });
+    void this.flow.backToRequestForm(this.vehicleId(), this.ownerFullName());
   }
 
   setCustomerTab(tab: QuotationCustomerTab): void {
+    if (!isQuotationCustomerTabImplemented(tab)) {
+      return;
+    }
     this.activeCustomerTab.set(tab);
   }
 
@@ -145,7 +140,7 @@ export class QuotationPreferencesComponent {
     }
 
     addInProgressActiveQuote(createInProgressActiveQuote(vehicle.plate, vehicle.id));
-    void this.router.navigate(['/quotation']);
+    void this.flow.goToHub();
   }
 
   private applyPreferencesForOwner(ownerFullName: string): void {

@@ -1,5 +1,6 @@
 /* Source of truth: src/design-tokens/policystreet.tokens.json */
 @use './design-tokens/generated-tokens';
+@use './styles/focus-visible';
 
 *,
 *::before,

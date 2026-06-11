@@ -7,11 +7,12 @@ import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.to
 import { toSavedVehicleViews, type SavedVehicleView } from '../../../policies/domain/policy.model';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
+import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
 
 @Component({
   selector: 'app-my-vehicles',
   standalone: true,
-  imports: [CachedAssetImgDirective],
+  imports: [CachedAssetImgDirective, PageChromeComponent],
   templateUrl: './my-vehicles.component.html',
   styleUrl: './my-vehicles.component.scss',
 })

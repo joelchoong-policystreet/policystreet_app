@@ -1,0 +1,29 @@
+/* Returning users — VP9-alpha WebM over transparent page/chrome */
+.onboarding-page__returning {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+}
+
+.onboarding-page__returning-video-wrap {
+  flex: 0 1 auto;
+  width: 100%;
+  max-width: min(300px, 88vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.onboarding-page__returning-video {
+  width: 100%;
+  height: auto;
+  max-height: min(42dvh, 360px);
+  display: block;
+  object-fit: contain;
+}
+

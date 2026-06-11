@@ -66,6 +66,7 @@
         type="button"
         class="app-bottom-nav__slot"
         [class.app-bottom-nav__slot--active]="activeTab === 'home'"
+        [attr.aria-current]="activeTab === 'home' ? 'page' : null"
         (click)="goTo('home')"
         aria-label="Home"
       >
@@ -83,6 +84,7 @@
         type="button"
         class="app-bottom-nav__slot"
         [class.app-bottom-nav__slot--active]="activeTab === 'policies'"
+        [attr.aria-current]="activeTab === 'policies' ? 'page' : null"
         (click)="goTo('policies')"
         aria-label="Policies"
       >
@@ -103,6 +105,7 @@
         type="button"
         class="app-bottom-nav__slot"
         [class.app-bottom-nav__slot--active]="activeTab === 'claims'"
+        [attr.aria-current]="activeTab === 'claims' ? 'page' : null"
         (click)="goTo('claims')"
         aria-label="Claims"
       >
@@ -120,6 +123,7 @@
         type="button"
         class="app-bottom-nav__slot"
         [class.app-bottom-nav__slot--active]="activeTab === 'profile'"
+        [attr.aria-current]="activeTab === 'profile' ? 'page' : null"
         (click)="goTo('profile')"
         aria-label="Profile"
       >

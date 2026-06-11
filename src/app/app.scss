@@ -4,6 +4,33 @@
   min-height: 100%;
 }
 
+.app-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 100;
+  padding: 12px 16px;
+  background: var(--Brand-White, #fff);
+  color: var(--Font-Black, #141414);
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: var(--ps-glow-drop);
+
+  &:focus {
+    left: 16px;
+    top: 16px;
+    width: auto;
+    height: auto;
+    overflow: visible;
+  }
+}
+
 .app-route-shell {
   min-height: 100%;
   position: relative;

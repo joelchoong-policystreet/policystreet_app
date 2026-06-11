@@ -1,0 +1,178 @@
+@use './mixins' as *;
+
+/* Whole slide stacks as one block, vertically centred in main (no top-heavy flex growth) */
+.onboarding-page__stage {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.onboarding-page__core {
+  flex: 1 1 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.onboarding-page__controls {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.onboarding-page__hero {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 362px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  min-height: min(295px, 36vh);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.onboarding-page__hero--dual-layer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+}
+
+.onboarding-page__hero-float-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.onboarding-page__hero-float-layer--animate {
+  animation: onboarding-float-layer-bob 5.5s ease-in-out infinite;
+}
+
+.onboarding-page__hero-float-images {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+
+  > .onboarding-page__hero-float-layer-svg {
+    grid-area: 1 / 1;
+  }
+}
+
+.onboarding-page__hero-float-layer-svg {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(295px, 36vh);
+  object-fit: contain;
+  margin-inline: auto;
+}
+
+.onboarding-page__hero-art {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+
+  &.onboarding-page__hero-art--static-front {
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .onboarding-page__hero-svg {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      margin-inline: auto;
+      display: block;
+      object-fit: contain;
+      object-position: center;
+      /* Artboard is wider than the phone; shift so the handset reads centered */
+      transform: translateX(14px);
+    }
+  }
+}
+
+.onboarding-page__hero--float-motion {
+  overflow: visible;
+}
+
+.onboarding-page__hero-float-deco {
+  position: absolute;
+  inset: -8% -12% -6% -12%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.onboarding-page__hero-float-deco-chip {
+  position: absolute;
+  border-radius: 10px;
+  background: rgba(0, 145, 255, 0.1);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.onboarding-page__hero-float-deco-chip--a {
+  width: 20%;
+  height: 11%;
+  left: 4%;
+  top: 22%;
+  animation-name: onboarding-chip-drift-a;
+  animation-duration: 4.8s;
+}
+
+.onboarding-page__hero-float-deco-chip--b {
+  width: 14%;
+  height: 9%;
+  right: 2%;
+  top: 14%;
+  animation-name: onboarding-chip-drift-b;
+  animation-duration: 5.6s;
+}
+
+.onboarding-page__hero-float-deco-chip--c {
+  width: 12%;
+  height: 10%;
+  left: 72%;
+  bottom: 28%;
+  animation-name: onboarding-chip-drift-c;
+  animation-duration: 5.2s;
+}
+
+.onboarding-page__hero-art--float {
+  animation: onboarding-hero-float-drift 8s ease-in-out infinite;
+}
+
+.onboarding-page__hero-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(295px, 36vh);
+  object-fit: contain;
+}
+

@@ -1,0 +1,84 @@
+/* Main sheet — Figma 3089:24693 */
+.home-page__sheet {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--Brand-White, #fff);
+  border-radius: 32px 32px 0 0;
+  transform: translateY(calc(-1 * var(--home-sheet-lift, 0px)));
+  margin-bottom: calc(-1 * var(--home-sheet-lift, 0px));
+  position: relative;
+  z-index: 3;
+  box-shadow: 0 -4px 24px rgba(50, 100, 150, 0.1);
+  will-change: transform;
+  overflow: clip;
+}
+
+.home-page__sheet-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 24px calc(var(--home-scroll-bottom-clearance) + env(safe-area-inset-bottom, 0px));
+}
+
+.home-page__section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.home-page__section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+.home-page__section-head--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background: var(--Brand-White, #fff);
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.home-page__h2 {
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  color: var(--Font-Black, #141414);
+}
+
+.home-page__h2--flush {
+  padding: 0 12px;
+}
+
+.home-page__link-btn {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  color: var(--ps-primary, #0091ff);
+}
+
+.home-page__link-btn:disabled,
+.home-page__link-btn--inactive:disabled {
+  color: var(--ps-text-muted, #3d3d3d);
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+}

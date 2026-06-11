@@ -12,7 +12,12 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AUTH_REPOSITORY } from '../../domain/auth-repository.token';
-import { malaysianMobileValidators } from '../../../../shared/validation/malaysian-mobile';
+import {
+  fromMalaysianMobileStorage,
+  malaysianMobileLocalDigits,
+  malaysianMobileValidators,
+  toMalaysianMobileStorage,
+} from '../../../../shared/validation/malaysian-mobile';
 import {
   OTP_DIGIT_COUNT,
   applyOtpCellInput,
@@ -55,6 +60,11 @@ export class LoginComponent {
     return this.mobile.valid;
   });
 
+  readonly mobileLocalDigits = computed(() => fromMalaysianMobileStorage(this.mobileValue() ?? ''));
+
+  readonly malaysiaFlagSrc = '/assets/auth/malaysia-flag.png';
+  readonly countryDialCode = '+60';
+
   readonly submitting = signal(false);
   readonly loggingIn = signal(false);
 
@@ -82,6 +92,14 @@ export class LoginComponent {
   onPhoneFormSubmit(event: Event): void {
     event.preventDefault();
     this.sendOtp();
+  }
+
+  onMobileInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const local = malaysianMobileLocalDigits(input.value);
+    input.value = local;
+    this.mobile.setValue(toMalaysianMobileStorage(local));
+    this.mobile.markAsTouched();
   }
 
   sendOtp(): void {

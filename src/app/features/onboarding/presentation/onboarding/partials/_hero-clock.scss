@@ -1,0 +1,183 @@
+@use './mixins' as *;
+
+.onboarding-page__hero-art--clock-hands {
+  .onboarding-page__hero-clock-hands {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .onboarding-page__hero-clock-pivot {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .onboarding-page__hero-clock-hand {
+    position: absolute;
+    display: block;
+    height: auto;
+    /* Clock center in PSAPP_3 artboard (362×295) */
+    left: calc(178.732 / 362 * 100%);
+    top: calc(103.315 / 295 * 100%);
+  }
+
+  /*
+   * Minute: pivot at hub (~48.2, 51.8); natural tip bearing ≈316.3° → start −16.32° for 300° / 10 o'clock.
+   * Hour: pivot at flat BACK (midpoint of base edge 0.9,41 ↔ 5.7,46), nib at ~46.35,0.91 — not the inner neck (~31.9,9).
+   *        Base→tip bearing ≈45.15° → start +14.85° so tip reads 60° / 2 o'clock.
+   */
+  .onboarding-page__hero-clock-hand--hour {
+    width: calc(100% * 48 / 362);
+    transform-origin: $hour-hand-pivot-x-pct $hour-hand-pivot-y-pct;
+    animation: onboarding-clock-hand-hour 72s linear infinite;
+    z-index: 0;
+  }
+
+  .onboarding-page__hero-clock-hand--minute {
+    width: calc(100% * 50 / 362);
+    transform-origin: calc(48.2253 / 50 * 100%) calc(51.7838 / 52 * 100%);
+    animation: onboarding-clock-hand-minute 20s linear infinite;
+    z-index: 1;
+  }
+
+  .onboarding-page__hero-clock-hub {
+    position: absolute;
+    display: block;
+    /* Nudge vs illustrated hub: ↓ from centre; X between prior −2px / +2px tries */
+    left: calc(178.732 / 362 * 100% - 1px);
+    top: calc(103.315 / 295 * 100% + 5px);
+    transform: translate(-50%, -50%);
+    width: calc(100% * 20 / 362);
+    height: auto;
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+
+@keyframes onboarding-clock-hand-minute {
+  from {
+    transform: translate(calc(-48.2253 / 50 * 100%), calc(-51.7838 / 52 * 100%)) rotate(-16.32deg);
+  }
+
+  to {
+    transform: translate(calc(-48.2253 / 50 * 100%), calc(-51.7838 / 52 * 100%)) rotate(343.68deg);
+  }
+}
+
+@keyframes onboarding-clock-hand-hour {
+  from {
+    transform: translate(calc(-1 * $hour-hand-pivot-x-pct), calc(-1 * $hour-hand-pivot-y-pct)) rotate(14.8466deg);
+  }
+
+  to {
+    transform: translate(calc(-1 * $hour-hand-pivot-x-pct), calc(-1 * $hour-hand-pivot-y-pct)) rotate(374.8466deg);
+  }
+}
+
+.onboarding-page__hero-key-slot {
+  position: absolute;
+  z-index: 3;
+  right: 12%;
+  left: auto;
+  top: 10%;
+  width: 17.13%;
+  min-width: 48px;
+  pointer-events: none;
+}
+
+.onboarding-page__hero-key-pivot {
+  transform-origin: 50% 0;
+  animation: onboarding-key-swing 2.4s ease-in-out infinite;
+}
+
+.onboarding-page__hero-key {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onboarding-page__hero-key-pivot,
+  .onboarding-page__hero-art--float,
+  .onboarding-page__hero-float-deco-chip,
+  .onboarding-page__hero-float-layer--animate,
+  .onboarding-page__hero-clock-hand--minute,
+  .onboarding-page__hero-clock-hand--hour {
+    animation: none;
+  }
+
+  .onboarding-page__hero-clock-hand--minute {
+    transform: translate(calc(-48.2253 / 50 * 100%), calc(-51.7838 / 52 * 100%)) rotate(-16.32deg);
+  }
+
+  .onboarding-page__hero-clock-hand--hour {
+    transform: translate(calc(-1 * $hour-hand-pivot-x-pct), calc(-1 * $hour-hand-pivot-y-pct)) rotate(14.8466deg);
+  }
+}
+
+@keyframes onboarding-float-layer-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes onboarding-hero-float-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  20% {
+    transform: translate(5px, -10px) rotate(0.65deg);
+  }
+  45% {
+    transform: translate(-7px, 6px) rotate(-0.55deg);
+  }
+  70% {
+    transform: translate(8px, 5px) rotate(0.45deg);
+  }
+}
+
+@keyframes onboarding-chip-drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(16px, -14px);
+  }
+}
+
+@keyframes onboarding-chip-drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-12px, 12px);
+  }
+}
+
+@keyframes onboarding-chip-drift-c {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(-10px, -10px) rotate(4deg);
+  }
+}
+
+@keyframes onboarding-key-swing {
+  0%,
+  100% {
+    transform: rotate(-14deg);
+  }
+  50% {
+    transform: rotate(14deg);
+  }
+}

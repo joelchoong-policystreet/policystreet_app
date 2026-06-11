@@ -1,7 +1,7 @@
-import type { HomeActiveQuote } from '../../home/domain/home-dashboard.model';
+import type { ActiveQuote } from './active-quote.model';
 
 /** Demo active quotes — Figma `3115:1566` (VEJ1234 latest, then ABC8888). */
-export const ACTIVE_QUOTES_DEMO: readonly HomeActiveQuote[] = [
+export const ACTIVE_QUOTES_DEMO: readonly ActiveQuote[] = [
   {
     id: 'quote-demo-vej1234',
     plate: 'VEJ1234',
@@ -20,8 +20,8 @@ export const ACTIVE_QUOTES_DEMO: readonly HomeActiveQuote[] = [
 
 /** Latest quote first — sort key is `createdAt`, not plate. */
 export function sortActiveQuotesLatestFirst(
-  quotes: readonly HomeActiveQuote[],
-): readonly HomeActiveQuote[] {
+  quotes: readonly ActiveQuote[],
+): readonly ActiveQuote[] {
   return [...quotes].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
   );

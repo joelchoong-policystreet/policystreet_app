@@ -1,0 +1,185 @@
+@use './mixins' as *;
+
+.home-page {
+  --home-scroll-bottom-clearance: calc(var(--app-bottom-nav-clearance) + 16px);
+  --home-sheet-gap: 24px;
+  /* Sky painted behind white sheet only (no layout shift) */
+  --home-sky-behind-sheet: min(48vh, 360px);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 430px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  overflow-x: clip;
+  padding-top: var(--home-hero-height, 0px);
+  /* White below hero — blue lives only on fixed __hero (avoids double sky band) */
+  background: var(--Brand-White, #fff);
+}
+
+.home-page__hero {
+  --home-sky-total-height: calc(var(--home-hero-height, 320px) + var(--home-sky-behind-sheet));
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  z-index: 1;
+  @include home-sky-mesh-hero;
+  box-shadow: 0 2px 14px rgba(44, 100, 160, 0.12);
+  padding-top: 80px;
+  /* Exactly 24px below quick actions before white sheet starts in layout */
+  padding-bottom: var(--home-sheet-gap);
+  overflow: visible;
+
+  /* Same sky mesh, continued below hero (behind white sheet) */
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: var(--home-sky-behind-sheet);
+    @include home-sky-mesh-under-sheet;
+    pointer-events: none;
+  }
+}
+
+.home-page__header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  z-index: 25;
+  padding: 20px 24px 0;
+  background: linear-gradient(
+    180deg,
+    rgba(223, 239, 250, 0.98) 0%,
+    rgba(223, 239, 250, 0.72) 55%,
+    rgba(223, 239, 250, 0) 100%
+  );
+}
+
+.home-page__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 60px;
+  width: 100%;
+}
+
+.home-page__brand {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.home-page__brand-img {
+  display: block;
+  width: 150px;
+  height: auto;
+  max-height: 40px;
+  object-fit: contain;
+}
+
+.home-page__welcome-block {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: 100%;
+  padding-top: 16px;
+  padding-bottom: 0;
+  padding-inline: 24px;
+}
+
+.home-page__welcome-card {
+  position: relative;
+  z-index: 1;
+  backdrop-filter: none;
+  background: var(--Brand-White, #fff);
+  border: 1px solid var(--ps-primary, #0091ff);
+  border-radius: 16px;
+  width: 100%;
+  padding: 20px 16px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.home-page__welcome-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.35) 45%, rgba(255, 255, 255, 0) 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Welcome card — Figma 3089:24509 */
+.home-page__welcome-intro {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+}
+
+.home-page__welcome-mascot {
+  width: 50px;
+  height: 55px;
+  flex-shrink: 0;
+  display: block;
+  object-fit: contain;
+}
+
+.home-page__greeting {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.home-page__greeting-line {
+  margin: 0;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  color: var(--Font-Black, #141414);
+}
+
+.home-page__greeting-name {
+  margin: 0;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+  color: var(--Font-Black, #141414);
+}
+
+.home-page__quick-actions-wrap {
+  width: 100%;
+  padding: 18px 24px 0;
+  box-sizing: border-box;
+}
+
+.home-page__quick-actions {
+  min-height: 100px;
+  border-radius: 16px;
+  background: var(--Brand-White, #fff);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

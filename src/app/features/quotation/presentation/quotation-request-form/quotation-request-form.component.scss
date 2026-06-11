@@ -110,6 +110,32 @@
   background: #0091ff;
 }
 
+.quotation-form-page__tab--disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.quotation-form-page__coming-soon {
+  padding: 24px 0;
+  text-align: center;
+}
+
+.quotation-form-page__coming-soon-title {
+  margin: 0 0 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #141414;
+}
+
+.quotation-form-page__coming-soon-text {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #3d3d3d;
+}
+
 .quotation-form-page__tab-label {
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;

@@ -2,12 +2,13 @@ import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
+import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 
 @Component({
   selector: 'app-claims',
   standalone: true,
-  imports: [CachedAssetImgDirective],
+  imports: [CachedAssetImgDirective, WhatsappFabComponent],
   templateUrl: './claims.component.html',
   styleUrl: './claims.component.scss',
 })

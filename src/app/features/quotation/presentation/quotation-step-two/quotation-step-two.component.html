@@ -1,17 +1,14 @@
 <div class="quotation-page quotation-page--select-vehicle">
   <div class="app-route-fade-target quotation-page__fade">
     <div class="quotation-page__chrome">
-      <header class="quotation-page__appbar" aria-label="Get new quote navigation">
-        <button type="button" class="quotation-page__back" aria-label="Back" (click)="goBack()">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-          </svg>
-        </button>
-        <h1 class="quotation-page__title">Get New Quote</h1>
-      </header>
+      <app-page-chrome
+        title="Get New Quote"
+        headerAriaLabel="Get new quote navigation"
+        (back)="goBack()"
+      />
     </div>
 
-    <main class="quotation-page__main">
+    <main id="main-content" class="quotation-page__main">
       <section class="quotation-page__intro" aria-label="Vehicle selection intro">
         <div class="quotation-page__intro-head">
           <h2 class="quotation-page__intro-title">
