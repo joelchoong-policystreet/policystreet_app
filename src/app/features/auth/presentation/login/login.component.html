@@ -86,69 +86,88 @@
             </form>
           } @else {
             <div class="card-form card-form--otp" (paste)="onOtpPaste($event)">
-              <div class="card-form__intro">
-                <h1 class="card-form__title">Login</h1>
-                <p class="card-form__lead">Enter the 6-digit code sent to your mobile number.</p>
-              </div>
-
-              <div class="otp-step-stack">
-                <div
-                  class="otp-row"
-                  role="group"
-                  aria-label="One-time password"
-                  (pointerdown)="onOtpRowPointerDown($event)"
-                >
-                  @for (i of [0, 1, 2, 3, 4, 5]; track i) {
-                    <div class="otp-cell">
-                      <input
-                        #otpIn
-                        class="otp-cell__input"
-                        type="text"
-                        [attr.id]="'otp-' + i"
-                        [attr.name]="i === 0 ? 'one-time-code' : null"
-                        [attr.autocomplete]="i === 0 ? 'one-time-code' : 'off'"
-                        inputmode="numeric"
-                        pattern="[0-9]*"
-                        maxlength="1"
-                        [value]="otpCharAt(i)"
-                        (input)="onOtpCellInput(i, $event)"
-                        (keydown)="onOtpKeydown(i, $event)"
-                        [attr.aria-label]="'Digit ' + (i + 1) + ' of 6'"
-                      />
-                    </div>
-                  }
+              <div class="otp-inputs-container">
+                <div class="card-form__intro">
+                  <h1 class="card-form__title">Login</h1>
+                  <p class="card-form__lead">Enter the 6-digit code sent to your mobile number.</p>
                 </div>
 
-                <button
-                  type="button"
-                  class="submit"
-                  [class.submit--active]="canLogin()"
-                  [disabled]="loggingIn() || !canLogin()"
-                  (click)="loginWithOtp()"
-                >
-                  {{ loggingIn() ? 'Signing in…' : 'Login' }}
-                </button>
-
-                @if (otpError()) {
-                  <p class="otp-error" role="alert">Invalid code. For demo, use <strong>123456</strong>.</p>
-                }
-
-                <div class="otp-alt">
-                  <button type="button" class="otp-alt__link otp-alt__link--primary" (click)="useDifferentNumber()">
-                    Use different mobile number
-                  </button>
-                  @if (canResend()) {
-                    <button
-                      type="button"
-                      class="otp-alt__link otp-alt__link--primary"
-                      [disabled]="submitting()"
-                      (click)="resendOtp()"
+                <div class="otp-step-stack">
+                  <div class="otp-step-stack__primary">
+                    <div
+                      class="otp-row"
+                      role="group"
+                      aria-label="One-time password"
+                      (pointerdown)="onOtpRowPointerDown($event)"
                     >
-                      {{ submitting() ? 'Sending…' : 'Resend OTP' }}
-                    </button>
-                  } @else {
-                    <span class="otp-alt__timer" aria-live="polite">Resend OTP ({{ resendSeconds() }})</span>
+                      @for (i of [0, 1, 2, 3, 4, 5]; track i) {
+                        <div class="otp-cell">
+                          <input
+                            #otpIn
+                            class="otp-cell__input"
+                            type="text"
+                            [attr.id]="'otp-' + i"
+                            [attr.name]="i === 0 ? 'one-time-code' : null"
+                            [attr.autocomplete]="i === 0 ? 'one-time-code' : 'off'"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            maxlength="1"
+                            [value]="otpCharAt(i)"
+                            (input)="onOtpCellInput(i, $event)"
+                            (keydown)="onOtpKeydown(i, $event)"
+                            [attr.aria-label]="'Digit ' + (i + 1) + ' of 6'"
+                          />
+                        </div>
+                      }
+                    </div>
+
+                    <div class="otp-actions">
+                      <button
+                        type="button"
+                        class="submit"
+                        [class.submit--active]="canLogin()"
+                        [disabled]="loggingIn() || !canLogin()"
+                        (click)="loginWithOtp()"
+                      >
+                        {{ loggingIn() ? 'Signing in…' : 'Login' }}
+                      </button>
+
+                      <label class="otp-remember">
+                        <input
+                          type="checkbox"
+                          class="otp-remember__input"
+                          [checked]="keepLoggedIn()"
+                          (change)="toggleKeepLoggedIn()"
+                        />
+                        <span class="otp-remember__box" aria-hidden="true"></span>
+                        <span class="otp-remember__label">Keep me logged in for 30 days.</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  @if (otpError()) {
+                    <p class="otp-error" role="alert">Invalid code. For demo, use <strong>123456</strong>.</p>
                   }
+
+                  <hr class="otp-divider" aria-hidden="true" />
+
+                  <div class="otp-alt">
+                    <button type="button" class="otp-alt__link otp-alt__link--primary" (click)="useDifferentNumber()">
+                      Use different mobile number
+                    </button>
+                    @if (canResend()) {
+                      <button
+                        type="button"
+                        class="otp-alt__link otp-alt__link--primary"
+                        [disabled]="submitting()"
+                        (click)="resendOtp()"
+                      >
+                        {{ submitting() ? 'Sending…' : 'Resend OTP' }}
+                      </button>
+                    } @else {
+                      <span class="otp-alt__timer" aria-live="polite">Resend OTP ({{ resendSeconds() }})</span>
+                    }
+                  </div>
                 </div>
               </div>
             </div>

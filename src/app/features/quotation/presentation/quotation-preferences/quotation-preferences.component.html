@@ -152,6 +152,94 @@
             </label>
           </div>
         </section>
+          } @else if (tab.id === 'foreigner') {
+        <section class="quotation-prefs-page__group" aria-labelledby="foreigner-marital-status-label">
+          <div class="quotation-prefs-page__info-label" id="foreigner-marital-status-label">
+            <img
+              [appCachedAsset]="infoIconSrc"
+              class="quotation-prefs-page__info-icon"
+              width="18"
+              height="18"
+              alt=""
+              aria-hidden="true"
+            />
+            <span>Marital status:</span>
+          </div>
+          <div class="quotation-prefs-page__options" role="radiogroup" aria-labelledby="foreigner-marital-status-label">
+            <label class="quotation-prefs-page__radio">
+              <input
+                type="radio"
+                name="foreignerMaritalStatus"
+                value="single"
+                [checked]="maritalStatus() === 'single'"
+                (change)="setMaritalStatus('single')"
+              />
+              <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+              <span
+                class="quotation-prefs-page__radio-label"
+                [class.quotation-prefs-page__radio-label--selected]="maritalStatus() === 'single'"
+              >Single</span>
+            </label>
+            <label class="quotation-prefs-page__radio">
+              <input
+                type="radio"
+                name="foreignerMaritalStatus"
+                value="married"
+                [checked]="maritalStatus() === 'married'"
+                (change)="setMaritalStatus('married')"
+              />
+              <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+              <span
+                class="quotation-prefs-page__radio-label"
+                [class.quotation-prefs-page__radio-label--selected]="maritalStatus() === 'married'"
+              >Married</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="quotation-prefs-page__group" aria-labelledby="foreigner-contact-method-label">
+          <div class="quotation-prefs-page__info-label" id="foreigner-contact-method-label">
+            <img
+              [appCachedAsset]="infoIconSrc"
+              class="quotation-prefs-page__info-icon"
+              width="18"
+              height="18"
+              alt=""
+              aria-hidden="true"
+            />
+            <span>Preferred contact method:</span>
+          </div>
+          <div class="quotation-prefs-page__options" role="radiogroup" aria-labelledby="foreigner-contact-method-label">
+            <label class="quotation-prefs-page__radio">
+              <input
+                type="radio"
+                name="foreignerContactMethod"
+                value="email"
+                [checked]="contactMethod() === 'email'"
+                (change)="setContactMethod('email')"
+              />
+              <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+              <span
+                class="quotation-prefs-page__radio-label"
+                [class.quotation-prefs-page__radio-label--selected]="contactMethod() === 'email'"
+              >Email</span>
+            </label>
+            <label class="quotation-prefs-page__radio">
+              <input
+                type="radio"
+                name="foreignerContactMethod"
+                value="whatsapp"
+                [checked]="contactMethod() === 'whatsapp'"
+                (change)="setContactMethod('whatsapp')"
+              />
+              <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+              <span
+                class="quotation-prefs-page__radio-label"
+                [class.quotation-prefs-page__radio-label--selected]="contactMethod() === 'whatsapp'"
+              >Whatsapp</span>
+            </label>
+          </div>
+        </section>
           } @else {
         <div class="quotation-prefs-page__coming-soon" role="status">
           <p class="quotation-prefs-page__coming-soon-title">Coming soon</p>
@@ -166,6 +254,11 @@
 
     <footer class="quotation-prefs-page__footer" aria-label="Quote actions">
       <div class="quotation-prefs-page__cta">
+        @if (showForeignerForm()) {
+          <button type="button" class="quotation-prefs-page__cta-btn quotation-prefs-page__cta-btn--outline" (click)="goBack()">
+            Back
+          </button>
+        }
         <button
           type="button"
           class="quotation-prefs-page__cta-btn"
@@ -173,7 +266,7 @@
           [disabled]="!canSubmit()"
           (click)="findBestPrices()"
         >
-          Find the BEST prices!
+          {{ submitLabel() }}
         </button>
         <div class="quotation-prefs-page__safe">
           <img

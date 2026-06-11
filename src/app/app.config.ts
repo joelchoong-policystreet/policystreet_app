@@ -9,6 +9,8 @@ import { provideRouter, withInMemoryScrolling } from '@angular/router';
 
 import { AuthRepositoryStub } from './features/auth/data/auth.repository.stub';
 import { AUTH_REPOSITORY } from './features/auth/domain/auth-repository.token';
+import { LocalAuthSessionStorage } from './features/auth/data/local-auth-session.storage';
+import { AUTH_SESSION_STORAGE } from './features/auth/domain/auth-session.storage.token';
 import { PolicyRepositoryStub } from './features/policies/data/policy.repository.stub';
 import { POLICY_REPOSITORY } from './features/policies/domain/policy-repository.token';
 import { LocalOnboardingStorage } from './features/onboarding/data/local-onboarding.storage';
@@ -41,6 +43,7 @@ export const appConfig: ApplicationConfig = {
       }),
     ),
     { provide: AUTH_REPOSITORY, useClass: AuthRepositoryStub },
+    { provide: AUTH_SESSION_STORAGE, useClass: LocalAuthSessionStorage },
     { provide: ONBOARDING_STORAGE, useClass: LocalOnboardingStorage },
     { provide: POLICY_REPOSITORY, useClass: PolicyRepositoryStub },
   ],

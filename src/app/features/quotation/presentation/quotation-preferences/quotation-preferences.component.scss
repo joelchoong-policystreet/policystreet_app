@@ -240,6 +240,10 @@
   color: #141414;
 }
 
+.quotation-prefs-page__radio-label--selected {
+  font-weight: 600;
+}
+
 .quotation-prefs-page__footer {
   flex-shrink: 0;
   background: #fff;
@@ -266,6 +270,12 @@
   line-height: 24px;
   letter-spacing: 0.5px;
   cursor: pointer;
+}
+
+.quotation-prefs-page__cta-btn--outline {
+  background: #fff;
+  color: #0091ff;
+  border: 1px solid #0091ff;
 }
 
 .quotation-prefs-page__cta-btn--disabled:disabled {

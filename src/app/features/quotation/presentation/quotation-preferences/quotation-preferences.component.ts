@@ -24,6 +24,7 @@ import { PageChromeComponent } from '../../../../shared/presentation/page-chrome
 import {
   QUOTATION_CUSTOMER_TABS,
   isQuotationCustomerTabImplemented,
+  parseQuotationCustomerTab,
   type QuotationCustomerTab,
 } from '../../domain/quotation-customer.model';
 import { QuotationFlowService } from '../../domain/quotation-flow.service';
@@ -59,6 +60,13 @@ export class QuotationPreferencesComponent {
     { initialValue: this.route.snapshot.queryParamMap.get('ownerFullName')?.trim() ?? '',
   });
 
+  private readonly customerTabParam = toSignal(
+    this.route.queryParamMap.pipe(map((params) => parseQuotationCustomerTab(params.get('customerTab')))),
+    {
+      initialValue: parseQuotationCustomerTab(this.route.snapshot.queryParamMap.get('customerTab')),
+    },
+  );
+
   readonly selectedVehicle = computed(() => {
     const id = this.vehicleId();
     if (!id) {
@@ -81,24 +89,44 @@ export class QuotationPreferencesComponent {
   readonly contactMethod = signal<QuotationContactMethod>('whatsapp');
 
   readonly showMalaysianForm = computed(() => this.activeCustomerTab() === 'malaysian');
+  readonly showForeignerForm = computed(() => this.activeCustomerTab() === 'foreigner');
 
-  readonly canSubmit = computed(() => this.showMalaysianForm() && this.ownerFullName().length > 0);
+  readonly submitLabel = computed(() =>
+    this.activeCustomerTab() === 'foreigner' ? 'Find The BEST Price!' : 'Find the BEST prices!',
+  );
+
+  readonly canSubmit = computed(() => {
+    if (this.ownerFullName().length === 0) {
+      return false;
+    }
+    return this.showMalaysianForm() || this.showForeignerForm();
+  });
 
   constructor() {
     if (!this.flow.requireVehicleIdOrRedirect(this.vehicleId())) {
       return;
     }
 
+    this.activeCustomerTab.set(this.customerTabParam());
+    if (this.customerTabParam() === 'foreigner') {
+      this.contactMethod.set('email');
+    }
+
     effect(() => {
       const ownerFullName = this.ownerFullName();
-      if (ownerFullName) {
+      const tab = this.activeCustomerTab();
+      if (ownerFullName && tab === 'malaysian') {
         this.applyPreferencesForOwner(ownerFullName);
       }
     });
   }
 
   goBack(): void {
-    void this.flow.backToRequestForm(this.vehicleId(), this.ownerFullName());
+    void this.flow.backToRequestForm(
+      this.vehicleId(),
+      this.ownerFullName(),
+      this.activeCustomerTab(),
+    );
   }
 
   setCustomerTab(tab: QuotationCustomerTab): void {
@@ -127,7 +155,7 @@ export class QuotationPreferencesComponent {
 
     const ownerFullName = this.ownerFullName();
     const preferences: QuotationOwnerPreferences = {
-      eHailingUsage: this.eHailingUsage(),
+      eHailingUsage: this.activeCustomerTab() === 'foreigner' ? 'no' : this.eHailingUsage(),
       maritalStatus: this.maritalStatus(),
       contactMethod: this.contactMethod(),
     };

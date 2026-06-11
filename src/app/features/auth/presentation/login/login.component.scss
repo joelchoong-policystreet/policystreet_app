@@ -333,7 +333,92 @@
 .otp-step-stack {
   display: flex;
   flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.otp-inputs-container {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
+  padding-block: 16px;
+  width: 100%;
+}
+
+.otp-step-stack__primary {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.otp-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.otp-remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.otp-remember__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.otp-remember__box {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--Accents-Blue-Grey, #7092bb);
+  border-radius: 2px;
+  background: var(--Brand-White, #fff);
+  position: relative;
+  box-sizing: border-box;
+}
+
+.otp-remember__input:checked + .otp-remember__box {
+  border-color: var(--ps-primary, #0091ff);
+  background: var(--ps-primary, #0091ff);
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+}
+
+.otp-remember__label {
+  flex: 1;
+  min-width: 0;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  color: var(--ps-text-muted, #3d3d3d);
+}
+
+.otp-divider {
+  border: 0;
+  height: 1px;
+  margin: 8px 0;
+  background: var(--disable-borders-columbia-blue, #c4d2e3);
+  width: 100%;
 }
 
 .otp-row {
@@ -377,9 +462,11 @@
 
 .otp-alt {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 24px;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
 }
 
 .otp-alt__link {
@@ -389,8 +476,9 @@
   font-family: 'Open Sans', Inter, sans-serif;
   font-size: 12px;
   line-height: 16px;
-  letter-spacing: 0.072px;
+  letter-spacing: 0.5px;
   cursor: pointer;
+  text-align: left;
 
   &:disabled {
     cursor: not-allowed;
@@ -407,8 +495,11 @@
   color: var(--Accents-Blue-Grey, #7092bb);
   font-family: 'Open Sans', Inter, sans-serif;
   font-size: 12px;
+  font-weight: 600;
   line-height: 16px;
-  letter-spacing: 0.072px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 @keyframes pawsper-enter {

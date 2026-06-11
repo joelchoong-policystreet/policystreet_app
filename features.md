@@ -9,7 +9,7 @@ High-level view of what is implemented in the current build versus what remains 
 | Area | Feature / scope | Notes |
 |------|-----------------|-------|
 | **App shell** | Bottom navigation, route fade | Nav visibility driven by route; fade on main content only |
-| **Auth** | Phone + 6-digit OTP login | Demo OTP **123456**; `AUTH_REPOSITORY` abstraction |
+| **Auth** | Phone + 6-digit OTP login | Demo OTP **123456**; `AUTH_REPOSITORY` abstraction; **Keep me logged in for 30 days** checkbox (localStorage) or tab-only session |
 | **Onboarding** | Multi-slide welcome, skip / CTA, completion storage | `LocalOnboardingStorage` |
 | **Onboarding** | Returning-user splash (post-login) | VP9/WebM + MP4 fallback; header hidden on splash; full-bleed white background |
 | **Home** | Hero, branded header, entry to notifications | Mock user from `sample-user` |
@@ -28,7 +28,7 @@ High-level view of what is implemented in the current build versus what remains 
 | **Notifications** | List UI, unread styling, stacked cards | `NOTIFICATIONS_MOCK` |
 | **Documents** | Documents hub + policy document rows (View / Download / Delete) | Demo content |
 | **Documents** | Upload page | Native file picker + dropzone; upload pipeline not implemented |
-| **Quotation** | Hub (`/quotation`), vehicle selection, request form, preferences | Multi-step flow; in-progress timer + ready states in localStorage |
+| **Quotation** | Hub (`/quotation`), vehicle selection, request form, preferences | Multi-step flow; Malaysian + **Foreigner** tabs; in-progress timer + ready states in localStorage |
 | **Quotation** | Shared UI | `ActiveQuoteCard`, `PageChrome`, `WhatsappFab` |
 | **Profile** | Profile screen | UI present; demo profile data where applicable |
 | **Support** | Contact Support screen (`/contact-support`) | Hours, address, WhatsApp (+60182822320), email; matches consumer contact layout |

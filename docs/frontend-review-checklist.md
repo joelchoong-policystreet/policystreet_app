@@ -202,6 +202,7 @@ Checklist derived from the frontend code review (Angular 19.2, mock-data MVP pha
 ### 10. Quotation non-Malaysian tabs — explicit UX
 
 - [x] Disable or show “coming soon” for Foreigner / Company / Commercial tabs
+- [x] **Foreigner** tab wired — GNQ form (page 1) + preferences (page 2) per Figma 13:29944 / 13:29938
 - [x] Prevent user confusion on form and preferences steps
 
 **Execution plan**

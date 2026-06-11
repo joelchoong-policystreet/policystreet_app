@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
 import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
+import { AUTH_SESSION_STORAGE } from '../../../auth/domain/auth-session.storage.token';
 import { SAMPLE_USER } from '../../../home/domain/sample-user';
 
 type ProfileMenuRow = {
@@ -28,6 +29,7 @@ type ProfileMenuSection = {
 })
 export class ProfileComponent {
   private readonly router = inject(Router);
+  private readonly authSession = inject(AUTH_SESSION_STORAGE);
 
   readonly logoBrandSrc = APP_BRAND_LOGO_SRC;
   readonly avatarSrc = '/assets/profile/profile-avatar.svg';
@@ -84,6 +86,7 @@ export class ProfileComponent {
   }
 
   onLogout(): void {
-    return;
+    this.authSession.clearSession();
+    void this.router.navigate(['/login']);
   }
 }

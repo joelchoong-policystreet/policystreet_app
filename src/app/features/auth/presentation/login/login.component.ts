@@ -12,6 +12,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AUTH_REPOSITORY } from '../../domain/auth-repository.token';
+import { AUTH_SESSION_STORAGE } from '../../domain/auth-session.storage.token';
 import {
   fromMalaysianMobileStorage,
   malaysianMobileLocalDigits,
@@ -41,6 +42,7 @@ export class LoginComponent {
   private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
   private readonly auth = inject(AUTH_REPOSITORY);
+  private readonly authSession = inject(AUTH_SESSION_STORAGE);
 
   private resendIntervalId: ReturnType<typeof setInterval> | null = null;
 
@@ -80,7 +82,14 @@ export class LoginComponent {
 
   readonly otpError = signal(false);
 
+  /** Figma 3087:21864 — default checked. */
+  readonly keepLoggedIn = signal(true);
+
   constructor() {
+    if (this.authSession.isAuthenticated()) {
+      void this.router.navigate(['/home'], { replaceUrl: true });
+    }
+
     this.destroyRef.onDestroy(() => this.clearResendTimer());
 
     effect(() => {
@@ -131,6 +140,7 @@ export class LoginComponent {
     this.loggingIn.set(true);
     this.auth.verifyOtp(this.mobile.value, this.otpCode()).subscribe({
       next: () => {
+        this.authSession.establishSession(this.mobile.value, this.keepLoggedIn());
         const elapsed = performance.now() - startedAt;
         const remaining = Math.max(0, LoginComponent.LOGIN_ANIMATION_MS - elapsed);
         window.setTimeout(() => {
@@ -157,6 +167,10 @@ export class LoginComponent {
     this.otpCode.set('');
     this.clearResendTimer();
     this.resendSeconds.set(0);
+  }
+
+  toggleKeepLoggedIn(): void {
+    this.keepLoggedIn.update((checked) => !checked);
   }
 
   resendOtp(): void {

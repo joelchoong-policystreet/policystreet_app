@@ -179,6 +179,51 @@
   gap: 16px;
 }
 
+.quotation-form-page__gender-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.quotation-form-page__gender-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.084px;
+  color: var(--Accents-Blue-Grey, #7092bb);
+  flex-shrink: 0;
+}
+
+.quotation-form-page__gender-options {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.quotation-form-page__radio--inline {
+  min-height: 48px;
+}
+
+.quotation-form-page__radio--inline .quotation-form-page__radio-mark {
+  width: 24px;
+  height: 24px;
+  margin: 12px;
+}
+
+.quotation-form-page__radio--inline .quotation-form-page__radio-label {
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.084px;
+}
+
+.quotation-form-page__radio-label--selected {
+  font-weight: 600;
+}
+
 .quotation-form-page__radio {
   display: inline-flex;
   align-items: center;
@@ -244,6 +289,16 @@
 .quotation-form-page__field--select {
   display: flex;
   align-items: center;
+}
+
+.quotation-form-page__field--date {
+  display: flex;
+  align-items: center;
+}
+
+.quotation-form-page__info-btn--static {
+  cursor: default;
+  pointer-events: none;
 }
 
 .quotation-form-page__info-btn {
@@ -318,6 +373,10 @@
   padding-left: 48px;
   padding-right: 40px;
   font-weight: 600;
+}
+
+.quotation-form-page__select--plain {
+  padding-left: 16px;
 }
 
 /* Insurance info tooltip — Figma 3115:2161 */
@@ -486,6 +545,48 @@
 .quotation-form-page__consent-link {
   color: #0091ff;
   text-decoration: underline;
+}
+
+.quotation-form-page__input--with-leading {
+  padding-left: 48px;
+}
+
+.quotation-form-page__input--date {
+  padding-right: 48px;
+  color-scheme: light;
+
+  &::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    width: 48px;
+    height: 100%;
+    cursor: pointer;
+  }
+}
+
+.quotation-form-page__calendar-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 100px;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+}
+
+.quotation-form-page__calendar-icon {
+  display: block;
+  width: 22px;
+  height: 23px;
 }
 
 .quotation-form-page__footer {
