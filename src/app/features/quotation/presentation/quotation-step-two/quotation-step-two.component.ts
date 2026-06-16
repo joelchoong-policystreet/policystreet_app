@@ -7,12 +7,13 @@ import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.to
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
 import { toQuotationVehicleOptions } from '../../../policies/domain/policy.model';
+import { AddVehicleDialogComponent } from '../add-vehicle-dialog/add-vehicle-dialog.component';
 import { QuotationFlowService } from '../../domain/quotation-flow.service';
 
 @Component({
   selector: 'app-quotation-step-two',
   standalone: true,
-  imports: [CachedAssetImgDirective, PageChromeComponent],
+  imports: [CachedAssetImgDirective, PageChromeComponent, AddVehicleDialogComponent],
   templateUrl: './quotation-step-two.component.html',
   styleUrl: './quotation-step-two.component.scss',
 })
@@ -34,6 +35,7 @@ export class QuotationStepTwoComponent {
   );
 
   readonly selectedVehicleId = signal<string | null>(null);
+  readonly addVehicleDialogOpen = signal(false);
   readonly canContinue = computed(() => this.selectedVehicleId() !== null);
 
   constructor() {
@@ -50,7 +52,17 @@ export class QuotationStepTwoComponent {
   }
 
   addVehicle(): void {
-    void this.flow.goToAddVehicle();
+    this.addVehicleDialogOpen.set(true);
+  }
+
+  onAddVehicleDialogClosed(): void {
+    this.addVehicleDialogOpen.set(false);
+  }
+
+  onVehicleAdded(vehicleId: string): void {
+    if (vehicleId) {
+      this.selectedVehicleId.set(vehicleId);
+    }
   }
 
   selectVehicle(id: string): void {

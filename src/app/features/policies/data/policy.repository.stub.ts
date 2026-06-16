@@ -15,15 +15,13 @@ export class PolicyRepositoryStub implements PolicyRepository {
     return this.policiesState.asObservable();
   }
 
-  addVehicle(payload: AddVehiclePayload): Observable<void> {
+  addVehicle(payload: AddVehiclePayload): Observable<string> {
     const plate = payload.plate.trim().toUpperCase();
     const ownerFullName = payload.ownerFullName.trim();
-    const next = [
-      ...this.policiesState.getValue(),
-      createSavedVehiclePolicy(plate, ownerFullName),
-    ];
+    const created = createSavedVehiclePolicy(plate, ownerFullName);
+    const next = [...this.policiesState.getValue(), created];
     this.policiesState.next(next);
-    return of(void 0);
+    return of(created.id);
   }
 
   deletePolicy(policyId: string): Observable<void> {

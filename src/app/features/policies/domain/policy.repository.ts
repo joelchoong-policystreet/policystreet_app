@@ -7,7 +7,7 @@ import type { AddVehiclePayload, MotorPolicy, PolicyPersonalDetailsPatch } from 
  */
 export interface PolicyRepository {
   getPolicies(): Observable<ReadonlyArray<MotorPolicy>>;
-  addVehicle(payload: AddVehiclePayload): Observable<void>;
+  addVehicle(payload: AddVehiclePayload): Observable<string>;
   deletePolicy(policyId: string): Observable<void>;
   updatePolicyPersonalDetails(policyId: string, patch: PolicyPersonalDetailsPatch): Observable<void>;
 }

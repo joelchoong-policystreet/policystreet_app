@@ -8,11 +8,12 @@ import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.to
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
+import { AddVehicleSuccessDialogComponent } from '../../../../shared/presentation/add-vehicle-success-dialog/add-vehicle-success-dialog.component';
 
 @Component({
   selector: 'app-add-vehicle',
   standalone: true,
-  imports: [ReactiveFormsModule, CachedAssetImgDirective, PageChromeComponent],
+  imports: [ReactiveFormsModule, CachedAssetImgDirective, PageChromeComponent, AddVehicleSuccessDialogComponent],
   templateUrl: './add-vehicle.component.html',
   styleUrl: './add-vehicle.component.scss',
 })
@@ -24,6 +25,7 @@ export class AddVehicleComponent {
   private readonly policyRepository = inject(POLICY_REPOSITORY);
 
   readonly saving = signal(false);
+  readonly showSuccess = signal(false);
 
   readonly form = this.fb.nonNullable.group({
     plateNo: ['', Validators.required],
@@ -65,12 +67,7 @@ export class AddVehicleComponent {
       .pipe(take(1))
       .subscribe({
         next: () => {
-          const returnTo = this.resolveReturnTo();
-          if (returnTo) {
-            void this.router.navigateByUrl(returnTo);
-            return;
-          }
-          void this.router.navigate(['/my-vehicles']);
+          this.showSuccess.set(true);
         },
         complete: () => {
           this.saving.set(false);
@@ -79,6 +76,16 @@ export class AddVehicleComponent {
           this.saving.set(false);
         },
       });
+  }
+
+  onSuccessClose(): void {
+    this.showSuccess.set(false);
+    const returnTo = this.resolveReturnTo();
+    if (returnTo) {
+      void this.router.navigateByUrl(returnTo);
+      return;
+    }
+    void this.router.navigate(['/my-vehicles']);
   }
 
   private resolveReturnTo(): string | null {

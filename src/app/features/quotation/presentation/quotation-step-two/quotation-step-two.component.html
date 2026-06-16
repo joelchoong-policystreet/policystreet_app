@@ -73,4 +73,10 @@
       </div>
     </footer>
   </div>
+
+  <app-add-vehicle-dialog
+    [open]="addVehicleDialogOpen()"
+    (closed)="onAddVehicleDialogClosed()"
+    (vehicleAdded)="onVehicleAdded($event)"
+  />
 </div>

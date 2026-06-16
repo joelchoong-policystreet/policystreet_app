@@ -1,0 +1,38 @@
+@if (open()) {
+  <div class="add-vehicle-success__backdrop">
+    <div
+      class="add-vehicle-success"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="add-vehicle-success-title"
+    >
+      <div class="add-vehicle-success__body">
+        <div class="add-vehicle-success__hero" aria-hidden="true">
+          <img
+            class="add-vehicle-success__hero-bg"
+            [appCachedAsset]="successHeroSrc"
+            width="280"
+            height="200"
+            alt=""
+          />
+          @if (showPawsper()) {
+            <img
+              class="add-vehicle-success__pawsper"
+              [appCachedAsset]="pawsperSrc"
+              width="120"
+              height="140"
+              alt=""
+            />
+          }
+        </div>
+        <p id="add-vehicle-success-title" class="add-vehicle-success__title">
+          Vehicle added to your list.
+        </p>
+      </div>
+
+      <div class="add-vehicle-success__actions">
+        <button type="button" class="add-vehicle-success__close" (click)="onClose()">Close</button>
+      </div>
+    </div>
+  </div>
+}
