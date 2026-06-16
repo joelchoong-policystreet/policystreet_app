@@ -17,6 +17,17 @@
   bottom: calc(var(--quotation-prefs-footer-stack) + 16px + env(safe-area-inset-bottom, 0px));
 }
 
+/* Desktop centres content in a wide shell, so anchor the FAB to the viewport edge. */
+@media (min-width: 1200px) {
+  :host {
+    right: clamp(24px, 4vw, 64px);
+  }
+
+  :host(.whatsapp-fab--bottom-nav) {
+    bottom: clamp(24px, 4vh, 40px);
+  }
+}
+
 .whatsapp-fab__link {
   width: 56px;
   height: 56px;

@@ -1,6 +1,31 @@
 <a class="app-skip-link" href="#main-content">Skip to main content</a>
-<div class="app-route-shell">
-  <router-outlet />
+<div class="app-shell" [class.app-shell--chrome]="shouldShowChrome()">
+  @if (shouldShowChrome()) {
+    <app-side-nav class="app-shell__side" [activeTab]="activeBottomTab()" />
+  }
+  <div class="app-shell__body">
+    @if (shouldShowChrome()) {
+      <header class="app-shell__topbar" aria-label="Account">
+        <button
+          type="button"
+          class="app-shell__avatar"
+          (click)="goProfile()"
+          aria-label="Profile"
+        >
+          <img
+            appCachedAsset="/assets/home/nav-person-v2.svg"
+            width="20"
+            height="20"
+            alt=""
+            aria-hidden="true"
+          />
+        </button>
+      </header>
+    }
+    <div class="app-route-shell">
+      <router-outlet />
+    </div>
+  </div>
 </div>
 @if (shouldShowBottomNav()) {
   <app-bottom-nav [activeTab]="activeBottomTab()" />

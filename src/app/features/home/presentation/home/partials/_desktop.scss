@@ -1,0 +1,120 @@
+/* Desktop home dashboard — Figma 3124:4943.
+   Two columns inside the app shell content area: left = welcome card + active
+   quote + latest policy + news; right = quick actions. The mobile hero/sheet
+   chrome is flattened and neutralised. App sidebar + top bar come from the shell. */
+@media (min-width: 1200px) {
+  .home-page {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(280px, 24vw, 300px);
+    column-gap: clamp(32px, 4vw, 50px);
+    row-gap: 32px;
+    align-content: start;
+    align-items: start;
+    max-width: none;
+    margin: 0;
+    min-height: 0;
+    padding: 50px clamp(32px, 7vw, 120px) 80px;
+    overflow-x: visible;
+    background: var(--Brand-White, #fff);
+  }
+
+  /* Flatten hero + sheet so their children join the page grid directly. */
+  .home-page__hero,
+  .home-page__sheet,
+  .home-page__sheet-content {
+    display: contents;
+  }
+
+  /* Kill the mobile sky paint (hero bg + "behind sheet" gradient) — desktop is full white. */
+  .home-page__hero {
+    background: none;
+    box-shadow: none;
+  }
+
+  .home-page__hero::after {
+    content: none;
+    display: none;
+  }
+
+  /* Brand lockup lives in the sidebar on desktop. */
+  .home-page__header {
+    display: none;
+  }
+
+  /* Welcome card — left column, top row. */
+  .home-page__welcome-block {
+    grid-column: 1;
+    padding: 0;
+  }
+
+  .home-page__welcome-card {
+    padding: 20px 24px;
+  }
+
+  /* Quick actions — right column, top row. */
+  .home-page__quick-actions-wrap {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .home-page__quick-title {
+    display: block;
+    margin: 0;
+    font-family: 'Open Sans', Inter, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 26px;
+    color: var(--Font-Black, #141414);
+  }
+
+  .home-page__quick-actions {
+    min-height: 0;
+    padding: 0;
+    gap: 8px;
+    background: transparent;
+    align-items: stretch;
+  }
+
+  .home-page__quick-btn {
+    min-height: 104px;
+    gap: 8px;
+    padding: 12px 6px;
+    border-radius: 12px;
+    background: var(--Brand-White, #fff);
+    border: 1px solid var(--Disable-Borders-Columbia-Blue, #e3eaf2);
+    box-shadow: 0 4px 14px rgba(50, 100, 150, 0.06);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+
+  .home-page__quick-btn:hover {
+    box-shadow: 0 6px 18px rgba(50, 100, 150, 0.12);
+    transform: translateY(-1px);
+  }
+
+  .home-page__quick-label {
+    font-size: 12px;
+    line-height: 16px;
+    max-width: 80px;
+  }
+
+  /* Dashboard sections — left column, stacked under the welcome card. */
+  .home-page__section {
+    grid-column: 1;
+  }
+
+  .home-page__section-head--sticky {
+    position: static;
+  }
+
+  /* News row fits three cards without horizontal scrolling. */
+  .home-page__news-row {
+    overflow-x: visible;
+    gap: 16px;
+    padding-bottom: 0;
+  }
+}

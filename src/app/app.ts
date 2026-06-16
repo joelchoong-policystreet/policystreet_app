@@ -2,11 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 import { AppBottomNavComponent, type BottomNavTab } from './shared/presentation/app-bottom-nav/app-bottom-nav.component';
+import { AppSideNavComponent } from './shared/presentation/app-side-nav/app-side-nav.component';
+import { CachedAssetImgDirective } from './shared/assets/cached-asset-img.directive';
 import { readAppRouteData } from './shared/routing/read-app-route-data';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AppBottomNavComponent],
+  imports: [RouterOutlet, AppBottomNavComponent, AppSideNavComponent, CachedAssetImgDirective],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -47,7 +49,16 @@ export class App implements OnInit, OnDestroy {
     return this.showBottomNavFlag;
   }
 
+  /** Desktop sidebar + top bar share the same routes as the mobile bottom nav. */
+  shouldShowChrome(): boolean {
+    return this.showBottomNavFlag;
+  }
+
   activeBottomTab(): BottomNavTab {
     return this.activeTab;
+  }
+
+  goProfile(): void {
+    void this.router.navigate(['/profile']);
   }
 }

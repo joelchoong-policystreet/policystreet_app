@@ -36,3 +36,91 @@
   position: relative;
   overflow-x: clip;
 }
+
+/* Mobile: shell wrappers are pass-through; desktop chrome stays hidden. */
+.app-shell,
+.app-shell__body {
+  display: block;
+}
+
+.app-shell__side,
+.app-shell__topbar {
+  display: none;
+}
+
+/* Desktop (>=1200px): persistent sidebar + top bar; the bottom nav steps aside. */
+@media (min-width: 1200px) {
+  .app-shell--chrome {
+    display: flex;
+    align-items: flex-start;
+    min-height: 100vh;
+  }
+
+  .app-shell--chrome .app-shell__side {
+    display: block;
+    flex: 0 0 300px;
+    width: 300px;
+    align-self: flex-start;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 30;
+  }
+
+  .app-shell--chrome .app-shell__body {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 100vh;
+    flex-direction: column;
+    background: var(--Brand-White, #fff);
+  }
+
+  .app-shell--chrome .app-shell__topbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    box-sizing: border-box;
+    min-height: 80px;
+    padding: 20px clamp(40px, 7vw, 100px);
+    background: var(--Brand-White, #fff);
+    border-bottom: 1px solid var(--Disable-Borders-Columbia-Blue, #e3eaf2);
+  }
+
+  .app-shell__avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    img {
+      display: block;
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+
+    &:hover {
+      background: rgba(0, 145, 255, 0.08);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ps-primary, #0091ff);
+      outline-offset: 2px;
+    }
+  }
+
+  app-bottom-nav {
+    display: none;
+  }
+}

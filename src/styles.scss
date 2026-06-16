@@ -33,6 +33,13 @@ body {
   }
 }
 
+/* Desktop replaces the bottom nav with a sidebar, so reclaim its reserved space. */
+@media (min-width: 1200px) {
+  :root {
+    --app-bottom-nav-clearance: 0px;
+  }
+}
+
 button {
   font-family: inherit;
 }
