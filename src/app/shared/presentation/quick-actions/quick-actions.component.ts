@@ -1,7 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CachedAssetImgDirective } from '../../assets/cached-asset-img.directive';
+
+export type QuickActionId = 'quotation' | 'contact-support' | 'vehicles';
 
 /**
  * Quick Actions rail shown on the top-right of desktop nav pages (Figma 3124:6164).
@@ -16,6 +18,9 @@ import { CachedAssetImgDirective } from '../../assets/cached-asset-img.directive
 })
 export class QuickActionsComponent {
   private readonly router = inject(Router);
+
+  /** Highlights the card for the current page (Figma active quick-action treatment). */
+  readonly activeAction = input<QuickActionId | null>(null);
 
   goQuotation(): void {
     void this.router.navigate(['/quotation']);

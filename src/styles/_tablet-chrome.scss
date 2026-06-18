@@ -1,0 +1,18 @@
+/* Tablet/iPad with shell chrome: desktop side nav; page layouts vary by feature.
+   Home uses a dedicated tablet dashboard (_tablet.scss). Full desktop at 1200px. */
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  /* Let mobile layouts breathe in the content column beside the sidebar. */
+  .app-shell--chrome .nav-page,
+  .app-shell--chrome .policy-details-page,
+  .app-shell--chrome .profile-page {
+    max-width: none;
+    margin: 0;
+    width: 100%;
+  }
+
+  /* Logo moves to sidebar; profile via shell avatar. */
+  .app-shell--chrome .profile-page__header {
+    display: none;
+  }
+}

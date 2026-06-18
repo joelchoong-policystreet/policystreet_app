@@ -37,8 +37,24 @@
   padding: 24px 24px calc(var(--app-bottom-nav-clearance) + 50px);
   display: flex;
   flex-direction: column;
-  gap: 32px;
   box-sizing: border-box;
+}
+
+.faq-page__body {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.faq-page__primary {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  min-width: 0;
+}
+
+.faq-page__rail {
+  display: none;
 }
 
 .faq-page__intro {
@@ -174,5 +190,53 @@
   .faq-page__main {
     padding-left: 16px;
     padding-right: 16px;
+  }
+}
+
+/* Tablet/desktop — Figma 3130:11678 */
+@media (min-width: 768px) {
+  :host {
+    min-height: 0;
+  }
+
+  .faq-page {
+    height: auto;
+    min-height: min(100%, auto);
+    max-width: none;
+    margin: 0;
+    overflow: visible;
+  }
+
+  .faq-page > .app-route-fade-target {
+    min-height: 0;
+  }
+
+  .faq-page__chrome {
+    display: none;
+  }
+
+  .faq-page__main {
+    overflow: visible;
+    flex: none;
+    padding: var(--shell-page-padding-y, 32px) var(--shell-page-padding-x, 24px)
+      var(--shell-page-padding-bottom, 48px);
+  }
+
+  .faq-page__body {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: clamp(32px, 4vw, 50px);
+  }
+
+  .faq-page__primary {
+    flex: 1 1 auto;
+    gap: 24px;
+  }
+
+  .faq-page__rail {
+    display: block;
+    flex: 0 0 var(--shell-quick-rail-width, clamp(300px, 28vw, 520px));
+    width: var(--shell-quick-rail-width, clamp(300px, 28vw, 520px));
+    align-self: flex-start;
   }
 }

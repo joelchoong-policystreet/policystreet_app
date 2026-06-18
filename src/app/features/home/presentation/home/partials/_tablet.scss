@@ -1,39 +1,38 @@
-/* Desktop home dashboard — Figma 3124:4943.
-   Body: px 100 / py 50, 50px column gap. Left column stacks welcome + sections
-   (24px between blocks, 16px head-to-card inside each). App chrome from shell. */
-@media (min-width: 1200px) {
+/* Tablet home (768–1199px): shell sidebar + single-column dashboard.
+   Welcome → Quick Actions → Active Quote → sections. No mobile hero/sheet. */
+@media (min-width: 768px) and (max-width: 1199px) {
   .home-page {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) var(--shell-quick-rail-width, clamp(300px, 28vw, 520px));
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
-      'welcome quick'
-      'active  quick'
-      'cover   quick'
-      'news    quick';
-    column-gap: 50px;
+      'welcome'
+      'quick'
+      'active'
+      'cover'
+      'news';
     row-gap: 24px;
     align-content: start;
     align-items: start;
     max-width: none;
     margin: 0;
     min-height: 0;
-    /* Override mobile hero-height padding; match Figma body insets. */
-    padding: 50px clamp(32px, 7vw, 100px) 80px;
+    padding: var(--shell-page-padding-y, 32px) var(--shell-page-padding-x, 24px)
+      var(--shell-page-padding-bottom, 48px) !important;
     overflow-x: visible;
     background: var(--Brand-White, #fff);
   }
 
-  /* Flatten hero + sheet so their children join the page grid directly. */
   .home-page__hero,
   .home-page__sheet,
   .home-page__sheet-content {
     display: contents;
   }
 
-  /* Kill the mobile sky paint (hero bg + "behind sheet" gradient) — desktop is full white. */
   .home-page__hero {
+    position: static;
     background: none;
     box-shadow: none;
+    padding: 0;
   }
 
   .home-page__hero::after {
@@ -41,12 +40,10 @@
     display: none;
   }
 
-  /* Brand lockup lives in the sidebar on desktop. */
   .home-page__header {
     display: none;
   }
 
-  /* Welcome card — Figma 3124:5161. */
   .home-page__welcome-block {
     grid-area: welcome;
     padding: 0;
@@ -57,10 +54,8 @@
     border-radius: 16px;
   }
 
-  /* Quick actions — right column; grid-area keeps row heights independent. */
   .home-page__quick-actions-wrap {
     grid-area: quick;
-    align-self: start;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -78,7 +73,6 @@
     color: var(--Font-Black, #141414);
   }
 
-  /* Quick-action cards — Figma 3124:5342 (icon on top, label below, single row). */
   .home-page__quick-actions {
     container-type: inline-size;
     min-height: 0;
@@ -132,7 +126,14 @@
     }
   }
 
-  /* Dashboard sections — Figma 3124:5250 (24px between blocks, 16px head-to-card). */
+  .home-page__sheet {
+    transform: none !important;
+    margin-bottom: 0 !important;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+
   .home-page__section {
     gap: 16px;
   }
@@ -154,7 +155,6 @@
     padding: 0;
   }
 
-  /* News row fits three cards without horizontal scrolling. */
   .home-page__news-row {
     overflow-x: visible;
     gap: 8px;

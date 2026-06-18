@@ -102,3 +102,26 @@
   flex: 0 0 auto;
   margin-top: 12px;
 }
+
+/* Compact sidebar on tablet/iPad; full size at desktop. */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .app-side-nav {
+    padding: 20px 16px;
+  }
+
+  .app-side-nav__logo {
+    min-height: 48px;
+    margin-bottom: 28px;
+  }
+
+  .app-side-nav__logo-img {
+    width: 160px;
+    max-height: 44px;
+  }
+
+  .app-side-nav__item {
+    gap: 12px;
+    padding: 11px 12px;
+    font-size: 15px;
+  }
+}

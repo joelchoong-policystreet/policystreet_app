@@ -1,23 +1,38 @@
 <section class="quick-actions" aria-labelledby="quick-actions-heading">
   <h2 id="quick-actions-heading" class="quick-actions__title">Quick Actions</h2>
   <div class="quick-actions__buttons">
-    <button type="button" class="quick-actions__btn" (click)="goQuotation()">
+    <button
+      type="button"
+      class="quick-actions__btn"
+      [class.quick-actions__btn--active]="activeAction() === 'quotation'"
+      (click)="goQuotation()"
+    >
       <span class="quick-actions__icon">
         <img appCachedAsset="/assets/home/quick-action-request-quote.svg" width="40" height="40" alt="" aria-hidden="true" />
       </span>
-      <span class="quick-actions__label">Request New Quote</span>
+      <span class="quick-actions__label">Request<br class="quick-actions__label-break" aria-hidden="true" /> New Quote</span>
     </button>
-    <button type="button" class="quick-actions__btn" (click)="goContactSupport()">
+    <button
+      type="button"
+      class="quick-actions__btn"
+      [class.quick-actions__btn--active]="activeAction() === 'contact-support'"
+      (click)="goContactSupport()"
+    >
       <span class="quick-actions__icon">
         <img appCachedAsset="/assets/home/quick-action-contact-support.svg" width="40" height="40" alt="" aria-hidden="true" />
       </span>
-      <span class="quick-actions__label">Contact Support</span>
+      <span class="quick-actions__label">Contact<br class="quick-actions__label-break" aria-hidden="true" /> Support</span>
     </button>
-    <button type="button" class="quick-actions__btn" (click)="goMyVehicles()">
+    <button
+      type="button"
+      class="quick-actions__btn"
+      [class.quick-actions__btn--active]="activeAction() === 'vehicles'"
+      (click)="goMyVehicles()"
+    >
       <span class="quick-actions__icon">
         <img appCachedAsset="/assets/home/quick-action-add-vehicle.svg" width="40" height="40" alt="" aria-hidden="true" />
       </span>
-      <span class="quick-actions__label">Add New Vehicle</span>
+      <span class="quick-actions__label">Add New<br class="quick-actions__label-break" aria-hidden="true" /> Vehicle</span>
     </button>
   </div>
 </section>

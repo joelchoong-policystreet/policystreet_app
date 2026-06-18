@@ -5,42 +5,62 @@
     </div>
 
     <main id="main-content" class="add-vehicle-page__main">
-      <header class="add-vehicle-page__intro">
-        <h2 class="add-vehicle-page__title">Add Vehicle</h2>
-        <p class="add-vehicle-page__subtitle">
-          Enter your vehicle plate number and the car owner’s full name.
-        </p>
-      </header>
+      <div class="add-vehicle-page__body">
+        <div class="add-vehicle-page__primary">
+          <header class="add-vehicle-page__intro">
+            <h2 class="add-vehicle-page__title">Add Vehicle</h2>
+            <p class="add-vehicle-page__subtitle">
+              Enter your vehicle plate number and the car owner’s full name.
+            </p>
+          </header>
 
-      <form class="add-vehicle-page__form" [formGroup]="form" (ngSubmit)="onSave()" novalidate>
-        <div class="add-vehicle-page__field">
-          <input
-            id="av-plate"
-            type="text"
-            class="add-vehicle-page__input"
-            formControlName="plateNo"
-            placeholder=" "
-            autocomplete="off"
-            autocapitalize="characters"
-            spellcheck="false"
-            aria-required="true"
-          />
-          <label class="add-vehicle-page__input-label" for="av-plate">Plate No.</label>
+          <form class="add-vehicle-page__form" [formGroup]="form" (ngSubmit)="onSave()" novalidate>
+            <div class="add-vehicle-page__field">
+              <input
+                id="av-plate"
+                type="text"
+                class="add-vehicle-page__input"
+                formControlName="plateNo"
+                placeholder=" "
+                autocomplete="off"
+                autocapitalize="characters"
+                spellcheck="false"
+                aria-required="true"
+              />
+              <label class="add-vehicle-page__input-label" for="av-plate">Plate No.</label>
+            </div>
+
+            <div class="add-vehicle-page__field">
+              <input
+                id="av-owner"
+                type="text"
+                class="add-vehicle-page__input"
+                formControlName="ownerFullName"
+                placeholder=" "
+                autocomplete="name"
+                aria-required="true"
+              />
+              <label class="add-vehicle-page__input-label" for="av-owner">Car Owner’s Full Name</label>
+            </div>
+          </form>
+
+          <div class="add-vehicle-page__actions add-vehicle-page__actions--desktop">
+            <button
+              type="button"
+              class="add-vehicle-page__save-btn"
+              [class.add-vehicle-page__save-btn--enabled]="canSave()"
+              [disabled]="!canSave() || saving()"
+              (click)="onSave()"
+            >
+              {{ saving() ? 'Saving…' : 'Save Vehicle' }}
+            </button>
+          </div>
         </div>
 
-        <div class="add-vehicle-page__field">
-          <input
-            id="av-owner"
-            type="text"
-            class="add-vehicle-page__input"
-            formControlName="ownerFullName"
-            placeholder=" "
-            autocomplete="name"
-            aria-required="true"
-          />
-          <label class="add-vehicle-page__input-label" for="av-owner">Car Owner’s Full Name</label>
-        </div>
-      </form>
+        <aside class="add-vehicle-page__rail" aria-label="Quick actions">
+          <app-quick-actions activeAction="vehicles" />
+        </aside>
+      </div>
     </main>
 
     <footer class="add-vehicle-page__footer" aria-label="Save vehicle actions">
@@ -70,4 +90,5 @@
   </div>
 
   <app-add-vehicle-success-dialog [open]="showSuccess()" (closed)="onSuccessClose()" />
+  <app-whatsapp-fab />
 </div>

@@ -84,7 +84,29 @@
   padding-bottom: calc(24px + var(--my-vehicles-footer-stack) + env(safe-area-inset-bottom, 0px));
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+}
+
+.my-vehicles-page__body {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
+  width: 100%;
+}
+
+.my-vehicles-page__primary {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.my-vehicles-page__rail {
+  display: none;
+}
+
+.my-vehicles-page__add-btn--desktop {
+  display: none;
 }
 
 /* Fixed footer — Figma 3104:20291 */
@@ -101,30 +123,43 @@
   gap: 10px;
 }
 
+/* Add Vehicle — Figma 3130:14358 (dashed outlined, medium). */
 .my-vehicles-page__add-btn {
   width: 100%;
-  border: 0;
-  border-radius: 8px;
-  background: #0091ff;
-  color: #fff;
+  box-sizing: border-box;
+  border: 2px dashed var(--ps-primary, #0091ff);
+  border-radius: 4px;
+  background: var(--Brand-White, #fff);
+  color: var(--ps-primary, #0091ff);
   padding: 16px 24px;
+  min-height: 56px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', Inter, sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
   letter-spacing: 0.5px;
   cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(0, 145, 255, 0.08);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ps-primary, #0091ff);
+    outline-offset: 2px;
+  }
 }
 
 .my-vehicles-page__add-icon {
   display: block;
   flex: 0 0 auto;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
 }
 
 .my-vehicles-page__safe {
@@ -303,6 +338,14 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .my-vehicles-page__modal-backdrop {
+    /* Above shell sidebar (30) and top bar (20). */
+    z-index: 1000;
+  }
 }
 
 .my-vehicles-page__modal {
@@ -374,4 +417,63 @@
 .my-vehicles-page__modal-btn--delete {
   color: #e50914;
   letter-spacing: 0.25px;
+}
+
+/* Tablet/desktop — Figma 3130:13386: full-width two-column body + shell app bar. */
+@media (min-width: 768px) {
+  :host {
+    min-height: 0;
+  }
+
+  .my-vehicles-page {
+    height: auto;
+    min-height: min(100%, auto);
+    max-width: none;
+    margin: 0;
+    overflow: visible;
+  }
+
+  .my-vehicles-page > .app-route-fade-target {
+    min-height: 0;
+  }
+
+  .my-vehicles-page__chrome {
+    display: none;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .my-vehicles-page__main {
+    overflow: visible;
+    flex: none;
+    padding: var(--shell-page-padding-y, 32px) var(--shell-page-padding-x, 24px)
+      var(--shell-page-padding-bottom, 48px);
+  }
+
+  .my-vehicles-page__body {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: clamp(32px, 4vw, 50px);
+  }
+
+  .my-vehicles-page__primary {
+    flex: 1 1 auto;
+  }
+
+  .my-vehicles-page__rail {
+    display: block;
+    flex: 0 0 var(--shell-quick-rail-width, clamp(300px, 28vw, 520px));
+    width: var(--shell-quick-rail-width, clamp(300px, 28vw, 520px));
+    align-self: flex-start;
+  }
+
+  .my-vehicles-page__footer {
+    display: none;
+  }
+
+  .my-vehicles-page__add-btn--desktop {
+    display: inline-flex;
+    align-self: stretch;
+    width: 100%;
+  }
 }

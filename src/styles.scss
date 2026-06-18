@@ -1,6 +1,8 @@
 /* Source of truth: src/design-tokens/policystreet.tokens.json */
 @use './design-tokens/generated-tokens';
 @use './styles/focus-visible';
+@use './styles/shell-chrome';
+@use './styles/tablet-chrome';
 
 *,
 *::before,
@@ -30,13 +32,6 @@ body {
 @media (max-width: 430px) {
   body {
     background: var(--Accents-Seas-Salt, #f7f7f7);
-  }
-}
-
-/* Desktop replaces the bottom nav with a sidebar, so reclaim its reserved space. */
-@media (min-width: 1200px) {
-  :root {
-    --app-bottom-nav-clearance: 0px;
   }
 }
 

@@ -5,72 +5,80 @@
     </div>
 
     <main id="main-content" class="contact-support-page__main">
-      <div class="contact-support-page__intro">
-        <h2 class="contact-support-page__heading">Contact Us</h2>
-        <p class="contact-support-page__subtitle">Need help? Our support team is here to assist you.</p>
+      <div class="contact-support-page__body">
+        <div class="contact-support-page__primary">
+          <div class="contact-support-page__intro">
+            <h2 class="contact-support-page__heading">Contact Us</h2>
+            <p class="contact-support-page__subtitle">Need help? Our support team is here to assist you.</p>
+          </div>
+
+          <article class="contact-support-page__card" aria-label="PolicyStreet Malaysia contact details">
+            <div class="contact-support-page__logo-wrap">
+              <img
+                class="contact-support-page__brand-lockup"
+                [appCachedAsset]="logoBrandSrc"
+                alt="PolicyStreet Car Insurance"
+                width="153"
+                height="40"
+              />
+            </div>
+
+            <div class="contact-support-page__address-block">
+              <p class="contact-support-page__company">PolicyStreet Malaysia</p>
+              <address class="contact-support-page__address">
+                <span>Menara Suezcap 1, KL Gateway,</span>
+                <span>No. 2 Jalan Kerinchi, Gerbang Kerinchi Lestari,</span>
+                <span>59200 Kuala Lumpur,</span>
+                <span>Malaysia</span>
+              </address>
+            </div>
+
+            <hr class="contact-support-page__rule" />
+
+            <p class="contact-support-page__hours">
+              Available Mon–Fri, 9:00 AM – 6:00 PM
+              <em class="contact-support-page__hours-note">(excluding Public Holidays)</em>
+            </p>
+
+            <hr class="contact-support-page__rule" />
+
+            <ul class="contact-support-page__channels">
+              <li>
+                <a class="contact-support-page__channel" [href]="whatsappHref" target="_blank" rel="noopener noreferrer">
+                  <img
+                    class="contact-support-page__channel-icon"
+                    [appCachedAsset]="whatsappIconSrc"
+                    width="24"
+                    height="24"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                  <span class="contact-support-page__channel-label">+6018-282 2320 (WA message only)</span>
+                </a>
+              </li>
+              <li>
+                <a class="contact-support-page__channel" [href]="mailtoHref">
+                  <img
+                    class="contact-support-page__channel-icon"
+                    [appCachedAsset]="emailIconSrc"
+                    width="24"
+                    height="24"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                  <span class="contact-support-page__channel-label contact-support-page__channel-label--email">
+                    {{ supportEmail }}
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </article>
+        </div>
+
+        <aside class="contact-support-page__rail" aria-label="Quick actions">
+          <app-quick-actions activeAction="contact-support" />
+        </aside>
       </div>
-
-      <article class="contact-support-page__card" aria-label="PolicyStreet Malaysia contact details">
-        <div class="contact-support-page__logo-wrap">
-          <img
-            class="contact-support-page__brand-lockup"
-            [appCachedAsset]="logoBrandSrc"
-            alt="PolicyStreet Car Insurance"
-            width="153"
-            height="40"
-          />
-        </div>
-
-        <div class="contact-support-page__address-block">
-          <p class="contact-support-page__company">PolicyStreet Malaysia</p>
-          <address class="contact-support-page__address">
-            <span>Menara Suezcap 1, KL Gateway,</span>
-            <span>No. 2 Jalan Kerinchi, Gerbang Kerinchi Lestari,</span>
-            <span>59200 Kuala Lumpur,</span>
-            <span>Malaysia</span>
-          </address>
-        </div>
-
-        <hr class="contact-support-page__rule" />
-
-        <p class="contact-support-page__hours">
-          Available Mon–Fri, 9:00 AM – 6:00 PM
-          <em class="contact-support-page__hours-note">(excluding Public Holidays)</em>
-        </p>
-
-        <hr class="contact-support-page__rule" />
-
-        <ul class="contact-support-page__channels">
-          <li>
-            <a class="contact-support-page__channel" [href]="whatsappHref" target="_blank" rel="noopener noreferrer">
-              <img
-                class="contact-support-page__channel-icon"
-                [appCachedAsset]="whatsappIconSrc"
-                width="24"
-                height="24"
-                alt=""
-                aria-hidden="true"
-              />
-              <span class="contact-support-page__channel-label">+6018-282 2320 (WA message only)</span>
-            </a>
-          </li>
-          <li>
-            <a class="contact-support-page__channel" [href]="mailtoHref">
-              <img
-                class="contact-support-page__channel-icon"
-                [appCachedAsset]="emailIconSrc"
-                width="24"
-                height="24"
-                alt=""
-                aria-hidden="true"
-              />
-              <span class="contact-support-page__channel-label contact-support-page__channel-label--email">
-                {{ supportEmail }}
-              </span>
-            </a>
-          </li>
-        </ul>
-      </article>
     </main>
   </div>
 

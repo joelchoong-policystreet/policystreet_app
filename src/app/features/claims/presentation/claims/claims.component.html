@@ -1,33 +1,35 @@
 <div class="claims-page">
   <div class="app-route-fade-target">
-  <header class="claims-page__header" aria-label="PolicyStreet">
-    <div class="claims-page__header-row">
-      <img class="claims-page__brand-img" [appCachedAsset]="logoBrandSrc" width="153" height="40" alt="PolicyStreet" />
-    </div>
-  </header>
-
-  <main id="main-content" class="claims-page__content">
-    <div class="claims-page__content-inner">
-      <div class="claims-page__hero-art">
-        <img class="claims-page__illustration" [appCachedAsset]="mainIllustrationSrc" width="342" height="362" alt="" aria-hidden="true" />
-        <img class="claims-page__rotating-icon claims-page__rotating-icon--cw" [appCachedAsset]="activeIconSrc" width="42" height="41" alt="" aria-hidden="true" />
-        <img
-          class="claims-page__rotating-icon claims-page__rotating-icon--ccw"
-          [appCachedAsset]="secondaryIconSrc"
-          width="31"
-          height="30"
-          alt=""
-          aria-hidden="true"
-        />
+    <header class="claims-page__header" aria-label="PolicyStreet">
+      <div class="claims-page__header-row">
+        <img class="claims-page__brand-img" [appCachedAsset]="logoBrandSrc" width="153" height="40" alt="PolicyStreet" />
       </div>
-      <h1>Coming Soon</h1>
-      <p>We're working on this feature. Stay tuned!</p>
-      <button type="button" class="claims-page__back-link" aria-label="Back" (click)="goBack()">Back</button>
-    </div>
-  </main>
+    </header>
 
-  <app-whatsapp-fab />
+    <main id="main-content" class="claims-page__content">
+      <div class="claims-page__content-inner">
+        <div class="claims-page__hero-art">
+          <img class="claims-page__illustration" [appCachedAsset]="mainIllustrationSrc" width="300" height="223" alt="" aria-hidden="true" />
+          <img class="claims-page__rotating-icon claims-page__rotating-icon--cw" [appCachedAsset]="activeIconSrc" width="42" height="41" alt="" aria-hidden="true" />
+          <img
+            class="claims-page__rotating-icon claims-page__rotating-icon--ccw"
+            [appCachedAsset]="secondaryIconSrc"
+            width="31"
+            height="30"
+            alt=""
+            aria-hidden="true"
+          />
+        </div>
+        <h1 class="claims-page__title">Coming Soon</h1>
+        <p class="claims-page__description">
+          Need help now? Find roadside assistance numbers and get support quickly.
+        </p>
+        <button type="button" class="claims-page__cta" (click)="goRoadsideAssistance()">
+          Click Here for Roadside Assistance
+        </button>
+      </div>
+    </main>
 
+    <app-whatsapp-fab />
   </div>
 </div>
-

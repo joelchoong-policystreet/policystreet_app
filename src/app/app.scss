@@ -48,45 +48,60 @@
   display: none;
 }
 
-/* Desktop (>=1200px): persistent sidebar + top bar; the bottom nav steps aside. */
-@media (min-width: 1200px) {
+/* Tablet+ (>=768px): sidebar + top bar; content scrolls beside the sidebar. */
+@media (min-width: 768px) {
   .app-shell--chrome {
     display: flex;
-    align-items: flex-start;
-    min-height: 100vh;
+    align-items: stretch;
+    height: 100dvh;
+    max-height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
   }
 
   .app-shell--chrome .app-shell__side {
     display: block;
-    flex: 0 0 300px;
-    width: 300px;
-    align-self: flex-start;
-    position: sticky;
-    top: 0;
-    height: 100vh;
+    flex: 0 0 var(--shell-sidebar-width, 220px);
+    width: var(--shell-sidebar-width, 220px);
+    align-self: stretch;
+    min-height: 0;
+    height: auto;
     z-index: 30;
+    overflow-y: auto;
   }
 
   .app-shell--chrome .app-shell__body {
     display: flex;
     flex: 1 1 auto;
     min-width: 0;
-    min-height: 100vh;
+    min-height: 0;
+    height: auto;
     flex-direction: column;
+    overflow: hidden;
     background: var(--Brand-White, #fff);
   }
 
   /* Header bar stacks two rows: the avatar row on top, then the optional page
-     app bar (back + title + action) beneath — both inside the sticky header. */
+     app bar (back + title + action) beneath — fixed above the scrolling canvas. */
   .app-shell--chrome .app-shell__topbar {
     display: flex;
     flex-direction: column;
-    position: sticky;
-    top: 0;
+    flex-shrink: 0;
+    position: relative;
+    top: auto;
     z-index: 20;
     box-sizing: border-box;
     background: var(--Brand-White, #fff);
     border-bottom: 1px solid var(--Disable-Borders-Columbia-Blue, #e3eaf2);
+  }
+
+  /* Routed page content scrolls here — stays within the column beside the sidebar. */
+  .app-shell--chrome .app-route-shell {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-x: clip;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .app-shell__topbar-top {
@@ -94,8 +109,8 @@
     align-items: center;
     justify-content: flex-end;
     box-sizing: border-box;
-    min-height: 70px;
-    padding: 8px clamp(40px, 7vw, 100px);
+    min-height: var(--shell-topbar-height, 70px);
+    padding: 8px var(--shell-page-padding-x, 24px);
   }
 
   /* Page app bar row — Figma 3124:8753 (back + title + primary action). */
@@ -105,7 +120,7 @@
     gap: 8px;
     box-sizing: border-box;
     min-height: 72px;
-    padding: 8px clamp(40px, 7vw, 100px);
+    padding: 8px var(--shell-page-padding-x, 24px);
   }
 
   /* Page-supplied back button — Figma 3124:8754. */

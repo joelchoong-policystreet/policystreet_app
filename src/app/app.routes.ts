@@ -43,7 +43,7 @@ export const routes: Routes = [
   },
   {
     path: 'profile/edit',
-    data: ROUTE_DATA_HIDDEN,
+    data: { ...ROUTE_DATA_HIDDEN, showChrome: true },
     loadComponent: () =>
       import(
         './features/profile/presentation/profile-edit-details/profile-edit-details.component'
@@ -73,7 +73,7 @@ export const routes: Routes = [
   },
   {
     path: 'my-vehicles/add',
-    data: ROUTE_DATA_HIDDEN,
+    data: { ...ROUTE_DATA_HIDDEN, showChrome: true },
     loadComponent: () =>
       import(
         './features/my-vehicles/presentation/add-vehicle/add-vehicle.component'
@@ -81,7 +81,7 @@ export const routes: Routes = [
   },
   {
     path: 'my-vehicles',
-    data: ROUTE_DATA_HIDDEN,
+    data: { ...ROUTE_DATA_HIDDEN, showChrome: true },
     loadComponent: () =>
       import(
         './features/my-vehicles/presentation/my-vehicles/my-vehicles.component'

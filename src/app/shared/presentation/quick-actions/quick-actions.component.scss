@@ -16,8 +16,11 @@
   color: var(--Font-Black, #141414);
 }
 
+/* Single row of cards; each card stacks the icon on top with the label below. */
 .quick-actions__buttons {
+  container-type: inline-size;
   display: flex;
+  flex-direction: row;
   gap: 8px;
   align-items: stretch;
 }
@@ -30,8 +33,8 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 104px;
-  padding: 12px 6px;
+  min-height: 0;
+  padding: 8px;
   border-radius: 8px;
   background: var(--Brand-White, #fff);
   border: 1px solid var(--Disable-Borders-Columbia-Blue, #e3eaf2);
@@ -45,6 +48,10 @@
   transform: translateY(-1px);
 }
 
+.quick-actions__btn--active {
+  background: var(--Accents-Alice-Blue-2, #ebf6ff);
+}
+
 .quick-actions__btn:focus-visible {
   outline: 2px solid var(--ps-primary, #0091ff);
   outline-offset: 2px;
@@ -54,6 +61,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .quick-actions__icon img {
@@ -61,7 +69,9 @@
 }
 
 .quick-actions__label {
-  max-width: 80px;
+  display: block;
+  width: 100%;
+  max-width: 100%;
   font-family: 'Open Sans', Inter, sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -69,4 +79,20 @@
   letter-spacing: 0.1px;
   text-align: center;
   color: var(--Font-Black, #141414);
+}
+
+/* Narrow rail: two-line labels (Figma); wide rail: single line. */
+.quick-actions__label-break {
+  display: block;
+}
+
+@container (min-width: 420px) {
+  .quick-actions__label {
+    width: max-content;
+    white-space: nowrap;
+  }
+
+  .quick-actions__label-break {
+    display: none;
+  }
 }

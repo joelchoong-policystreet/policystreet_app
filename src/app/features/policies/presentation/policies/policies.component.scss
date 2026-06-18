@@ -336,9 +336,33 @@
   }
 }
 
-/* Desktop policies management — Figma 3124:6164.
-   App sidebar + avatar top bar come from the app shell. The page fills the shell
-   content area: a title app bar, then a two-column body (cards + quick-actions). */
+/* Tablet/iPad: shell chrome + mobile single-column content (title in shell app bar). */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .nav-page {
+    min-height: 0;
+    background: var(--Brand-White, #fff);
+  }
+
+  .policies-appbar {
+    display: none;
+  }
+
+  .nav-page__content {
+    padding: var(--shell-page-padding-y, 32px) var(--shell-page-padding-x, 24px)
+      var(--shell-page-padding-bottom, 48px);
+  }
+
+  .nav-page__rail {
+    display: none;
+  }
+
+  .policy-tabs {
+    overflow-x: visible;
+    flex-wrap: wrap;
+  }
+}
+
+/* Full desktop — Figma 3124:6164: two-column body (cards + quick-actions rail). */
 @media (min-width: 1200px) {
   .nav-page {
     max-width: none;
@@ -347,7 +371,6 @@
     background: var(--Brand-White, #fff);
   }
 
-  /* Page title is promoted into the shell top bar (beside the avatar). */
   .policies-appbar {
     display: none;
   }
@@ -356,7 +379,8 @@
     display: flex;
     align-items: flex-start;
     gap: clamp(32px, 4vw, 50px);
-    padding: 50px clamp(40px, 7vw, 100px) 80px;
+    padding: var(--shell-page-padding-y, 50px) var(--shell-page-padding-x, 40px)
+      var(--shell-page-padding-bottom, 80px);
   }
 
   .nav-page__main {
@@ -366,12 +390,11 @@
 
   .nav-page__rail {
     display: block;
-    flex: 0 0 clamp(280px, 24vw, 300px);
-    width: clamp(280px, 24vw, 300px);
+    flex: 0 0 var(--shell-quick-rail-width, clamp(300px, 28vw, 520px));
+    width: var(--shell-quick-rail-width, clamp(300px, 28vw, 520px));
     align-self: flex-start;
   }
 
-  /* Filter chips no longer need to scroll horizontally on a wide canvas. */
   .policy-tabs {
     overflow-x: visible;
     flex-wrap: wrap;

@@ -5,52 +5,72 @@
     </div>
 
     <main id="main-content" class="my-vehicles-page__main">
-      <header class="my-vehicles-page__intro">
-        <h2 class="my-vehicles-page__title">My Vehicles</h2>
-        <p class="my-vehicles-page__subtitle">
-          Save and manage your vehicles for faster quotation requests.
-        </p>
-      </header>
+      <div class="my-vehicles-page__body">
+        <div class="my-vehicles-page__primary">
+          <header class="my-vehicles-page__intro">
+            <h2 class="my-vehicles-page__title">My Vehicles</h2>
+            <p class="my-vehicles-page__subtitle">
+              Save and manage your vehicles for faster quotation requests.
+            </p>
+          </header>
 
-      <div class="my-vehicles-page__cards">
-        @for (vehicle of vehicles(); track vehicle.id) {
-          <article class="my-vehicles-page__card">
-            <div class="my-vehicles-page__card-top">
-              <div class="my-vehicles-page__card-head">
-                <span class="my-vehicles-page__vehicle-icon" aria-hidden="true">
-                  <img
-                    appCachedAsset="/assets/home/directions-car.svg"
-                    width="30"
-                    height="30"
-                    alt=""
-                  />
-                </span>
-                <p class="my-vehicles-page__plate">{{ vehicle.plate }}</p>
-              </div>
-              <button
-                type="button"
-                class="my-vehicles-page__delete-btn"
-                [attr.aria-label]="'Remove vehicle ' + vehicle.plate"
-                (click)="openDeleteConfirm(vehicle)"
-              >
-                <img
-                  appCachedAsset="/assets/documents/delete.svg"
-                  width="14"
-                  height="16"
-                  alt=""
-                  aria-hidden="true"
-                />
-              </button>
-            </div>
+          <div class="my-vehicles-page__cards">
+            @for (vehicle of vehicles(); track vehicle.id) {
+              <article class="my-vehicles-page__card">
+                <div class="my-vehicles-page__card-top">
+                  <div class="my-vehicles-page__card-head">
+                    <span class="my-vehicles-page__vehicle-icon" aria-hidden="true">
+                      <img
+                        appCachedAsset="/assets/home/directions-car.svg"
+                        width="30"
+                        height="30"
+                        alt=""
+                      />
+                    </span>
+                    <p class="my-vehicles-page__plate">{{ vehicle.plate }}</p>
+                  </div>
+                  <button
+                    type="button"
+                    class="my-vehicles-page__delete-btn"
+                    [attr.aria-label]="'Remove vehicle ' + vehicle.plate"
+                    (click)="openDeleteConfirm(vehicle)"
+                  >
+                    <img
+                      appCachedAsset="/assets/documents/delete.svg"
+                      width="14"
+                      height="16"
+                      alt=""
+                      aria-hidden="true"
+                    />
+                  </button>
+                </div>
 
-            <hr class="my-vehicles-page__divider" />
+                <hr class="my-vehicles-page__divider" />
 
-            <div class="my-vehicles-page__field">
-              <p class="my-vehicles-page__label">Car Model</p>
-              <p class="my-vehicles-page__value">{{ vehicle.carModel }}</p>
-            </div>
-          </article>
-        }
+                <div class="my-vehicles-page__field">
+                  <p class="my-vehicles-page__label">Car Model</p>
+                  <p class="my-vehicles-page__value">{{ vehicle.carModel }}</p>
+                </div>
+              </article>
+            }
+          </div>
+
+          <button type="button" class="my-vehicles-page__add-btn my-vehicles-page__add-btn--desktop" (click)="onAddVehicle()">
+            <img
+              appCachedAsset="/assets/my-vehicles/add-circle-filled.svg"
+              class="my-vehicles-page__add-icon"
+              width="24"
+              height="24"
+              alt=""
+              aria-hidden="true"
+            />
+            <span>Add Vehicle</span>
+          </button>
+        </div>
+
+        <aside class="my-vehicles-page__rail" aria-label="Quick actions">
+          <app-quick-actions activeAction="vehicles" />
+        </aside>
       </div>
     </main>
 
@@ -58,10 +78,10 @@
       <div class="my-vehicles-page__cta">
         <button type="button" class="my-vehicles-page__add-btn" (click)="onAddVehicle()">
           <img
-            appCachedAsset="/assets/my-vehicles/add-circle.svg"
+            appCachedAsset="/assets/my-vehicles/add-circle-filled.svg"
             class="my-vehicles-page__add-icon"
-            width="16"
-            height="16"
+            width="24"
+            height="24"
             alt=""
             aria-hidden="true"
           />
@@ -80,42 +100,45 @@
         </div>
       </div>
     </footer>
+  </div>
 
-    @if (isDeleteConfirmOpen() && vehiclePendingDelete(); as vehicle) {
-      <div
-        class="my-vehicles-page__modal-backdrop"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="delete-vehicle-title"
-        aria-describedby="delete-vehicle-message"
-      >
-        <div class="my-vehicles-page__modal">
-          <div class="my-vehicles-page__modal-content">
-            <h2 id="delete-vehicle-title" class="my-vehicles-page__modal-title">Delete vehicle?</h2>
-            <p id="delete-vehicle-message" class="my-vehicles-page__modal-text">
-              You are about to delete vehicle
-              <strong class="my-vehicles-page__modal-plate">{{ vehicle.plate }}</strong>
-              from your saved vehicles. You can add it again anytime.
-            </p>
-          </div>
-          <div class="my-vehicles-page__modal-actions">
-            <button
-              type="button"
-              class="my-vehicles-page__modal-btn my-vehicles-page__modal-btn--cancel"
-              (click)="closeDeleteConfirm()"
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              class="my-vehicles-page__modal-btn my-vehicles-page__modal-btn--delete"
-              (click)="onDeleteVehicleConfirmed()"
-            >
-              Delete Vehicle
-            </button>
-          </div>
+  @if (isDeleteConfirmOpen() && vehiclePendingDelete(); as vehicle) {
+    <div
+      appViewportFixed
+      class="my-vehicles-page__modal-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="delete-vehicle-title"
+      aria-describedby="delete-vehicle-message"
+    >
+      <div class="my-vehicles-page__modal">
+        <div class="my-vehicles-page__modal-content">
+          <h2 id="delete-vehicle-title" class="my-vehicles-page__modal-title">Delete vehicle?</h2>
+          <p id="delete-vehicle-message" class="my-vehicles-page__modal-text">
+            You are about to delete vehicle
+            <strong class="my-vehicles-page__modal-plate">{{ vehicle.plate }}</strong>
+            from your saved vehicles. You can add it again anytime.
+          </p>
+        </div>
+        <div class="my-vehicles-page__modal-actions">
+          <button
+            type="button"
+            class="my-vehicles-page__modal-btn my-vehicles-page__modal-btn--cancel"
+            (click)="closeDeleteConfirm()"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="my-vehicles-page__modal-btn my-vehicles-page__modal-btn--delete"
+            (click)="onDeleteVehicleConfirmed()"
+          >
+            Delete Vehicle
+          </button>
         </div>
       </div>
-    }
-  </div>
+    </div>
+  }
+
+  <app-whatsapp-fab />
 </div>

@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
@@ -8,18 +8,29 @@ import { toSavedVehicleViews, type SavedVehicleView } from '../../../policies/do
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
+import { QuickActionsComponent } from '../../../../shared/presentation/quick-actions/quick-actions.component';
+import { ShellHeaderStore } from '../../../../shared/presentation/shell-header/shell-header.store';
+import { ViewportFixedDirective } from '../../../../shared/presentation/viewport-fixed/viewport-fixed.directive';
+import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
 
 @Component({
   selector: 'app-my-vehicles',
   standalone: true,
-  imports: [CachedAssetImgDirective, PageChromeComponent],
+  imports: [
+    CachedAssetImgDirective,
+    PageChromeComponent,
+    QuickActionsComponent,
+    ViewportFixedDirective,
+    WhatsappFabComponent,
+  ],
   templateUrl: './my-vehicles.component.html',
   styleUrl: './my-vehicles.component.scss',
 })
-export class MyVehiclesComponent {
+export class MyVehiclesComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly inAppNav = inject(InAppNavigationHistoryService);
   private readonly policyRepository = inject(POLICY_REPOSITORY);
+  private readonly shellHeader = inject(ShellHeaderStore);
 
   /** Same `MotorPolicy[]` as policies list and quotation step 2. */
   private readonly motorPolicies = toSignal(this.policyRepository.getPolicies(), {
@@ -29,6 +40,18 @@ export class MyVehiclesComponent {
   readonly vehicles = computed(() => toSavedVehicleViews(this.motorPolicies()));
   readonly isDeleteConfirmOpen = signal(false);
   readonly vehiclePendingDelete = signal<SavedVehicleView | null>(null);
+
+  ngOnInit(): void {
+    this.shellHeader.set({
+      title: 'My Vehicles',
+      showBack: true,
+      onBack: () => this.goBack(),
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.shellHeader.clear();
+  }
 
   goBack(): void {
     this.inAppNav.backOrNavigate(['/home']);

@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,18 +11,28 @@ import {
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
+import { QuickActionsComponent } from '../../../../shared/presentation/quick-actions/quick-actions.component';
+import { ShellHeaderStore } from '../../../../shared/presentation/shell-header/shell-header.store';
+import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
 
 @Component({
   selector: 'app-profile-edit-details',
   standalone: true,
-  imports: [ReactiveFormsModule, CachedAssetImgDirective, PageChromeComponent],
+  imports: [
+    ReactiveFormsModule,
+    CachedAssetImgDirective,
+    PageChromeComponent,
+    QuickActionsComponent,
+    WhatsappFabComponent,
+  ],
   templateUrl: './profile-edit-details.component.html',
   styleUrl: './profile-edit-details.component.scss',
 })
-export class ProfileEditDetailsComponent {
+export class ProfileEditDetailsComponent implements OnInit, OnDestroy {
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly inAppNav = inject(InAppNavigationHistoryService);
+  private readonly shellHeader = inject(ShellHeaderStore);
 
   readonly activeTab = signal<ProfileEditTab>('personal');
   readonly saving = signal(false);
@@ -65,6 +75,18 @@ export class ProfileEditDetailsComponent {
 
   readonly isPersonalTab = computed(() => this.activeTab() === 'personal');
   readonly isAddressTab = computed(() => this.activeTab() === 'address');
+
+  ngOnInit(): void {
+    this.shellHeader.set({
+      title: 'Edit Details',
+      showBack: true,
+      onBack: () => this.goBack(),
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.shellHeader.clear();
+  }
 
   goBack(): void {
     this.inAppNav.backOrNavigate(['/profile']);

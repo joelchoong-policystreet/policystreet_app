@@ -84,7 +84,29 @@
   padding-bottom: calc(24px + var(--add-vehicle-footer-stack) + env(safe-area-inset-bottom, 0px));
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+}
+
+.add-vehicle-page__body {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
+  width: 100%;
+}
+
+.add-vehicle-page__primary {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.add-vehicle-page__rail {
+  display: none;
+}
+
+.add-vehicle-page__actions--desktop {
+  display: none;
 }
 
 /* Content — Figma 3104:20327 */
@@ -247,4 +269,67 @@
   flex: 0 0 auto;
   width: 12px;
   height: 16px;
+}
+
+/* Tablet/desktop — Figma 3137:14453: two-column body + shell app bar. */
+@media (min-width: 768px) {
+  :host {
+    min-height: 0;
+  }
+
+  .add-vehicle-page {
+    height: auto;
+    min-height: min(100%, auto);
+    max-width: none;
+    margin: 0;
+    overflow: visible;
+  }
+
+  .add-vehicle-page > .app-route-fade-target {
+    min-height: 0;
+  }
+
+  .add-vehicle-page__chrome {
+    display: none;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .add-vehicle-page__main {
+    overflow: visible;
+    flex: none;
+    padding: var(--shell-page-padding-y, 32px) var(--shell-page-padding-x, 24px)
+      var(--shell-page-padding-bottom, 48px);
+  }
+
+  .add-vehicle-page__body {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: clamp(32px, 4vw, 50px);
+  }
+
+  .add-vehicle-page__primary {
+    flex: 1 1 auto;
+  }
+
+  .add-vehicle-page__rail {
+    display: block;
+    flex: 0 0 var(--shell-quick-rail-width, clamp(300px, 28vw, 520px));
+    width: var(--shell-quick-rail-width, clamp(300px, 28vw, 520px));
+    align-self: flex-start;
+  }
+
+  .add-vehicle-page__actions--desktop {
+    display: block;
+    width: 100%;
+  }
+
+  .add-vehicle-page__actions--desktop .add-vehicle-page__save-btn {
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  .add-vehicle-page__footer {
+    display: none;
+  }
 }

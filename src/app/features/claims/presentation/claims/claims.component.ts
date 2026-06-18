@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { APP_BRAND_LOGO_SRC } from '../../../../shared/branding/app-brand-logo';
 import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
-import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
 
 @Component({
   selector: 'app-claims',
@@ -13,7 +13,7 @@ import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-
   styleUrl: './claims.component.scss',
 })
 export class ClaimsComponent implements OnInit, OnDestroy {
-  constructor(private readonly inAppNav: InAppNavigationHistoryService) {}
+  constructor(private readonly router: Router) {}
 
   readonly logoBrandSrc = APP_BRAND_LOGO_SRC;
   readonly mainIllustrationSrc = '/assets/claims/coming-soon.svg';
@@ -47,8 +47,7 @@ export class ClaimsComponent implements OnInit, OnDestroy {
     }
   }
 
-  goBack(): void {
-    this.inAppNav.backOrNavigate(['/home']);
+  goRoadsideAssistance(): void {
+    void this.router.navigate(['/contact-support']);
   }
 }
-

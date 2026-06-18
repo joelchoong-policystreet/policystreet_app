@@ -1,25 +1,25 @@
-/* Same gradient treatment as Home/Profile */
-$_home-sky-tl: #dfeffa;
-$_home-sky-br: #8cbaee;
-$_home-sky-tr: #ccecf7;
+/* Claims — Figma 3130:8325 (full-screen coming soon with roadside assistance CTA). */
 
-@mixin home-sky-mesh-background {
-  background-color: $_home-sky-tl;
-  background-image:
-    radial-gradient(ellipse 128% 118% at 100% 100%, rgba(140, 186, 238, 0.52) 0%, transparent 58%),
-    radial-gradient(ellipse 102% 78% at 100% 0%, rgba(204, 236, 247, 0.48) 0%, transparent 56%),
-    radial-gradient(ellipse 118% 105% at 0% 0%, rgba(223, 239, 250, 0.95) 0%, transparent 64%),
-    linear-gradient(
-      148deg,
-      $_home-sky-tl 0%,
-      #e6f4fc 14%,
-      $_home-sky-tr 36%,
-      #b8daf4 58%,
-      $_home-sky-br 100%
-    );
+$_claims-sky-tl: #dfeffa;
+$_claims-sky-mid: #ccecf7;
+$_claims-sky-br: #8cbaee;
+
+@mixin claims-sky-gradient {
+  background-color: $_claims-sky-tl;
+  background-image: linear-gradient(
+    153.24deg,
+    $_claims-sky-tl 35.1%,
+    $_claims-sky-mid 71.49%,
+    $_claims-sky-br 103.84%
+  );
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: center;
+}
+
+:host {
+  display: block;
+  min-height: 100%;
 }
 
 .claims-page {
@@ -32,7 +32,7 @@ $_home-sky-tr: #ccecf7;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  @include home-sky-mesh-background;
+  @include claims-sky-gradient;
 }
 
 .claims-page > .app-route-fade-target {
@@ -42,7 +42,7 @@ $_home-sky-tr: #ccecf7;
   flex-direction: column;
 }
 
-/* White app bar (same language as Profile / Policies), fixed over mesh page. */
+/* Mobile-only logo bar; shell sidebar replaces this from tablet up. */
 .claims-page__header {
   position: fixed;
   top: 0;
@@ -81,45 +81,38 @@ $_home-sky-tr: #ccecf7;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   width: 100%;
   min-height: 0;
-  /* Clear fixed header: 60px row + top padding aligned with `.claims-page__header` */
   padding-top: calc(60px + max(20px, env(safe-area-inset-top, 0px)));
   padding-inline: max(24px, env(safe-area-inset-left, 0px)) max(24px, env(safe-area-inset-right, 0px));
   padding-bottom: calc(132px + env(safe-area-inset-bottom, 0px));
 }
 
-/* Flex spacers vertically centre the hero + copy on tall phones; shrink when content grows */
-.claims-page__content::before,
-.claims-page__content::after {
-  content: '';
-  flex: 1 1 0;
-  min-height: 0;
-}
-
 .claims-page__content-inner {
-  flex: 0 1 auto;
   width: 100%;
   max-width: min(382px, 100%);
   margin-inline: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
   text-align: center;
 }
 
 .claims-page__hero-art {
   position: relative;
-  width: min(342px, 100%);
+  width: min(300px, 100%);
   max-width: 100%;
   margin-inline: auto;
 }
 
 .claims-page__illustration {
+  display: block;
   width: 100%;
   height: auto;
-  max-height: 362px;
+  max-height: 223px;
   object-fit: contain;
 }
 
@@ -150,6 +143,7 @@ $_home-sky-tr: #ccecf7;
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -159,45 +153,106 @@ $_home-sky-tr: #ccecf7;
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(-360deg);
   }
 }
 
-.claims-page__content-inner h1 {
+.claims-page__title {
   width: 100%;
-  margin: 14px 0 0;
-  color: #141414;
-  text-align: center;
-  font-family: Poppins, sans-serif;
+  margin: 0;
+  padding-top: 12px;
+  color: var(--Font-Black, #141414);
+  font-family: Poppins, 'Open Sans', Inter, sans-serif;
   font-size: 36px;
-  font-style: normal;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 44px;
   letter-spacing: 0.216px;
 }
 
-.claims-page__content-inner p {
+.claims-page__description {
   width: 100%;
-  margin: 8px 0 0;
-  color: #141414;
-  text-align: center;
-  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding-inline: 16px;
+  color: var(--Font-Black, #141414);
+  font-family: 'Open Sans', Inter, sans-serif;
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
-  line-height: 22px;
-  letter-spacing: 0.096px;
-  max-width: 348px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
 }
 
-.claims-page__content-inner .claims-page__back-link {
-  margin-top: 48px;
-  border: 0;
-  background: transparent;
-  color: #141414;
-  text-decoration: underline;
-  font: 600 14px/18px 'Open Sans', sans-serif;
-  letter-spacing: 0.084px;
+.claims-page__cta {
+  margin: 0;
+  padding: 8px 24px;
+  min-height: 40px;
+  border: 1px solid var(--ps-primary, #0091ff);
+  border-radius: 4px;
+  background: var(--Brand-White, #fff);
+  color: var(--ps-primary, #0091ff);
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: rgba(0, 145, 255, 0.08);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ps-primary, #0091ff);
+    outline-offset: 2px;
+  }
 }
 
+/* Tablet/desktop: full-screen gradient in shell content area — Figma 3130:8325 / 3130:8666. */
+@media (min-width: 768px) {
+  :host {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 100%;
+  }
+
+  .claims-page {
+    flex: 1 1 auto;
+    max-width: none;
+    margin: 0;
+    width: 100%;
+    min-height: calc(100dvh - var(--shell-topbar-height, 70px));
+    display: flex;
+    flex-direction: column;
+  }
+
+  .claims-page > .app-route-fade-target {
+    flex: 1 1 auto;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .claims-page__header {
+    display: none;
+  }
+
+  .claims-page__content {
+    flex: 1 1 auto;
+    justify-content: center;
+    min-height: 0;
+    padding: var(--shell-page-padding-y, 32px) var(--shell-page-padding-x, 24px)
+      var(--shell-page-padding-bottom, 48px);
+  }
+
+  .claims-page__content-inner {
+    max-width: 640px;
+    padding-block: clamp(48px, 10vh, 100px);
+  }
+
+  .claims-page__rotating-icon {
+    display: none;
+  }
+}

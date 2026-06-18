@@ -5,61 +5,71 @@
     </div>
 
     <main id="main-content" class="faq-page__main">
-      <div class="faq-page__intro">
-        <h2 class="faq-page__heading">Frequently Asked Questions</h2>
-        <p class="faq-page__subtitle">
-          Have more questions? Find answers below or check our full
-          <a
-            class="faq-page__subtitle-link"
-            [href]="externalFaqUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            FAQ page
-          </a>.
-        </p>
-      </div>
-
-      <div class="faq-page__accordion-list">
-        @for (item of items; track item.id) {
-          <section
-            class="faq-page__accordion"
-            [class.faq-page__accordion--expanded]="isExpanded(item.id)"
-          >
-            <button
-              type="button"
-              class="faq-page__accordion-trigger"
-              [attr.aria-expanded]="isExpanded(item.id)"
-              [attr.aria-controls]="'faq-panel-' + item.id"
-              [id]="'faq-trigger-' + item.id"
-              (click)="toggleItem(item.id)"
-            >
-              <span class="faq-page__accordion-question">{{ item.question }}</span>
-              <span class="faq-page__accordion-chevron" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M7.41 15.41L12 10.83L16.59 15.41L18 14L12 8L6 14L7.41 15.41Z"
-                  />
-                </svg>
-              </span>
-            </button>
-
-            @if (isExpanded(item.id)) {
-              <div
-                class="faq-page__accordion-panel"
-                [id]="'faq-panel-' + item.id"
-                role="region"
-                [attr.aria-labelledby]="'faq-trigger-' + item.id"
+      <div class="faq-page__body">
+        <div class="faq-page__primary">
+          <div class="faq-page__intro">
+            <h2 class="faq-page__heading">Frequently Asked Questions</h2>
+            <p class="faq-page__subtitle">
+              Have more questions? Find answers below or check our full
+              <a
+                class="faq-page__subtitle-link"
+                [href]="externalFaqUrl"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                @for (paragraph of item.paragraphs; track $index) {
-                  <p class="faq-page__accordion-answer">{{ paragraph }}</p>
+                FAQ page
+              </a>.
+            </p>
+          </div>
+
+          <div class="faq-page__accordion-list">
+            @for (item of items; track item.id) {
+              <section
+                class="faq-page__accordion"
+                [class.faq-page__accordion--expanded]="isExpanded(item.id)"
+              >
+                <button
+                  type="button"
+                  class="faq-page__accordion-trigger"
+                  [attr.aria-expanded]="isExpanded(item.id)"
+                  [attr.aria-controls]="'faq-panel-' + item.id"
+                  [id]="'faq-trigger-' + item.id"
+                  (click)="toggleItem(item.id)"
+                >
+                  <span class="faq-page__accordion-question">{{ item.question }}</span>
+                  <span class="faq-page__accordion-chevron" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                      <path
+                        fill="currentColor"
+                        d="M7.41 15.41L12 10.83L16.59 15.41L18 14L12 8L6 14L7.41 15.41Z"
+                      />
+                    </svg>
+                  </span>
+                </button>
+
+                @if (isExpanded(item.id)) {
+                  <div
+                    class="faq-page__accordion-panel"
+                    [id]="'faq-panel-' + item.id"
+                    role="region"
+                    [attr.aria-labelledby]="'faq-trigger-' + item.id"
+                  >
+                    @for (paragraph of item.paragraphs; track $index) {
+                      <p class="faq-page__accordion-answer">{{ paragraph }}</p>
+                    }
+                  </div>
                 }
-              </div>
+              </section>
             }
-          </section>
-        }
+          </div>
+        </div>
+
+        <aside class="faq-page__rail" aria-label="Quick actions">
+          <app-quick-actions />
+        </aside>
       </div>
     </main>
   </div>
+
+  <app-whatsapp-fab />
 </div>
