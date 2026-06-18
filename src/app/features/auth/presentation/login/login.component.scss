@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 .page {
   display: flex;
   flex-direction: column;
@@ -600,20 +604,30 @@
   }
 }
 
-/* Desktop — Figma 3087:18510 (D - Login - Default). Same components + animation; centered floating card. */
+/* Desktop — Figma 3087:18510 / 3087:18642. Fit phone + OTP in viewport without scrolling. */
 @media (min-width: 768px) {
+  :host {
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
+  }
+
   .page {
+    height: 100dvh;
+    max-height: 100dvh;
+    min-height: 0;
     background: linear-gradient(152deg, #e9f2fc 0%, #d2e3f6 48%, #bcd6f0 100%);
-    overflow-y: auto;
+    overflow: hidden;
   }
 
   .top-bar {
+    flex-shrink: 0;
     width: 100%;
     max-width: none;
     margin: 0;
     height: auto;
-    min-height: 85px;
-    padding: 16px clamp(32px, 7vw, 100px);
+    min-height: 72px;
+    padding: 12px clamp(32px, 7vw, 100px);
     background: #fff;
     box-shadow: 0 4px 2px #e3eaf2;
   }
@@ -623,97 +637,117 @@
   }
 
   .brand-logo {
-    width: 200px;
-    height: 53px;
-    max-width: 200px;
-    flex: 0 0 200px;
+    width: 180px;
+    height: 48px;
+    max-width: 180px;
+    flex: 0 0 180px;
   }
 
   .hero {
-    width: min(100%, 600px);
-    height: 140px;
-    margin: clamp(48px, 11vh, 132px) auto 0;
+    flex-shrink: 0;
+    width: min(100%, 480px);
+    height: 88px;
+    margin: 20px auto 0;
     border-radius: 0;
     overflow: visible;
   }
 
   .hero__pawsper {
     left: 50%;
-    bottom: -22px;
-    width: clamp(176px, 15vw, 212px);
+    bottom: -16px;
+    width: 152px;
   }
 
   .viewport {
-    width: min(100%, 600px);
-    flex: 0 0 auto;
-    margin: 0 auto clamp(48px, 10vh, 120px);
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: min(100%, 480px);
+    margin: 12px auto 20px;
   }
 
   .card {
     width: 100%;
-    flex: 0 0 auto;
+    flex: 0 1 auto;
     min-height: 0;
+    max-height: 100%;
     align-items: stretch;
     border-radius: 20px;
     box-shadow: 0 4px 30px #e3eaf2;
   }
 
   .card__body {
-    padding: 56px 48px;
+    padding: 32px 40px 36px;
   }
 
   .login-section {
     padding-inline: 0;
   }
 
+  .card-form {
+    gap: 24px;
+  }
+
+  .card-form--otp {
+    gap: 12px;
+  }
+
   .card-form__title {
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 28px;
+    line-height: 36px;
     letter-spacing: 0;
   }
 
   .card-form__lead {
-    font-size: 18px;
-    line-height: 26px;
+    font-size: 16px;
+    line-height: 24px;
     letter-spacing: 0;
   }
 
-  /* M3 Medium button — 56px tall (Figma 3087:18518) */
   .submit {
-    min-height: 56px;
-    padding: 16px 24px;
+    min-height: 48px;
+    padding: 12px 24px;
     border-radius: 12px;
   }
 
-  /* Field + Send OTP grouped 16px apart, 40px below the heading block */
+  /* Field + Send OTP grouped 16px apart, 24px below the heading block */
   .card-form:not(.card-form--otp) > .submit {
-    margin-top: -24px;
+    margin-top: -8px;
   }
 
-  /* OTP step — Figma 3087:18642 (D - Login - OTP Received) */
+  /* OTP step — compact fixed-size cells so the step fits without page scroll */
   .otp-inputs-container {
-    gap: 40px;
-    padding: 16px 0 0;
+    gap: 20px;
+    padding: 0;
   }
 
   .otp-step-stack {
-    gap: 16px;
+    gap: 12px;
   }
 
   .otp-step-stack__primary {
-    gap: 16px;
+    gap: 12px;
   }
 
-  /* Square OTP boxes — Figma 3087:18649 (77.33×77.33, 8px gap, 6 across 504px) */
+  .otp-row {
+    grid-template-columns: repeat(6, 56px);
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    margin-inline: auto;
+  }
+
   .otp-cell__input {
-    min-height: 0;
-    aspect-ratio: 1 / 1;
-    font-size: 24px;
+    width: 56px;
+    height: 56px;
+    min-height: 56px;
+    aspect-ratio: auto;
+    font-size: 20px;
     line-height: 1;
   }
 
-  /* Empty-box placeholder underscore — Figma 3087:18653 (Open Sans SemiBold 18px, #7092bb).
-     Rendered as a bottom-anchored pseudo-element so it sits low without moving the typed digit. */
   .otp-cell {
     position: relative;
   }
@@ -722,13 +756,41 @@
     content: '_';
     position: absolute;
     left: 50%;
-    bottom: 14px;
+    bottom: 10px;
     transform: translateX(-50%);
     color: var(--Accents-Blue-Grey, #7092bb);
     font-family: 'Open Sans', Inter, sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     line-height: 1;
     pointer-events: none;
+  }
+}
+
+@media (min-width: 768px) and (max-height: 820px) {
+  .hero {
+    height: 72px;
+    margin-top: 12px;
+  }
+
+  .hero__pawsper {
+    width: 132px;
+    bottom: -12px;
+  }
+
+  .viewport {
+    margin-block: 8px 16px;
+  }
+
+  .card__body {
+    padding: 24px 32px 28px;
+  }
+
+  .card-form {
+    gap: 20px;
+  }
+
+  .otp-inputs-container {
+    gap: 16px;
   }
 }
