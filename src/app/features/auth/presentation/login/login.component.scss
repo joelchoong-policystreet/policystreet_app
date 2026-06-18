@@ -604,6 +604,28 @@
   }
 }
 
+@keyframes pawsper-enter-desktop {
+  0% {
+    opacity: 0;
+    transform: translate(110vw, 42%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(42%);
+  }
+}
+
+@keyframes pawsper-to-left-desktop {
+  0% {
+    transform: translateY(42%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(calc(-120vw), 42%) rotate(0deg);
+  }
+}
+
 /* Desktop — Figma 3087:18510 / 3087:18642. Fit phone + OTP in viewport without scrolling. */
 @media (min-width: 768px) {
   :host {
@@ -616,12 +638,14 @@
     height: 100dvh;
     max-height: 100dvh;
     min-height: 0;
+    align-items: center;
     background: linear-gradient(152deg, #e9f2fc 0%, #d2e3f6 48%, #bcd6f0 100%);
     overflow: hidden;
   }
 
   .top-bar {
     flex-shrink: 0;
+    align-self: stretch;
     width: 100%;
     max-width: none;
     margin: 0;
@@ -643,29 +667,43 @@
     flex: 0 0 180px;
   }
 
+  /* Anchor strip above the card — pawsper overlaps the card top-right (Figma 3087:18519). */
   .hero {
     flex-shrink: 0;
+    align-self: center;
     width: min(100%, 480px);
-    height: 88px;
-    margin: 20px auto 0;
+    height: 0;
+    margin: auto 0 0;
     border-radius: 0;
     overflow: visible;
+    position: relative;
+    z-index: 6;
   }
 
   .hero__pawsper {
-    left: 50%;
-    bottom: -16px;
-    width: 152px;
+    left: auto;
+    right: -12px;
+    bottom: 0;
+    width: clamp(168px, 18vw, 196px);
+    transform: translateY(42%);
+    animation: pawsper-enter-desktop 1600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .hero__pawsper--logining {
+    animation: pawsper-to-left-desktop 900ms cubic-bezier(0.32, 0, 0.2, 1) forwards;
   }
 
   .viewport {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
+    align-self: center;
     min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     width: min(100%, 480px);
-    margin: 12px auto 20px;
+    margin: 0 0 auto;
+    position: relative;
+    z-index: 4;
   }
 
   .card {
@@ -679,7 +717,7 @@
   }
 
   .card__body {
-    padding: 32px 40px 36px;
+    padding: 48px 40px 36px;
   }
 
   .login-section {
@@ -768,22 +806,18 @@
 }
 
 @media (min-width: 768px) and (max-height: 820px) {
-  .hero {
-    height: 72px;
-    margin-top: 12px;
-  }
-
   .hero__pawsper {
-    width: 132px;
-    bottom: -12px;
+    width: 148px;
+    right: -8px;
+    transform: translateY(38%);
   }
 
   .viewport {
-    margin-block: 8px 16px;
+    margin-bottom: auto;
   }
 
   .card__body {
-    padding: 24px 32px 28px;
+    padding: 40px 32px 28px;
   }
 
   .card-form {
