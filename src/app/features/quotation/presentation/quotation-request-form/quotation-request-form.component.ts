@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import { DEMO_PROFILE_EDIT_DETAILS } from '../../../profile/domain/profile-detai
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
 import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
+import { ShellHeaderStore } from '../../../../shared/presentation/shell-header/shell-header.store';
 import { QUOTATION_NATIONALITY_OPTIONS } from '../../domain/quotation-foreigner.fixture';
 import {
   QUOTATION_CUSTOMER_TABS,
@@ -30,11 +31,12 @@ const DEMO_POSTCODE = '52000';
   templateUrl: './quotation-request-form.component.html',
   styleUrl: './quotation-request-form.component.scss',
 })
-export class QuotationRequestFormComponent {
+export class QuotationRequestFormComponent implements OnInit, OnDestroy {
   private readonly fb = inject(FormBuilder);
   private readonly flow = inject(QuotationFlowService);
   private readonly route = inject(ActivatedRoute);
   private readonly policyRepository = inject(POLICY_REPOSITORY);
+  private readonly shellHeader = inject(ShellHeaderStore);
 
   readonly carInsuranceOptions = CAR_INSURANCE_OPTIONS;
   readonly nationalityOptions = QUOTATION_NATIONALITY_OPTIONS;
@@ -135,6 +137,18 @@ export class QuotationRequestFormComponent {
     }
     this.activeCustomerTab.set(this.customerTabParam());
     this.prefillFromSelection();
+  }
+
+  ngOnInit(): void {
+    this.shellHeader.set({
+      title: 'Get New Quote',
+      showBack: true,
+      onBack: () => this.goBack(),
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.shellHeader.clear();
   }
 
   goBack(): void {

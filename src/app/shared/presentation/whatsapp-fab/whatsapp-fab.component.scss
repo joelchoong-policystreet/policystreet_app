@@ -10,21 +10,21 @@
 }
 
 :host(.whatsapp-fab--quotation-form) {
-  bottom: calc(var(--quotation-form-footer-stack) + 16px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(var(--quotation-form-footer-stack, 130px) + 16px + env(safe-area-inset-bottom, 0px));
 }
 
 :host(.whatsapp-fab--quotation-prefs) {
-  bottom: calc(var(--quotation-prefs-footer-stack) + 16px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(var(--quotation-prefs-footer-stack, 130px) + 16px + env(safe-area-inset-bottom, 0px));
 }
 
-/* Shell chrome: anchor FAB to the content column edge (not the centred phone column). */
+/* Shell chrome: one fixed viewport corner on every desktop page. */
 @media (min-width: 768px) {
-  :host {
-    right: clamp(24px, 4vw, 64px);
-  }
-
-  :host(.whatsapp-fab--bottom-nav) {
-    bottom: clamp(24px, 4vh, 40px);
+  :host,
+  :host(.whatsapp-fab--bottom-nav),
+  :host(.whatsapp-fab--quotation-form),
+  :host(.whatsapp-fab--quotation-prefs) {
+    right: var(--shell-whatsapp-fab-right, clamp(24px, 4vw, 64px));
+    bottom: var(--shell-whatsapp-fab-bottom, clamp(24px, 4vh, 40px));
   }
 }
 

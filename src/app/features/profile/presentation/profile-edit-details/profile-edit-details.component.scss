@@ -417,6 +417,21 @@
     gap: 24px;
   }
 
+  .profile-edit-page__segments {
+    justify-content: flex-start;
+    gap: 8px;
+    width: auto;
+  }
+
+  .profile-edit-page__segment {
+    max-width: none;
+    padding: 12px 16px;
+  }
+
+  .profile-edit-page__segment--active {
+    padding: 12px 28px;
+  }
+
   .profile-edit-page__form-card {
     background: var(--Brand-White, #fff);
     box-shadow: 0 4px 2px #e3eaf2;

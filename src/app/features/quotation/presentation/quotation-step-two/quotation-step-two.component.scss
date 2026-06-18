@@ -100,14 +100,27 @@
 
 .quotation-page__intro-title {
   margin: 0;
-  display: flex;
-  flex-direction: column;
   font-family: Poppins, 'Open Sans', sans-serif;
   font-size: 18px;
   font-weight: 600;
   line-height: 27px;
   letter-spacing: 0.108px;
   color: #141414;
+}
+
+.quotation-page__add-vehicle--desktop {
+  display: none;
+}
+
+.quotation-page__actions--desktop {
+  display: none;
+}
+
+.quotation-page__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
 }
 
 .quotation-page__add-vehicle {
@@ -277,5 +290,88 @@
   .quotation-page__footer {
     padding-left: 16px;
     padding-right: 16px;
+  }
+}
+
+/* Tablet/desktop — Figma 3124:13725 */
+@media (min-width: 768px) {
+  :host {
+    min-height: 0;
+  }
+
+  .quotation-page {
+    height: auto;
+    min-height: min(100%, auto);
+    max-width: none;
+    margin: 0;
+    overflow: visible;
+  }
+
+  .quotation-page__fade {
+    min-height: 0;
+  }
+
+  .quotation-page__chrome {
+    display: none;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .quotation-page__main {
+    overflow: visible;
+    flex: none;
+    padding: var(--shell-page-padding-y, 32px) var(--shell-page-padding-x, 24px)
+      var(--shell-page-padding-bottom, 48px);
+    padding-bottom: var(--shell-page-padding-bottom, 48px);
+  }
+
+  .quotation-page__body {
+    gap: 50px;
+  }
+
+  .quotation-page__intro {
+    gap: 12px;
+  }
+
+  .quotation-page__intro-head {
+    align-items: center;
+  }
+
+  .quotation-page__add-vehicle--mobile {
+    display: none;
+  }
+
+  .quotation-page__add-vehicle--desktop {
+    display: inline-flex;
+    align-self: flex-start;
+    margin-top: 12px;
+  }
+
+  .quotation-vehicle-list {
+    gap: 16px;
+  }
+
+  .quotation-page__footer {
+    display: none;
+  }
+
+  .quotation-page__actions--desktop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding-top: 0;
+  }
+
+  .quotation-page__actions--desktop .quotation-cta__btn {
+    width: auto;
+    min-width: 200px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .quotation-page__actions--desktop .quotation-cta__safe {
+    justify-content: flex-end;
   }
 }

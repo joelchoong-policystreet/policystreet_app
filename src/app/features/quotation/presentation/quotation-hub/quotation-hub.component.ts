@@ -11,16 +11,24 @@ import { QuotationFlowService } from '../../domain/quotation-flow.service';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { ActiveQuoteCardComponent } from '../../../../shared/presentation/active-quote-card/active-quote-card.component';
 import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
+import { ShellHeaderStore } from '../../../../shared/presentation/shell-header/shell-header.store';
+import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
 
 @Component({
   selector: 'app-quotation-hub',
   standalone: true,
-  imports: [CachedAssetImgDirective, ActiveQuoteCardComponent, PageChromeComponent],
+  imports: [
+    CachedAssetImgDirective,
+    ActiveQuoteCardComponent,
+    PageChromeComponent,
+    WhatsappFabComponent,
+  ],
   templateUrl: './quotation-hub.component.html',
   styleUrl: './quotation-hub.component.scss',
 })
 export class QuotationHubComponent implements OnInit, OnDestroy {
   private readonly flow = inject(QuotationFlowService);
+  private readonly shellHeader = inject(ShellHeaderStore);
   private refreshTimer?: ReturnType<typeof setInterval>;
 
   /**
@@ -38,11 +46,17 @@ export class QuotationHubComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.shellHeader.set({
+      title: 'Get New Quote',
+      showBack: true,
+      onBack: () => this.goBack(),
+    });
     this.refreshActiveQuotes();
     this.refreshTimer = setInterval(() => this.refreshActiveQuotes(), 30_000);
   }
 
   ngOnDestroy(): void {
+    this.shellHeader.clear();
     clearInterval(this.refreshTimer);
   }
 

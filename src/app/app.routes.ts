@@ -137,7 +137,7 @@ export const routes: Routes = [
   },
   {
     path: 'quotation',
-    data: ROUTE_DATA_HIDDEN,
+    data: { ...ROUTE_DATA_HIDDEN, showChrome: true },
     loadComponent: () =>
       import(
         './features/quotation/presentation/quotation-hub/quotation-hub.component'
@@ -145,7 +145,7 @@ export const routes: Routes = [
   },
   {
     path: 'quotation/new',
-    data: ROUTE_DATA_HIDDEN,
+    data: { ...ROUTE_DATA_HIDDEN, showChrome: true },
     loadComponent: () =>
       import(
         './features/quotation/presentation/quotation-step-two/quotation-step-two.component'
@@ -153,7 +153,7 @@ export const routes: Routes = [
   },
   {
     path: 'quotation/form',
-    data: ROUTE_DATA_HIDDEN,
+    data: { ...ROUTE_DATA_HIDDEN, showChrome: true },
     loadComponent: () =>
       import(
         './features/quotation/presentation/quotation-request-form/quotation-request-form.component'
@@ -161,7 +161,7 @@ export const routes: Routes = [
   },
   {
     path: 'quotation/preferences',
-    data: ROUTE_DATA_HIDDEN,
+    data: { ...ROUTE_DATA_HIDDEN, showChrome: true },
     loadComponent: () =>
       import(
         './features/quotation/presentation/quotation-preferences/quotation-preferences.component'

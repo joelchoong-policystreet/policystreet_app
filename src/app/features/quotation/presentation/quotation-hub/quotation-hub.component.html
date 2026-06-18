@@ -9,36 +9,55 @@
     </div>
 
     <main id="main-content" class="quotation-hub-page__main">
-      @if (sortedActiveQuotes().length === 0) {
-        <h2 class="quotation-hub-page__heading">Active Quotes</h2>
-        <div class="quotation-hub-page__empty" role="status" aria-live="polite">
-          <img
-            class="quotation-hub-page__empty-icon"
-            appCachedAsset="/assets/quotation/empty-active-quotes.svg"
-            width="48"
-            height="48"
-            alt=""
-            aria-hidden="true"
-          />
-          <p class="quotation-hub-page__empty-text">No active quotes found.</p>
-        </div>
-      } @else {
-        <section class="quotation-hub-page__quotes-section" aria-label="Active quotes">
-          <h2 class="quotation-hub-page__heading">Active Quotes</h2>
-          <ul class="quotation-hub-page__quote-list">
-            @for (quote of sortedActiveQuotes(); track quote.id) {
-              <li>
-                <app-active-quote-card
-                  variant="hub"
-                  [quote]="quote"
-                  (viewQuote)="viewQuote($event)"
-                  (acknowledgeReady)="acknowledgeReadyQuote($event)"
-                />
-              </li>
-            }
-          </ul>
-        </section>
-      }
+      <div class="quotation-hub-page__body">
+        @if (sortedActiveQuotes().length === 0) {
+          <section class="quotation-hub-page__quotes-section" aria-label="Active quotes">
+            <h2 class="quotation-hub-page__heading">Active Quotes</h2>
+            <div class="quotation-hub-page__empty" role="status" aria-live="polite">
+              <img
+                class="quotation-hub-page__empty-icon"
+                appCachedAsset="/assets/quotation/empty-active-quotes.svg"
+                width="48"
+                height="48"
+                alt=""
+                aria-hidden="true"
+              />
+              <p class="quotation-hub-page__empty-text">No active quotes found.</p>
+            </div>
+          </section>
+        } @else {
+          <section class="quotation-hub-page__quotes-section" aria-label="Active quotes">
+            <h2 class="quotation-hub-page__heading">Active Quotes</h2>
+            <ul class="quotation-hub-page__quote-list">
+              @for (quote of sortedActiveQuotes(); track quote.id) {
+                <li>
+                  <app-active-quote-card
+                    variant="hub"
+                    [quote]="quote"
+                    (viewQuote)="viewQuote($event)"
+                    (acknowledgeReady)="acknowledgeReadyQuote($event)"
+                  />
+                </li>
+              }
+            </ul>
+            <button
+              type="button"
+              class="quotation-hub-page__new-btn quotation-hub-page__new-btn--desktop"
+              (click)="getNewQuote()"
+            >
+              <img
+                appCachedAsset="/assets/my-vehicles/add-circle.svg"
+                class="quotation-hub-page__new-btn-icon"
+                width="16"
+                height="16"
+                alt=""
+                aria-hidden="true"
+              />
+              <span>Get New Quote</span>
+            </button>
+          </section>
+        }
+      </div>
     </main>
 
     <footer class="quotation-hub-page__footer" aria-label="Get new quote actions">
@@ -68,4 +87,6 @@
       </div>
     </footer>
   </div>
+
+  <app-whatsapp-fab />
 </div>

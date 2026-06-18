@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
@@ -21,6 +21,7 @@ import { POLICY_REPOSITORY } from '../../../policies/domain/policy-repository.to
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
 import { PageChromeComponent } from '../../../../shared/presentation/page-chrome/page-chrome.component';
+import { ShellHeaderStore } from '../../../../shared/presentation/shell-header/shell-header.store';
 import {
   QUOTATION_CUSTOMER_TABS,
   isQuotationCustomerTabImplemented,
@@ -36,10 +37,11 @@ import { QuotationFlowService } from '../../domain/quotation-flow.service';
   templateUrl: './quotation-preferences.component.html',
   styleUrl: './quotation-preferences.component.scss',
 })
-export class QuotationPreferencesComponent {
+export class QuotationPreferencesComponent implements OnInit, OnDestroy {
   private readonly flow = inject(QuotationFlowService);
   private readonly route = inject(ActivatedRoute);
   private readonly policyRepository = inject(POLICY_REPOSITORY);
+  private readonly shellHeader = inject(ShellHeaderStore);
 
   readonly infoIconSrc = '/assets/quotation/info.svg';
 
@@ -119,6 +121,18 @@ export class QuotationPreferencesComponent {
         this.applyPreferencesForOwner(ownerFullName);
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.shellHeader.set({
+      title: 'Get New Quote',
+      showBack: true,
+      onBack: () => this.goBack(),
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.shellHeader.clear();
   }
 
   goBack(): void {

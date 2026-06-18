@@ -16,6 +16,8 @@
     --shell-page-padding-y: 32px;
     --shell-page-padding-bottom: 48px;
     --app-bottom-nav-clearance: 0px;
+    --shell-whatsapp-fab-right: clamp(24px, 4vw, 64px);
+    --shell-whatsapp-fab-bottom: clamp(24px, 4vh, 40px);
   }
 }
 
@@ -26,5 +28,7 @@
     --shell-page-padding-x: clamp(40px, 7vw, 100px);
     --shell-page-padding-y: 50px;
     --shell-page-padding-bottom: 80px;
+    --shell-whatsapp-fab-right: clamp(32px, 5vw, 64px);
+    --shell-whatsapp-fab-bottom: 40px;
   }
 }
