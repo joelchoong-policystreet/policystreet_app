@@ -97,7 +97,7 @@ export const routes: Routes = [
   },
   {
     path: 'policies/:id',
-    data: { ...ROUTE_DATA_HIDDEN, bottomNavTab: 'policies' },
+    data: { ...ROUTE_DATA_HIDDEN, bottomNavTab: 'policies', showChrome: true },
     loadComponent: () =>
       import(
         './features/policies/presentation/policy-details/policy-details.component'

@@ -32,6 +32,11 @@
   padding: 24px 24px calc(var(--app-bottom-nav-clearance) + 50px);
 }
 
+/* Quick-actions rail is desktop-only; the mobile layout keeps the single column. */
+.nav-page__rail {
+  display: none;
+}
+
 .policy-tabs {
   display: flex;
   align-items: center;
@@ -328,5 +333,47 @@
     opacity: 1;
     transform: none;
     animation: none;
+  }
+}
+
+/* Desktop policies management — Figma 3124:6164.
+   App sidebar + avatar top bar come from the app shell. The page fills the shell
+   content area: a title app bar, then a two-column body (cards + quick-actions). */
+@media (min-width: 1200px) {
+  .nav-page {
+    max-width: none;
+    margin: 0;
+    min-height: 0;
+    background: var(--Brand-White, #fff);
+  }
+
+  /* Page title is promoted into the shell top bar (beside the avatar). */
+  .policies-appbar {
+    display: none;
+  }
+
+  .nav-page__content {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(32px, 4vw, 50px);
+    padding: 50px clamp(40px, 7vw, 100px) 80px;
+  }
+
+  .nav-page__main {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .nav-page__rail {
+    display: block;
+    flex: 0 0 clamp(280px, 24vw, 300px);
+    width: clamp(280px, 24vw, 300px);
+    align-self: flex-start;
+  }
+
+  /* Filter chips no longer need to scroll horizontally on a wide canvas. */
+  .policy-tabs {
+    overflow-x: visible;
+    flex-wrap: wrap;
   }
 }

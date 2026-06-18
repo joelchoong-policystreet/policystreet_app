@@ -4,6 +4,12 @@ import type { BottomNavTab } from '../presentation/app-bottom-nav/app-bottom-nav
 export interface AppRouteData {
   /** When true, the bottom navigation bar is visible. */
   showBottomNav?: boolean;
+  /**
+   * When true, the desktop chrome (sidebar + top bar) is shown even if the mobile
+   * bottom nav is hidden — e.g. full-screen detail pages that still belong inside a
+   * section on desktop. Defaults to following `showBottomNav`.
+   */
+  showChrome?: boolean;
   /** Which tab is highlighted when the bottom nav is shown. */
   bottomNavTab?: BottomNavTab;
 }

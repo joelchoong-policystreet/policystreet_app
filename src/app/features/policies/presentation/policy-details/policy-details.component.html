@@ -56,41 +56,43 @@
         </aside>
       }
 
+      <div class="policy-details-page__meta-row">
+        <span
+          class="policy-details-page__status"
+          [class.policy-details-page__status--active]="policy().status === 'ACTIVE'"
+          [class.policy-details-page__status--expiring]="policy().status === 'EXPIRING SOON'"
+          [class.policy-details-page__status--expired]="policy().status === 'EXPIRED'"
+        >
+          <span class="policy-details-page__status-dot" aria-hidden="true"></span>
+          {{ statusLabel() }}
+        </span>
+        <button type="button" class="policy-details-page__remove-btn" (click)="openDeleteConfirm()">
+          <img
+            appCachedAsset="/assets/policies/icon-delete.svg"
+            width="14"
+            height="16"
+            alt=""
+            aria-hidden="true"
+          />
+          Remove Policy
+        </button>
+      </div>
+
+      <div class="policy-details-page__columns">
+        <div class="policy-details-page__col policy-details-page__col--left">
+
       <section class="policy-details-page__section">
-        <div class="policy-details-page__protection-head">
-          <div class="policy-details-page__meta-row">
-            <span
-              class="policy-details-page__status"
-              [class.policy-details-page__status--active]="policy().status === 'ACTIVE'"
-              [class.policy-details-page__status--expiring]="policy().status === 'EXPIRING SOON'"
-              [class.policy-details-page__status--expired]="policy().status === 'EXPIRED'"
-            >
-              <span class="policy-details-page__status-dot" aria-hidden="true"></span>
-              {{ statusLabel() }}
-            </span>
-            <button type="button" class="policy-details-page__remove-btn" (click)="openDeleteConfirm()">
-              <img
-                appCachedAsset="/assets/policies/icon-delete.svg"
-                width="14"
-                height="16"
-                alt=""
-                aria-hidden="true"
-              />
-              Remove Policy
-            </button>
-          </div>
-          <header class="policy-details-page__section-title-wrap">
-            <img
-              class="policy-details-page__section-icon policy-details-page__section-icon--protection"
-              appCachedAsset="/assets/policies/section-protection.svg"
-              width="40"
-              height="46"
-              alt=""
-              aria-hidden="true"
-            />
-            <h2>Protection Details</h2>
-          </header>
-        </div>
+        <header class="policy-details-page__section-title-wrap">
+          <img
+            class="policy-details-page__section-icon policy-details-page__section-icon--protection"
+            appCachedAsset="/assets/policies/section-protection.svg"
+            width="40"
+            height="46"
+            alt=""
+            aria-hidden="true"
+          />
+          <h2>Protection Details</h2>
+        </header>
 
         <article class="policy-details-page__card">
           <div class="policy-details-page__field">
@@ -306,6 +308,9 @@
         </article>
       </section>
 
+        </div>
+        <div class="policy-details-page__col policy-details-page__col--right">
+
       <section class="policy-details-page__section">
         <header class="policy-details-page__section-title-wrap">
           <img
@@ -361,6 +366,9 @@
           </ul>
         </article>
       </section>
+
+        </div>
+      </div>
     </main>
 
     <footer class="policy-details-page__cta-bar">

@@ -5,21 +5,55 @@
   }
   <div class="app-shell__body">
     @if (shouldShowChrome()) {
-      <header class="app-shell__topbar" aria-label="Account">
-        <button
-          type="button"
-          class="app-shell__avatar"
-          (click)="goProfile()"
-          aria-label="Profile"
-        >
-          <img
-            appCachedAsset="/assets/home/nav-person-v2.svg"
-            width="20"
-            height="20"
-            alt=""
-            aria-hidden="true"
-          />
-        </button>
+      <header
+        class="app-shell__topbar"
+        [class.app-shell__topbar--with-appbar]="!!header()"
+        aria-label="Account"
+      >
+        <div class="app-shell__topbar-top">
+          <button
+            type="button"
+            class="app-shell__avatar"
+            (click)="goProfile()"
+            aria-label="Profile"
+          >
+            <img
+              appCachedAsset="/assets/home/nav-person-v2.svg"
+              width="20"
+              height="20"
+              alt=""
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+        @if (header(); as h) {
+          <div class="app-shell__appbar">
+            @if (h.showBack) {
+              <button
+                type="button"
+                class="app-shell__back"
+                (click)="h.onBack?.()"
+                aria-label="Back"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                </svg>
+              </button>
+            }
+            <h1 class="app-shell__title">{{ h.title }}</h1>
+            @if (h.action; as action) {
+              <button
+                type="button"
+                class="app-shell__header-action"
+                [class.app-shell__header-action--disabled]="action.disabled"
+                [disabled]="action.disabled"
+                (click)="action.handler()"
+              >
+                {{ action.label }}
+              </button>
+            }
+          </div>
+        }
       </header>
     }
     <div class="app-route-shell">

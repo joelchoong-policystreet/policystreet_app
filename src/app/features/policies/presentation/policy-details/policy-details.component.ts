@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, OnDestroy, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,6 +17,7 @@ import {
 } from '../../domain/policy.model';
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
 import { InAppNavigationHistoryService } from '../../../../shared/navigation/in-app-navigation-history.service';
+import { ShellHeaderStore } from '../../../../shared/presentation/shell-header/shell-header.store';
 
 const POLICY_STATUS_LABELS: Record<PolicyStatus, string> = {
   ACTIVE: 'Active',
@@ -31,12 +32,13 @@ const POLICY_STATUS_LABELS: Record<PolicyStatus, string> = {
   templateUrl: './policy-details.component.html',
   styleUrl: './policy-details.component.scss',
 })
-export class PolicyDetailsComponent {
+export class PolicyDetailsComponent implements OnDestroy {
   private readonly router = inject(Router);
   private readonly inAppNav = inject(InAppNavigationHistoryService);
   private readonly route = inject(ActivatedRoute);
   private readonly policyRepository = inject(POLICY_REPOSITORY);
   private readonly fb = inject(FormBuilder);
+  private readonly shellHeader = inject(ShellHeaderStore);
 
   readonly maritalStatusOptions = ['Single', 'Married', 'Divorced', 'Widowed'] as const;
   readonly genderOptions = ['Male', 'Female'] as const;
@@ -102,6 +104,25 @@ export class PolicyDetailsComponent {
         this.patchPersonalDetailsForm(p);
       }
     });
+
+    // Publish the page header so the desktop shell renders it beside the profile
+    // avatar (one combined header bar). Re-runs to keep the Renew state in sync.
+    effect(() => {
+      this.shellHeader.set({
+        title: 'Policy Information',
+        showBack: true,
+        onBack: () => this.goBack(),
+        action: {
+          label: 'Renew Now',
+          disabled: this.isRenewDisabled(),
+          handler: () => this.onRenewNow(),
+        },
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.shellHeader.clear();
   }
 
   goBack(): void {

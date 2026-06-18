@@ -66,6 +66,12 @@
   white-space: nowrap;
 }
 
+/* Mobile keeps a single column: the desktop column wrappers are pass-through. */
+.policy-details-page__columns,
+.policy-details-page__col {
+  display: contents;
+}
+
 /* Expiry alerts — Figma 3091:27797 (expiring) / 3091:28189 (expired) */
 .policy-details-page__alert {
   display: flex;
@@ -587,4 +593,56 @@
   color: #1d1b20;
   opacity: 0.38;
   cursor: not-allowed;
+}
+
+/* Desktop policy details — Figma 3124:8557.
+   App sidebar + avatar top bar come from the app shell. The page unlocks its
+   fixed mobile height to flow in the shell, promotes Renew into the app bar, and
+   reflows the sections into two columns with a full-width status row on top. */
+@media (min-width: 1200px) {
+  .policy-details-page {
+    height: auto;
+    min-height: 0;
+    max-width: none;
+    margin: 0;
+    overflow: visible;
+  }
+
+  .policy-details-page > .app-route-fade-target {
+    display: block;
+    flex: none;
+  }
+
+  /* The page app bar is promoted into the shell top bar (beside the avatar). */
+  .policy-details-page__appbar {
+    display: none;
+  }
+
+  /* Content flows in the shell; the bottom CTA bar is replaced by the header button. */
+  .policy-details-page__main {
+    flex: none;
+    overflow: visible;
+    gap: 24px;
+    padding: 50px clamp(40px, 7vw, 100px) 80px;
+  }
+
+  .policy-details-page__cta-bar {
+    display: none;
+  }
+
+  /* Two-column reflow: Protection / Vehicle / Personal | Payment / Documents. */
+  .policy-details-page__columns {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    width: 100%;
+  }
+
+  .policy-details-page__col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1 1 0;
+    min-width: 0;
+  }
 }

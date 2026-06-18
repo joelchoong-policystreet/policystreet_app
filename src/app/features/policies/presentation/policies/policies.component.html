@@ -5,6 +5,7 @@
   </header>
 
   <main id="main-content" class="nav-page__content">
+    <div class="nav-page__main">
     <div class="policy-tabs" role="tablist" aria-label="Policy filters">
       @for (tab of tabs; track tab.id) {
         <button
@@ -111,6 +112,11 @@
         </article>
       }
     </section>
+    </div>
+
+    <aside class="nav-page__rail" aria-label="Quick actions">
+      <app-quick-actions />
+    </aside>
   </main>
 
   <app-whatsapp-fab />

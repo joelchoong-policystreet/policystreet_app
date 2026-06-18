@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 import { AppBottomNavComponent, type BottomNavTab } from './shared/presentation/app-bottom-nav/app-bottom-nav.component';
 import { AppSideNavComponent } from './shared/presentation/app-side-nav/app-side-nav.component';
 import { CachedAssetImgDirective } from './shared/assets/cached-asset-img.directive';
+import { ShellHeaderStore } from './shared/presentation/shell-header/shell-header.store';
 import { readAppRouteData } from './shared/routing/read-app-route-data';
 
 @Component({
@@ -14,8 +15,11 @@ import { readAppRouteData } from './shared/routing/read-app-route-data';
 })
 export class App implements OnInit, OnDestroy {
   private navSub?: Subscription;
+  private readonly shellHeader = inject(ShellHeaderStore);
+  readonly header = this.shellHeader.header;
   currentPath = '';
   private showBottomNavFlag = false;
+  private showChromeFlag = false;
   private activeTab: BottomNavTab = 'none';
 
   constructor(private readonly router: Router) {}
@@ -42,6 +46,7 @@ export class App implements OnInit, OnDestroy {
     this.currentPath = url;
     const routeData = readAppRouteData(this.router);
     this.showBottomNavFlag = routeData.showBottomNav === true;
+    this.showChromeFlag = routeData.showChrome ?? routeData.showBottomNav === true;
     this.activeTab = routeData.bottomNavTab ?? 'none';
   }
 
@@ -49,9 +54,12 @@ export class App implements OnInit, OnDestroy {
     return this.showBottomNavFlag;
   }
 
-  /** Desktop sidebar + top bar share the same routes as the mobile bottom nav. */
+  /**
+   * Desktop sidebar + top bar follow the bottom-nav routes by default, plus any route
+   * that opts in via `showChrome` (e.g. detail pages that hide the mobile bottom nav).
+   */
   shouldShowChrome(): boolean {
-    return this.showBottomNavFlag;
+    return this.showChromeFlag;
   }
 
   activeBottomTab(): BottomNavTab {

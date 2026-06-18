@@ -1,10 +1,12 @@
-import { AfterViewInit, Component, computed, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { CachedAssetImgDirective } from '../../../../shared/assets/cached-asset-img.directive';
+import { QuickActionsComponent } from '../../../../shared/presentation/quick-actions/quick-actions.component';
+import { ShellHeaderStore } from '../../../../shared/presentation/shell-header/shell-header.store';
 import { WhatsappFabComponent } from '../../../../shared/presentation/whatsapp-fab/whatsapp-fab.component';
 import { POLICY_REPOSITORY } from '../../domain/policy-repository.token';
 import {
@@ -17,14 +19,15 @@ import {
 @Component({
   selector: 'app-policies',
   standalone: true,
-  imports: [RouterLink, CachedAssetImgDirective, WhatsappFabComponent],
+  imports: [RouterLink, CachedAssetImgDirective, WhatsappFabComponent, QuickActionsComponent],
   templateUrl: './policies.component.html',
   styleUrl: './policies.component.scss',
 })
-export class PoliciesComponent implements AfterViewInit {
+export class PoliciesComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly policyRepository = inject(POLICY_REPOSITORY);
+  private readonly shellHeader = inject(ShellHeaderStore);
 
   readonly activeFilter = signal<PolicyFilter>('all');
   readonly expandedPolicyId = signal<string | null>(null);
@@ -74,6 +77,15 @@ export class PoliciesComponent implements AfterViewInit {
         this.activeFilter.set(filter);
       }
     });
+  }
+
+  ngOnInit(): void {
+    // Publish the page title so the desktop shell renders it beside the profile avatar.
+    this.shellHeader.set({ title: 'Policies' });
+  }
+
+  ngOnDestroy(): void {
+    this.shellHeader.clear();
   }
 
   ngAfterViewInit(): void {

@@ -1,0 +1,72 @@
+/* Desktop quick-actions rail — Figma 3124:6554. */
+.quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.quick-actions__title {
+  margin: 0;
+  font-family: 'Poppins', 'Open Sans', Inter, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  letter-spacing: 0.108px;
+  color: var(--Font-Black, #141414);
+}
+
+.quick-actions__buttons {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.quick-actions__btn {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 104px;
+  padding: 12px 6px;
+  border-radius: 8px;
+  background: var(--Brand-White, #fff);
+  border: 1px solid var(--Disable-Borders-Columbia-Blue, #e3eaf2);
+  box-shadow: 0 4px 2px #e3eaf2;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.quick-actions__btn:hover {
+  box-shadow: 0 6px 18px rgba(50, 100, 150, 0.12);
+  transform: translateY(-1px);
+}
+
+.quick-actions__btn:focus-visible {
+  outline: 2px solid var(--ps-primary, #0091ff);
+  outline-offset: 2px;
+}
+
+.quick-actions__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quick-actions__icon img {
+  display: block;
+}
+
+.quick-actions__label {
+  max-width: 80px;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  text-align: center;
+  color: var(--Font-Black, #141414);
+}

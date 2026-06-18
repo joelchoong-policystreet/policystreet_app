@@ -22,6 +22,9 @@ function mergeRouteData(route: ActivatedRouteSnapshot): AppRouteData {
     if (data.showBottomNav !== undefined) {
       merged.showBottomNav = data.showBottomNav;
     }
+    if (data.showChrome !== undefined) {
+      merged.showChrome = data.showChrome;
+    }
     if (data.bottomNavTab !== undefined) {
       merged.bottomNavTab = data.bottomNavTab;
     }

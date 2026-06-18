@@ -76,18 +76,117 @@
     background: var(--Brand-White, #fff);
   }
 
+  /* Header bar stacks two rows: the avatar row on top, then the optional page
+     app bar (back + title + action) beneath — both inside the sticky header. */
   .app-shell--chrome .app-shell__topbar {
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    flex-direction: column;
     position: sticky;
     top: 0;
     z-index: 20;
     box-sizing: border-box;
-    min-height: 80px;
-    padding: 20px clamp(40px, 7vw, 100px);
     background: var(--Brand-White, #fff);
     border-bottom: 1px solid var(--Disable-Borders-Columbia-Blue, #e3eaf2);
+  }
+
+  .app-shell__topbar-top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    min-height: 70px;
+    padding: 8px clamp(40px, 7vw, 100px);
+  }
+
+  /* Page app bar row — Figma 3124:8753 (back + title + primary action). */
+  .app-shell__appbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    min-height: 72px;
+    padding: 8px clamp(40px, 7vw, 100px);
+  }
+
+  /* Page-supplied back button — Figma 3124:8754. */
+  .app-shell__back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    margin-left: -8px;
+    padding: 0;
+    border: 0;
+    border-radius: 100px;
+    background: transparent;
+    color: #1d1b20;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    svg {
+      display: block;
+    }
+
+    &:hover {
+      background: rgba(0, 145, 255, 0.08);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ps-primary, #0091ff);
+      outline-offset: 2px;
+    }
+  }
+
+  /* Page title — Figma 3124:8755 (SubTitle/XL/Semibold). */
+  .app-shell__title {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    color: var(--Font-Black, #141414);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: 'Open Sans', Inter, sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 28px;
+    letter-spacing: 0;
+  }
+
+  /* Primary page action in the app bar row — Figma 3124:11514. */
+  .app-shell__header-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 105px;
+    min-height: 40px;
+    padding: 8px 24px;
+    border: 0;
+    border-radius: 4px;
+    background: var(--ps-primary, #0091ff);
+    color: var(--Brand-White, #fff);
+    font-family: 'Open Sans', Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover:not(:disabled) {
+      background: #007ad6;
+    }
+  }
+
+  .app-shell__header-action--disabled,
+  .app-shell__header-action:disabled {
+    background: #e5e5e5;
+    color: var(--ps-text-muted, #3d3d3d);
+    opacity: 0.38;
+    cursor: not-allowed;
   }
 
   .app-shell__avatar {
