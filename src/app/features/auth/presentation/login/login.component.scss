@@ -44,23 +44,21 @@
 }
 
 .hero {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 0;
-  z-index: 6;
+  position: relative;
+  isolation: isolate;
+  z-index: 4;
+  flex-shrink: 0;
+  height: clamp(160px, 30vh, 324px);
+  background: transparent;
   overflow: visible;
-  pointer-events: none;
 }
 
 .hero__pawsper {
   position: absolute;
   left: 50%;
-  top: 0;
-  bottom: auto;
+  bottom: -18px;
   width: clamp(156px, 42vw, 170.6px);
-  transform: translate(-50%, calc(-100% + 18px));
+  transform: translate(-50%, 0);
   animation: pawsper-enter 1600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
   will-change: transform;
   pointer-events: none;
@@ -112,7 +110,7 @@
 .card__body {
   width: 100%;
   flex: 1 1 auto;
-  padding: 72px 38px 327px;
+  padding: 100px 38px 327px;
   box-sizing: border-box;
 }
 
@@ -518,12 +516,12 @@
 @keyframes pawsper-enter {
   0% {
     opacity: 0;
-    transform: translate(calc(-50% + 110vw), calc(-100% + 18px));
+    transform: translate(calc(-50% + 110vw), 0);
   }
 
   100% {
     opacity: 1;
-    transform: translate(-50%, calc(-100% + 18px));
+    transform: translate(-50%, 0);
   }
 }
 
@@ -556,11 +554,11 @@
 
 @keyframes pawsper-to-left {
   0% {
-    transform: translate(-50%, calc(-100% + 18px)) rotate(0deg);
+    transform: translate(-50%, 0) rotate(0deg);
   }
 
   100% {
-    transform: translate(calc(-50% - 120vw), calc(-100% + 18px)) rotate(0deg);
+    transform: translate(calc(-50% - 120vw), 0) rotate(0deg);
   }
 }
 
@@ -588,9 +586,13 @@
 }
 
 @media (max-height: 760px) {
+  .hero {
+    height: clamp(120px, 22vh, 220px);
+  }
+
   .card__body {
     padding:
-      clamp(56px, 10vh, 72px)
+      clamp(28px, 6vh, 56px)
       clamp(24px, 6vw, 32px)
       clamp(28px, 6vh, 64px);
   }
@@ -667,7 +669,28 @@
     flex: 0 0 180px;
   }
 
-  /* Mascot sits on the card top edge — no spacer above the card. */
+  /* Desktop: zero-height hero strip — pawsper sits on the card top edge. */
+  .hero {
+    align-self: center;
+    width: min(100%, 480px);
+    height: 0;
+    margin: auto 0 0;
+    z-index: 6;
+    pointer-events: none;
+  }
+
+  .hero__pawsper {
+    top: 0;
+    bottom: auto;
+    width: clamp(168px, 18vw, 196px);
+    transform: translate(-50%, calc(-100% + 18px));
+    animation: pawsper-enter-desktop 1600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .hero__pawsper--logining {
+    animation: pawsper-to-left-desktop 900ms cubic-bezier(0.32, 0, 0.2, 1) forwards;
+  }
+
   .viewport {
     flex: 0 0 auto;
     align-self: center;
@@ -676,20 +699,10 @@
     flex-direction: column;
     justify-content: flex-start;
     width: min(100%, 480px);
-    margin: auto;
+    margin: 0 0 auto;
     position: relative;
     z-index: 4;
     overflow: visible;
-  }
-
-  .hero__pawsper {
-    width: clamp(168px, 18vw, 196px);
-    transform: translate(-50%, calc(-100% + 18px));
-    animation: pawsper-enter-desktop 1600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-
-  .hero__pawsper--logining {
-    animation: pawsper-to-left-desktop 900ms cubic-bezier(0.32, 0, 0.2, 1) forwards;
   }
 
   .card {
