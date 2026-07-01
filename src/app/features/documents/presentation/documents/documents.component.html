@@ -1,0 +1,92 @@
+<div class="documents-page">
+  <div class="app-route-fade-target">
+  <div class="documents-page__chrome">
+    <div class="documents-page__appbar">
+      <h1>Documents &amp; Policies</h1>
+    </div>
+  </div>
+
+  <main id="main-content" class="documents-page__main">
+    <section class="documents-page__intro">
+      <h2>Your Documents &amp; Policies Hub</h2>
+      <p>Store and access your important insurance documents anytime, all in one place.</p>
+    </section>
+
+    <button type="button" class="documents-page__upload-btn" (click)="goUploadDocuments()">
+      <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#fff" d="M5 20q-.825 0-1.412-.587Q3 18.825 3 18v-3h2v3h14v-3h2v3q0 .825-.588 1.413Q19.825 20 19 20Zm6-4V7.85l-2.4 2.4L7.175 8.825 12 4l4.825 4.825-1.425 1.425-2.4-2.4V16Z" />
+      </svg>
+      <span>Upload File</span>
+    </button>
+
+    <section class="documents-page__section">
+      <header class="documents-page__section-head">
+        <img [appCachedAsset]="carIconSrc" width="24" height="21" alt="" aria-hidden="true" />
+        <h3>Vehicle Document</h3>
+      </header>
+
+      @for (item of vehicleDocuments; track item.id) {
+        <article class="documents-page__card">
+          <p class="documents-page__card-title">{{ item.title }}</p>
+          <p class="documents-page__card-meta">{{ item.plate }}</p>
+          <p class="documents-page__card-time">Uploaded on dd/mm/yyyy</p>
+          <div class="documents-page__actions">
+            <button type="button" class="documents-page__action documents-page__action--view">
+              <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true">
+                <path fill="currentColor" d="M10 0C5.455 0 1.573 2.825 0 7c1.573 4.175 5.455 7 10 7s8.427-2.825 10-7c-1.573-4.175-5.455-7-10-7Zm0 11.667A4.667 4.667 0 1 1 10 2.333a4.667 4.667 0 0 1 0 9.334Zm0-7.467A2.8 2.8 0 1 0 10 9.8a2.8 2.8 0 0 0 0-5.6Z" />
+              </svg>
+              <span>View</span>
+            </button>
+            <button type="button" class="documents-page__action documents-page__action--delete" aria-label="Delete document">
+              <img [appCachedAsset]="deleteIconSrc" width="14" height="16" alt="" aria-hidden="true" />
+            </button>
+          </div>
+        </article>
+      }
+    </section>
+
+    <section class="documents-page__section">
+      <header class="documents-page__section-head">
+        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="#203570"
+            d="M6 2C4.9 2 4 2.9 4 4v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6H6Zm7 1.5L18.5 9H13V3.5ZM8 12h8v2H8v-2Zm0 4h8v2H8v-2Zm0-8h3v2H8V8Z"
+          />
+        </svg>
+        <h3>Policy Document</h3>
+      </header>
+
+      @for (item of policyDocuments; track item.id) {
+        <article class="documents-page__card">
+          <p class="documents-page__card-title">{{ item.title }}</p>
+          <p class="documents-page__card-meta">{{ item.providerAndPlate }}</p>
+          <p class="documents-page__card-time">Uploaded on dd/mm/yyyy</p>
+          <div class="documents-page__actions">
+            <button type="button" class="documents-page__action documents-page__action--view">
+              <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true">
+                <path fill="currentColor" d="M10 0C5.455 0 1.573 2.825 0 7c1.573 4.175 5.455 7 10 7s8.427-2.825 10-7c-1.573-4.175-5.455-7-10-7Zm0 11.667A4.667 4.667 0 1 1 10 2.333a4.667 4.667 0 0 1 0 9.334Zm0-7.467A2.8 2.8 0 1 0 10 9.8a2.8 2.8 0 0 0 0-5.6Z" />
+              </svg>
+              <span>View</span>
+            </button>
+            <button type="button" class="documents-page__action documents-page__action--download">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M12 16.5L6.75 11.25l1.4-1.45 2.85 2.85V3h2v9.65l2.85-2.85 1.4 1.45L12 16.5ZM5 21c-.55 0-1.02-.2-1.41-.59C3.2 20.02 3 19.55 3 19v-3h2v3h14v-3h2v3c0 .55-.2 1.02-.59 1.41-.39.39-.86.59-1.41.59H5Z"
+                />
+              </svg>
+              <span>Download</span>
+            </button>
+            <button type="button" class="documents-page__action documents-page__action--delete" aria-label="Delete document">
+              <img [appCachedAsset]="deleteIconSrc" width="14" height="16" alt="" aria-hidden="true" />
+            </button>
+          </div>
+        </article>
+      }
+    </section>
+  </main>
+
+  <app-whatsapp-fab />
+
+  </div>
+</div>

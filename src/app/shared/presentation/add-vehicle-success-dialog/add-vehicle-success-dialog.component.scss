@@ -1,0 +1,120 @@
+/* Add vehicle success — Figma 3115:2871 */
+
+.add-vehicle-success__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.32);
+  box-sizing: border-box;
+}
+
+.add-vehicle-success {
+  width: min(100%, 360px);
+  background: #fff;
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
+}
+
+.add-vehicle-success__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 24px 8px;
+}
+
+.add-vehicle-success__hero {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 280 / 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-vehicle-success__hero-bg {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.add-vehicle-success__pawsper {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  width: 42%;
+  max-width: 120px;
+  height: auto;
+  transform: translateX(-50%);
+  animation: add-vehicle-pawsper-jump 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.add-vehicle-success__title {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  color: #24a148;
+  font-family: Poppins, 'Open Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: 0;
+}
+
+.add-vehicle-success__actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 24px 20px 16px;
+}
+
+.add-vehicle-success__close {
+  min-height: 48px;
+  border: 0;
+  border-radius: 100px;
+  background: transparent;
+  padding: 10px 16px;
+  color: #141414;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+}
+
+@keyframes add-vehicle-pawsper-jump {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 110%);
+  }
+
+  55% {
+    opacity: 1;
+    transform: translate(-50%, -12%);
+  }
+
+  75% {
+    transform: translate(-50%, 6%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (max-width: 359px) {
+  .add-vehicle-success__backdrop {
+    padding: 16px;
+  }
+}

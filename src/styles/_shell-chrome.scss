@@ -1,0 +1,34 @@
+/* Shared shell chrome tokens — sidebar + top bar (tablet/desktop). */
+:root {
+  --shell-sidebar-width: 0px;
+  --shell-topbar-height: 70px;
+  --shell-page-padding-x: 24px;
+  --shell-page-padding-y: 24px;
+  --shell-page-padding-bottom: 48px;
+  --shell-quick-rail-width: clamp(300px, 28vw, 520px);
+}
+
+/* Tablet/iPad: compact sidebar; bottom nav replaced by side nav. */
+@media (min-width: 768px) {
+  :root {
+    --shell-sidebar-width: 220px;
+    --shell-page-padding-x: clamp(24px, 4vw, 48px);
+    --shell-page-padding-y: 32px;
+    --shell-page-padding-bottom: 48px;
+    --app-bottom-nav-clearance: 0px;
+    --shell-whatsapp-fab-right: clamp(24px, 4vw, 64px);
+    --shell-whatsapp-fab-bottom: clamp(24px, 4vh, 40px);
+  }
+}
+
+/* Full desktop: wider sidebar and page insets. */
+@media (min-width: 1200px) {
+  :root {
+    --shell-sidebar-width: 300px;
+    --shell-page-padding-x: clamp(40px, 7vw, 100px);
+    --shell-page-padding-y: 50px;
+    --shell-page-padding-bottom: 80px;
+    --shell-whatsapp-fab-right: clamp(32px, 5vw, 64px);
+    --shell-whatsapp-fab-bottom: 40px;
+  }
+}

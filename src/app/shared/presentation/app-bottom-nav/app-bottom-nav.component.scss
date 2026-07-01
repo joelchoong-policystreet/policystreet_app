@@ -1,0 +1,189 @@
+/* Bottom nav — Figma 3089:25058 */
+
+:host {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 200;
+  box-sizing: border-box;
+}
+
+.app-bottom-nav {
+  --app-bottom-nav-fab-size: 56px;
+  --app-bottom-nav-fab-lift: calc(var(--app-bottom-nav-fab-size) / 2); /* bar top = centre of + */
+  /* Notch depth matches ~44px ring; wings use Figma cubic curves (no mask) */
+  --app-bottom-nav-notch-depth: 50px;
+  --app-bottom-nav-bar-height: 80px;
+  --app-bottom-nav-icon-gap: 116px;
+
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: var(--app-bottom-nav-fab-lift) 0 0;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+/* FAB — floats over transparent notch gap (no glow) */
+.app-bottom-nav__fab {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 4;
+  width: var(--app-bottom-nav-fab-size);
+  height: var(--app-bottom-nav-fab-size);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.app-bottom-nav__fab-btn {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #0091ff;
+  box-shadow: inset 0 1px 5px #7fb9e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.app-bottom-nav__fab-icon {
+  display: block;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+/* Container — 80px bar, 116px gap, Ps Glow shadow on panel */
+.app-bottom-nav__bar {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: calc(var(--app-bottom-nav-bar-height) + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: var(--app-bottom-nav-icon-gap);
+  padding: 6px 24px env(safe-area-inset-bottom, 0px);
+}
+
+/* Inline SVG — fixed 80px; smooth bezier notch at centre (transparent above curve) */
+.app-bottom-nav__panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--app-bottom-nav-bar-height);
+  z-index: 0;
+  width: 100%;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* Safe-area white below shaped panel (does not cover the notch) */
+.app-bottom-nav__bar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: env(safe-area-inset-bottom, 0px);
+  background: #fff;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.app-bottom-nav__icon-set {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-bottom-nav__slot {
+  min-width: 44px;
+  min-height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+/* Fixed frame so active/inactive SVGs render at the same visual size */
+.app-bottom-nav__icon {
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  flex-shrink: 0;
+  width: var(--app-bottom-nav-icon-w);
+  height: var(--app-bottom-nav-icon-h);
+}
+
+.app-bottom-nav__icon--home {
+  --app-bottom-nav-icon-w: 25px;
+  --app-bottom-nav-icon-h: 28px;
+}
+
+.app-bottom-nav__icon--policy,
+.app-bottom-nav__icon--claims {
+  --app-bottom-nav-icon-w: 22px;
+  --app-bottom-nav-icon-h: 28px;
+}
+
+.app-bottom-nav__icon--profile {
+  --app-bottom-nav-icon-w: 29px;
+  --app-bottom-nav-icon-h: 28px;
+}
+
+.app-bottom-nav__label {
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 8px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.048px;
+  text-align: center;
+  color: #3d3d3d;
+  white-space: nowrap;
+}
+
+.app-bottom-nav__slot--active .app-bottom-nav__label {
+  color: #0091ff;
+  font-weight: 600;
+}
+
+@media (max-width: 430px) {
+  .app-bottom-nav {
+    max-width: none;
+  }
+}
+
+@media (max-width: 390px) {
+  .app-bottom-nav {
+    --app-bottom-nav-icon-gap: 48px;
+  }
+
+  .app-bottom-nav__bar {
+    padding-inline: 16px;
+  }
+}

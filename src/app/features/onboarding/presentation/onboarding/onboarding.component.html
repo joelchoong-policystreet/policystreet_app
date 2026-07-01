@@ -1,0 +1,207 @@
+<div class="onboarding-page" [class.onboarding-page--returning-splash]="isReturningSplash()">
+  <div
+    class="onboarding-page__bg"
+    [style.background-image]="isReturningSplash() ? null : pageBackgroundImage()"
+    aria-hidden="true"
+  ></div>
+
+  @if (!isReturningSplash()) {
+    <header class="onboarding-header" aria-label="PolicyStreet">
+      <img
+        class="onboarding-header__logo"
+        [appCachedAsset]="appBrandLogoSrc"
+        width="153"
+        height="40"
+        alt="PolicyStreet Car Insurance"
+      />
+    </header>
+  }
+
+  <main
+    id="main-content"
+    class="onboarding-page__main"
+    (pointerdown)="onPointerDown($event)"
+    (pointerup)="onPointerUp($event)"
+  >
+    @if (isReturningSplash()) {
+    <div class="onboarding-page__returning" role="status" aria-live="polite" aria-busy="true">
+      <div class="onboarding-page__returning-video-wrap">
+        <video
+          #returningSplashVideo
+          class="onboarding-page__returning-video"
+          preload="auto"
+          autoplay
+          muted
+          playsInline
+          (ended)="goHomeAfterReturningSplash()"
+          (error)="goHomeAfterReturningSplash()"
+        >
+          <source [src]="returningSplashVideoWebmSrc" type="video/webm" />
+          <source [src]="returningSplashVideoMp4FallbackSrc" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+    } @else {
+    <div class="onboarding-page__content">
+      <div class="onboarding-page__stage">
+        <div class="onboarding-page__core">
+        @if (slide().heroIllustrationSrc) {
+          <div
+            class="onboarding-page__hero"
+            [class.onboarding-page__hero--dual-layer]="!!slide().heroFloatLayerSrc"
+            [class.onboarding-page__hero--float-motion]="slide().heroMotion === 'float' && !slide().heroFloatLayerSrc"
+            aria-hidden="true"
+          >
+            @if (slide().heroMotion === 'float' && !slide().heroFloatLayerSrc) {
+              <div class="onboarding-page__hero-float-deco">
+                <span class="onboarding-page__hero-float-deco-chip onboarding-page__hero-float-deco-chip--a"></span>
+                <span class="onboarding-page__hero-float-deco-chip onboarding-page__hero-float-deco-chip--b"></span>
+                <span class="onboarding-page__hero-float-deco-chip onboarding-page__hero-float-deco-chip--c"></span>
+              </div>
+            }
+            @if (slide().heroFloatLayerSrc) {
+              <div class="onboarding-page__hero-float-layer onboarding-page__hero-float-layer--animate">
+                <div class="onboarding-page__hero-float-images">
+                  <img
+                    class="onboarding-page__hero-float-layer-svg"
+                    [appCachedAsset]="slide().heroFloatLayerSrc"
+                    width="615"
+                    height="500"
+                    alt=""
+                  />
+                  @if (slide().heroFloatLayerSrc2) {
+                    <img
+                      class="onboarding-page__hero-float-layer-svg"
+                      [appCachedAsset]="slide().heroFloatLayerSrc2"
+                      width="615"
+                      height="500"
+                      alt=""
+                    />
+                  }
+                </div>
+              </div>
+            }
+            <div
+              class="onboarding-page__hero-art"
+              [class.onboarding-page__hero-art--float]="slide().heroMotion === 'float' && !slide().heroFloatLayerSrc"
+              [class.onboarding-page__hero-art--static-front]="!!slide().heroFloatLayerSrc"
+              [class.onboarding-page__hero-art--clock-hands]="!!slide().heroClockHands"
+            >
+              <img
+                class="onboarding-page__hero-svg"
+                [appCachedAsset]="slide().heroIllustrationSrc"
+                width="615"
+                height="500"
+                alt=""
+              />
+              @if (slide().heroClockHands; as hands) {
+                <div class="onboarding-page__hero-clock-hands" aria-hidden="true">
+                  <div class="onboarding-page__hero-clock-pivot">
+                    <img
+                      class="onboarding-page__hero-clock-hand onboarding-page__hero-clock-hand--hour"
+                      [appCachedAsset]="hands.hourHandSrc"
+                      width="48"
+                      height="47"
+                      alt=""
+                    />
+                    <img
+                      class="onboarding-page__hero-clock-hand onboarding-page__hero-clock-hand--minute"
+                      [appCachedAsset]="hands.minuteHandSrc"
+                      width="50"
+                      height="52"
+                      alt=""
+                    />
+                    @if (hands.hubSrc) {
+                      <img
+                        class="onboarding-page__hero-clock-hub"
+                        [appCachedAsset]="hands.hubSrc"
+                        width="20"
+                        height="21"
+                        alt=""
+                      />
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+            @if (slide().heroSwingKeySrc) {
+              <div class="onboarding-page__hero-key-slot">
+                <div class="onboarding-page__hero-key-pivot">
+                  <img
+                    class="onboarding-page__hero-key"
+                    [appCachedAsset]="slide().heroSwingKeySrc"
+                    width="62"
+                    height="168"
+                    alt=""
+                  />
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          @switch (slide().icon) {
+          @case ('none') {
+            <span class="onboarding-page__no-graphic" aria-hidden="true"></span>
+          }
+          @case ('document') {
+            <div class="onboarding-page__icon-tile" aria-hidden="true">
+              <svg class="onboarding-page__icon-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M22 18h24l14 14v38a4 4 0 0 1-4 4H22a4 4 0 0 1-4-4V22a4 4 0 0 1 4-4Z"
+                  stroke="#fff"
+                  stroke-width="3"
+                  stroke-linejoin="round"
+                />
+                <path d="M46 18v14h14" stroke="#fff" stroke-width="3" stroke-linejoin="round" />
+                <path d="M28 40h28M28 48h28M28 56h18" stroke="#fff" stroke-width="3" stroke-linecap="round" />
+              </svg>
+            </div>
+          }
+          @case ('lightning') {
+            <div class="onboarding-page__icon-tile onboarding-page__icon-tile--glow" aria-hidden="true">
+              <svg class="onboarding-page__icon-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M48 12 32 44h12l-4 28 20-36H48l-8-24Z" fill="#fff" />
+              </svg>
+            </div>
+          }
+          }
+        }
+
+        <h1 class="onboarding-page__headline">{{ slide().headline }}</h1>
+
+        <div class="onboarding-page__descriptions">
+          @if (slide().bodyLeadBold) {
+            <p class="onboarding-page__body onboarding-page__body--lead">{{ slide().bodyLeadBold }}</p>
+          }
+          <p class="onboarding-page__body">{{ slide().body }}</p>
+        </div>
+        </div>
+
+        <div class="onboarding-page__controls">
+        <div class="onboarding-page__dots" role="tablist" aria-label="Onboarding progress">
+          @for (item of slides; track item.headline; let i = $index) {
+            <button
+              type="button"
+              role="tab"
+              class="onboarding-page__dot"
+              [class.onboarding-page__dot--active]="i === currentSlide()"
+              [attr.aria-selected]="i === currentSlide()"
+              [attr.aria-label]="'Step ' + (i + 1) + ' of ' + slides.length"
+              (click)="goToSlide(i)"
+            ></button>
+          }
+        </div>
+
+        <div class="onboarding-page__actions">
+          @if (currentSlide() < slideCount - 1) {
+            <button type="button" class="onboarding-page__skip" (click)="skip()">Skip</button>
+          } @else {
+            <button type="button" class="onboarding-page__cta" (click)="finish()">Let's Get Started</button>
+          }
+        </div>
+        </div>
+      </div>
+    </div>
+    }
+  </main>
+</div>

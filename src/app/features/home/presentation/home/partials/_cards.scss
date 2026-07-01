@@ -1,0 +1,231 @@
+.home-page__card {
+  background: var(--Accents-Alice-Blue-2, #ebf6ff);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.home-page__card--action {
+  width: 100%;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Latest Policy empty — Figma 2406:7976 */
+.home-page__empty-card {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background: var(--New-Neutral-Light-Mode-100, #F5F5F5);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.home-page__empty-card__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.home-page__empty-card__icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.home-page__empty-card__title {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  color: var(--Font-Black, #141414);
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+.home-page__empty-card__body {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  color: #737373;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+.home-page__card-details {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.home-page__card-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.home-page__card-row--bottom {
+  align-items: center;
+}
+
+.home-page__plate {
+  margin: 0;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  color: var(--Font-Black, #141414);
+}
+
+.home-page__vehicle {
+  margin: 0;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  color: #3d3d3d;
+}
+
+.home-page__pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 2px 12px;
+  border-radius: 20px;
+  border-width: 1.2px;
+  border-style: solid;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.home-page__pill--active {
+  background: #24a148;
+  border-color: #24a148;
+}
+
+.home-page__pill--expiring {
+  background: #ff832b;
+  border-color: #ff832b;
+}
+
+.home-page__pill--expired {
+  background: #e30a12;
+  border-color: #e30a12;
+}
+
+.home-page__pill-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--Brand-White, #fff);
+  flex-shrink: 0;
+}
+
+.home-page__divider-line {
+  width: 100%;
+  height: 1px;
+  background: var(--Disable-Borders-Columbia-Blue, #e3eaf2);
+  margin: 0;
+}
+
+.home-page__coverage {
+  margin: 0;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  color: var(--Font-Black, #141414);
+}
+
+.home-page__muted {
+  margin: 0;
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  color: var(--Accents-Blue-Grey, #7092bb);
+}
+
+.home-page__meta {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.home-page__chevron {
+  flex-shrink: 0;
+  align-self: center;
+  display: block;
+  width: 9px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.home-page__quick-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 84px;
+  padding: 8px 6px;
+  border-radius: 4px;
+  border: none;
+  background: var(--Brand-White, #fff);
+  cursor: pointer;
+  text-align: center;
+}
+
+.home-page__quick-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.home-page__quick-label {
+  font-family: 'Open Sans', Inter, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: 0.06px;
+  color: var(--Font-Black, #141414);
+  max-width: 68px;
+}

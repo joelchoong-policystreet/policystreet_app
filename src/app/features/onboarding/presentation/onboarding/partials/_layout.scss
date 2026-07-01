@@ -1,0 +1,101 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+/* Full-viewport white behind the centered column (body is otherwise #f7f7f7 on mobile). */
+:host:has(.onboarding-page--returning-splash) {
+  background: var(--Brand-White, #fff);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.onboarding-page {
+  --onboarding-page-gutter: clamp(30px, 6.5vw, 34px);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  overflow-x: hidden;
+  max-width: 430px;
+  margin: 0 auto;
+  width: 100%;
+  align-items: stretch;
+  background: #e3f2ff;
+
+  &--returning-splash {
+    background: var(--Brand-White, #fff);
+
+    .onboarding-page__bg {
+      background-color: #fff;
+      background-image: none;
+    }
+  }
+}
+
+.onboarding-page__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background-color: #e3f2ff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.onboarding-page__no-graphic {
+  display: none;
+}
+
+.onboarding-header {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 56px;
+  padding: 16px var(--onboarding-page-gutter) 0;
+  box-sizing: border-box;
+  background: transparent;
+  border-bottom: 0;
+}
+
+.onboarding-header__logo {
+  display: block;
+  width: 153px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.onboarding-page__main {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  padding: 24px var(--onboarding-page-gutter) calc(24px + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  touch-action: manipulation;
+  overflow-y: auto;
+}
+
+.onboarding-page__content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  max-width: 376px;
+  flex: 1 1 auto;
+  max-height: 100%;
+  min-height: 0;
+  align-self: stretch;
+}
+

@@ -1,0 +1,50 @@
+:host {
+  position: fixed;
+  z-index: 20;
+  right: max(16px, calc(50vw - 215px + 16px));
+  display: block;
+}
+
+:host(.whatsapp-fab--bottom-nav) {
+  bottom: calc(var(--app-bottom-nav-clearance) + 12px);
+}
+
+:host(.whatsapp-fab--quotation-form) {
+  bottom: calc(var(--quotation-form-footer-stack, 130px) + 16px + env(safe-area-inset-bottom, 0px));
+}
+
+:host(.whatsapp-fab--quotation-prefs) {
+  bottom: calc(var(--quotation-prefs-footer-stack, 130px) + 16px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Shell chrome: one fixed viewport corner on every desktop page. */
+@media (min-width: 768px) {
+  :host,
+  :host(.whatsapp-fab--bottom-nav),
+  :host(.whatsapp-fab--quotation-form),
+  :host(.whatsapp-fab--quotation-prefs) {
+    right: var(--shell-whatsapp-fab-right, clamp(24px, 4vw, 64px));
+    bottom: var(--shell-whatsapp-fab-bottom, clamp(24px, 4vh, 40px));
+  }
+}
+
+.whatsapp-fab__link {
+  width: 56px;
+  height: 56px;
+  border-radius: 100px;
+  background: #25d366;
+  box-shadow: 0 4px 4px #e3eaf2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.whatsapp-fab__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+}

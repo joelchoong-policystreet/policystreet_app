@@ -1,0 +1,62 @@
+/* Source of truth: src/design-tokens/policystreet.tokens.json */
+@use './design-tokens/generated-tokens';
+@use './styles/focus-visible';
+@use './styles/shell-chrome';
+@use './styles/tablet-chrome';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: var(--ps-bg);
+  color: var(--ps-navy);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Reserve space above fixed bottom nav (Figma 3089:25058). */
+:root {
+  /* Figma 3089:25058 — 80px bar + 28px FAB lift + safe area */
+  --app-bottom-nav-clearance: calc(108px + env(safe-area-inset-bottom, 0px));
+}
+
+@media (max-width: 430px) {
+  body {
+    background: var(--Accents-Seas-Salt, #f7f7f7);
+  }
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Route fade (no View Transitions API) to avoid mobile compositor flicker. */
+.app-route-fade-target {
+  width: 100%;
+  animation: app-route-fade-in 220ms ease-out both;
+}
+
+@keyframes app-route-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-route-fade-target {
+    animation: none !important;
+  }
+}

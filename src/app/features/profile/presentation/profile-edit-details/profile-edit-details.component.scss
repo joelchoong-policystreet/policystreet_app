@@ -1,0 +1,482 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Edit Details — Figma 3120:2619 (header), 3120:2633 (content), 3120:2661 (footer) */
+.profile-edit-page {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 430px;
+  margin: 0 auto;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  --profile-edit-footer-stack: 130px;
+}
+
+.profile-edit-page > .app-route-fade-target {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-edit-page__chrome {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  border-bottom: 1px solid #e3eaf2;
+  box-shadow: 0 4px 2px #e3eaf2;
+}
+
+.profile-edit-page__appbar {
+  min-height: 64px;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #fff;
+}
+
+.profile-edit-page__back {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 100px;
+  background: transparent;
+  color: #1d1b20;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.profile-edit-page__appbar-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: #141414;
+  text-overflow: ellipsis;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.profile-edit-page__main {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 24px;
+  padding-bottom: calc(24px + var(--profile-edit-footer-stack) + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.profile-edit-page__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.profile-edit-page__primary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.profile-edit-page__rail {
+  display: none;
+}
+
+.profile-edit-page__form-card {
+  width: 100%;
+}
+
+.profile-edit-page__actions--desktop {
+  display: none;
+}
+
+/* Segmented control — Figma 3120:2687 */
+.profile-edit-page__segments {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  min-height: 48px;
+}
+
+.profile-edit-page__segment {
+  flex: 0 0 auto;
+  max-width: calc(50% - 4px);
+  min-height: 48px;
+  border: 0;
+  padding: 10px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 50px;
+  background: transparent;
+  color: #1d1b20;
+  text-align: center;
+  white-space: nowrap;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+}
+
+.profile-edit-page__segment-label {
+  text-align: center;
+  white-space: nowrap;
+  font: inherit;
+}
+
+.profile-edit-page__segment--active {
+  background: #0091ff;
+  color: #fff;
+  font-weight: 600;
+}
+
+.profile-edit-page__segment-icon {
+  display: block;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.profile-edit-page__form {
+  width: 100%;
+}
+
+.profile-edit-page__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.profile-edit-page__field {
+  position: relative;
+  width: 100%;
+}
+
+.profile-edit-page__field--hint {
+  padding-bottom: 16px;
+}
+
+/* Locked fields — Figma 3120:2637–2641 */
+.profile-edit-page__locked-field {
+  position: relative;
+  min-height: 56px;
+  box-sizing: border-box;
+  border: 1px solid #3d3d3d;
+  border-radius: 4px;
+  background: rgba(247, 247, 247, 0.2);
+  padding: 4px 48px 4px 16px;
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+}
+
+.profile-edit-page__locked-label {
+  position: absolute;
+  left: 12px;
+  top: 0;
+  transform: translateY(-50%);
+  padding: 0 4px;
+  background: #fff;
+  color: #3d3d3d;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+}
+
+.profile-edit-page__locked-value {
+  color: #737373;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+}
+
+.profile-edit-page__lock {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-edit-page__lock img {
+  display: block;
+}
+
+.profile-edit-page__field-hint {
+  margin: 4px 0 0;
+  padding: 0 16px;
+  color: #7092bb;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.072px;
+}
+
+/* Editable text fields */
+.profile-edit-page__field:not(.profile-edit-page__field--locked) {
+  min-height: 56px;
+}
+
+.profile-edit-page__input {
+  width: 100%;
+  height: 56px;
+  box-sizing: border-box;
+  border: 0.5px solid #3d3d3d;
+  border-radius: 4px;
+  background: #fff;
+  padding: 4px 16px;
+  color: #141414;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  outline: none;
+  transition:
+    box-shadow 0.15s ease,
+    font-weight 0.15s ease;
+
+  &:placeholder-shown {
+    font-weight: 400;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px rgba(112, 146, 187, 0.2);
+  }
+}
+
+.profile-edit-page__input::placeholder {
+  color: transparent;
+}
+
+.profile-edit-page__input-label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 4px;
+  background: transparent;
+  color: #3d3d3d;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  transition:
+    top 0.15s ease,
+    transform 0.15s ease,
+    font-size 0.15s ease,
+    line-height 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.profile-edit-page__input:not(:placeholder-shown) + .profile-edit-page__input-label,
+.profile-edit-page__input:focus + .profile-edit-page__input-label {
+  top: 0;
+  transform: translateY(-50%);
+  background: #fff;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+/* Fixed footer — Figma 3120:2661 */
+.profile-edit-page__footer {
+  flex-shrink: 0;
+  background: #fff;
+  box-shadow: 0 -4px 2px #e3eaf2;
+  padding: 16px 24px calc(32px + env(safe-area-inset-bottom, 0px));
+}
+
+.profile-edit-page__cta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-edit-page__save-btn {
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  background: #e5e5e5;
+  color: #3d3d3d;
+  opacity: 0.38;
+  padding: 16px 24px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  cursor: not-allowed;
+}
+
+.profile-edit-page__save-btn--enabled:not(:disabled) {
+  background: #0091ff;
+  color: #fff;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.profile-edit-page__safe {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  color: #7092bb;
+}
+
+.profile-edit-page__safe-icon {
+  display: block;
+  flex: 0 0 auto;
+  width: 12px;
+  height: 16px;
+}
+
+/* Tablet/desktop — Figma 3130:10064 / 3130:10924 */
+@media (min-width: 768px) {
+  :host {
+    min-height: 0;
+  }
+
+  .profile-edit-page {
+    height: auto;
+    min-height: min(100%, auto);
+    max-width: none;
+    margin: 0;
+    overflow: visible;
+  }
+
+  .profile-edit-page > .app-route-fade-target {
+    min-height: 0;
+  }
+
+  .profile-edit-page__chrome {
+    display: none;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .profile-edit-page__main {
+    overflow: visible;
+    flex: none;
+    padding: var(--shell-page-padding-y, 32px) var(--shell-page-padding-x, 24px)
+      var(--shell-page-padding-bottom, 48px);
+  }
+
+  .profile-edit-page__body {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: clamp(32px, 4vw, 50px);
+  }
+
+  .profile-edit-page__primary {
+    flex: 1 1 auto;
+    gap: 24px;
+  }
+
+  .profile-edit-page__segments {
+    justify-content: flex-start;
+    gap: 8px;
+    width: auto;
+  }
+
+  .profile-edit-page__segment {
+    max-width: none;
+    padding: 12px 16px;
+  }
+
+  .profile-edit-page__segment--active {
+    padding: 12px 28px;
+  }
+
+  .profile-edit-page__form-card {
+    background: var(--Brand-White, #fff);
+    box-shadow: 0 4px 2px #e3eaf2;
+    border-radius: 0 0 16px 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .profile-edit-page__fields {
+    padding-top: 0;
+    gap: 24px;
+  }
+
+  .profile-edit-page__fields--address {
+    gap: 16px;
+  }
+
+  .profile-edit-page__actions--desktop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 12px;
+  }
+
+  .profile-edit-page__actions--desktop .profile-edit-page__save-btn {
+    width: auto;
+    min-width: 140px;
+    border-radius: 4px;
+  }
+
+  .profile-edit-page__actions--desktop .profile-edit-page__safe {
+    justify-content: flex-end;
+  }
+
+  .profile-edit-page__rail {
+    display: block;
+    flex: 0 0 var(--shell-quick-rail-width, clamp(300px, 28vw, 520px));
+    width: var(--shell-quick-rail-width, clamp(300px, 28vw, 520px));
+    align-self: flex-start;
+  }
+
+  .profile-edit-page__footer {
+    display: none;
+  }
+}

@@ -1,0 +1,135 @@
+/* Desktop welcome screens — Figma 3087:18811 / 3087:19038 / 3087:19334.
+   Two columns: copy + controls on the left, illustration on the right.
+   Mobile (<768px) is untouched. The header/stage/hero only exist in the
+   non-splash DOM, so only the shared root + main are guarded against the splash. */
+@media (min-width: 768px) {
+  :host {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .onboarding-page:not(.onboarding-page--returning-splash) {
+    max-width: none;
+    margin: 0;
+  }
+
+  .onboarding-page:not(.onboarding-page--returning-splash) .onboarding-page__main {
+    justify-content: center;
+    padding: clamp(32px, 6vh, 72px) clamp(40px, 8vw, 120px);
+  }
+
+  /* White top bar with logo + drop shadow (matches desktop login header). */
+  .onboarding-header {
+    min-height: 85px;
+    padding: 16px clamp(32px, 7vw, 100px);
+    background: #fff;
+    box-shadow: 0 4px 2px #e3eaf2;
+  }
+
+  .onboarding-header__logo {
+    width: 200px;
+    height: 53px;
+  }
+
+  .onboarding-page__content {
+    max-width: 1240px;
+    width: 100%;
+    flex: 1 1 auto;
+    align-self: center;
+  }
+
+  /* Left column flows normally; the hero is absolutely placed in the right half. */
+  .onboarding-page__stage {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
+    padding-right: 50%;
+    text-align: left;
+  }
+
+  /* Expose hero + headline + descriptions as flow/abs siblings of the stage. */
+  .onboarding-page__core {
+    display: contents;
+  }
+
+  /* Illustration — right half, vertically centered. */
+  .onboarding-page__hero {
+    position: absolute;
+    top: 50%;
+    right: clamp(8px, 3vw, 64px);
+    transform: translateY(-50%);
+    width: 46%;
+    max-width: 560px;
+    min-height: 0;
+    margin: 0;
+  }
+
+  .onboarding-page__hero-svg,
+  .onboarding-page__hero-float-layer-svg {
+    max-height: min(460px, 56vh);
+  }
+
+  /* Headline — left aligned and larger. */
+  .onboarding-page__headline {
+    display: block;
+    min-height: 0;
+    text-align: left;
+    font-size: 48px;
+    line-height: 56px;
+    letter-spacing: 0;
+  }
+
+  .onboarding-page__descriptions {
+    min-height: 0;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .onboarding-page__body {
+    padding: 0;
+    text-align: left;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0;
+  }
+
+  /* Controls — directly under the copy, left aligned (not pinned to the bottom). */
+  .onboarding-page__controls {
+    flex: 0 0 auto;
+    width: auto;
+    align-items: flex-start;
+    gap: 24px;
+    margin-top: 8px;
+  }
+
+  .onboarding-page__dots {
+    justify-content: flex-start;
+    min-height: 0;
+  }
+
+  .onboarding-page__actions {
+    width: auto;
+    min-height: 0;
+    align-items: flex-start;
+  }
+
+  .onboarding-page__skip {
+    width: auto;
+    height: auto;
+    min-height: 0;
+    padding: 8px 0;
+    justify-content: flex-start;
+  }
+
+  .onboarding-page__cta {
+    align-self: flex-start;
+    width: clamp(280px, 30vw, 420px);
+    min-height: 56px;
+    height: 56px;
+    border-radius: 12px;
+  }
+}

@@ -1,0 +1,193 @@
+<div
+  #homePage
+  class="home-page"
+  [style.--home-sheet-lift.px]="sheetLift()"
+  [style.--home-hero-height.px]="heroHeight()"
+>
+  <div
+    #heroSection
+    class="home-page__hero"
+  >
+    <header class="home-page__header" aria-label="PolicyStreet">
+      <div class="home-page__header-row">
+        <div class="home-page__brand">
+          <img
+            [appCachedAsset]="logoBrandSrc"
+            width="153"
+            height="40"
+            alt="PolicyStreet"
+            class="home-page__brand-img"
+          />
+        </div>
+      </div>
+    </header>
+
+    <div #welcomeBlock class="home-page__welcome-block">
+      <div class="home-page__welcome-card">
+        <div class="home-page__welcome-intro">
+          <img
+            class="home-page__welcome-mascot"
+            appCachedAsset="/assets/home/welcome-layer-1.svg"
+            width="50"
+            height="55"
+            alt=""
+            aria-hidden="true"
+          />
+          <div class="home-page__greeting">
+            <p class="home-page__greeting-line">Hello,</p>
+            <p class="home-page__greeting-name">{{ user.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div #quickActionsWrap class="home-page__quick-actions-wrap">
+      <h2 class="home-page__quick-title">Quick Actions</h2>
+      <div class="home-page__quick-actions">
+        <button type="button" class="home-page__quick-btn" (click)="goQuotation()">
+          <span class="home-page__quick-icon">
+            <img appCachedAsset="/assets/home/quick-action-request-quote.svg" width="40" height="40" alt="" aria-hidden="true" />
+          </span>
+          <span class="home-page__quick-label">Request<br class="home-page__quick-label-break" aria-hidden="true" /> New Quote</span>
+        </button>
+        <button type="button" class="home-page__quick-btn" (click)="goContactSupport()">
+          <span class="home-page__quick-icon">
+            <img appCachedAsset="/assets/home/quick-action-contact-support.svg" width="40" height="40" alt="" aria-hidden="true" />
+          </span>
+          <span class="home-page__quick-label">Contact<br class="home-page__quick-label-break" aria-hidden="true" /> Support</span>
+        </button>
+        <button type="button" class="home-page__quick-btn" (click)="goMyVehicles()">
+          <span class="home-page__quick-icon">
+            <img appCachedAsset="/assets/home/quick-action-add-vehicle.svg" width="40" height="40" alt="" aria-hidden="true" />
+          </span>
+          <span class="home-page__quick-label">Add New<br class="home-page__quick-label-break" aria-hidden="true" /> Vehicle</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div #sheetSection class="home-page__sheet">
+    <main id="main-content" class="home-page__sheet-content">
+      <section class="home-page__section" aria-labelledby="home-active-quote-heading">
+        <div class="home-page__section-head">
+          <h2 id="home-active-quote-heading" class="home-page__h2">Active Quote</h2>
+          <button
+            type="button"
+            class="home-page__link-btn"
+            [class.home-page__link-btn--inactive]="!activeQuote()"
+            [disabled]="!activeQuote()"
+            (click)="goQuotesAll()"
+          >
+            View All
+          </button>
+        </div>
+        @if (activeQuote(); as quote) {
+          <app-active-quote-card
+            variant="home"
+            [quote]="quote"
+            (viewQuote)="onActiveQuoteViewQuote($event)"
+            (acknowledgeReady)="acknowledgeReadyQuote($event)"
+          />
+        } @else {
+          <article class="home-page__empty-card" role="status" aria-live="polite">
+            <div class="home-page__empty-card__icon-wrap">
+              <img
+                class="home-page__empty-card__icon"
+                appCachedAsset="/assets/home/empty-state-active-quote.svg"
+                width="20"
+                height="20"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+            <p class="home-page__empty-card__title">No active quotes yet</p>
+            <p class="home-page__empty-card__body">
+              Need to renew your car insurance or takaful? Get a price check and compare rates from
+              Malaysia&rsquo;s top insurers.
+            </p>
+          </article>
+        }
+      </section>
+
+      <section class="home-page__section" aria-labelledby="home-latest-cover-note-heading">
+        <div class="home-page__section-head home-page__section-head--sticky">
+          <h2 id="home-latest-cover-note-heading" class="home-page__h2">Latest Cover Note</h2>
+          <button
+            type="button"
+            class="home-page__link-btn"
+            [disabled]="!latestCoverNote()"
+            (click)="goCoverNotesAll()"
+          >
+            View All
+          </button>
+        </div>
+        @if (latestCoverNote(); as coverNote) {
+          <button
+            type="button"
+            class="home-page__card home-page__card--action"
+            [attr.aria-label]="'Open cover note details for ' + coverNote.plate"
+            (click)="goLatestCoverNoteDetails(coverNote.id)"
+          >
+            <div class="home-page__card-row home-page__card-row--top">
+              <div class="home-page__card-details">
+                <p class="home-page__plate">{{ coverNote.plate }}</p>
+                <p class="home-page__vehicle">{{ coverNote.vehicleLabel }}</p>
+              </div>
+              <div
+                class="home-page__pill"
+                [class.home-page__pill--active]="coverNote.status === 'ACTIVE'"
+                [class.home-page__pill--expiring]="coverNote.status === 'EXPIRING SOON'"
+                [class.home-page__pill--expired]="coverNote.status === 'EXPIRED'"
+              >
+                <span class="home-page__pill-status-dot" aria-hidden="true"></span>
+                <span>{{ coverNote.statusLabel }}</span>
+              </div>
+            </div>
+            <div class="home-page__divider-line" role="presentation"></div>
+            <div class="home-page__card-row home-page__card-row--bottom">
+              <div class="home-page__meta">
+                <p class="home-page__coverage">{{ coverNote.coverageLabel }}</p>
+                <p class="home-page__muted">{{ coverNote.coveredUntilLabel }}</p>
+              </div>
+              <img class="home-page__chevron" appCachedAsset="/assets/home/arrow-forward-ios.svg" width="9" height="16" alt="" aria-hidden="true" />
+            </div>
+          </button>
+        } @else {
+          <article class="home-page__empty-card" role="status" aria-live="polite">
+            <div class="home-page__empty-card__icon-wrap">
+              <img
+                class="home-page__empty-card__icon"
+                appCachedAsset="/assets/home/empty-state-magnifier.svg"
+                width="20"
+                height="20"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+            <p class="home-page__empty-card__title">You&rsquo;re not covered yet.</p>
+            <p class="home-page__empty-card__body">Start by getting your first policy in just a few steps.</p>
+          </article>
+        }
+      </section>
+
+      <section class="home-page__section home-page__section--news" aria-labelledby="home-news-heading">
+        <div class="home-page__section-head">
+          <h2 id="home-news-heading" class="home-page__h2">News &amp; Articles</h2>
+          <button type="button" class="home-page__link-btn">View All</button>
+        </div>
+        <div class="home-page__news-row">
+          @for (item of newsItems; track item.title) {
+            <article class="home-page__news-card">
+              <img class="home-page__news-thumb" [appCachedAsset]="item.imageSrc" width="163" height="67" alt="" aria-hidden="true" />
+              <p class="home-page__news-title">{{ item.title }}</p>
+            </article>
+          }
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <app-whatsapp-fab />
+
+</div>

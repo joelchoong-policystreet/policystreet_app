@@ -1,0 +1,193 @@
+/* Add Vehicle modal — Figma 3115:2527 (empty), 3115:2697 (filled), 3115:2871 (success) */
+
+.add-vehicle-dialog__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.52);
+  box-sizing: border-box;
+}
+
+.add-vehicle-dialog {
+  width: min(100%, 382px);
+  background: #fff;
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
+}
+
+.add-vehicle-dialog__content {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16px;
+}
+
+.add-vehicle-dialog__header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 24px 0;
+}
+
+.add-vehicle-dialog__title {
+  margin: 0;
+  color: #141414;
+  font-family: Poppins, 'Open Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: 0;
+}
+
+.add-vehicle-dialog__subtitle {
+  margin: 0;
+  color: #141414;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
+.add-vehicle-dialog__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 16px 0;
+}
+
+.add-vehicle-dialog__field {
+  position: relative;
+  width: 100%;
+  height: 56px;
+}
+
+.add-vehicle-dialog__input {
+  width: 100%;
+  height: 56px;
+  box-sizing: border-box;
+  border: 0.5px solid #3d3d3d;
+  border-radius: 4px;
+  background: #fff;
+  padding: 4px 16px;
+  color: #141414;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  outline: none;
+  transition:
+    box-shadow 0.15s ease,
+    font-weight 0.15s ease;
+
+  &:focus {
+    box-shadow: 0 0 0 2px rgba(112, 146, 187, 0.2);
+  }
+
+  &:not(:placeholder-shown) {
+    font-weight: 600;
+  }
+}
+
+.add-vehicle-dialog__input::placeholder {
+  color: transparent;
+}
+
+.add-vehicle-dialog__input-label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 4px;
+  background: transparent;
+  color: #3d3d3d;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  transition:
+    top 0.15s ease,
+    transform 0.15s ease,
+    font-size 0.15s ease,
+    line-height 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.add-vehicle-dialog__input:not(:placeholder-shown) + .add-vehicle-dialog__input-label,
+.add-vehicle-dialog__input:focus + .add-vehicle-dialog__input-label {
+  top: 0;
+  transform: translateY(-50%);
+  background: #fff;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+}
+
+.add-vehicle-dialog__actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 20px 24px 20px 16px;
+}
+
+.add-vehicle-dialog__btn {
+  min-height: 48px;
+  border: 0;
+  border-radius: 100px;
+  background: transparent;
+  padding: 10px 16px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.add-vehicle-dialog__btn--cancel {
+  color: #141414;
+  letter-spacing: 0.1px;
+}
+
+.add-vehicle-dialog__btn--save {
+  color: #3d3d3d;
+  letter-spacing: 0.1px;
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.add-vehicle-dialog__btn--save-enabled:not(:disabled) {
+  color: #0091ff;
+  opacity: 1;
+  cursor: pointer;
+}
+
+@media (max-width: 359px) {
+  .add-vehicle-dialog__backdrop {
+    padding: 16px;
+  }
+
+  .add-vehicle-dialog__header {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .add-vehicle-dialog__form {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .add-vehicle-dialog__actions {
+    padding-left: 12px;
+    padding-right: 20px;
+  }
+}

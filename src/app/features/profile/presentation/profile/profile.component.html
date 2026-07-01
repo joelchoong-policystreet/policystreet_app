@@ -1,0 +1,124 @@
+<div class="profile-page">
+  <div class="app-route-fade-target">
+    <div class="profile-page__mobile-top">
+      <header class="profile-page__header" aria-label="PolicyStreet">
+        <div class="profile-page__header-row">
+          <img
+            [appCachedAsset]="logoBrandSrc"
+            width="153"
+            height="40"
+            alt="PolicyStreet"
+            class="profile-page__brand-img"
+          />
+        </div>
+      </header>
+    </div>
+
+    <main id="main-content" class="profile-page__main">
+      <div class="profile-page__body">
+        <div class="profile-page__primary">
+          <section class="profile-page__identity-card" aria-label="Profile summary">
+            <div class="profile-page__identity-top">
+              <div class="profile-page__avatar-frame">
+                <img class="profile-page__avatar" [appCachedAsset]="avatarSrc" width="50" height="55" alt="" />
+              </div>
+              <div class="profile-page__identity-copy">
+                <div class="profile-page__identity-head">
+                  <p class="profile-page__name">{{ user.name }}</p>
+                  <button type="button" class="profile-page__edit-link" (click)="onEditDetails()">
+                    Edit Details
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="profile-page__divider" role="presentation"></div>
+            <div class="profile-page__identity-bottom">
+              <span>Mobile Number</span>
+              <strong>+6011123456789</strong>
+            </div>
+          </section>
+
+          <div class="profile-page__sheet">
+            <section class="profile-page__referral" aria-labelledby="profile-referral-heading">
+              <div class="profile-page__referral-copy">
+                <h2 id="profile-referral-heading">Refer a Friend, Get Rewarded!</h2>
+                <div class="profile-page__referral-text">
+                  <p>
+                    Invite a friend and you&rsquo;ll both get RM30. Share more to earn up to <b>RM150</b>!
+                  </p>
+                  <em>* Terms &amp; Conditions apply.</em>
+                </div>
+                <button type="button" class="profile-page__referral-cta">Refer &amp; Earn</button>
+              </div>
+              <img
+                class="profile-page__referral-art"
+                appCachedAsset="/assets/profile/referral-illustration.svg"
+                width="115"
+                height="129"
+                alt=""
+                aria-hidden="true"
+              />
+            </section>
+
+            @for (section of menuSections; track section.title) {
+              <section class="profile-page__menu-group" [attr.aria-label]="section.title">
+                <h3 class="profile-page__menu-heading">{{ section.title }}</h3>
+                <div class="profile-page__menu-list">
+                  @for (item of section.items; track item.id) {
+                    <button
+                      type="button"
+                      class="profile-page__menu-item"
+                      (click)="onMenuItemClick(item.id)"
+                    >
+                      <span class="profile-page__menu-leading">
+                        <img
+                          class="profile-page__menu-icon"
+                          [appCachedAsset]="item.iconSrc"
+                          width="19"
+                          height="19"
+                          alt=""
+                          aria-hidden="true"
+                        />
+                        <span class="profile-page__menu-label">{{ item.label }}</span>
+                      </span>
+                      @if (item.trailing === 'value') {
+                        <span class="profile-page__menu-value">{{ item.value }}</span>
+                      } @else if (item.trailing === 'chevron') {
+                        <img
+                          class="profile-page__menu-chevron"
+                          appCachedAsset="/assets/home/arrow-forward-ios.svg"
+                          width="9"
+                          height="16"
+                          alt=""
+                          aria-hidden="true"
+                        />
+                      }
+                    </button>
+                  }
+                </div>
+              </section>
+            }
+
+            <button type="button" class="profile-page__logout" (click)="onLogout()">
+              <img
+                class="profile-page__logout-icon"
+                appCachedAsset="/assets/profile/menu-logout.svg"
+                width="14"
+                height="14"
+                alt=""
+                aria-hidden="true"
+              />
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+
+        <aside class="profile-page__rail" aria-label="Quick actions">
+          <app-quick-actions />
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <app-whatsapp-fab />
+</div>

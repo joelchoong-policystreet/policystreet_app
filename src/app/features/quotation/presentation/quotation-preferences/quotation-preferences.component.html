@@ -1,0 +1,332 @@
+<div class="quotation-prefs-page">
+  <div class="app-route-fade-target quotation-prefs-page__fade">
+    <div class="quotation-prefs-page__chrome">
+      <app-page-chrome
+        title="Get New Quote"
+        headerAriaLabel="Get new quote navigation"
+        (back)="goBack()"
+      />
+    </div>
+
+    <main id="main-content" class="quotation-prefs-page__main">
+      <div class="quotation-prefs-page__shell">
+        <div class="quotation-prefs-page__tabs" role="tablist" aria-label="Customer type">
+          @for (tab of customerTabs; track tab.id) {
+            <button
+              type="button"
+              class="quotation-prefs-page__tab"
+              [class.quotation-prefs-page__tab--active]="activeCustomerTab() === tab.id"
+              [class.quotation-prefs-page__tab--disabled]="!isCustomerTabImplemented(tab.id)"
+              role="tab"
+              [id]="'quotation-customer-tab-' + tab.id"
+              [attr.aria-controls]="'quotation-customer-panel-' + tab.id"
+              [attr.aria-selected]="activeCustomerTab() === tab.id"
+              [disabled]="!isCustomerTabImplemented(tab.id)"
+              (click)="setCustomerTab(tab.id)"
+            >
+              <span class="quotation-prefs-page__tab-label">{{ tab.label }}</span>
+              @if (activeCustomerTab() === tab.id) {
+                <span class="quotation-prefs-page__tab-indicator" aria-hidden="true"></span>
+              }
+            </button>
+          }
+        </div>
+
+        <div
+          class="quotation-prefs-page__panel-card"
+          [id]="'quotation-customer-panel-' + activeCustomerTab()"
+          role="tabpanel"
+          [attr.aria-labelledby]="'quotation-customer-tab-' + activeCustomerTab()"
+        >
+          <div class="quotation-prefs-page__panel-body">
+            @if (activeCustomerTab() === 'malaysian') {
+              <section class="quotation-prefs-page__group" aria-labelledby="e-hailing-label">
+                <div class="quotation-prefs-page__info-label" id="e-hailing-label">
+                  <img
+                    [appCachedAsset]="infoIconSrc"
+                    class="quotation-prefs-page__info-icon"
+                    width="18"
+                    height="18"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                  <span>The car is used for e-hailing services:</span>
+                </div>
+                <div class="quotation-prefs-page__options" role="radiogroup" aria-labelledby="e-hailing-label">
+                  <label class="quotation-prefs-page__radio">
+                    <input
+                      type="radio"
+                      name="eHailingUsage"
+                      value="yes"
+                      [checked]="eHailingUsage() === 'yes'"
+                      (change)="setEHailingUsage('yes')"
+                    />
+                    <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+                    <span
+                      class="quotation-prefs-page__radio-label"
+                      [class.quotation-prefs-page__radio-label--selected]="eHailingUsage() === 'yes'"
+                    >Yes</span>
+                  </label>
+                  <label class="quotation-prefs-page__radio">
+                    <input
+                      type="radio"
+                      name="eHailingUsage"
+                      value="no"
+                      [checked]="eHailingUsage() === 'no'"
+                      (change)="setEHailingUsage('no')"
+                    />
+                    <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+                    <span
+                      class="quotation-prefs-page__radio-label"
+                      [class.quotation-prefs-page__radio-label--selected]="eHailingUsage() === 'no'"
+                    >No</span>
+                  </label>
+                </div>
+              </section>
+
+              <section class="quotation-prefs-page__group" aria-labelledby="marital-status-label">
+                <div class="quotation-prefs-page__info-label" id="marital-status-label">
+                  <img
+                    [appCachedAsset]="infoIconSrc"
+                    class="quotation-prefs-page__info-icon"
+                    width="18"
+                    height="18"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                  <span>Marital status:</span>
+                </div>
+                <div class="quotation-prefs-page__options" role="radiogroup" aria-labelledby="marital-status-label">
+                  <label class="quotation-prefs-page__radio">
+                    <input
+                      type="radio"
+                      name="maritalStatus"
+                      value="single"
+                      [checked]="maritalStatus() === 'single'"
+                      (change)="setMaritalStatus('single')"
+                    />
+                    <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+                    <span
+                      class="quotation-prefs-page__radio-label"
+                      [class.quotation-prefs-page__radio-label--selected]="maritalStatus() === 'single'"
+                    >Single</span>
+                  </label>
+                  <label class="quotation-prefs-page__radio">
+                    <input
+                      type="radio"
+                      name="maritalStatus"
+                      value="married"
+                      [checked]="maritalStatus() === 'married'"
+                      (change)="setMaritalStatus('married')"
+                    />
+                    <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+                    <span
+                      class="quotation-prefs-page__radio-label"
+                      [class.quotation-prefs-page__radio-label--selected]="maritalStatus() === 'married'"
+                    >Married</span>
+                  </label>
+                </div>
+              </section>
+
+              <section class="quotation-prefs-page__group" aria-labelledby="contact-method-label">
+                <div class="quotation-prefs-page__info-label" id="contact-method-label">
+                  <img
+                    [appCachedAsset]="infoIconSrc"
+                    class="quotation-prefs-page__info-icon"
+                    width="18"
+                    height="18"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                  <span>Preferred contact method:</span>
+                </div>
+                <div class="quotation-prefs-page__options" role="radiogroup" aria-labelledby="contact-method-label">
+                  <label class="quotation-prefs-page__radio">
+                    <input
+                      type="radio"
+                      name="contactMethod"
+                      value="email"
+                      [checked]="contactMethod() === 'email'"
+                      (change)="setContactMethod('email')"
+                    />
+                    <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+                    <span
+                      class="quotation-prefs-page__radio-label"
+                      [class.quotation-prefs-page__radio-label--selected]="contactMethod() === 'email'"
+                    >Email</span>
+                  </label>
+                  <label class="quotation-prefs-page__radio">
+                    <input
+                      type="radio"
+                      name="contactMethod"
+                      value="whatsapp"
+                      [checked]="contactMethod() === 'whatsapp'"
+                      (change)="setContactMethod('whatsapp')"
+                    />
+                    <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+                    <span
+                      class="quotation-prefs-page__radio-label"
+                      [class.quotation-prefs-page__radio-label--selected]="contactMethod() === 'whatsapp'"
+                    >Whatsapp</span>
+                  </label>
+                </div>
+              </section>
+            } @else if (activeCustomerTab() === 'foreigner') {
+              <section class="quotation-prefs-page__group" aria-labelledby="foreigner-marital-status-label">
+                <div class="quotation-prefs-page__info-label" id="foreigner-marital-status-label">
+                  <img
+                    [appCachedAsset]="infoIconSrc"
+                    class="quotation-prefs-page__info-icon"
+                    width="18"
+                    height="18"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                  <span>Marital status:</span>
+                </div>
+                <div class="quotation-prefs-page__options" role="radiogroup" aria-labelledby="foreigner-marital-status-label">
+                  <label class="quotation-prefs-page__radio">
+                    <input
+                      type="radio"
+                      name="foreignerMaritalStatus"
+                      value="single"
+                      [checked]="maritalStatus() === 'single'"
+                      (change)="setMaritalStatus('single')"
+                    />
+                    <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+                    <span
+                      class="quotation-prefs-page__radio-label"
+                      [class.quotation-prefs-page__radio-label--selected]="maritalStatus() === 'single'"
+                    >Single</span>
+                  </label>
+                  <label class="quotation-prefs-page__radio">
+                    <input
+                      type="radio"
+                      name="foreignerMaritalStatus"
+                      value="married"
+                      [checked]="maritalStatus() === 'married'"
+                      (change)="setMaritalStatus('married')"
+                    />
+                    <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+                    <span
+                      class="quotation-prefs-page__radio-label"
+                      [class.quotation-prefs-page__radio-label--selected]="maritalStatus() === 'married'"
+                    >Married</span>
+                  </label>
+                </div>
+              </section>
+
+              <section class="quotation-prefs-page__group" aria-labelledby="foreigner-contact-method-label">
+                <div class="quotation-prefs-page__info-label" id="foreigner-contact-method-label">
+                  <img
+                    [appCachedAsset]="infoIconSrc"
+                    class="quotation-prefs-page__info-icon"
+                    width="18"
+                    height="18"
+                    alt=""
+                    aria-hidden="true"
+                  />
+                  <span>Preferred contact method:</span>
+                </div>
+                <div class="quotation-prefs-page__options" role="radiogroup" aria-labelledby="foreigner-contact-method-label">
+                  <label class="quotation-prefs-page__radio">
+                    <input
+                      type="radio"
+                      name="foreignerContactMethod"
+                      value="email"
+                      [checked]="contactMethod() === 'email'"
+                      (change)="setContactMethod('email')"
+                    />
+                    <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+                    <span
+                      class="quotation-prefs-page__radio-label"
+                      [class.quotation-prefs-page__radio-label--selected]="contactMethod() === 'email'"
+                    >Email</span>
+                  </label>
+                  <label class="quotation-prefs-page__radio">
+                    <input
+                      type="radio"
+                      name="foreignerContactMethod"
+                      value="whatsapp"
+                      [checked]="contactMethod() === 'whatsapp'"
+                      (change)="setContactMethod('whatsapp')"
+                    />
+                    <span class="quotation-prefs-page__radio-mark" aria-hidden="true"></span>
+                    <span
+                      class="quotation-prefs-page__radio-label"
+                      [class.quotation-prefs-page__radio-label--selected]="contactMethod() === 'whatsapp'"
+                    >Whatsapp</span>
+                  </label>
+                </div>
+              </section>
+            } @else {
+              <div class="quotation-prefs-page__coming-soon" role="status">
+                <p class="quotation-prefs-page__coming-soon-title">Coming soon</p>
+                <p class="quotation-prefs-page__coming-soon-text">
+                  Preferences for this customer type are not available yet. Please select Malaysian to continue.
+                </p>
+              </div>
+            }
+          </div>
+
+          @if (showMalaysianForm() || showForeignerForm()) {
+            <div class="quotation-prefs-page__actions quotation-prefs-page__actions--desktop" aria-label="Quote actions">
+              <button
+                type="button"
+                class="quotation-prefs-page__cta-btn"
+                [class.quotation-prefs-page__cta-btn--disabled]="!canSubmit()"
+                [disabled]="!canSubmit()"
+                (click)="findBestPrices()"
+              >
+                {{ submitLabel() }}
+              </button>
+              <div class="quotation-prefs-page__safe">
+                <img
+                  appCachedAsset="/assets/my-vehicles/lock.svg"
+                  class="quotation-prefs-page__safe-icon"
+                  width="12"
+                  height="16"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <span>Your data is safe with us.</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </main>
+
+    <footer class="quotation-prefs-page__footer" aria-label="Quote actions">
+      <div class="quotation-prefs-page__cta">
+        @if (showForeignerForm()) {
+          <button type="button" class="quotation-prefs-page__cta-btn quotation-prefs-page__cta-btn--outline" (click)="goBack()">
+            Back
+          </button>
+        }
+        <button
+          type="button"
+          class="quotation-prefs-page__cta-btn"
+          [class.quotation-prefs-page__cta-btn--disabled]="!canSubmit()"
+          [disabled]="!canSubmit()"
+          (click)="findBestPrices()"
+        >
+          {{ submitLabel() }}
+        </button>
+        <div class="quotation-prefs-page__safe">
+          <img
+            appCachedAsset="/assets/my-vehicles/lock.svg"
+            class="quotation-prefs-page__safe-icon"
+            width="12"
+            height="16"
+            alt=""
+            aria-hidden="true"
+          />
+          <span>Your data is safe with us.</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <app-whatsapp-fab />
+</div>

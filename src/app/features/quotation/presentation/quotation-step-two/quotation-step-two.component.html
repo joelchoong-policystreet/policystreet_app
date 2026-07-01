@@ -1,0 +1,117 @@
+<div class="quotation-page quotation-page--select-vehicle">
+  <div class="app-route-fade-target quotation-page__fade">
+    <div class="quotation-page__chrome">
+      <app-page-chrome
+        title="Get New Quote"
+        headerAriaLabel="Get new quote navigation"
+        (back)="goBack()"
+      />
+    </div>
+
+    <main id="main-content" class="quotation-page__main">
+      <div class="quotation-page__body">
+        <section class="quotation-page__intro" aria-label="Vehicle selection intro">
+          <div class="quotation-page__intro-head">
+            <h2 class="quotation-page__intro-title">Which vehicle is this for?</h2>
+            <button
+              type="button"
+              class="quotation-page__add-vehicle quotation-page__add-vehicle--mobile"
+              (click)="addVehicle()"
+            >
+              Add Vehicle
+            </button>
+          </div>
+          <p class="quotation-page__intro-copy">
+            Select a saved vehicle to speed things up. If your vehicle isn't listed, just tap
+            <strong>Continue</strong>
+            to add it manually.
+          </p>
+          <button
+            type="button"
+            class="quotation-page__add-vehicle quotation-page__add-vehicle--desktop"
+            (click)="addVehicle()"
+          >
+            Add Vehicle
+          </button>
+        </section>
+
+        <section class="quotation-vehicle-list" aria-label="Saved vehicles">
+          @for (vehicle of vehicles(); track vehicle.id) {
+            <button
+              type="button"
+              class="quotation-vehicle"
+              [class.quotation-vehicle--selected]="selectedVehicleId() === vehicle.id"
+              (click)="selectVehicle(vehicle.id)"
+            >
+              <span class="quotation-vehicle__thumb">
+                <img [appCachedAsset]="vehicle.imageSrc" width="50" height="47" alt="" aria-hidden="true" />
+              </span>
+              <span class="quotation-vehicle__plate">{{ vehicle.plate }}</span>
+              <span
+                class="quotation-vehicle__radio"
+                [class.quotation-vehicle__radio--checked]="selectedVehicleId() === vehicle.id"
+                aria-hidden="true"
+              ></span>
+            </button>
+          }
+        </section>
+
+        <div class="quotation-page__actions quotation-page__actions--desktop" aria-label="Continue quote">
+          <button
+            type="button"
+            class="quotation-cta__btn"
+            [class.quotation-cta__btn--disabled]="!canContinue()"
+            [disabled]="!canContinue()"
+            (click)="continue()"
+          >
+            Continue
+          </button>
+          <div class="quotation-cta__safe">
+            <img
+              appCachedAsset="/assets/my-vehicles/lock.svg"
+              class="quotation-cta__safe-icon"
+              width="12"
+              height="16"
+              alt=""
+              aria-hidden="true"
+            />
+            <span>Your data is safe with us.</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="quotation-page__footer" aria-label="Quote actions">
+      <div class="quotation-cta" aria-label="Continue quote">
+        <button
+          type="button"
+          class="quotation-cta__btn"
+          [class.quotation-cta__btn--disabled]="!canContinue()"
+          [disabled]="!canContinue()"
+          (click)="continue()"
+        >
+          Continue
+        </button>
+        <div class="quotation-cta__safe">
+          <img
+            appCachedAsset="/assets/my-vehicles/lock.svg"
+            class="quotation-cta__safe-icon"
+            width="12"
+            height="16"
+            alt=""
+            aria-hidden="true"
+          />
+          <span>Your data is safe with us.</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <app-add-vehicle-dialog
+    [open]="addVehicleDialogOpen()"
+    (closed)="onAddVehicleDialogClosed()"
+    (vehicleAdded)="onVehicleAdded($event)"
+  />
+
+  <app-whatsapp-fab />
+</div>
